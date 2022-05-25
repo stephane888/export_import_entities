@@ -1,5 +1,5 @@
 {
-    "name": "stephane/export_import_entities",
+    "name": "stephane888/export_import_entities",
     "description": "permet d'extraire les configurations pour un ou plusieurs entités.",
     "type": "drupal-module-custom",
     "license": "MIT",
