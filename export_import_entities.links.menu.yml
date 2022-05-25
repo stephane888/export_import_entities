@@ -1,0 +1,6 @@
+export_import_entities.settings_form:
+  title: Export Import Entities
+  description: Configure Export Import Entities.
+  parent: system.admin_config_system
+  route_name: export_import_entities.settings_form
+  weight: 10

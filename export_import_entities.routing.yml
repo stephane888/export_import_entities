@@ -1,0 +1,15 @@
+export_import_entities.example:
+  path: '/export-import-entities/example'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\export_import_entities\Controller\ExportImportEntitiesController::build'
+  requirements:
+    _permission: 'access content'
+
+export_import_entities.settings_form:
+  path: '/admin/config/system/export-import-entities'
+  defaults:
+    _title: 'Export Import Entities settings'
+    _form: 'Drupal\export_import_entities\Form\SettingsForm'
+  requirements:
+    _permission: 'administer export_import_entities configuration'

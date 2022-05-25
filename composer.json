@@ -1,0 +1,13 @@
+{
+    "name": "stephane/export_import_entities",
+    "description": "permet d'extraire les configurations pour un ou plusieurs entités.",
+    "type": "drupal-module-custom",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "stephane888",
+            "email": "kksasteph888@gmail.com"
+        }
+    ],
+    "require": {}
+}
