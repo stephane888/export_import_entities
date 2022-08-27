@@ -6,37 +6,58 @@ use Drupal\Core\Controller\ControllerBase;
 use Stephane888\Debug\debugLog;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Serialization\Yaml;
-use Google\Service\MyBusinessLodging\Sustainability;
+use Symfony\Component\Finder\Finder;
+use DrupalFinder\DrupalFinder;
+use Drupal\domain\DomainNegotiator;
 
 /**
  * Permet de charger les diffirents affichage pour une entité.
  *
  * @author stephane
- *        
+ *
  */
 class LoadConfigs extends ControllerBase {
-  
+
   /**
    * Contient la liste des configurations deja crees.
    *
    * @var array
    */
   protected static $configEntities = [];
-  
+
   /**
    * The config storage.
    *
    * @var \Drupal\Core\Config\StorageInterface
    */
   protected $configStorage;
-  
-  function __construct(StorageInterface $config_storage) {
+
+  /**
+   *
+   * @var \Symfony\Component\Finder\Finder
+   */
+  protected $Finder;
+
+  /**
+   *
+   * @var \Drupal\domain\DomainNegotiator
+   */
+  protected $currentDomaine;
+
+  function __construct(StorageInterface $config_storage, DomainNegotiator $DomainNegotiator) {
     $this->configStorage = $config_storage;
+    $this->currentDomaine = $DomainNegotiator->getActiveDomain();
   }
-  
+
+  protected function getInstanceFinder() {
+    if (!$this->Finder)
+      $this->Finder = new Finder();
+    return $this->Finder;
+  }
+
   public function getConfigFromName(string $name, $entity = null) {
     debugLog::$debug = false;
-    debugLog::$path = DRUPAL_ROOT . '/profiles/contrib/wb_horizon_generate/config/install';
+    debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
     if (empty(self::$configEntities[$name])) {
       $string = Yaml::encode($this->configStorage->read($name));
       debugLog::logger($string, $name . '.yml', false, 'file');
@@ -46,7 +67,7 @@ class LoadConfigs extends ControllerBase {
       ];
     }
   }
-  
+
   public function addConfig(string $name, $string) {
     debugLog::logger($string, $name . '.yml', false, 'file');
     self::$configEntities[$name] = [
@@ -54,18 +75,24 @@ class LoadConfigs extends ControllerBase {
       'value' => $string
     ];
   }
-  
+
   public function hasGenerate($k) {
     return isset(self::$configEntities[$k]) ? true : false;
   }
-  
+
+  /**
+   * Chage une ou toute la config qui a été generée.
+   *
+   * @param string $k
+   * @return NULL|array
+   */
   public function getGenerate($k = null) {
     if ($k)
       return isset(self::$configEntities[$k]) ? self::$configEntities[$k] : null;
     else
       return self::$configEntities;
   }
-  
+
   /**
    * Generre les fichiers de configuration de maniere recurssive.
    *
@@ -75,20 +102,69 @@ class LoadConfigs extends ControllerBase {
   public function getConfig(array $configs, $entity = null) {
     if (!empty($configs['config']))
       foreach ($configs['config'] as $config) {
-        if (empty($this->configEntities[$config])) {
+        if (empty(self::$configEntities[$config])) {
           $name = $config;
-          $string = Yaml::encode($this->configStorage->read($name));
-          debugLog::logger($string, $name . '.yml', false, 'file');
-          self::$configEntities[$name] = [
-            'status' => true,
-            'value' => $string
-          ];
-          // On essaie de charger les configurations requises.
-          $this->loadDependancyConfig($name);
+          if ($this->filterConfig($config)) {
+            $string = Yaml::encode($this->configStorage->read($name));
+            debugLog::logger($string, $name . '.yml', false, 'file');
+            self::$configEntities[$name] = [
+              'status' => true,
+              'value' => $string
+            ];
+            // On essaie de charger les configurations requises.
+            $this->loadDependancyConfig($name);
+          }
+          else {
+            self::$configEntities[$name] = 'none';
+          }
         }
       }
   }
-  
+
+  /**
+   * Certains données de configuration ne doivent pas etre exporter:
+   * true: on cree la config;
+   * - field_domain_* (tous les champs contenant field_domain).
+   */
+  protected function filterConfig($config) {
+    return true;
+    if (str_contains($config, 'field_domain_')) {
+      return false;
+    }
+    else
+      return true;
+  }
+
+  /**
+   *
+   * @param string $entity_type
+   * @param string $bundle
+   * @param string $fieldName
+   */
+  public function getConfigField($entity_type, $bundle, $fieldName) {
+    /**
+     *
+     * @var \Drupal\field\Entity\FieldConfig $FieldConfig
+     */
+    $FieldConfig = $this->entityTypeManager()->getStorage('field_config')->load($entity_type . '.' . $bundle . '.' . $fieldName);
+    if ($FieldConfig) {
+      $definition = $this->entityTypeManager()->getDefinition('field_config');
+      $this->getConfigFromName($definition->getConfigPrefix() . '.' . $entity_type . '.' . $bundle . '.' . $fieldName);
+      $this->getConfig($FieldConfig->getDependencies());
+    }
+
+    /**
+     *
+     * @var \Drupal\field\Entity\FieldStorageConfig $FieldStorageConfig
+     */
+    $FieldStorageConfig = $this->entityTypeManager()->getStorage('field_storage_config')->load($entity_type . '.' . $fieldName);
+    if ($FieldStorageConfig) {
+      $definition = $this->entityTypeManager()->getDefinition('field_storage_config');
+      $this->getConfigFromName($definition->getConfigPrefix() . '.' . $entity_type . '.' . $fieldName);
+      $this->getConfig($FieldStorageConfig->getDependencies());
+    }
+  }
+
   /**
    *
    * @param string $nameConf
@@ -125,5 +201,5 @@ class LoadConfigs extends ControllerBase {
       // dump($nameConf);
     }
   }
-  
+
 }

@@ -24,33 +24,58 @@ class ExportEntities extends ControllerBase {
    */
   protected $configStorage;
   /**
-   * Contient la liste des entites dont les contenus pourront etre extraites si
-   * elles remplissent les conditions.
+   * Contient la liste des entites dont les configurations doivent etre
+   * extraites si elles remplissent les conditions.
+   * On distingue deux type d 'entité sans bundle et avec.
+   * -- Les entittés avec bundle --
+   * Pour ajouter une entité avec bundle, on doit chosir le bundle (C'est au
+   * niveau du bundle qu'on definit la configuration, les champs, les
+   * formulaires ...) avant l'ajout. Donc pour recuperer la configuration, on
+   * doit recuperer à partir de ce bundle.
+   * -- Les entittés sans bundle --
    *
    * @var array
    */
   protected $validesEntities = [
-    'node'
+    'node',
+    'paragraph',
+    'config_theme_entity',
+    'site_internet_entity',
+    'block_content',
+    'block'
   ];
+
   /**
    * Contient la liste des configurations deja crees.
    *
    * @var array
    */
   protected $configEntities = [];
-  
+
   /**
    *
    * @var LoadFormDisplays
    */
   protected $LoadFormDisplays;
-  
+
+  /**
+   *
+   * @var LoadFormWrite
+   */
+  protected $LoadFormWrite;
+
   /**
    *
    * @var LoadConfigs
    */
   protected $LoadConfigs;
-  
+
+  /**
+   *
+   * @var LoadViewDisplays
+   */
+  protected $LoadViewDisplays;
+
   /**
    *
    * @param DomainNegotiator $DomainNegotiator
@@ -59,21 +84,20 @@ class ExportEntities extends ControllerBase {
    * @param LoadFormDisplays $LoadFormDisplays
    * @param LoadConfigs $LoadConfigs
    */
-  function __construct(DomainNegotiator $DomainNegotiator, EntityFieldManager $EntityFieldManager, StorageInterface $config_storage, LoadFormDisplays $LoadFormDisplays, LoadConfigs $LoadConfigs) {
+  function __construct(DomainNegotiator $DomainNegotiator, EntityFieldManager $EntityFieldManager, StorageInterface $config_storage, LoadFormDisplays $LoadFormDisplays, LoadConfigs $LoadConfigs, LoadViewDisplays $LoadViewDisplays) {
     $this->DomainNegotiator = $DomainNegotiator;
     $this->currentDomaine = $this->DomainNegotiator->getActiveDomain();
     $this->EntityFieldManager = $EntityFieldManager;
     $this->configStorage = $config_storage;
     $this->LoadFormDisplays = $LoadFormDisplays;
     $this->LoadConfigs = $LoadConfigs;
+    $this->LoadViewDisplays = $LoadViewDisplays;
   }
-  
+
   function getEntites() {
     $ListEntities = $this->entityTypeManager()->getDefinitions();
-    debugLog::$debug = false;
-    debugLog::$path = DRUPAL_ROOT . '/profiles/contrib/wb_horizon_generate/config/install';
-    // debugLog::$max_depth = 5;
-    // debugLog::kintDebugDrupal($ListEntities, 'list-entites');
+    // dump($ListEntities);
+    // die();
     foreach ($this->validesEntities as $value) {
       if (!empty($ListEntities[$value])) {
         /**
@@ -81,14 +105,25 @@ class ExportEntities extends ControllerBase {
          * @var ContentEntityType $ContentEntityType
          */
         $ContentEntityType = $ListEntities[$value];
+
         // $entity_id cest par example node.
         $entity_type = $ContentEntityType->id();
         // On recupere sont contenus.
         $contents = [];
+        /**
+         * Permet de recuperer les données liées à l'affichage.
+         *
+         * @var array $bundles
+         */
         $bundles = [];
         $this->loadContents($entity_type, $contents, $bundles);
-        // genere la configuration pour l'affichage du noeud.
+        // Genere la configuration pour l'affichage du noeud.
         $this->LoadFormDisplays->getDisplays($entity_type, $bundles);
+        //
+        $this->LoadViewDisplays->getDisplays($entity_type, $bundles);
+        // pas de configuration disponible, pour le moment on utilise le rendu
+        // par defaut.
+        // $this->LoadFormWrite->getDisplays($entity_type, $bundles);
         // ////////
         // Pour que ce contenu puisse fonctionner, il faut que les champs par
         // defaut et ceux crée manuellement existe.
@@ -97,14 +132,45 @@ class ExportEntities extends ControllerBase {
         // recuperation des champs.
       }
     }
-    //
-    // $this->generateFieldsConfig();
-    // generate custom config
+    // Generate custom config.
     $this->generateCustomConfigs();
-    dump($this->LoadConfigs->getGenerate());
+    $this->generateImagesStyle();
     //
+    $this->getMenus();
+    // $block =
+    // $this->entityTypeManager()->getStorage('block')->load('test62_wb_horizon_kksa_breamcrumb');
+    // dump($block->toArray());
+    // die();
   }
-  
+
+  /**
+   * ThirdPartySettings via layout_builder, ne semble pas permettre de charger
+   * les depences.
+   * Donc, on charge les style images
+   */
+  function generateImagesStyle() {
+    $image_styles = $this->entityTypeManager()->getStorage('image_style')->loadMultiple();
+    foreach ($image_styles as $image_style) {
+      $name = 'image.style.' . $image_style->id();
+      $this->LoadConfigs->getConfigFromName($name);
+    }
+  }
+
+  function getMenus() {
+    $domainId = $this->currentDomaine->id();
+    $entityMenu = $this->entityTypeManager()->getDefinition("menu");
+    $query = $this->entityTypeManager()->getStorage("menu")->getQuery();
+    $query->condition('id', $domainId, 'CONTAINS');
+    $ids = $query->execute();
+    foreach ($ids as $id) {
+      $name = $entityMenu->getConfigPrefix() . '.' . $id;
+      dump($name);
+      if (!$this->LoadConfigs->hasGenerate($name)) {
+        $this->LoadConfigs->getConfigFromName($name);
+      }
+    }
+  }
+
   /**
    * --
    */
@@ -112,7 +178,7 @@ class ExportEntities extends ControllerBase {
     // Themes config.
     $string = Yaml::encode([
       'admin' => 'claro',
-      'default' => 'lesroisdelareno'
+      'default' => 'theme_reference_wbu'
     ]);
     $name = 'system.theme';
     $this->LoadConfigs->addConfig($name, $string);
@@ -129,10 +195,13 @@ class ExportEntities extends ControllerBase {
     $name = 'filter.format.restricted_html';
     $this->LoadConfigs->getConfigFromName($name);
     //
+    $name = 'filter.format.basic_html';
+    $this->LoadConfigs->getConfigFromName($name);
+    //
     $name = 'filter.format.text_html';
     $this->LoadConfigs->getConfigFromName($name);
   }
-  
+
   /**
    * Retourne les configurations de champs pour une entité donnée.
    */
@@ -141,9 +210,11 @@ class ExportEntities extends ControllerBase {
       $bundle = $entity_type_id;
     $Allfields = $this->EntityFieldManager->getFieldDefinitions($entity_type_id, $bundle);
   }
-  
+
   /**
-   * --
+   * Unquement pour tester
+   *
+   * @deprecated
    */
   protected function generateFieldsConfig() {
     $entity_type_id = 'node';
@@ -158,11 +229,11 @@ class ExportEntities extends ControllerBase {
     // 'field_localisation');
     // dump($Allfields['field_localisation']->getFieldStorageDefinition());
     // dump($Allfields['body']->id());
-    
+
     debugLog::$path = trim(debugLog::$path, '/');
     //
     foreach ($Allfields as $k => $value) {
-      
+
       if (method_exists($Allfields[$k], 'id')) {
         /**
          *
@@ -203,7 +274,7 @@ class ExportEntities extends ControllerBase {
       }
     }
   }
-  
+
   /**
    * La
    *
@@ -211,7 +282,7 @@ class ExportEntities extends ControllerBase {
    *        : elle est toujours sur cette forme 'entity.bundle.mode'
    */
   protected function getConfig($conf) {
-    dump($this->configStorage->read($conf));
+    // dump($this->configStorage->read($conf));
     [
       $entity_type,
       $entity,
@@ -226,30 +297,61 @@ class ExportEntities extends ControllerBase {
     }
     // dump($definition);
   }
-  
+
   /**
-   * return les contenus et les types de contenus (bundle).
+   * Recupere la configuration % au contenus.
+   * ( Config field, node, nodetype, bloc ...)
    * (example retourne les contenus pour l'entité node).
    */
   protected function loadContents(string $entity_type, &$contents, &$bundles = []) {
     $domainId = $this->currentDomaine->id();
-    $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
-      self::$field_domain_access => $domainId
-    ]);
+    // Il faut mettre à jour le nom du champs pour qu'il soit validé. ( version
+    // 2x).
+    if ($entity_type == 'config_theme_entity') {
+      $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
+        'hostname' => $domainId
+      ]);
+    }
+    else
+      $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
+        self::$field_domain_access => $domainId
+      ]);
+
+    // $query =
+    // $this->entityTypeManager()->getStorage($entity_type)->getQuery();
+    // $query->condition('theme', 'wb_horizon_kksa');
+    // $ids = $query->execute();
+    // dump($ids);
+    //
     foreach ($contents as $value) {
-      /**
-       *
-       * @var Node $value
-       */
-      $bundle = $value->bundle();
-      $name = 'node.type.' . $bundle;
-      if (!$this->LoadConfigs->hasGenerate($name)) {
+      $BundleEntityType = $value->getEntityType()->getBundleEntityType();
+
+      if (!empty($BundleEntityType)) {
+        /**
+         *
+         * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityTypeDefinition
+         */
+        $entityTypeDefinition = $this->entityTypeManager()->getDefinition($BundleEntityType);
+        $bundle = $value->bundle();
+        $name = $entityTypeDefinition->getConfigPrefix() . '.' . $bundle;
         $bundles[$bundle] = $bundle;
-        $this->LoadConfigs->getConfigFromName($name);
+        if (!$this->LoadConfigs->hasGenerate($name)) {
+          $this->LoadConfigs->getConfigFromName($name);
+        }
+        // elseif ($entity_type == "block_content") {
+        // dump($name);
+        // }
+      }
+      else {
+        // ces entites n'ont pas de données de configuration à ce niveau. ils
+        // sont fournir uniquement à partir d'un modele ou d'une configuration,
+        // mais on peut en surcharger les configurations (formDisplays et
+        // viewDisplays) qui en resulte.
+        $bundles[$entity_type] = $entity_type;
       }
     }
   }
-  
+
 /**
  * \Drupal::entityManager()->getStorage('field_storage_config')->create($field)->save();
  *

@@ -2,12 +2,24 @@ services:
   
   export_import_entities.export.entites:
     class: Drupal\export_import_entities\Services\ExportEntities
-    arguments: ['@domain.negotiator','@entity_field.manager','@config.storage','@export_import_entities.export.form.displays','@export_import_entities.export.form.LoadConfigs']
+    arguments: ['@domain.negotiator','@entity_field.manager','@config.storage','@export_import_entities.export.form.displays','@export_import_entities.export.form.LoadConfigs','@export_import_entities.export.view.displays']
     
   export_import_entities.export.form.displays:
     class: Drupal\export_import_entities\Services\LoadFormDisplays
-    arguments: ['@config.storage','@export_import_entities.export.form.LoadConfigs']
+    arguments: ['@export_import_entities.export.form.LoadConfigs','@export_import_entities.export.third_party_settings']
+    
+  export_import_entities.export.view.displays:
+    class: Drupal\export_import_entities\Services\LoadViewDisplays
+    arguments: ['@export_import_entities.export.form.LoadConfigs','@export_import_entities.export.third_party_settings']
+    
+  export_import_entities.export.form.write:
+    class: Drupal\export_import_entities\Services\LoadFormWrite
+    arguments: ['@export_import_entities.export.form.LoadConfigs','@export_import_entities.export.third_party_settings']
     
   export_import_entities.export.form.LoadConfigs:
     class: Drupal\export_import_entities\Services\LoadConfigs
-    arguments: ['@config.storage']
+    arguments: ['@config.storage','@domain.negotiator']
+    
+  export_import_entities.export.third_party_settings:
+    class: Drupal\export_import_entities\Services\ThirdPartySettings
+    arguments: ['@export_import_entities.export.form.LoadConfigs']  

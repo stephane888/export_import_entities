@@ -13,3 +13,129 @@ export_import_entities.settings_form:
     _form: 'Drupal\export_import_entities\Form\SettingsForm'
   requirements:
     _permission: 'administer export_import_entities configuration'
+    
+export_import_entities.generatesite:
+  path: '/export-import-entities/generate-site'
+  defaults:
+    _title: 'Generer les données pour votre site'
+    _form: 'Drupal\export_import_entities\Form\GenerateSite'
+  requirements:
+    _permission: 'access content'
+    
+# Defines a route where a particular user's articles can be found.
+export_import_entities.page_web:
+  # %jsonapi% is a placeholder for the JSON:API base path, which can be
+  # configured in a site's services.yml file.
+  path: '/%jsonapi%/export/page-web'
+  defaults:
+    # Every JSON:API resource route must declare a _jsonapi_resource. The
+    # value can either be a class or a service ID. Unlike the _controller
+    # route default, it is not possible to declare a method name to be called.
+    _jsonapi_resource: Drupal\export_import_entities\Resource\PageWeb
+    _jsonapi_resource_types: ['site_internet_entity--architecte','site_internet_entity--default_commerce','site_internet_entity--partenaire','site_internet_entity--rc_web']
+  requirements:
+    _permission: 'access content'
+    _user_is_logged_in: 'TRUE'
+    _auth: 'basic_auth'
+    # The following requirements will automatically be set for every JSON:API
+    # resource route and cannot be overridden here.
+    # _content_type_format: api_json
+    # _format: api_json
+    # _auth: all enabled authentication providers will automatically apply
+
+        
+# Defines a route where a particular user's articles can be found.
+export_import_entities.template_theme:
+  # %jsonapi% is a placeholder for the JSON:API base path, which can be
+  # configured in a site's services.yml file.
+  path: '/%jsonapi%/export/template-theme'
+  defaults:
+    # Every JSON:API resource route must declare a _jsonapi_resource. The
+    # value can either be a class or a service ID. Unlike the _controller
+    # route default, it is not possible to declare a method name to be called.
+    _jsonapi_resource: Drupal\export_import_entities\Resource\TemplateTheme
+    _jsonapi_resource_types: ['config_theme_entity--config_theme_entity']
+  requirements:
+    _permission: 'access content'
+    _user_is_logged_in: 'TRUE'
+    # The following requirements will automatically be set for every JSON:API
+    # resource route and cannot be overridden here.
+    # _content_type_format: api_json
+    # _format: api_json
+    # _auth: all enabled authentication providers will automatically apply
+    
+# .
+export_import_entities.block_content:
+  # %jsonapi% is a placeholder for the JSON:API base path, which can be
+  # configured in a site's services.yml file.
+  path: '/%jsonapi%/export/block_content'
+  defaults:
+    # Every JSON:API resource route must declare a _jsonapi_resource. The
+    # value can either be a class or a service ID. Unlike the _controller
+    # route default, it is not possible to declare a method name to be called.
+    _jsonapi_resource: Drupal\export_import_entities\Resource\BlockContent
+    _jsonapi_resource_types: ['block_content--basic','block_content--clothings_hero','block_content--container_breamcrumb','block_content--delivery_service','block_content--equipes','block_content--etapes','block_content--fake_comments','block_content--footer','block_content--header','block_content--icone_titre_horizontal_','block_content--logos_clients','block_content--menus','block_content--partenaire_service','block_content--rc_web_bloc_price','block_content--rc_web_commentaires','block_content--rc_web_listes_de_bloc','block_content--section_entete','block_content--service_model_rc_web','block_content--teaser_image_rotation_text','block_content--traiteur_collection']
+  requirements:
+    _permission: 'access content'
+    _user_is_logged_in: 'TRUE'
+    
+# .
+export_import_entities.block_content_menu:
+  # %jsonapi% is a placeholder for the JSON:API base path, which can be
+  # configured in a site's services.yml file.
+  path: '/%jsonapi%/export/block_content-menu'
+  defaults:
+    # Every JSON:API resource route must declare a _jsonapi_resource. The
+    # value can either be a class or a service ID. Unlike the _controller
+    # route default, it is not possible to declare a method name to be called.
+    _jsonapi_resource: Drupal\export_import_entities\Resource\BlockContentMenu
+    _jsonapi_resource_types: ['block_content--menus']
+  requirements:
+    _permission: 'access content'
+    _user_is_logged_in: 'TRUE'
+    
+export_import_entities.block_content_breamcrumb:
+  # %jsonapi% is a placeholder for the JSON:API base path, which can be
+  # configured in a site's services.yml file.
+  path: '/%jsonapi%/export/block_content-breamcrumb'
+  defaults:
+    # Every JSON:API resource route must declare a _jsonapi_resource. The
+    # value can either be a class or a service ID. Unlike the _controller
+    # route default, it is not possible to declare a method name to be called.
+    _jsonapi_resource: Drupal\export_import_entities\Resource\BlockContentBreamcrumb
+    _jsonapi_resource_types: ['block_content--container_breamcrumb']
+  requirements:
+    _permission: 'access content'
+    _user_is_logged_in: 'TRUE'
+    
+# Defines a route where a particular user's articles can be found.
+export_import_entities.block:
+  # %jsonapi% is a placeholder for the JSON:API base path, which can be
+  # configured in a site's services.yml file.
+  path: '/%jsonapi%/export/block'
+  defaults:
+    # Every JSON:API resource route must declare a _jsonapi_resource. The
+    # value can either be a class or a service ID. Unlike the _controller
+    # route default, it is not possible to declare a method name to be called.
+    _jsonapi_resource: Drupal\export_import_entities\Resource\Block
+    _jsonapi_resource_types: ['block--block']
+  requirements:
+    _permission: 'access content'
+    _user_is_logged_in: 'TRUE'    
+    
+# Defines a route where a particular user's articles can be found.
+export_import_entities.menu_link_content:
+  # %jsonapi% is a placeholder for the JSON:API base path, which can be
+  # configured in a site's services.yml file.
+  path: '/%jsonapi%/export/menu-link-content'
+  defaults:
+    # Every JSON:API resource route must declare a _jsonapi_resource. The
+    # value can either be a class or a service ID. Unlike the _controller
+    # route default, it is not possible to declare a method name to be called.
+    _jsonapi_resource: Drupal\export_import_entities\Resource\MenuLinkContent
+    _jsonapi_resource_types: ['menu_link_content--menu_link_content']
+  requirements:
+    _permission: 'access content'
+    _user_is_logged_in: 'TRUE'  
+    
+    

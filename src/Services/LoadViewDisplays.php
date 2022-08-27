@@ -6,13 +6,14 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\export_import_entities\Services\ThirdPartySettings;
 
 /**
- * Permet de charger les diffirents differents mode de sasie pour un formulaire
+ * Permet de charger les diffirents differents mode de d'affichage pour un
+ * formulaire
  * d'entité.
  *
  * @author stephane
  *
  */
-class LoadFormDisplays extends ControllerBase {
+class LoadViewDisplays extends ControllerBase {
   /**
    *
    * @var \Drupal\export_import_entities\Services\ThirdPartySettings
@@ -42,17 +43,14 @@ class LoadFormDisplays extends ControllerBase {
      *
      * @var \Drupal\Core\Config\Entity\ConfigEntityType $definition
      */
-    $definition = $this->entityTypeManager()->getDefinition('entity_form_display');
+    $definition = $this->entityTypeManager()->getDefinition('entity_view_display');
     $prefix = $definition->getConfigPrefix();
 
     foreach ($bundles as $bundle) {
       $keySearch = $entity_type . '.' . $bundle;
-      $query = $this->entityTypeManager()->getStorage('entity_form_display')->getQuery();
+      $query = $this->entityTypeManager()->getStorage('entity_view_display')->getQuery();
       $query->condition('id', $keySearch, 'CONTAINS');
       $ids = $query->execute();
-      // if ($entity_type == 'block_content') {
-      // dump($ids);
-      // }
       if (!empty($ids)) {
         foreach ($ids as $id) {
           if (!$this->LoadConfigs->hasGenerate($id)) {
@@ -60,21 +58,18 @@ class LoadFormDisplays extends ControllerBase {
              *
              * @var \Drupal\Core\Entity\Entity\EntityFormDisplay $entity
              */
-            $entity = $this->entityTypeManager()->getStorage('entity_form_display')->load($id);
+            $entity = $this->entityTypeManager()->getStorage('entity_view_display')->load($id);
             $this->LoadConfigs->getConfigFromName($prefix . '.' . $id);
             // On se rassure que ses dependances ont été cree ou on les crées.
             $confs = $entity->getDependencies();
             $this->LoadConfigs->getConfig($confs);
-            // On cree les champs.
-            $fields = $entity->get('content');
-            foreach ($fields as $fieldName => $v) {
-              $this->LoadConfigs->getConfigField($entity_type, $bundle, $fieldName);
-            }
+            // On genere egalement les configurations de third_party_settings;
+            $this->ThirdPartySettings->getConfigFromThirdParty($entity);
           }
         }
       }
     }
-    // dump($this->LoadConfigs->getGenerate());
+    // die();
   }
 
 }
