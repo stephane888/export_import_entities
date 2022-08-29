@@ -5,6 +5,14 @@ export_import_entities.example:
     _controller: '\Drupal\export_import_entities\Controller\ExportImportEntitiesController::build'
   requirements:
     _permission: 'access content'
+    
+export_import_entities.downloadsitezip:
+  path: '/export-import-entities/downloadsitezip'
+  defaults:
+    _title: 'Download site zip'
+    _controller: '\Drupal\export_import_entities\Controller\ExportImportEntitiesController::DownloadSiteZip'
+  requirements:
+    _permission: 'access content'
 
 export_import_entities.settings_form:
   path: '/admin/config/system/export-import-entities'
