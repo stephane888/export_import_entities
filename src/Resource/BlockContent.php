@@ -31,16 +31,13 @@ class BlockContent extends EntityQueryResourceBase {
    */
   public function process(Request $request): ResourceResponse {
     // Force the author to be included.
-    $include = $request->query->get('include');
-    $request->query->set('include', $include . (empty($include) ? '' : ',') . 'layout_paragraphs');
-
+    // $include = $request->query->get('include');
+    // $request->query->set('include', $include . (empty($include) ? '' : ',') .
+    // 'layout_paragraphs');
     $cacheability = new CacheableMetadata();
     // try to load theme;
     $confTheme = ConfigDrupal::config('system.theme');
-    $entity_query = $this->getEntityQuery('block_content')->condition('field_domain_access', $confTheme['default'])->condition('type', [
-      'footer',
-      'header'
-    ], 'IN');
+    $entity_query = $this->getEntityQuery('block_content')->condition('field_domain_access', $confTheme['default']);
     $cacheability->addCacheContexts([
       'url.path'
     ]);
