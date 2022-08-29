@@ -151,7 +151,10 @@ class GenerateSite extends ConfigFormBase {
     //
     if ($exc['return_var']) {
       \Drupal::messenger()->addError(" Impossible de generer le fichier zip ");
+      dump($exc);
+      return false;
     }
+    return true;
   }
 
   // Create zip
@@ -221,8 +224,8 @@ class GenerateSite extends ConfigFormBase {
     if ($form_state->getValue('generate_files'))
       $this->ExportEntities->getEntites();
     if ($form_state->getValue('donwload_files')) {
-      $this->generateZip();
-      $form_state->setRedirect('export_import_entities.downloadsitezip');
+      if ($this->generateZip())
+        $form_state->setRedirect('export_import_entities.downloadsitezip');
     }
 
     //
