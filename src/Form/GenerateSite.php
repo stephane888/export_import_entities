@@ -122,7 +122,8 @@ class GenerateSite extends ConfigFormBase {
     $Filesystem = new FilesystemSymphony();
     if (!file_exists($baseZip))
       $Filesystem->mkdir($baseZip);
-
+    if (file_exists($baseZip . $this->currentDomaine->id() . ".zip"))
+      $Filesystem->remove($baseZip . $this->currentDomaine->id() . ".zip");
     //
     // $archiveDir = 'public://pdf-export/';
     // $archivePath = $archiveDir . $this->currentDomaine->id() . '.zip';
@@ -145,7 +146,7 @@ class GenerateSite extends ConfigFormBase {
     // en principe on est dans web.
     // $script = " sudo ../ ";
     // $script .= " ls ";
-    $script = " sudo zip -r " . $baseZip . $this->currentDomaine->id() . ".zip  " . $path;
+    $script = " zip -r " . $baseZip . $this->currentDomaine->id() . ".zip  " . $path;
     $exc = $this->excuteCmd($script, 'RunNpm');
     //
     if ($exc['return_var']) {
