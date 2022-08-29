@@ -46,7 +46,8 @@ class ExportImportEntitiesController extends ControllerBase {
   public function DownloadSiteZip() {
     $pt = explode('/web', DRUPAL_ROOT);
     $baseZip = $pt[0] . '/sites_exports/zips/';
-    $path = $baseZip . $this->currentDomaine->id();
+    $path = $baseZip . $this->currentDomaine->id() . '.zip';
+
     $response = new Response();
     // $response->headers->set('Content-Type',
     // 'application/zip,application/octet-stream');
