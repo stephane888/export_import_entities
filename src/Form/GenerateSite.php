@@ -220,8 +220,11 @@ class GenerateSite extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     if ($form_state->getValue('generate_files'))
       $this->ExportEntities->getEntites();
-    if ($form_state->getValue('donwload_files'))
+    if ($form_state->getValue('donwload_files')) {
       $this->generateZip();
+      $form_state->setRedirect('export_import_entities.downloadsitezip');
+    }
+
     //
     parent::submitForm($form, $form_state);
   }
