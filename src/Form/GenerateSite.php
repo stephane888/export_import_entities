@@ -38,6 +38,7 @@ class GenerateSite extends ConfigFormBase {
    * @var ArchiverManager
    */
   protected $ArchiverManager;
+  protected $maxStep = 2;
 
   /**
    * Constructs a \Drupal\system\ConfigFormBase object.
@@ -83,7 +84,15 @@ class GenerateSite extends ConfigFormBase {
    *
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state, $domaineId = null) {
+    $form = parent::buildForm($form, $form_state);
+    if ($domaineId) {
+      $this->currentDomaine = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
+      if (!$this->currentDomaine) {
+        \Drupal::messenger()->addWarning('Le domaine definit ne correspond à aucun donc vous avez acces');
+        return [];
+      }
+    }
     $baseSite = DRUPAL_ROOT . '/../sites_exports/basic_model/';
     $path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id();
     if (!file_exists($path)) {
@@ -92,22 +101,99 @@ class GenerateSite extends ConfigFormBase {
       $Filesystem->mirror($baseSite, $path);
       $this->messenger()->addStatus(' le dossier existe || ' . $path);
     }
+
+    //
+    if (!$form_state->has('step')) {
+      $form_state->set('step', 1);
+    }
+    $step = $form_state->get('step');
+    if ($step == 1) {
+      $form['generate_files'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Generer les fichiers'),
+        '#default_value' => 1
+      ];
+      $this->actionButtons($form, $form_state);
+    }
+    elseif ($step == 2) {
+      $form['donwload_files'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Telecharger les fichiers'),
+        '#default_value' => 1
+      ];
+    }
+
     // $config = $this->config(static::$keyEditable);
-    $form['generate_files'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Generer les fichiers'),
-      '#default_value' => 0
-    ];
-    $form['donwload_files'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Telecharger les fichiers'),
-      '#default_value' => 1
-    ];
     $form['#attributes']['class'][] = 'container';
-    $form = parent::buildForm($form, $form_state);
-    $form['actions']['submit']['#value'] = 'Generer votre site';
-    // dump($form);
+    $form['actions']['submit']['#value'] = 'Generer et telecharger les fichiers de votre site';
+
     return $form;
+  }
+
+  /**
+   *
+   * @param array $form
+   * @param FormStateInterface $form_state
+   */
+  protected function actionButtons(array &$form, FormStateInterface $form_state, $title_next = "Suivant", $submit_next = 'nextSubmit', $title_preview = "Precedent") {
+    if ($form_state->get('step') > 1)
+      $form['actions']['preview'] = [
+        '#type' => 'submit',
+        '#value' => $title_preview,
+        '#button_type' => 'secondary',
+        '#submit' => [
+          [
+            $this,
+            'previewsSubmit'
+          ]
+        ]
+      ];
+    if ($form_state->get('step') < $this->maxStep)
+      $form['actions']['next'] = [
+        '#type' => 'submit',
+        '#value' => $title_next,
+        '#button_type' => 'secondary',
+        '#submit' => [
+          [
+            $this,
+            $submit_next
+          ]
+        ]
+      ];
+    if ($form_state->get('step') >= $this->maxStep) {
+      $form = parent::buildForm($form, $form_state);
+      if (!empty($form['actions']['submit'])) {
+        $form['actions']['submit']['#value'] = 'Terminer le processus';
+      }
+    }
+    else
+      $form['actions']['submit']['#access'] = false;
+  }
+
+  /**
+   *
+   * @param array $form
+   * @param FormStateInterface $form_state
+   */
+  public function nextSubmit(array &$form, FormStateInterface $form_state) {
+    $nextStep = $form_state->get('step') + 1;
+    if ($nextStep > $this->maxStep)
+      $nextStep = $this->maxStep;
+    if ($form_state->getValue('generate_files')) {
+      $this->ExportEntities->getEntites();
+      \Drupal::messenger()->addStatus(' Les fichiers de configurations ont été generer ');
+    }
+    //
+    $form_state->set('step', $nextStep);
+    $form_state->setRebuild();
+  }
+
+  public function previewSubmit(array &$form, FormStateInterface $form_state) {
+    $pvStep = $form_state->get('step') - 1;
+    if ($pvStep <= 0)
+      $pvStep = 1;
+    $form_state->set('step', $pvStep);
+    $form_state->setRebuild();
   }
 
   function generateZip() {
@@ -146,12 +232,11 @@ class GenerateSite extends ConfigFormBase {
     // en principe on est dans web.
     // $script = " sudo ../ ";
     // $script .= " ls ";
-    $script = " zip -r " . $baseZip . $this->currentDomaine->id() . ".zip  " . $path;
+    $script = " zip -rj " . $baseZip . $this->currentDomaine->id() . ".zip  " . $path;
     $exc = $this->excuteCmd($script, 'RunNpm');
     //
     if ($exc['return_var']) {
       \Drupal::messenger()->addError(" Impossible de generer le fichier zip ");
-      dump($exc);
       return false;
     }
     return true;
@@ -221,13 +306,10 @@ class GenerateSite extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    if ($form_state->getValue('generate_files'))
-      $this->ExportEntities->getEntites();
     if ($form_state->getValue('donwload_files')) {
       if ($this->generateZip())
         $form_state->setRedirect('export_import_entities.downloadsitezip');
     }
-
     //
     parent::submitForm($form, $form_state);
   }

@@ -55,7 +55,12 @@ class LoadConfigs extends ControllerBase {
     return $this->Finder;
   }
 
-  public function getConfigFromName(string $name, $entity = null) {
+  /**
+   * Crrer la configuration à partir du nom donnée.
+   *
+   * @param string $name
+   */
+  public function getConfigFromName(string $name) {
     debugLog::$debug = false;
     debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
     if (empty(self::$configEntities[$name])) {
@@ -65,6 +70,7 @@ class LoadConfigs extends ControllerBase {
         'status' => true,
         'value' => $string
       ];
+      $this->loadConfigsViewTerms($name);
     }
   }
 
@@ -93,6 +99,28 @@ class LoadConfigs extends ControllerBase {
       return self::$configEntities;
   }
 
+  protected function loadConfigsViewTerms($name) {
+    /**
+     * On a un soucis avec les données contenus dans les termes de references.
+     * On souhaite importter uniquement les affichages des termes taxo
+     * utilisés.
+     */
+    if (str_contains($name, 'taxonomy.vocabulary.')) {
+      $type = explode("taxonomy.vocabulary.", $name);
+      /**
+       *
+       * @var \Drupal\export_import_entities\Services\LoadViewDisplays $LoadViewDisplays
+       */
+      if (!empty($type[1])) {
+        $bundles = [
+          $type[1] => $type[1]
+        ];
+        $LoadViewDisplays = \Drupal::service('export_import_entities.export.view.displays');
+        $LoadViewDisplays->getDisplays('taxonomy_term', $bundles);
+      }
+    }
+  }
+
   /**
    * Generre les fichiers de configuration de maniere recurssive.
    *
@@ -111,6 +139,7 @@ class LoadConfigs extends ControllerBase {
               'status' => true,
               'value' => $string
             ];
+            $this->loadConfigsViewTerms($name);
             // On essaie de charger les configurations requises.
             $this->loadDependancyConfig($name);
           }
@@ -198,7 +227,10 @@ class LoadConfigs extends ControllerBase {
       }
     }
     else {
-      // dump($nameConf);
+      $dependencies = \Drupal::config($nameConf)->get('dependencies');
+      if (!empty($dependencies['config'])) {
+        $this->getConfig($dependencies);
+      }
     }
   }
 

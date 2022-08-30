@@ -11,6 +11,7 @@ use Drupal\domain\DomainNegotiator;
 
 /**
  * Returns responses for Export Import Entities routes.
+ * http://test-renov-wb-horizon.kksa/core/install.php?rewrite=ok&profile=wb_horizon_generate&langcode=fr
  */
 class ExportImportEntitiesController extends ControllerBase {
   protected $currentDomaine;

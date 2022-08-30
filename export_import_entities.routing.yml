@@ -21,14 +21,18 @@ export_import_entities.settings_form:
     _form: 'Drupal\export_import_entities\Form\SettingsForm'
   requirements:
     _permission: 'administer export_import_entities configuration'
+  
     
 export_import_entities.generatesite:
-  path: '/export-import-entities/generate-site'
+  path: '/export-import-entities/generate-site/{domaineId}'
   defaults:
     _title: 'Generer les données pour votre site'
     _form: 'Drupal\export_import_entities\Form\GenerateSite'
+    domaineId: NULL
   requirements:
-    _permission: 'access content'
+    _user_is_logged_in: 'TRUE'
+  options:
+    _admin_route: TRUE
     
 # Defines a route where a particular user's articles can be found.
 export_import_entities.page_web:

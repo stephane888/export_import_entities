@@ -38,7 +38,7 @@ class LoadViewDisplays extends ControllerBase {
    * @param array $bundles
    * @return [\Drupal\Core\Entity\Entity\EntityFormDisplay]
    */
-  function getDisplays(string $entity_type, array $bundles, &$configEntities = []) {
+  function getDisplays(string $entity_type, array $bundles) {
     /**
      *
      * @var \Drupal\Core\Config\Entity\ConfigEntityType $definition

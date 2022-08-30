@@ -11,6 +11,7 @@ use Drupal\views\Plugin\views\filter\Bundle;
 use Drupal\Core\Entity\EntityFieldManager;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Serialization\Yaml;
+use Drupal\taxonomy\Entity\Term;
 
 class ExportEntities extends ControllerBase {
   protected static $field_domain_access = 'field_domain_access';
@@ -23,6 +24,7 @@ class ExportEntities extends ControllerBase {
    * @var \Drupal\Core\Config\StorageInterface
    */
   protected $configStorage;
+
   /**
    * Contient la liste des entites dont les configurations doivent etre
    * extraites si elles remplissent les conditions.
@@ -43,6 +45,14 @@ class ExportEntities extends ControllerBase {
     'site_internet_entity',
     'block_content',
     'block'
+  ];
+
+  /**
+   *
+   * @var array
+   */
+  protected $directEntities = [
+    'taxonomy_term'
   ];
 
   /**
@@ -135,12 +145,35 @@ class ExportEntities extends ControllerBase {
     // Generate custom config.
     $this->generateCustomConfigs();
     $this->generateImagesStyle();
+    // $this->loadConfigFromEntities();
     //
     $this->getMenus();
     // $block =
     // $this->entityTypeManager()->getStorage('block')->load('test62_wb_horizon_kksa_breamcrumb');
-    // dump($block->toArray());
+    // dump($this->LoadConfigs->getGenerate());
     // die();
+  }
+
+  function loadConfigFromEntities() {
+    foreach ($this->directEntities as $BundleEntityType) {
+      /**
+       * à revoir la logique ci-dessous.
+       * ( pour les elements sans bundle ).
+       *
+       * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityTypeDefinition
+       */
+      $entityTypeDefinition = $this->entityTypeManager()->getDefinition($BundleEntityType);
+      $entityTypeDefinition->getBundleEntityType();
+      $vob = $entityTypeDefinition->getBundleEntityType();
+      $entityTypeDefinition = $this->entityTypeManager()->getDefinition($vob);
+      //
+      $entityTypes = $this->entityTypeManager()->getStorage($vob)->loadMultiple();
+      $name = $entityTypeDefinition->getConfigPrefix() . '.' . $vob;
+      dump($name, $vob, $entityTypes);
+      if (!$this->LoadConfigs->hasGenerate($name)) {
+        $this->LoadConfigs->getConfigFromName($name);
+      }
+    }
   }
 
   /**
@@ -164,7 +197,6 @@ class ExportEntities extends ControllerBase {
     $ids = $query->execute();
     foreach ($ids as $id) {
       $name = $entityMenu->getConfigPrefix() . '.' . $id;
-      dump($name);
       if (!$this->LoadConfigs->hasGenerate($name)) {
         $this->LoadConfigs->getConfigFromName($name);
       }
