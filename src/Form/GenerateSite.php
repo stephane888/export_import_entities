@@ -230,11 +230,14 @@ class GenerateSite extends ConfigFormBase {
     // ]);
     // On le fait via une commande Linux.
     // en principe on est dans web.
-    // $script = " sudo ../ ";
+    $script = " cd  ../ && ";
     // $script .= " ls ";
-    $script = " zip -rj " . $baseZip . $this->currentDomaine->id() . ".zip  " . $path;
+    // $script .= " zip -r " . $baseZip . $this->currentDomaine->id() . ".zip "
+    // . $path;
+    $script .= " cd sites_exports/ && ";
+    // $script .= " pwd ";
+    $script .= " zip -r zips/" . $this->currentDomaine->id() . ".zip  " . $this->currentDomaine->id();
     $exc = $this->excuteCmd($script, 'RunNpm');
-    //
     if ($exc['return_var']) {
       \Drupal::messenger()->addError(" Impossible de generer le fichier zip ");
       return false;

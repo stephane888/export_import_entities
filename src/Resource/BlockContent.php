@@ -37,7 +37,11 @@ class BlockContent extends EntityQueryResourceBase {
     $cacheability = new CacheableMetadata();
     // try to load theme;
     $confTheme = ConfigDrupal::config('system.theme');
-    $entity_query = $this->getEntityQuery('block_content')->condition('field_domain_access', $confTheme['default']);
+    $entity_query = $this->getEntityQuery('block_content');
+    $query_or = $entity_query->orConditionGroup();
+    $query_or->condition('field_domain_access', $confTheme['default']);
+    $query_or->condition('type', 'container_breamcrumb');
+    $entity_query->condition($query_or);
     $cacheability->addCacheContexts([
       'url.path'
     ]);

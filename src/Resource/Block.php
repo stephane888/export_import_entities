@@ -38,6 +38,8 @@ class Block extends EntityQueryResourceBase {
 
     // try to load theme;
     $confTheme = ConfigDrupal::config('system.theme');
+    // $entity_query = $this->getEntityQuery('block')->condition('theme',
+    // $confTheme['default']);
     $entity_query = $this->getEntityQuery('block')->condition('theme', $confTheme['default']);
     $cacheability->addCacheContexts([
       'url.path'

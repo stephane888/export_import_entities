@@ -344,20 +344,18 @@ class ExportEntities extends ControllerBase {
         'hostname' => $domainId
       ]);
     }
+    elseif ($entity_type == 'block') {
+      $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
+        'theme' => $domainId
+      ]);
+    }
     else
       $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
         self::$field_domain_access => $domainId
       ]);
 
-    // $query =
-    // $this->entityTypeManager()->getStorage($entity_type)->getQuery();
-    // $query->condition('theme', 'wb_horizon_kksa');
-    // $ids = $query->execute();
-    // dump($ids);
-    //
     foreach ($contents as $value) {
       $BundleEntityType = $value->getEntityType()->getBundleEntityType();
-
       if (!empty($BundleEntityType)) {
         /**
          *
@@ -375,6 +373,19 @@ class ExportEntities extends ControllerBase {
         // }
       }
       else {
+        /**
+         *
+         * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityTypeDefinition
+         *
+         */
+        $entityTypeDefinition = $this->entityTypeManager()->getDefinition($entity_type);
+        if ($entityTypeDefinition instanceof \Drupal\Core\Config\Entity\ConfigEntityType) {
+          $name = $entityTypeDefinition->getConfigPrefix() . '.' . $value->id();
+          if (!$this->LoadConfigs->hasGenerate($name)) {
+            $this->LoadConfigs->getConfigFromName($name);
+          }
+        }
+
         // ces entites n'ont pas de données de configuration à ce niveau. ils
         // sont fournir uniquement à partir d'un modele ou d'une configuration,
         // mais on peut en surcharger les configurations (formDisplays et
