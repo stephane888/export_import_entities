@@ -232,6 +232,9 @@ class ExportEntities extends ControllerBase {
     //
     $name = 'filter.format.text_html';
     $this->LoadConfigs->getConfigFromName($name);
+    //
+    $name = 'generate_style_theme.settings';
+    $this->LoadConfigs->getConfigFromName($name);
   }
 
   /**
