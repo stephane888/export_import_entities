@@ -1,5 +1,5 @@
 export_import_entities.example:
-  path: '/export-import-entities/example'
+  path: '/export-import-entities/current-theme'
   defaults:
     _title: 'Example'
     _controller: '\Drupal\export_import_entities\Controller\ExportImportEntitiesController::build'
@@ -7,7 +7,7 @@ export_import_entities.example:
     _permission: 'access content'
     
 export_import_entities.downloadsitezip:
-  path: '/export-import-entities/downloadsitezip'
+  path: '/export-import-entities/downloadsitezip/{domaineId}'
   defaults:
     _title: 'Download site zip'
     _controller: '\Drupal\export_import_entities\Controller\ExportImportEntitiesController::DownloadSiteZip'
@@ -145,7 +145,7 @@ export_import_entities.menu_link_content:
     # value can either be a class or a service ID. Unlike the _controller
     # route default, it is not possible to declare a method name to be called.
     _jsonapi_resource: Drupal\export_import_entities\Resource\MenuLinkContent
-    _jsonapi_resource_types: ['menu_link_content--menu_link_content']
+    _jsonapi_resource_types: ['menu_link_content--entreprise-btiment_main']
   requirements:
     _permission: 'access content'
     _user_is_logged_in: 'TRUE'  

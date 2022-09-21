@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\export_import_entities\Services\ExportEntities;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Drupal\domain\DomainNegotiator;
 
 /**
@@ -24,7 +25,7 @@ class ExportImportEntitiesController extends ControllerBase {
 
   function __construct(ExportEntities $ExportEntities, DomainNegotiator $DomainNegotiator) {
     $this->ExportEntities = $ExportEntities;
-    $this->currentDomaine = $DomainNegotiator->getActiveDomain();
+    $this->currentDomaine = $DomainNegotiator;
   }
 
   static function create(ContainerInterface $container) {
@@ -36,25 +37,42 @@ class ExportImportEntitiesController extends ControllerBase {
    */
   public function build() {
     $this->ExportEntities->getEntites();
-    // dump($this->entityTypeManager()->getStorage('entity_form_display')->loadMultiple());
     $build['content'] = [
       '#type' => 'item',
-      '#markup' => $this->t('It works! ..')
+      '#markup' => $this->t(' It works! .. ')
     ];
     return $build;
   }
 
-  public function DownloadSiteZip() {
+  /**
+   * --
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
+   */
+  public function DownloadSiteZip($domaineId) {
     $pt = explode('/web', DRUPAL_ROOT);
     $baseZip = $pt[0] . '/sites_exports/zips/';
-    $path = $baseZip . $this->currentDomaine->id() . '.zip';
+    $path = $baseZip . $domaineId . '.zip';
 
     $response = new Response();
     // $response->headers->set('Content-Type',
     // 'application/zip,application/octet-stream');
-    $response->headers->set('Content-Type', 'application/zip');
-    $response->setContent(file_get_contents($path));
-    return $response;
+
+    //
+    $data = file_get_contents($path);
+    if ($data) {
+      $response->setContent($data);
+      $response->headers->set('Content-Type', 'application/zip');
+      return $response;
+    }
+    else {
+      $this->messenger()->addWarning("Une erreur s'est produite, veiller ressayer plus tard.");
+    }
+    $build['content'] = [
+      '#type' => 'item',
+      '#markup' => $this->t(' Error ... ')
+    ];
+    return $build;
   }
 
 }

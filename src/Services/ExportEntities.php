@@ -44,7 +44,9 @@ class ExportEntities extends ControllerBase {
     'config_theme_entity',
     'site_internet_entity',
     'block_content',
-    'block'
+    // 'block', // le bloc n'est pas appropié pour le moment, car certains
+    // fonctionnalité (le theme, plugin derivée ) ne sont pas sur le modele.
+    'commerce_product'
   ];
 
   /**
@@ -106,8 +108,7 @@ class ExportEntities extends ControllerBase {
 
   function getEntites() {
     $ListEntities = $this->entityTypeManager()->getDefinitions();
-    // dump($ListEntities);
-    // die();
+    // dump($this->currentDomaine->id());
     foreach ($this->validesEntities as $value) {
       if (!empty($ListEntities[$value])) {
         /**
@@ -150,7 +151,7 @@ class ExportEntities extends ControllerBase {
     $this->getMenus();
     // $block =
     // $this->entityTypeManager()->getStorage('block')->load('test62_wb_horizon_kksa_breamcrumb');
-    // dump($this->LoadConfigs->getGenerate());
+    dump($this->LoadConfigs->getGenerate());
     // die();
   }
 
@@ -219,6 +220,9 @@ class ExportEntities extends ControllerBase {
     $this->LoadConfigs->getConfigFromName($name);
     // Language en
     $name = 'language.entity.en';
+    $this->LoadConfigs->getConfigFromName($name);
+    //
+    $name = 'language.negotiation';
     $this->LoadConfigs->getConfigFromName($name);
     //
     $name = 'filter.format.full_html';
@@ -370,6 +374,9 @@ class ExportEntities extends ControllerBase {
         $bundles[$bundle] = $bundle;
         if (!$this->LoadConfigs->hasGenerate($name)) {
           $this->LoadConfigs->getConfigFromName($name);
+          // on genere si possible les configurations liées à la traduction.
+          $idTranslation = 'language.content_settings.' . $value->getEntityTypeId() . '.' . $bundle;
+          $this->LoadConfigs->getConfigFromName($idTranslation);
         }
         // elseif ($entity_type == "block_content") {
         // dump($name);

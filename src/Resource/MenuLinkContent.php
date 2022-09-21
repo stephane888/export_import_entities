@@ -17,6 +17,9 @@ use Drupal\jsonapi_resources\Exception\RouteDefinitionException;
  * @internal
  */
 class MenuLinkContent extends EntityQueryResourceBase {
+  /**
+   */
+  private $typeMenu;
 
   /**
    * Process the resource request.
@@ -47,12 +50,12 @@ class MenuLinkContent extends EntityQueryResourceBase {
     $cacheability = new CacheableMetadata();
 
     // try to load theme;
-    $confTheme = ConfigDrupal::config('system.theme');
-    $entity_query = $this->getEntityQuery('menu_link_content')->condition('bundle', 'test62_wb_horizon_kksa_main', 'LIKE');
+    // $confTheme = ConfigDrupal::config('system.theme');
+    $entity_query = $this->getEntityQuery('menu_link_content')->condition('bundle', $this->getTypeMenu() . '_main');
     // $query =
     // \Drupal::entityTypeManager()->getStorage('menu_link_content')->getQuery();
     // $query->condition('bundle', 'test62_wb_horizon_kksa' . '%', "LIKE");
-    // dump($query->execute());
+    // dump($entity_query->execute());
     // die();
 
     $cacheability->addCacheContexts([
@@ -78,7 +81,7 @@ class MenuLinkContent extends EntityQueryResourceBase {
    */
   public function getRouteResourceTypes(Route $route, string $route_name): array {
     return array_map(function ($resource_type_name) use ($route_name) {
-      $resource_type_name = 'menu_link_content--test62_wb_horizon_kksa_main';
+      // $resource_type_name = 'menu_link_content--entreprise-btiment_main';
       $resource_type = $this->resourceTypeRepository->getByTypeName($resource_type_name);
       if (is_null($resource_type)) {
         // @todo: try to move this exception into
@@ -87,6 +90,35 @@ class MenuLinkContent extends EntityQueryResourceBase {
       }
       return $resource_type;
     }, $route->getDefault('_jsonapi_resource_types') ?: []);
+  }
+
+  /**
+   *
+   * @return string
+   */
+  protected function getTypeMenu() {
+    if (!$this->typeMenu) {
+      /**
+       *
+       * @var \Drupal\domain\DomainNegotiator $domainNeg
+       */
+      $domainNeg = \Drupal::service('domain.negotiator');
+      if ($domaineId = $domainNeg->getActiveId()) {
+        $entities = $this->entityTypeManager->getStorage("domain_ovh_entity")->loadByProperties([
+          'domain_id_drupal' => $domaineId
+        ]);
+        if (!empty($entities)) {
+          /**
+           *
+           * @var \Drupal\ovh_api_rest\Entity\DomainOvhEntity $entity
+           */
+          $entity = reset($entities);
+          $this->typeMenu = $entity->getsubDomain();
+        }
+      }
+    }
+    // dump($this->typeMenu);
+    return $this->typeMenu;
   }
 
 }

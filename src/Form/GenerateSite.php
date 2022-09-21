@@ -99,7 +99,14 @@ class GenerateSite extends ConfigFormBase {
       $Filesystem = new FilesystemSymphony();
       $Filesystem->mkdir($path);
       $Filesystem->mirror($baseSite, $path);
-      $this->messenger()->addStatus(' le dossier existe || ' . $path);
+      // On copie le theme.
+      $subPathTheme = drupal_get_path('theme', $this->currentDomaine->id());
+      $pathTheme = DRUPAL_ROOT . '/' . $subPathTheme;
+      if (file_exists($pathTheme)) {
+        $Filesystem->mirror($pathTheme, $path . '/web/' . $subPathTheme);
+        $this->messenger()->addStatus(" Theme copieé : " . $path . '/web/' . $subPathTheme . " :: " . $pathTheme);
+      }
+      $this->messenger()->addStatus(" Les fichiers de base ont été generé ");
     }
 
     //
@@ -126,7 +133,7 @@ class GenerateSite extends ConfigFormBase {
     // $config = $this->config(static::$keyEditable);
     $form['#attributes']['class'][] = 'container';
     $form['actions']['submit']['#value'] = 'Generer et telecharger les fichiers de votre site';
-
+    //
     return $form;
   }
 
@@ -210,6 +217,7 @@ class GenerateSite extends ConfigFormBase {
       $Filesystem->mkdir($baseZip);
     if (file_exists($baseZip . $this->currentDomaine->id() . ".zip"))
       $Filesystem->remove($baseZip . $this->currentDomaine->id() . ".zip");
+
     //
     // $archiveDir = 'public://pdf-export/';
     // $archivePath = $archiveDir . $this->currentDomaine->id() . '.zip';
@@ -310,8 +318,11 @@ class GenerateSite extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     if ($form_state->getValue('donwload_files')) {
-      if ($this->generateZip())
-        $form_state->setRedirect('export_import_entities.downloadsitezip');
+      if ($this->generateZip()) {
+        $form_state->setRedirect('export_import_entities.downloadsitezip', [
+          'domaineId' => $this->currentDomaine->id()
+        ]);
+      }
     }
     //
     parent::submitForm($form, $form_state);

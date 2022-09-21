@@ -63,6 +63,7 @@ class LoadConfigs extends ControllerBase {
   public function getConfigFromName(string $name) {
     debugLog::$debug = false;
     debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
+    // dump(debugLog::$path);
     if (empty(self::$configEntities[$name])) {
       $string = Yaml::encode($this->configStorage->read($name));
       debugLog::logger($string, $name . '.yml', false, 'file');
