@@ -39,6 +39,10 @@ class PageWeb extends EntityQueryResourceBase {
     // try to load theme;
     $confTheme = ConfigDrupal::config('system.theme');
     $entity_query = $this->getEntityQuery('site_internet_entity')->condition('field_domain_access', $confTheme['default']);
+    // $langueFrEn = $entity_query->orConditionGroup();
+    // $langueFrEn->condition('langcode', 'en');
+    // $langueFrEn->condition('langcode', 'fr');
+    // $entity_query->condition($langueFrEn);
     $cacheability->addCacheContexts([
       'url.path'
     ]);
