@@ -81,7 +81,7 @@ class MenuLinkContent extends EntityQueryResourceBase {
    */
   public function getRouteResourceTypes(Route $route, string $route_name): array {
     return array_map(function ($resource_type_name) use ($route_name) {
-      // $resource_type_name = 'menu_link_content--entreprise-btiment_main';
+      $resource_type_name = 'menu_link_content--entreprise-btiment_main';
       $resource_type = $this->resourceTypeRepository->getByTypeName($resource_type_name);
       if (is_null($resource_type)) {
         // @todo: try to move this exception into
