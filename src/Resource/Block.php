@@ -40,10 +40,19 @@ class Block extends EntityQueryResourceBase {
     $confTheme = ConfigDrupal::config('system.theme');
     // $entity_query = $this->getEntityQuery('block')->condition('theme',
     // $confTheme['default']);
-    $entity_query = $this->getEntityQuery('block')->condition('theme', $confTheme['default']);
+
+    $entity_query = $this->getEntityQuery('block');
+    // test9
+    $or = $entity_query->orConditionGroup();
+    $or->condition('theme', $confTheme['default']);
+    // $or->condition('id', $confTheme['default'], 'CONTAINS');
+    $entity_query->condition($or);
     $cacheability->addCacheContexts([
       'url.path'
     ]);
+    // $entity_query =
+    // \Drupal::entityTypeManager()->getStorage('block')->getQuery();
+    // $entity_query->condition('theme', 'entreprise_btiment_wb_horizon_kksa');
 
     $paginator = $this->getPaginatorForRequest($request);
     $paginator->applyToQuery($entity_query, $cacheability);

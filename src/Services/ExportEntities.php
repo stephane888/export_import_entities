@@ -151,7 +151,7 @@ class ExportEntities extends ControllerBase {
     $this->getMenus();
     // $block =
     // $this->entityTypeManager()->getStorage('block')->load('test62_wb_horizon_kksa_breamcrumb');
-    dump($this->LoadConfigs->getGenerate());
+    // dump($this->LoadConfigs->getGenerate());
     // die();
   }
 
@@ -223,6 +223,15 @@ class ExportEntities extends ControllerBase {
     $this->LoadConfigs->getConfigFromName($name);
     //
     $name = 'language.negotiation';
+    $this->LoadConfigs->getConfigFromName($name);
+    //
+    $name = 'language.mappings';
+    $this->LoadConfigs->getConfigFromName($name);
+    //
+    $name = 'language.types';
+    $this->LoadConfigs->getConfigFromName($name);
+    //
+    $name = 'languageicons.settings';
     $this->LoadConfigs->getConfigFromName($name);
     //
     $name = 'filter.format.full_html';
