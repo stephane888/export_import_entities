@@ -50,6 +50,9 @@ class ExportImportEntitiesController extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\Response
    */
   public function DownloadSiteZip($domaineId) {
+    // On regenerer les routes juste avant de telecharger
+    \Drupal::service('router.builder')->rebuild();
+    //
     $pt = explode('/web', DRUPAL_ROOT);
     $baseZip = $pt[0] . '/sites_exports/zips/';
     $path = $baseZip . $domaineId . '.zip';
@@ -57,8 +60,6 @@ class ExportImportEntitiesController extends ControllerBase {
     $response = new Response();
     // $response->headers->set('Content-Type',
     // 'application/zip,application/octet-stream');
-
-    //
     $data = file_get_contents($path);
     if ($data) {
       $response->setContent($data);

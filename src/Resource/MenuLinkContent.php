@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Stephane888\Debug\Repositories\ConfigDrupal;
 use Symfony\Component\Routing\Route;
 use Drupal\jsonapi_resources\Exception\RouteDefinitionException;
+use Drupal\jsonapi\JsonApiResource\ResourceObjectData;
+use Drupal\jsonapi_resources\Exception\ResourceImplementationException;
+use Drupal\jsonapi\JsonApiResource\ResourceObject;
 
 /**
  * Permet de retourner les pages en function du domaine.
@@ -62,6 +65,8 @@ class MenuLinkContent extends EntityQueryResourceBase {
       'url.path'
     ]);
 
+    // $this->test();
+
     $paginator = $this->getPaginatorForRequest($request);
     $paginator->applyToQuery($entity_query, $cacheability);
 
@@ -75,18 +80,38 @@ class MenuLinkContent extends EntityQueryResourceBase {
     return $response;
   }
 
+  protected function test() {
+    /**
+     *
+     * @var \Drupal\Core\Routing\AccessAwareRouter $routerBuilder
+     */
+    $routerBuilder = \Drupal::service("router");
+    // dump($routerBuilder->);
+    /**
+     *
+     * @var \Drupal\domain\Routing\DomainRouteProvider $router
+     */
+    $routerProvider = \Drupal::service('router.route_provider');
+    $route = $routerProvider->getRouteByName('jsonapi.block_content--container_breamcrumb.individual');
+    dump($route);
+  }
+
   /**
+   * jsonapi.menu_link_content--test_main.individual
    *
    * {@inheritdoc}
    */
   public function getRouteResourceTypes(Route $route, string $route_name): array {
     return array_map(function ($resource_type_name) use ($route_name) {
-      $resource_type_name = 'menu_link_content--entreprise-btiment_main';
+      $resource_type_name = 'menu_link_content--' . $this->getTypeMenu() . '_main';
       $resource_type = $this->resourceTypeRepository->getByTypeName($resource_type_name);
       if (is_null($resource_type)) {
         // @todo: try to move this exception into
         // Drupal\jsonapi_resources\Routing\ResourceRoutes::ensureResourceImplementationValid().
-        throw new RouteDefinitionException("The $route_name route definition's _jsonapi_resource_types route default declares the resource type $resource_type_name but a resource type by that name does not exist.");
+        throw new RouteDefinitionException("The $route_name route
+        definition's _jsonapi_resource_types route default declares the
+        resource type $resource_type_name but a resource type by that name
+        does not exist.");
       }
       return $resource_type;
     }, $route->getDefault('_jsonapi_resource_types') ?: []);

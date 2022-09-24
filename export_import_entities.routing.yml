@@ -1,3 +1,6 @@
+route_callbacks:
+  - '\Drupal\export_import_entities\Routing\DynamicRoutes::routes'
+  
 export_import_entities.example:
   path: '/export-import-entities/current-theme'
   defaults:
