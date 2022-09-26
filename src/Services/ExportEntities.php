@@ -106,6 +106,18 @@ class ExportEntities extends ControllerBase {
     $this->LoadViewDisplays = $LoadViewDisplays;
   }
 
+  public function setNewDomain($domaineId) {
+    $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
+    if ($domain)
+      $this->currentDomaine = $domain;
+    else
+      throw new \Exception("le Domain n'exite pas");
+    //
+    $this->LoadConfigs->setNewDomain($domaineId);
+    $this->LoadFormDisplays->setNewDomain($domaineId);
+    $this->LoadViewDisplays->setNewDomain($domaineId);
+  }
+
   function getEntites() {
     $ListEntities = $this->entityTypeManager()->getDefinitions();
     // dump($this->currentDomaine->id());

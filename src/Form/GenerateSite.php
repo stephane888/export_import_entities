@@ -187,6 +187,7 @@ class GenerateSite extends ConfigFormBase {
     if ($nextStep > $this->maxStep)
       $nextStep = $this->maxStep;
     if ($form_state->getValue('generate_files')) {
+      $this->ExportEntities->setNewDomain($this->currentDomaine->id());
       $this->ExportEntities->getEntites();
       \Drupal::messenger()->addStatus(' Les fichiers de configurations ont été generer ');
     }

@@ -32,6 +32,16 @@ class ThirdPartySettings extends ControllerBase {
     $this->LoadConfigs = $LoadConfigs;
   }
 
+  public function setNewDomain($domaineId) {
+    $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
+    if ($domain)
+      $this->currentDomaine = $domain;
+    else
+      throw new \Exception("le Domain n'exite pas");
+    //
+    $this->LoadConfigs->setNewDomain($domaineId);
+  }
+
   /**
    * Pour le moment ThirdParty ne fournit pas de mecanisme pour recuprerer
    * efficassement les dependances.

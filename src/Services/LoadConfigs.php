@@ -49,6 +49,14 @@ class LoadConfigs extends ControllerBase {
     $this->currentDomaine = $DomainNegotiator->getActiveDomain();
   }
 
+  public function setNewDomain($domaineId) {
+    $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
+    if ($domain)
+      $this->currentDomaine = $domain;
+    else
+      throw new \Exception("le Domain n'exite pas");
+  }
+
   protected function getInstanceFinder() {
     if (!$this->Finder)
       $this->Finder = new Finder();

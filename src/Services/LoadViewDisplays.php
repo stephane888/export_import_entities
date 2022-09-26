@@ -31,6 +31,17 @@ class LoadViewDisplays extends ControllerBase {
     $this->ThirdPartySettings = $ThirdPartySettings;
   }
 
+  public function setNewDomain($domaineId) {
+    $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
+    if ($domain)
+      $this->currentDomaine = $domain;
+    else
+      throw new \Exception("le Domain n'exite pas");
+    //
+    $this->LoadConfigs->setNewDomain($domaineId);
+    $this->ThirdPartySettings->setNewDomain($domaineId);
+  }
+
   /**
    * Permet de charger l
    *
