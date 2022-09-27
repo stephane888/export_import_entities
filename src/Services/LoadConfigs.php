@@ -80,6 +80,8 @@ class LoadConfigs extends ControllerBase {
         'value' => $string
       ];
       $this->loadConfigsViewTerms($name);
+      // On essaie de charger les configurations requises.
+      $this->loadDependancyConfig($name);
     }
   }
 
@@ -208,11 +210,10 @@ class LoadConfigs extends ControllerBase {
    * @param string $nameConf
    */
   private function loadDependancyConfig($nameConf) {
-    [
-      $entity_type,
-      $entity,
-      $mode
-    ] = explode(".", $nameConf);
+    $entity_type = null;
+    $ar = explode(".", $nameConf);
+    if (!empty($ar[0]))
+      $entity_type = $ar[0];
     // - Determiner ses dependances.
     if ($entity_type == 'field') {
       $fieldsKeys = explode(".", $nameConf);
