@@ -260,6 +260,27 @@ class ExportEntities extends ControllerBase {
     //
     $name = 'generate_style_theme.settings';
     $this->LoadConfigs->getConfigFromName($name);
+    //
+    $name = 'commerce_price.commerce_currency.EUR';
+    $this->LoadConfigs->getConfigFromName($name);
+    //
+    $name = 'commerce_price.commerce_currency.USD';
+    $this->LoadConfigs->getConfigFromName($name);
+    //
+    $name = 'rest.resource.commerce_cart_add';
+    $this->LoadConfigs->getConfigFromName($name);
+    //
+    $name = 'editor.editor.basic_html';
+    $this->LoadConfigs->getConfigFromName($name);
+    //
+    $name = 'editor.editor.full_html';
+    $this->LoadConfigs->getConfigFromName($name);
+    //
+    $name = 'pathauto.pattern.taxo_term';
+    $this->LoadConfigs->getConfigFromName($name);
+    //
+    $name = 'pathauto.pattern.page_site_web';
+    $this->LoadConfigs->getConfigFromName($name);
   }
 
   /**
