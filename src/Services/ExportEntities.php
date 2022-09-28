@@ -446,6 +446,44 @@ class ExportEntities extends ControllerBase {
         $bundles[$entity_type] = $entity_type;
       }
     }
+
+    /**
+     * Seule le type de produit contient le champs domain access, donc pour
+     * chaque type de produit on doit recuperer :
+     * - les types de variations
+     * -
+     */
+    if (!empty($contents) && $entity_type == 'commerce_product') {
+      $products = $contents;
+      $productBundles = [];
+      foreach ($products as $product) {
+        /**
+         *
+         * @var \Drupal\commerce_product\Entity\Product $product
+         */
+        $variations = $product->getVariations();
+        foreach ($variations as $variation) {
+          $BundleEntityType = $variation->getEntityType()->getBundleEntityType();
+          /**
+           *
+           * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityTypeDefinition
+           */
+          $entityTypeDefinition = $this->entityTypeManager()->getDefinition($BundleEntityType);
+          $bundle = $variation->bundle();
+          $name = $entityTypeDefinition->getConfigPrefix() . '.' . $bundle;
+          $productBundles[$bundle] = $bundle;
+          if (!$this->LoadConfigs->hasGenerate($name)) {
+            $this->LoadConfigs->getConfigFromName($name);
+            // On genere si possible les configurations liées à la traduction.
+            $idTranslation = 'language.content_settings.' . $value->getEntityTypeId() . '.' . $bundle;
+            $this->LoadConfigs->getConfigFromName($idTranslation);
+            //
+            $this->LoadFormDisplays->getDisplays($variation->getEntityTypeId(), $productBundles);
+            $this->LoadViewDisplays->getDisplays($variation->getEntityTypeId(), $productBundles);
+          }
+        }
+      }
+    }
   }
 
 /**
