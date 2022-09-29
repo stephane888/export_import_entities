@@ -9,5 +9,8 @@
             "email": "kksasteph888@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+    	"drupal/jsonapi_resources": "^1.0@beta",
+    	"stephane888/debug": "^1.1"
+    }
 }

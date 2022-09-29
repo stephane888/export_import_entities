@@ -4,3 +4,5 @@ description: permet d&#039;extraire la configuration d&#039;un site et les donn√
 package: Custom
 core: 8.x
 core_version_requirement: ^8 || ^9
+dependencies:
+  - drupal:jsonapi_resources
