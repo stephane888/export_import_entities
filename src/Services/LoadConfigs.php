@@ -71,7 +71,7 @@ class LoadConfigs extends ControllerBase {
     if ($this->currentDomaine)
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
     else
-      debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/web/profiles/contrib/wb_horizon_generate/config/install';
+      debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install';
     // dump(debugLog::$path);
     if (empty(self::$configEntities[$name])) {
       $string = Yaml::encode($this->configStorage->read($name));

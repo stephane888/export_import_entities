@@ -51,12 +51,7 @@ class SettingsForm extends ConfigFormBase {
       ];
       // }
     }
-    //
-    $form['export_orthers_entities'] = [
-      '#type' => 'checkbox',
-      '#title' => 'Exporter les données basique (langue, editeurs, filtre de test)',
-      '#default_value' => $config->get('export_orthers_entities')
-    ];
+
     //
     $form['export_orthers_entities'] = [
       '#type' => 'checkbox',

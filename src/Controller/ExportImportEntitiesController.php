@@ -8,7 +8,6 @@ use Drupal\export_import_entities\Services\ExportEntities;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Drupal\domain\DomainNegotiator;
 
 /**
  * Returns responses for Export Import Entities routes.
@@ -23,13 +22,12 @@ class ExportImportEntitiesController extends ControllerBase {
    */
   protected $ExportEntities;
 
-  function __construct(ExportEntities $ExportEntities, DomainNegotiator $DomainNegotiator) {
+  function __construct(ExportEntities $ExportEntities) {
     $this->ExportEntities = $ExportEntities;
-    $this->currentDomaine = $DomainNegotiator;
   }
 
   static function create(ContainerInterface $container) {
-    return new static($container->get('export_import_entities.export.entites'), $container->get('domain.negotiator'));
+    return new static($container->get('export_import_entities.export.entites'));
   }
 
   /**
