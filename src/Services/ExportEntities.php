@@ -5,7 +5,6 @@ namespace Drupal\export_import_entities\Services;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\ContentEntityType;
 use Stephane888\Debug\debugLog;
-use Drupal\domain\DomainNegotiator;
 use Drupal\node\Entity\Node;
 use Drupal\views\Plugin\views\filter\Bundle;
 use Drupal\Core\Entity\EntityFieldManager;
@@ -15,7 +14,6 @@ use Drupal\taxonomy\Entity\Term;
 
 class ExportEntities extends ControllerBase {
   protected static $field_domain_access = 'field_domain_access';
-  protected $DomainNegotiator;
   protected $currentDomaine;
   protected $entityFieldManger;
   /**
@@ -37,6 +35,7 @@ class ExportEntities extends ControllerBase {
    * -- Les entittés sans bundle --
    *
    * @var array
+   * @deprecated
    */
   protected $validesEntities = [
     'node',
@@ -87,18 +86,21 @@ class ExportEntities extends ControllerBase {
    * @var LoadViewDisplays
    */
   protected $LoadViewDisplays;
+  /**
+   * key 'export_import_entities.settings'
+   *
+   * @var array
+   */
+  protected $settings;
 
   /**
    *
-   * @param DomainNegotiator $DomainNegotiator
    * @param EntityFieldManager $EntityFieldManager
    * @param StorageInterface $config_storage
    * @param LoadFormDisplays $LoadFormDisplays
    * @param LoadConfigs $LoadConfigs
    */
-  function __construct(DomainNegotiator $DomainNegotiator, EntityFieldManager $EntityFieldManager, StorageInterface $config_storage, LoadFormDisplays $LoadFormDisplays, LoadConfigs $LoadConfigs, LoadViewDisplays $LoadViewDisplays) {
-    $this->DomainNegotiator = $DomainNegotiator;
-    $this->currentDomaine = $this->DomainNegotiator->getActiveDomain();
+  function __construct(EntityFieldManager $EntityFieldManager, StorageInterface $config_storage, LoadFormDisplays $LoadFormDisplays, LoadConfigs $LoadConfigs, LoadViewDisplays $LoadViewDisplays) {
     $this->EntityFieldManager = $EntityFieldManager;
     $this->configStorage = $config_storage;
     $this->LoadFormDisplays = $LoadFormDisplays;
@@ -111,17 +113,52 @@ class ExportEntities extends ControllerBase {
     if ($domain)
       $this->currentDomaine = $domain;
     else
-      throw new \Exception("le Domain n'exite pas");
+      throw new \Exception("Le Domain n'exite pas");
     //
     $this->LoadConfigs->setNewDomain($domaineId);
     $this->LoadFormDisplays->setNewDomain($domaineId);
     $this->LoadViewDisplays->setNewDomain($domaineId);
   }
 
+  public function getCurentDomain() {
+    if (\Drupal::moduleHandler()->moduleExists('domain')) {
+      $this->currentDomaine = \Drupal::service('domain.negotiator')->getActiveDomain();
+      $this->setNewDomain($this->currentDomaine->id());
+    }
+  }
+
+  protected function getValidesEntities() {
+    $config = $this->getConfigs();
+    $validesEntities = [];
+    if (!empty($config['list_entities'])) {
+      foreach ($config['list_entities'] as $key => $value) {
+        if ($value)
+          $validesEntities[] = $key;
+      }
+    }
+    return $validesEntities;
+  }
+
+  /**
+   * --
+   *
+   * @return array|number|mixed|\Drupal\Component\Render\MarkupInterface|string
+   */
+  protected function getConfigs() {
+    if (!$this->settings) {
+      $this->settings = $this->config('export_import_entities.settings')->getRawData();
+    }
+    return $this->settings;
+  }
+
   function getEntites() {
     $ListEntities = $this->entityTypeManager()->getDefinitions();
-    // dump($this->currentDomaine->id());
-    foreach ($this->validesEntities as $value) {
+    if (empty($this->currentDomaine)) {
+      $this->getCurentDomain();
+    }
+    $settings = $this->getConfigs();
+    //
+    foreach ($this->getValidesEntities() as $value) {
       if (!empty($ListEntities[$value])) {
         /**
          *
@@ -156,11 +193,14 @@ class ExportEntities extends ControllerBase {
       }
     }
     // Generate custom config.
-    $this->generateCustomConfigs();
-    $this->generateImagesStyle();
+    if ($settings['export_orthers_entities'])
+      $this->generateCustomConfigs();
+    if ($settings['export_image_styles'])
+      $this->generateImagesStyle();
     // $this->loadConfigFromEntities();
     //
-    $this->getMenus();
+    if ($settings['export_menus'])
+      $this->getMenus();
     // $block =
     // $this->entityTypeManager()->getStorage('block')->load('test62_wb_horizon_kksa_breamcrumb');
     // dump($this->LoadConfigs->getGenerate());
@@ -204,10 +244,10 @@ class ExportEntities extends ControllerBase {
   }
 
   function getMenus() {
-    $domainId = $this->currentDomaine->id();
     $entityMenu = $this->entityTypeManager()->getDefinition("menu");
     $query = $this->entityTypeManager()->getStorage("menu")->getQuery();
-    $query->condition('id', $domainId, 'CONTAINS');
+    if ($this->currentDomaine)
+      $query->condition('id', $this->currentDomaine->id(), 'CONTAINS');
     $ids = $query->execute();
     foreach ($ids as $id) {
       $name = $entityMenu->getConfigPrefix() . '.' . $id;
@@ -386,23 +426,28 @@ class ExportEntities extends ControllerBase {
    * (example retourne les contenus pour l'entité node).
    */
   protected function loadContents(string $entity_type, &$contents, &$bundles = []) {
-    $domainId = $this->currentDomaine->id();
     // Il faut mettre à jour le nom du champs pour qu'il soit validé. ( version
     // 2x).
-    if ($entity_type == 'config_theme_entity') {
-      $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
-        'hostname' => $domainId
-      ]);
+    if ($this->currentDomaine) {
+      $domaineId = $this->currentDomaine->id();
+      if ($entity_type == 'config_theme_entity') {
+        $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
+          'hostname' => $domaineId
+        ]);
+      }
+      elseif ($entity_type == 'block') {
+        $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
+          'theme' => $domaineId
+        ]);
+      }
+      else
+        $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
+          self::$field_domain_access => $domaineId
+        ]);
     }
-    elseif ($entity_type == 'block') {
-      $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
-        'theme' => $domainId
-      ]);
+    else {
+      $contents = $this->entityTypeManager()->getStorage($entity_type)->loadMultiple();
     }
-    else
-      $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
-        self::$field_domain_access => $domainId
-      ]);
 
     foreach ($contents as $value) {
       $BundleEntityType = $value->getEntityType()->getBundleEntityType();

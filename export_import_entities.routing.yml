@@ -1,10 +1,10 @@
 route_callbacks:
   - '\Drupal\export_import_entities\Routing\DynamicRoutes::routes'
   
-export_import_entities.example:
-  path: '/export-import-entities/current-theme'
+export_import_entities.current_export:
+  path: '/export-import-entities/current-export'
   defaults:
-    _title: 'Example'
+    _title: 'Get current export'
     _controller: '\Drupal\export_import_entities\Controller\ExportImportEntitiesController::build'
   requirements:
     _permission: 'access content'

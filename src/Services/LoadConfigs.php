@@ -8,7 +8,6 @@ use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Serialization\Yaml;
 use Symfony\Component\Finder\Finder;
 use DrupalFinder\DrupalFinder;
-use Drupal\domain\DomainNegotiator;
 
 /**
  * Permet de charger les diffirents affichage pour une entité.
@@ -44,9 +43,8 @@ class LoadConfigs extends ControllerBase {
    */
   protected $currentDomaine;
 
-  function __construct(StorageInterface $config_storage, DomainNegotiator $DomainNegotiator) {
+  function __construct(StorageInterface $config_storage) {
     $this->configStorage = $config_storage;
-    $this->currentDomaine = $DomainNegotiator->getActiveDomain();
   }
 
   public function setNewDomain($domaineId) {
@@ -70,7 +68,10 @@ class LoadConfigs extends ControllerBase {
    */
   public function getConfigFromName(string $name) {
     debugLog::$debug = false;
-    debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
+    if ($this->currentDomaine)
+      debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
+    else
+      debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/web/profiles/contrib/wb_horizon_generate/config/install';
     // dump(debugLog::$path);
     if (empty(self::$configEntities[$name])) {
       $string = Yaml::encode($this->configStorage->read($name));
