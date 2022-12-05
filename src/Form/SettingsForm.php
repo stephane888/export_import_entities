@@ -43,15 +43,12 @@ class SettingsForm extends ConfigFormBase {
     //
     $entities = \Drupal::entityTypeManager()->getDefinitions();
     foreach ($entities as $entity) {
-      // if (!empty($entity->getKey('bundle'))) {
       $form['list_entities'][$entity->id()] = [
         '#type' => 'checkbox',
         '#title' => $entity->getLabel(),
         '#default_value' => $config->get('list_entities.' . $entity->id()) ? $config->get('list_entities.' . $entity->id()) : 0
       ];
-      // }
     }
-
     //
     $form['export_orthers_entities'] = [
       '#type' => 'checkbox',
@@ -71,7 +68,6 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('export_menus')
     ];
     //
-
     return parent::buildForm($form, $form_state);
   }
 

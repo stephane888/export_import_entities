@@ -204,7 +204,6 @@ class ExportEntities extends ControllerBase {
     // $block =
     // $this->entityTypeManager()->getStorage('block')->load('test62_wb_horizon_kksa_breamcrumb');
     // dump($this->LoadConfigs->getGenerate());
-    // dump($this->LoadConfigs->getGenerate());
     // die();
   }
 
@@ -339,8 +338,6 @@ class ExportEntities extends ControllerBase {
    * (example retourne les contenus pour l'entité node).
    */
   protected function loadContents(string $entity_type, &$contents, &$bundles = []) {
-    // Il faut mettre à jour le nom du champs pour qu'il soit validé. ( version
-    // 2x).
     if ($this->currentDomaine) {
       $domaineId = $this->currentDomaine->id();
       if ($entity_type == 'config_theme_entity') {
@@ -352,6 +349,17 @@ class ExportEntities extends ControllerBase {
         $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
           'theme' => $domaineId
         ]);
+      }
+      elseif ($entity_type == 'webform') {
+        /**
+         *
+         * @var \Drupal\Core\Entity\Query\QueryInterface $query
+         */
+        $query = $this->entityTypeManager()->getStorage($entity_type)->getQuery();
+        $query->condition('third_party_settings.webform_domain_access.field_domain_access', $this->currentDomaine->id());
+        $result = $query->execute();
+        if (!empty($result))
+          $contents = $this->entityTypeManager()->getStorage($entity_type)->loadMultiple($result);
       }
       else
         $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
