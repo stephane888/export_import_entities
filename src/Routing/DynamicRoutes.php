@@ -8,14 +8,46 @@ use Symfony\Component\Routing\Route;
  * Defines dynamic routes.
  */
 class DynamicRoutes {
-
+  
   /**
    *
    * {@inheritdoc}
    */
   public function routes() {
     $routes = [];
-    //
+    $this->routeForMainMenu($routes);
+    $this->routeForEvreryParagraph($routes);
+    return $routes;
+  }
+  
+  /**
+   * Route permettant de retourner tous les paragraphes.
+   *
+   * @param array $routes
+   */
+  public function routeForEvreryParagraph(array &$routes) {
+    $paragraphs_type = \Drupal::entityTypeManager()->getStorage('paragraphs_type')->loadMultiple();
+    $resource_types = [];
+    foreach ($paragraphs_type as $paragraph_type) {
+      $resource_types[] = 'paragraph--' . $paragraph_type->id();
+    }
+    $routes['export_import_entities.paragraph'] = new Route('/%jsonapi%/export/paragraph', [
+      '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\ParagraphContent',
+      '_jsonapi_resource_types' => $resource_types,
+      'requirements' => [
+        '_permission' => 'access content',
+        '_user_is_logged_in' => TRUE,
+        '_auth' => 'basic_auth'
+      ]
+    ]);
+  }
+  
+  /**
+   * Permet de generer une route d'export pour chaque menu principal.
+   *
+   * @param array $routes
+   */
+  protected function routeForMainMenu(array &$routes) {
     $entity_query = \Drupal::entityTypeManager()->getStorage('menu')->getQuery();
     $entity_query->condition('id', '_main', 'CONTAINS');
     // $entity_query->g
@@ -28,7 +60,6 @@ class DynamicRoutes {
         ]
       ]);
     }
-    return $routes;
   }
-
+  
 }

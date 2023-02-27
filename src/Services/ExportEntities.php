@@ -22,7 +22,7 @@ class ExportEntities extends ControllerBase {
    * @var \Drupal\Core\Config\StorageInterface
    */
   protected $configStorage;
-
+  
   /**
    * Contient la liste des entites dont les configurations doivent etre
    * extraites si elles remplissent les conditions.
@@ -47,7 +47,7 @@ class ExportEntities extends ControllerBase {
     // fonctionnalité (le theme, plugin derivée ) ne sont pas sur le modele.
     'commerce_product'
   ];
-
+  
   /**
    *
    * @var array
@@ -55,32 +55,32 @@ class ExportEntities extends ControllerBase {
   protected $directEntities = [
     'taxonomy_term'
   ];
-
+  
   /**
    * Contient la liste des configurations deja crees.
    *
    * @var array
    */
   protected $configEntities = [];
-
+  
   /**
    *
    * @var LoadFormDisplays
    */
   protected $LoadFormDisplays;
-
+  
   /**
    *
    * @var LoadFormWrite
    */
   protected $LoadFormWrite;
-
+  
   /**
    *
    * @var LoadConfigs
    */
   protected $LoadConfigs;
-
+  
   /**
    *
    * @var LoadViewDisplays
@@ -92,7 +92,7 @@ class ExportEntities extends ControllerBase {
    * @var array
    */
   protected $settings;
-
+  
   /**
    *
    * @param EntityFieldManager $EntityFieldManager
@@ -101,13 +101,13 @@ class ExportEntities extends ControllerBase {
    * @param LoadConfigs $LoadConfigs
    */
   function __construct(EntityFieldManager $EntityFieldManager, StorageInterface $config_storage, LoadFormDisplays $LoadFormDisplays, LoadConfigs $LoadConfigs, LoadViewDisplays $LoadViewDisplays) {
-    $this->EntityFieldManager = $EntityFieldManager;
+    $this->entityFieldManger = $EntityFieldManager;
     $this->configStorage = $config_storage;
     $this->LoadFormDisplays = $LoadFormDisplays;
     $this->LoadConfigs = $LoadConfigs;
     $this->LoadViewDisplays = $LoadViewDisplays;
   }
-
+  
   public function setNewDomain($domaineId) {
     $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
     if ($domain)
@@ -119,14 +119,14 @@ class ExportEntities extends ControllerBase {
     $this->LoadFormDisplays->setNewDomain($domaineId);
     $this->LoadViewDisplays->setNewDomain($domaineId);
   }
-
+  
   public function getCurentDomain() {
     if (\Drupal::moduleHandler()->moduleExists('domain')) {
       $this->currentDomaine = \Drupal::service('domain.negotiator')->getActiveDomain();
       $this->setNewDomain($this->currentDomaine->id());
     }
   }
-
+  
   protected function getValidesEntities() {
     $config = $this->getConfigs();
     $validesEntities = [];
@@ -138,7 +138,7 @@ class ExportEntities extends ControllerBase {
     }
     return $validesEntities;
   }
-
+  
   /**
    * --
    *
@@ -150,7 +150,7 @@ class ExportEntities extends ControllerBase {
     }
     return $this->settings;
   }
-
+  
   function getEntites() {
     $ListEntities = $this->entityTypeManager()->getDefinitions();
     if (empty($this->currentDomaine)) {
@@ -165,7 +165,7 @@ class ExportEntities extends ControllerBase {
          * @var ContentEntityType $ContentEntityType
          */
         $ContentEntityType = $ListEntities[$value];
-
+        
         // $entity_id cest par example node.
         $entity_type = $ContentEntityType->id();
         // On recupere sont contenus.
@@ -198,7 +198,6 @@ class ExportEntities extends ControllerBase {
     if ($settings['export_image_styles'])
       $this->generateImagesStyle();
     // $this->loadConfigFromEntities();
-    //
     if ($settings['export_menus'])
       $this->getMenus();
     // $block =
@@ -206,7 +205,7 @@ class ExportEntities extends ControllerBase {
     // dump($this->LoadConfigs->getGenerate());
     // die();
   }
-
+  
   function loadConfigFromEntities() {
     foreach ($this->directEntities as $BundleEntityType) {
       /**
@@ -228,7 +227,7 @@ class ExportEntities extends ControllerBase {
       }
     }
   }
-
+  
   /**
    * ThirdPartySettings via layout_builder, ne semble pas permettre de charger
    * les depences.
@@ -241,7 +240,7 @@ class ExportEntities extends ControllerBase {
       $this->LoadConfigs->getConfigFromName($name);
     }
   }
-
+  
   function getMenus() {
     $entityMenu = $this->entityTypeManager()->getDefinition("menu");
     $query = $this->entityTypeManager()->getStorage("menu")->getQuery();
@@ -255,11 +254,12 @@ class ExportEntities extends ControllerBase {
       }
     }
   }
-
+  
   /**
    * --
    */
   function generateCustomConfigs() {
+    $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
     // Themes config.
     $string = Yaml::encode([
       'admin' => 'claro',
@@ -275,7 +275,12 @@ class ExportEntities extends ControllerBase {
     $this->LoadConfigs->getConfigFromName($name);
     //
     $name = 'language.negotiation';
-    $this->LoadConfigs->getConfigFromName($name);
+    // Surcharger la langue par defaut, ( afin de definir la langue par defaut
+    // du site d'exportation sur la langue encours)
+    $overrides = [
+      'langcode' => $lang_code
+    ];
+    $this->LoadConfigs->getConfigFromName($name, $overrides);
     //
     $name = 'language.mappings';
     $this->LoadConfigs->getConfigFromName($name);
@@ -322,16 +327,16 @@ class ExportEntities extends ControllerBase {
     $name = 'pathauto.pattern.page_site_web';
     $this->LoadConfigs->getConfigFromName($name);
   }
-
+  
   /**
    * Retourne les configurations de champs pour une entité donnée.
    */
   public function getFieldsFromEntity($entity_type_id, $bundle = null) {
     if (!$bundle)
       $bundle = $entity_type_id;
-    $Allfields = $this->EntityFieldManager->getFieldDefinitions($entity_type_id, $bundle);
+    $Allfields = $this->entityFieldManger->getFieldDefinitions($entity_type_id, $bundle);
   }
-
+  
   /**
    * Recupere la configuration % au contenus.
    * ( Config field, node, nodetype, bloc ...)
@@ -340,13 +345,14 @@ class ExportEntities extends ControllerBase {
   protected function loadContents(string $entity_type, &$contents, &$bundles = []) {
     if ($this->currentDomaine) {
       $domaineId = $this->currentDomaine->id();
+      $storage = $this->entityTypeManager()->getStorage($entity_type);
       if ($entity_type == 'config_theme_entity') {
-        $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
+        $contents = $storage->loadByProperties([
           'hostname' => $domaineId
         ]);
       }
       elseif ($entity_type == 'block') {
-        $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
+        $contents = $storage->loadByProperties([
           'theme' => $domaineId
         ]);
       }
@@ -355,21 +361,45 @@ class ExportEntities extends ControllerBase {
          *
          * @var \Drupal\Core\Entity\Query\QueryInterface $query
          */
-        $query = $this->entityTypeManager()->getStorage($entity_type)->getQuery();
+        $query = $storage->getQuery();
         $query->condition('third_party_settings.webform_domain_access.field_domain_access', $this->currentDomaine->id());
         $result = $query->execute();
         if (!empty($result))
-          $contents = $this->entityTypeManager()->getStorage($entity_type)->loadMultiple($result);
+          $contents = $storage->loadMultiple($result);
       }
-      else
-        $contents = $this->entityTypeManager()->getStorage($entity_type)->loadByProperties([
-          self::$field_domain_access => $domaineId
-        ]);
+      else {
+        // Pour le moment on va se contenter de ternir compte des contentEntity.
+        if ($storage->getEntityType()->getBaseTable()) {
+          $fields = $this->entityFieldManger->getFieldStorageDefinitions($entity_type);
+          
+          if ($fields['field_domain_access']) {
+            $contents = $storage->loadByProperties([
+              self::$field_domain_access => $domaineId
+            ]);
+            // if ($entity_type == 'block_content') {
+            // dump($storage);
+            // }
+          }
+          else {
+            $this->messenger()->addWarning(" Le type d'entité '" . $entity_type . "' n'a pas de champs field_domain_access ");
+          }
+          // dump($this->EntityFieldManager->getFieldDefinitions($entity_type,
+          // $bundle));
+          // si l'entité a des bundles.
+          // if (!empty($storage->getEntityType()->getKey('bundle'))) {
+          // // dump($storage->getEntityType()->getBundleEntityType());
+          // dump($this->entityFieldManger->getFieldStorageDefinitions($entity_type));
+          // }
+        }
+        else {
+          $this->messenger()->addWarning(" Le type d'entité '" . $entity_type . "' n'est pas pris en compte car c'est une entité de configuration ");
+        }
+      }
     }
     else {
-      $contents = $this->entityTypeManager()->getStorage($entity_type)->loadMultiple();
+      $contents = $storage->loadMultiple();
     }
-
+    
     foreach ($contents as $value) {
       $BundleEntityType = $value->getEntityType()->getBundleEntityType();
       if (!empty($BundleEntityType)) {
@@ -404,7 +434,7 @@ class ExportEntities extends ControllerBase {
             $this->LoadConfigs->getConfigFromName($name);
           }
         }
-
+        
         // ces entites n'ont pas de données de configuration à ce niveau. ils
         // sont fournir uniquement à partir d'un modele ou d'une configuration,
         // mais on peut en surcharger les configurations (formDisplays et
@@ -412,7 +442,7 @@ class ExportEntities extends ControllerBase {
         $bundles[$entity_type] = $entity_type;
       }
     }
-
+    
     /**
      * Seule le type de produit contient le champs domain access, donc pour
      * chaque type de produit on doit recuperer :
@@ -451,7 +481,7 @@ class ExportEntities extends ControllerBase {
       }
     }
   }
-
+  
 /**
  * \Drupal::entityManager()->getStorage('field_storage_config')->create($field)->save();
  *

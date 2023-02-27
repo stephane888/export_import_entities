@@ -26,20 +26,20 @@ class GenerateSite extends ConfigFormBase {
    * @var \Drupal\export_import_entities\Services\ExportEntities
    */
   protected $ExportEntities;
-
+  
   /**
    *
    * @var FileSystem
    */
   protected $FileSystem;
-
+  
   /**
    *
    * @var ArchiverManager
    */
   protected $ArchiverManager;
   protected $maxStep = 2;
-
+  
   /**
    * Constructs a \Drupal\system\ConfigFormBase object.
    *
@@ -53,7 +53,7 @@ class GenerateSite extends ConfigFormBase {
     $this->FileSystem = $FileSystem;
     $this->ArchiverManager = $ArchiverManager;
   }
-
+  
   /**
    *
    * {@inheritdoc}
@@ -61,7 +61,7 @@ class GenerateSite extends ConfigFormBase {
   public static function create(ContainerInterface $container) {
     return new static($container->get('config.factory'), $container->get('domain.negotiator'), $container->get('export_import_entities.export.entites'), $container->get('file_system'), $container->get('plugin.manager.archiver'));
   }
-
+  
   /**
    *
    * {@inheritdoc}
@@ -69,7 +69,7 @@ class GenerateSite extends ConfigFormBase {
   public function getFormId() {
     return 'export_import_entities_generatesite';
   }
-
+  
   /**
    *
    * {@inheritdoc}
@@ -79,7 +79,7 @@ class GenerateSite extends ConfigFormBase {
       static::$keyEditable
     ];
   }
-
+  
   /**
    *
    * {@inheritdoc}
@@ -108,7 +108,7 @@ class GenerateSite extends ConfigFormBase {
       }
       $this->messenger()->addStatus(" Les fichiers de base ont été generé ");
     }
-
+    
     //
     if (!$form_state->has('step')) {
       $form_state->set('step', 1);
@@ -129,14 +129,14 @@ class GenerateSite extends ConfigFormBase {
         '#default_value' => 1
       ];
     }
-
+    
     // $config = $this->config(static::$keyEditable);
     $form['#attributes']['class'][] = 'container';
     $form['actions']['submit']['#value'] = 'Generer et telecharger les fichiers de votre site';
     //
     return $form;
   }
-
+  
   /**
    *
    * @param array $form
@@ -176,7 +176,7 @@ class GenerateSite extends ConfigFormBase {
     else
       $form['actions']['submit']['#access'] = false;
   }
-
+  
   /**
    *
    * @param array $form
@@ -189,13 +189,13 @@ class GenerateSite extends ConfigFormBase {
     if ($form_state->getValue('generate_files')) {
       $this->ExportEntities->setNewDomain($this->currentDomaine->id());
       $this->ExportEntities->getEntites();
-      \Drupal::messenger()->addStatus(' Les fichiers de configurations ont été generer ');
+      \Drupal::messenger()->addStatus(" Les fichiers de configurations ont été generer ");
     }
     //
     $form_state->set('step', $nextStep);
     $form_state->setRebuild();
   }
-
+  
   public function previewSubmit(array &$form, FormStateInterface $form_state) {
     $pvStep = $form_state->get('step') - 1;
     if ($pvStep <= 0)
@@ -203,7 +203,7 @@ class GenerateSite extends ConfigFormBase {
     $form_state->set('step', $pvStep);
     $form_state->setRebuild();
   }
-
+  
   function generateZip() {
     $pt = explode('/web', DRUPAL_ROOT);
     $baseZip = $pt[0] . '/sites_exports/zips/';
@@ -212,13 +212,13 @@ class GenerateSite extends ConfigFormBase {
       $this->messenger()->addStatus('Vous devez generer les fichiers');
       return;
     }
-
+    
     $Filesystem = new FilesystemSymphony();
     if (!file_exists($baseZip))
       $Filesystem->mkdir($baseZip);
     if (file_exists($baseZip . $this->currentDomaine->id() . ".zip"))
       $Filesystem->remove($baseZip . $this->currentDomaine->id() . ".zip");
-
+    
     //
     // $archiveDir = 'public://pdf-export/';
     // $archivePath = $archiveDir . $this->currentDomaine->id() . '.zip';
@@ -227,7 +227,7 @@ class GenerateSite extends ConfigFormBase {
     // FileSystemInterface::MODIFY_PERMISSIONS);
     // $this->FileSystem->saveData('', $archivePath,
     // FileSystemInterface::EXISTS_REPLACE);
-
+    
     // // On récupère l'objet Zip pointant vers l'archive que nous venons de
     // créer.
     // /**
@@ -253,13 +253,13 @@ class GenerateSite extends ConfigFormBase {
     }
     return true;
   }
-
+  
   // Create zip
   function createZip(Zip $zip, $dir) {
     if (is_dir($dir)) {
       if ($dh = opendir($dir)) {
         while (($file = readdir($dh)) !== false) {
-
+          
           // If file
           if (is_file($dir . $file)) {
             if ($file != '' && $file != '.' && $file != '..') {
@@ -284,7 +284,7 @@ class GenerateSite extends ConfigFormBase {
       }
     }
   }
-
+  
   private function excuteCmd($cmd, $name = "excuteCmd") {
     ob_start();
     $return_var = '';
@@ -300,7 +300,7 @@ class GenerateSite extends ConfigFormBase {
     ];
     return $debug;
   }
-
+  
   /**
    *
    * {@inheritdoc}
@@ -312,7 +312,7 @@ class GenerateSite extends ConfigFormBase {
     // }
     parent::validateForm($form, $form_state);
   }
-
+  
   /**
    *
    * {@inheritdoc}
@@ -328,5 +328,5 @@ class GenerateSite extends ConfigFormBase {
     //
     parent::submitForm($form, $form_state);
   }
-
+  
 }

@@ -8,45 +8,46 @@ use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Serialization\Yaml;
 use Symfony\Component\Finder\Finder;
 use DrupalFinder\DrupalFinder;
+use Drupal\Component\Utility\NestedArray;
 
 /**
  * Permet de charger les diffirents affichage pour une entité.
  *
  * @author stephane
- *
+ *        
  */
 class LoadConfigs extends ControllerBase {
-
+  
   /**
    * Contient la liste des configurations deja crees.
    *
    * @var array
    */
   protected static $configEntities = [];
-
+  
   /**
    * The config storage.
    *
    * @var \Drupal\Core\Config\StorageInterface
    */
   protected $configStorage;
-
+  
   /**
    *
    * @var \Symfony\Component\Finder\Finder
    */
   protected $Finder;
-
+  
   /**
    *
    * @var \Drupal\domain\DomainNegotiator
    */
   protected $currentDomaine;
-
+  
   function __construct(StorageInterface $config_storage) {
     $this->configStorage = $config_storage;
   }
-
+  
   public function setNewDomain($domaineId) {
     $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
     if ($domain)
@@ -54,19 +55,21 @@ class LoadConfigs extends ControllerBase {
     else
       throw new \Exception("le Domain n'exite pas");
   }
-
+  
   protected function getInstanceFinder() {
     if (!$this->Finder)
       $this->Finder = new Finder();
     return $this->Finder;
   }
-
+  
   /**
    * Crrer la configuration à partir du nom donnée.
    *
    * @param string $name
+   * @param $override //
+   *        contient les données qui doivent etre surcharger.
    */
-  public function getConfigFromName(string $name) {
+  public function getConfigFromName(string $name, array $override = []) {
     debugLog::$debug = false;
     if ($this->currentDomaine)
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
@@ -74,18 +77,29 @@ class LoadConfigs extends ControllerBase {
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install';
     // dump(debugLog::$path);
     if (empty(self::$configEntities[$name])) {
-      $string = Yaml::encode($this->configStorage->read($name));
-      debugLog::logger($string, $name . '.yml', false, 'file');
-      self::$configEntities[$name] = [
-        'status' => true,
-        'value' => $string
-      ];
-      $this->loadConfigsViewTerms($name);
-      // On essaie de charger les configurations requises.
-      $this->loadDependancyConfig($name);
+      $defaultConfs = $this->configStorage->read($name);
+      if ($defaultConfs) {
+        if (!empty($override)) {
+          $configs = NestedArray::mergeDeepArray([
+            $defaultConfs,
+            $override
+          ]);
+        }
+        else
+          $configs = $defaultConfs;
+        $string = Yaml::encode($configs);
+        debugLog::logger($string, $name . '.yml', false, 'file');
+        self::$configEntities[$name] = [
+          'status' => true,
+          'value' => $string
+        ];
+        $this->loadConfigsViewTerms($name);
+        // On essaie de charger les configurations requises.
+        $this->loadDependancyConfig($name);
+      }
     }
   }
-
+  
   public function addConfig(string $name, $string) {
     debugLog::logger($string, $name . '.yml', false, 'file');
     self::$configEntities[$name] = [
@@ -93,11 +107,11 @@ class LoadConfigs extends ControllerBase {
       'value' => $string
     ];
   }
-
+  
   public function hasGenerate($k) {
     return isset(self::$configEntities[$k]) ? true : false;
   }
-
+  
   /**
    * Chage une ou toute la config qui a été generée.
    *
@@ -110,7 +124,7 @@ class LoadConfigs extends ControllerBase {
     else
       return self::$configEntities;
   }
-
+  
   protected function loadConfigsViewTerms($name) {
     /**
      * On a un soucis avec les données contenus dans les termes de references.
@@ -132,7 +146,7 @@ class LoadConfigs extends ControllerBase {
       }
     }
   }
-
+  
   /**
    * Generre les fichiers de configuration de maniere recurssive.
    *
@@ -161,7 +175,7 @@ class LoadConfigs extends ControllerBase {
         }
       }
   }
-
+  
   /**
    * Certains données de configuration ne doivent pas etre exporter:
    * true: on cree la config;
@@ -175,7 +189,7 @@ class LoadConfigs extends ControllerBase {
     else
       return true;
   }
-
+  
   /**
    *
    * @param string $entity_type
@@ -193,7 +207,7 @@ class LoadConfigs extends ControllerBase {
       $this->getConfigFromName($definition->getConfigPrefix() . '.' . $entity_type . '.' . $bundle . '.' . $fieldName);
       $this->getConfig($FieldConfig->getDependencies());
     }
-
+    
     /**
      *
      * @var \Drupal\field\Entity\FieldStorageConfig $FieldStorageConfig
@@ -205,7 +219,7 @@ class LoadConfigs extends ControllerBase {
       $this->getConfig($FieldStorageConfig->getDependencies());
     }
   }
-
+  
   /**
    *
    * @param string $nameConf
@@ -244,5 +258,5 @@ class LoadConfigs extends ControllerBase {
       }
     }
   }
-
+  
 }

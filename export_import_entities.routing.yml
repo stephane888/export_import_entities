@@ -95,6 +95,23 @@ export_import_entities.block_content:
     _permission: 'access content'
     _user_is_logged_in: 'TRUE'
     _auth: 'basic_auth'
+
+# Permet de charger de maniere statiques les paragraphes en relation avec l'entete.   
+# On dit pouvoir faire une evolution afin de permettre de charger tous les paragraphes. 
+#export_import_entities.paragraph:
+#  # %jsonapi% is a placeholder for the JSON:API base path, which can be
+#  # configured in a site's services.yml file.
+#  path: '/%jsonapi%/export/paragraph'
+#  defaults:
+#    # Every JSON:API resource route must declare a _jsonapi_resource. The
+#    # value can either be a class or a service ID. Unlike the _controller
+#    # route default, it is not possible to declare a method name to be called.
+#    _jsonapi_resource: Drupal\export_import_entities\Resource\BlockContent
+#    _jsonapi_resource_types: ['block_content--basic','block_content--clothings_hero','block_content--container_breamcrumb','block_content--delivery_service','block_content--equipes','block_content--etapes','block_content--fake_comments','block_content--footer','block_content--header','block_content--icone_titre_horizontal_','block_content--logos_clients','block_content--menus','block_content--partenaire_service','block_content--rc_web_bloc_price','block_content--rc_web_commentaires','block_content--rc_web_listes_de_bloc','block_content--section_entete','block_content--service_model_rc_web','block_content--teaser_image_rotation_text','block_content--traiteur_collection']
+#  requirements:
+#    _permission: 'access content'
+#    _user_is_logged_in: 'TRUE'
+#    _auth: 'basic_auth'
     
 # .
 export_import_entities.block_content_menu:

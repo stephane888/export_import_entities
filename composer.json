@@ -11,6 +11,6 @@
     ],
     "require": {
     	"drupal/jsonapi_resources": "^1.0@beta",
-    	"stephane888/debug": "^1.1|dev-1x"
+    	"stephane888/debug": "^2.0|dev-2x"
     }
 }
