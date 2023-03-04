@@ -200,6 +200,8 @@ class ExportEntities extends ControllerBase {
     // $this->loadConfigFromEntities();
     if ($settings['export_menus'])
       $this->getMenus();
+    //
+    $this->getConfigCommerce();
     // $block =
     // $this->entityTypeManager()->getStorage('block')->load('test62_wb_horizon_kksa_breamcrumb');
     // dump($this->LoadConfigs->getGenerate());
@@ -275,11 +277,20 @@ class ExportEntities extends ControllerBase {
     $this->LoadConfigs->getConfigFromName($name);
     //
     $name = 'language.negotiation';
-    // Surcharger la langue par defaut, ( afin de definir la langue par defaut
-    // du site d'exportation sur la langue encours)
+    // // Surcharger la langue par defaut, ( afin de definir la langue par
+    // defaut
+    // // du site d'exportation sur la langue encours)
+    // $overrides = [
+    // 'langcode' => $lang_code
+    // ];
+    $this->LoadConfigs->getConfigFromName($name);
+    //
+    // Pour surcharger la langue par defaut.
     $overrides = [
-      'langcode' => $lang_code
+      'default_langcode' => $lang_code
+      // 'langcode' => $lang_code
     ];
+    $name = 'system.site';
     $this->LoadConfigs->getConfigFromName($name, $overrides);
     //
     $name = 'language.mappings';
@@ -328,6 +339,19 @@ class ExportEntities extends ControllerBase {
     $this->LoadConfigs->getConfigFromName($name);
   }
   
+  protected function getConfigCommerce() {
+    if ($this->currentDomaine) {
+      $domaineId = $this->currentDomaine->id();
+      // On charge les moyens qui ont été explicetement definit pour ce
+      // domaine.
+      $commerce_payment_gateways = $this->entityTypeManager()->getStorage('commerce_payment_gateway')->loadMultiple();
+      foreach ($commerce_payment_gateways as $commerce_payment_gateway) {
+        $name = 'domain.config.' . $domaineId . '.commerce_payment.commerce_payment_gateway.' . $commerce_payment_gateway->id();
+        $this->LoadConfigs->getConfigFromName($name);
+      }
+    }
+  }
+  
   /**
    * Retourne les configurations de champs pour une entité donnée.
    */
@@ -362,7 +386,7 @@ class ExportEntities extends ControllerBase {
          * @var \Drupal\Core\Entity\Query\QueryInterface $query
          */
         $query = $storage->getQuery();
-        $query->condition('third_party_settings.webform_domain_access.field_domain_access', $this->currentDomaine->id());
+        $query->condition('third_party_settings.webform_domain_access.field_domain_access', $domaineId);
         $result = $query->execute();
         if (!empty($result))
           $contents = $storage->loadMultiple($result);
