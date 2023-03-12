@@ -9,7 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
  * Configure Export Import Entities settings for this site.
  */
 class SettingsForm extends ConfigFormBase {
-
+  
   /**
    *
    * {@inheritdoc}
@@ -17,7 +17,7 @@ class SettingsForm extends ConfigFormBase {
   public function getFormId() {
     return 'export_import_entities_settings';
   }
-
+  
   /**
    *
    * {@inheritdoc}
@@ -27,7 +27,7 @@ class SettingsForm extends ConfigFormBase {
       'export_import_entities.settings'
     ];
   }
-
+  
   /**
    *
    * {@inheritdoc}
@@ -43,9 +43,18 @@ class SettingsForm extends ConfigFormBase {
     //
     $entities = \Drupal::entityTypeManager()->getDefinitions();
     foreach ($entities as $entity) {
+      /**
+       *
+       * @var \Drupal\Core\Config\Entity\ConfigEntityType $entity
+       */
+      $table = $entity->getBaseTable();
+      if ($table) {
+        $table = ' => ContentEntity (' . $table . ')';
+      }
+      
       $form['list_entities'][$entity->id()] = [
         '#type' => 'checkbox',
-        '#title' => $entity->getLabel(),
+        '#title' => $entity->getLabel() . $table,
         '#default_value' => $config->get('list_entities.' . $entity->id()) ? $config->get('list_entities.' . $entity->id()) : 0
       ];
     }
@@ -70,7 +79,7 @@ class SettingsForm extends ConfigFormBase {
     //
     return parent::buildForm($form, $form_state);
   }
-
+  
   /**
    *
    * {@inheritdoc}
@@ -82,7 +91,7 @@ class SettingsForm extends ConfigFormBase {
     // }
     parent::validateForm($form, $form_state);
   }
-
+  
   /**
    *
    * {@inheritdoc}
@@ -97,5 +106,5 @@ class SettingsForm extends ConfigFormBase {
     $config->save();
     parent::submitForm($form, $form_state);
   }
-
+  
 }

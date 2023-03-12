@@ -78,9 +78,9 @@ class LoadConfigs extends ControllerBase {
     // dump(debugLog::$path);
     if (empty(self::$configEntities[$name])) {
       $defaultConfs = $this->configStorage->read($name);
-      if (str_contains($name, "commerce_payment.commerce_payment_gateway")) {
-        dump($defaultConfs);
-      }
+      // if (str_contains($name, "commerce_payment.commerce_payment_gateway")) {
+      // dump($defaultConfs);
+      // }
       if ($defaultConfs) {
         if (!empty($override)) {
           $configs = NestedArray::mergeDeepArray([

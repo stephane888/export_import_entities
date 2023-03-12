@@ -4,7 +4,7 @@ namespace Drupal\export_import_entities\Services;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\ContentEntityType;
-use Stephane888\Debug\debugLog;
+use Stephane888\Debug\Repositories\ConfigDrupal;
 use Drupal\node\Entity\Node;
 use Drupal\views\Plugin\views\filter\Bundle;
 use Drupal\Core\Entity\EntityFieldManager;
@@ -348,6 +348,7 @@ class ExportEntities extends ControllerBase {
       foreach ($commerce_payment_gateways as $commerce_payment_gateway) {
         $name = 'domain.config.' . $domaineId . '.commerce_payment.commerce_payment_gateway.' . $commerce_payment_gateway->id();
         $this->LoadConfigs->getConfigFromName($name);
+        // dump(ConfigDrupal::config($name));
       }
     }
   }
