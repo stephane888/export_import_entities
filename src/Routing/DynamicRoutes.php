@@ -26,6 +26,9 @@ class DynamicRoutes {
    * @param array $routes
    */
   public function routeForEvreryParagraph(array &$routes) {
+    /**
+     * Routes pour tous les paragraphes.
+     */
     $paragraphs_type = \Drupal::entityTypeManager()->getStorage('paragraphs_type')->loadMultiple();
     $resource_types = [];
     foreach ($paragraphs_type as $paragraph_type) {
@@ -33,6 +36,23 @@ class DynamicRoutes {
     }
     $routes['export_import_entities.paragraph'] = new Route('/%jsonapi%/export/paragraph', [
       '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\ParagraphContent',
+      '_jsonapi_resource_types' => $resource_types,
+      'requirements' => [
+        '_permission' => 'access content',
+        '_user_is_logged_in' => TRUE,
+        '_auth' => 'basic_auth'
+      ]
+    ]);
+    /**
+     * Routes pour tous les produits.
+     */
+    $commerce_product_variations = \Drupal::entityTypeManager()->getStorage('commerce_product_variation')->loadMultiple();
+    $resource_types = [];
+    foreach ($commerce_product_variations as $commerce_product_variation) {
+      $resource_types[] = 'commerce_product--' . $commerce_product_variation->id();
+    }
+    $routes['export_import_entities.commerce_product'] = new Route('/%jsonapi%/export/commerce_product', [
+      '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\CommerceProduct',
       '_jsonapi_resource_types' => $resource_types,
       'requirements' => [
         '_permission' => 'access content',
