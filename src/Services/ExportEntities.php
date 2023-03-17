@@ -204,7 +204,7 @@ class ExportEntities extends ControllerBase {
     $this->getConfigCommerce();
     // $block =
     // $this->entityTypeManager()->getStorage('block')->load('test62_wb_horizon_kksa_breamcrumb');
-    // dump($this->LoadConfigs->getGenerate());
+    dump($this->LoadConfigs->getGenerate());
     // die();
   }
   
@@ -368,9 +368,9 @@ class ExportEntities extends ControllerBase {
    * (example retourne les contenus pour l'entité node).
    */
   protected function loadContents(string $entity_type, &$contents, &$bundles = []) {
+    $storage = $this->entityTypeManager()->getStorage($entity_type);
     if ($this->currentDomaine) {
       $domaineId = $this->currentDomaine->id();
-      $storage = $this->entityTypeManager()->getStorage($entity_type);
       if ($entity_type == 'config_theme_entity') {
         $contents = $storage->loadByProperties([
           'hostname' => $domaineId

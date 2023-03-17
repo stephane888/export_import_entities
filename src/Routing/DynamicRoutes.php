@@ -43,23 +43,25 @@ class DynamicRoutes {
         '_auth' => 'basic_auth'
       ]
     ]);
-    /**
-     * Routes pour tous les produits.
-     */
-    $commerce_product_variations = \Drupal::entityTypeManager()->getStorage('commerce_product_variation')->loadMultiple();
-    $resource_types = [];
-    foreach ($commerce_product_variations as $commerce_product_variation) {
-      $resource_types[] = 'commerce_product--' . $commerce_product_variation->id();
+    if (\Drupal::moduleHandler()->moduleExists('commerce_product')) {
+      /**
+       * Routes pour tous les produits.
+       */
+      $commerce_product_types = \Drupal::entityTypeManager()->getStorage('commerce_product_type')->loadMultiple();
+      $resource_types = [];
+      foreach ($commerce_product_types as $commerce_product_type) {
+        $resource_types[] = 'commerce_product--' . $commerce_product_type->id();
+      }
+      $routes['export_import_entities.commerce_product'] = new Route('/%jsonapi%/export/commerce_product', [
+        '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\CommerceProduct',
+        '_jsonapi_resource_types' => $resource_types,
+        'requirements' => [
+          '_permission' => 'access content',
+          '_user_is_logged_in' => TRUE,
+          '_auth' => 'basic_auth'
+        ]
+      ]);
     }
-    $routes['export_import_entities.commerce_product'] = new Route('/%jsonapi%/export/commerce_product', [
-      '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\CommerceProduct',
-      '_jsonapi_resource_types' => $resource_types,
-      'requirements' => [
-        '_permission' => 'access content',
-        '_user_is_logged_in' => TRUE,
-        '_auth' => 'basic_auth'
-      ]
-    ]);
   }
   
   /**
