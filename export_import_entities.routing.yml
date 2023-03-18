@@ -9,6 +9,14 @@ export_import_entities.current_export:
   requirements:
     _permission: 'access content'
     
+export_import_entities.clean_configs:
+  path: '/admin/config/development/export-import-entities/clean-config'
+  defaults:
+    _title: 'Clean config for a theme'
+    _form: 'Drupal\export_import_entities\Form\CleanConfigsThemeForm'
+  requirements:
+    _permission: 'administer export_import_entities configuration'
+    
 export_import_entities.downloadsitezip:
   path: '/export-import-entities/downloadsitezip/{domaineId}'
   defaults:

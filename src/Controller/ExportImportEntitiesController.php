@@ -8,6 +8,7 @@ use Drupal\export_import_entities\Services\ExportEntities;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Stephane888\Debug\Repositories\ConfigDrupal;
 
 /**
  * Returns responses for Export Import Entities routes.
@@ -15,21 +16,21 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ExportImportEntitiesController extends ControllerBase {
   protected $currentDomaine;
-
+  
   /**
    *
    * @var ExportEntities
    */
   protected $ExportEntities;
-
+  
   function __construct(ExportEntities $ExportEntities) {
     $this->ExportEntities = $ExportEntities;
   }
-
+  
   static function create(ContainerInterface $container) {
     return new static($container->get('export_import_entities.export.entites'));
   }
-
+  
   /**
    * Builds the response.
    */
@@ -41,7 +42,7 @@ class ExportImportEntitiesController extends ControllerBase {
     ];
     return $build;
   }
-
+  
   /**
    * --
    *
@@ -54,7 +55,7 @@ class ExportImportEntitiesController extends ControllerBase {
     $pt = explode('/web', DRUPAL_ROOT);
     $baseZip = $pt[0] . '/sites_exports/zips/';
     $path = $baseZip . $domaineId . '.zip';
-
+    
     $response = new Response();
     // $response->headers->set('Content-Type',
     // 'application/zip,application/octet-stream');
@@ -73,5 +74,5 @@ class ExportImportEntitiesController extends ControllerBase {
     ];
     return $build;
   }
-
+  
 }

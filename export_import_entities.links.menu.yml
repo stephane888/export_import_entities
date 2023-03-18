@@ -4,3 +4,10 @@ export_import_entities.settings_form:
   parent: system.admin_config_system
   route_name: export_import_entities.settings_form
   weight: 10
+  
+export_import_entities.clean_configs:
+  title: Clean config for a theme
+  description: 'Allows you to remove a theme from the installed extensions and all the configuration related to it'
+  parent: system.admin_config_development
+  route_name: export_import_entities.clean_configs
+  weight: 10  

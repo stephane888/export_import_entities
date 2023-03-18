@@ -23,3 +23,7 @@ services:
   export_import_entities.export.third_party_settings:
     class: Drupal\export_import_entities\Services\ThirdPartySettings
     arguments: ['@export_import_entities.export.form.LoadConfigs']  
+    
+  export_import_entities.clean_configs_theme:
+    class: Drupal\export_import_entities\Services\CleanConfigsTheme
+    arguments: ['@extension.path.resolver','@asset.css.collection_optimizer','@theme_handler','@config.manager','@config.factory','@module_handler','@router.builder']
