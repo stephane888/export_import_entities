@@ -12,6 +12,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Routing\RouteBuilderInterface;
+use Drupal\Core\Extension\ThemeExtensionList;
 
 /**
  * Permet de supprimer un theme des extentiosn installés et toutes la
@@ -27,6 +28,8 @@ class CleanConfigsTheme {
   /**
    *
    * @var \Drupal\Core\Extension\ExtensionPathResolver
+   * @deprecated car cela renvoit les warning pour chaque theme manquant. (on va
+   *             passer par ThemeExtensionList)
    */
   protected $ExtensionPathResolver;
   
@@ -65,7 +68,20 @@ class CleanConfigsTheme {
    */
   protected $routeBuilder;
   
-  function __construct(ExtensionPathResolver $ExtensionPathResolver, AssetCollectionOptimizerInterface $css_collection_optimizer, ThemeHandlerInterface $theme_handler, ConfigManagerInterface $config_manager, ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler, RouteBuilderInterface $route_builder) {
+  /**
+   * Contient la liste de theme qui doit etre supprimer.
+   *
+   * @var array
+   */
+  protected $themeNotAvailable = [];
+  
+  /**
+   *
+   * @var \Drupal\Core\Extension\ThemeExtensionList
+   */
+  protected $ThemeExtensionList;
+  
+  function __construct(ExtensionPathResolver $ExtensionPathResolver, AssetCollectionOptimizerInterface $css_collection_optimizer, ThemeHandlerInterface $theme_handler, ConfigManagerInterface $config_manager, ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler, RouteBuilderInterface $route_builder, ThemeExtensionList $ThemeExtensionList) {
     $this->ExtensionPathResolver = $ExtensionPathResolver;
     $this->cssCollectionOptimizer = $css_collection_optimizer;
     $this->themeHandler = $theme_handler;
@@ -73,29 +89,51 @@ class CleanConfigsTheme {
     $this->configFactory = $config_factory;
     $this->moduleHandler = $module_handler;
     $this->routeBuilder = $route_builder;
+    $this->ThemeExtensionList = $ThemeExtensionList;
   }
   
   /**
    * Get the list of themes installed so the files no longer exist.
    */
   public function getListThemesNotavailable() {
-    $config = ConfigDrupal::config('core.extension');
-    $themeNotAvailable = [];
-    if (!empty($config['theme'])) {
-      foreach ($config['theme'] as $themeName => $status) {
-        if (empty($this->ExtensionPathResolver->getPath('theme', $themeName))) {
-          $themeNotAvailable[] = $themeName;
+    if (empty($this->themeNotAvailable)) {
+      $config = ConfigDrupal::config('core.extension');
+      if (!empty($config['theme'])) {
+        foreach ($config['theme'] as $themeName => $status) {
+          if (!$this->getPathThemeNotAvailable($themeName)) {
+            $this->themeNotAvailable[$themeName] = $themeName;
+          }
         }
       }
+      else {
+        $this->messenger()->addWarning("No theme available");
+      }
     }
-    else {
-      $this->messenger()->addWarning("No theme available");
-    }
-    return $themeNotAvailable;
+    return $this->themeNotAvailable;
   }
   
   /**
-   * Pemet de supprimer un theme
+   * Permet de determiner si le theme est compatible avec la logique.
+   */
+  public function checkIfThemeIsCompatibleWithLogic($themeName) {
+    $this->getListThemesNotavailable();
+    if (!empty($this->themeNotAvailable[$themeName]))
+      return true;
+    else
+      return false;
+  }
+  
+  private function getPathThemeNotAvailable($themeName) {
+    try {
+      return $this->ThemeExtensionList->getPath($themeName);
+    }
+    catch (\Exception $e) {
+      return null;
+    }
+  }
+  
+  /**
+   * Pemet de supprimer un theme.
    */
   public function DeleteThemes(array $theme_list) {
     $this->uninstall($theme_list);
@@ -115,6 +153,11 @@ class CleanConfigsTheme {
       if (isset($list[$key])) {
         throw new UninstalledExtensionException(" This theme should be disabled by the default logic : $key.");
       }
+      // avant de lancer la suppresion il faut qu'on se rassure que ce dernier
+      // est dans la liste des elements à supprimer.
+      if (empty($this->getListThemesNotavailable()[$key])) {
+        throw new UninstalledExtensionException(" This theme cannot be deleted because it is not installed : $key.");
+      }
     }
     //
     foreach ($theme_list as $key) {
@@ -127,6 +170,9 @@ class CleanConfigsTheme {
       
       // Remove all configuration belonging to the theme.( cool )
       $this->configManager->uninstall('theme', $key);
+      
+      // After theme is delete, we remove that on variables.
+      unset($this->themeNotAvailable[$key]);
     }
     // Don't check schema when uninstalling a theme since we are only clearing
     // keys.
@@ -171,8 +217,8 @@ class CleanConfigsTheme {
   /**
    * Recupere la configuration dependant du theme.
    */
-  public function getConfigsDepenceForTheme(string $themeName) {
-    return ConfigDrupal::searchConfigByWord($themeName);
+  public function getConfigsDepenceForTheme(string $themeName, $full = false) {
+    return ConfigDrupal::searchConfigByWord($themeName, $full);
   }
   
 }

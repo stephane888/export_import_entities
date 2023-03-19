@@ -95,8 +95,7 @@ class CleanConfigsThemeForm extends FormBase {
     $form['actions'] = [
       '#type' => 'submit',
       '#value' => $this->t('Delete themes'),
-      '#button_type' => 'primary',
-      '#ajax' => []
+      '#button_type' => 'primary'
     ];
     return $form;
   }

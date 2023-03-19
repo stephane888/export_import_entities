@@ -396,8 +396,7 @@ class ExportEntities extends ControllerBase {
         // Pour le moment on va se contenter de ternir compte des contentEntity.
         if ($storage->getEntityType()->getBaseTable()) {
           $fields = $this->entityFieldManger->getFieldStorageDefinitions($entity_type);
-          
-          if ($fields['field_domain_access']) {
+          if (!empty($fields['field_domain_access'])) {
             $contents = $storage->loadByProperties([
               self::$field_domain_access => $domaineId
             ]);
