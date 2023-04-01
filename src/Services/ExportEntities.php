@@ -204,7 +204,7 @@ class ExportEntities extends ControllerBase {
     $this->getConfigCommerce();
     // $block =
     // $this->entityTypeManager()->getStorage('block')->load('test62_wb_horizon_kksa_breamcrumb');
-    dump($this->LoadConfigs->getGenerate());
+    // dump($this->LoadConfigs->getGenerate());
     // die();
   }
   
@@ -223,7 +223,7 @@ class ExportEntities extends ControllerBase {
       //
       $entityTypes = $this->entityTypeManager()->getStorage($vob)->loadMultiple();
       $name = $entityTypeDefinition->getConfigPrefix() . '.' . $vob;
-      dump($name, $vob, $entityTypes);
+      // dump($name, $vob, $entityTypes);
       if (!$this->LoadConfigs->hasGenerate($name)) {
         $this->LoadConfigs->getConfigFromName($name);
       }
@@ -336,6 +336,9 @@ class ExportEntities extends ControllerBase {
     $this->LoadConfigs->getConfigFromName($name);
     //
     $name = 'pathauto.pattern.page_site_web';
+    $this->LoadConfigs->getConfigFromName($name);
+    // en attandant le traitement des affichage user
+    $name = 'core.entity_view_display.user.user.hot_models_hotlock_menu__user';
     $this->LoadConfigs->getConfigFromName($name);
   }
   
