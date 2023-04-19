@@ -45,6 +45,14 @@ export_import_entities.generatesite:
   options:
     _admin_route: TRUE
     
+export_import_entities.config:
+  path: '/export-import-entities/show-site-config'
+  defaults:
+    _title: 'Get current export'
+    _controller: '\Drupal\export_import_entities\Controller\ExportImportEntitiesController::ShowSiteConfig'
+  requirements:
+    _permission: 'access content'
+    
 # Defines a route where a particular user's articles can be found.
 export_import_entities.page_web:
   # %jsonapi% is a placeholder for the JSON:API base path, which can be

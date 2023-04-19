@@ -9,6 +9,7 @@ use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Stephane888\Debug\Repositories\ConfigDrupal;
+use Stephane888\DrupalUtility\HttpResponse;
 
 /**
  * Returns responses for Export Import Entities routes.
@@ -41,6 +42,35 @@ class ExportImportEntitiesController extends ControllerBase {
       '#markup' => $this->t(' It works! .. ')
     ];
     return $build;
+  }
+  
+  /**
+   * Permet de partager la configuration d'un site.
+   */
+  public function ShowSiteConfig() {
+    /**
+     * Get default langue :
+     * Lorsqu'on generer un site ce dernier n'est pas reelement dans la bonne
+     * langue, mais ces contenus y sont.
+     */
+    $config = ConfigDrupal::config('system.site');
+    // à patir de la page d'accueil on determinerer la langue par defaut.
+    if (!empty($config['page']['front'])) {
+      $page = explode("/", $config['page']['front']);
+      if ($page[1] == 'site-internet-entity') {
+        /**
+         *
+         * @var \Drupal\creation_site_virtuel\Entity\SiteInternetEntity $homePage
+         */
+        $homePage = $this->entityTypeManager()->getStorage('site_internet_entity')->load($page[2]);
+      }
+      if (!empty($homePage)) {
+        $config['langcode'] = $homePage->language()->getId();
+      }
+    }
+    return HttpResponse::response([
+      'system.site' => $config
+    ]);
   }
   
   /**
