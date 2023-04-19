@@ -66,6 +66,7 @@ class ExportImportEntitiesController extends ControllerBase {
       }
       if (!empty($homePage)) {
         $config['langcode'] = $homePage->language()->getId();
+        $config['default_langcode'] = $homePage->language()->getId();
       }
     }
     return HttpResponse::response([
