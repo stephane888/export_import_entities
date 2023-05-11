@@ -9,6 +9,7 @@ use Drupal\Core\Serialization\Yaml;
 use Symfony\Component\Finder\Finder;
 use DrupalFinder\DrupalFinder;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\file\Entity\File;
 
 /**
  * Permet de charger les diffirents affichage pour une entité.
@@ -76,11 +77,13 @@ class LoadConfigs extends ControllerBase {
     else
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install';
     // dump(debugLog::$path);
+    
     if (empty(self::$configEntities[$name])) {
       $defaultConfs = $this->configStorage->read($name);
       // if (str_contains($name, "commerce_payment.commerce_payment_gateway")) {
       // dump($defaultConfs);
       // }
+      
       if ($defaultConfs) {
         if (!empty($override)) {
           $configs = NestedArray::mergeDeepArray([
@@ -162,7 +165,12 @@ class LoadConfigs extends ControllerBase {
         if (empty(self::$configEntities[$config])) {
           $name = $config;
           if ($this->filterConfig($config)) {
-            $string = Yaml::encode($this->configStorage->read($name));
+            $defaultConfs = $this->configStorage->read($name);
+            //
+            if (str_contains($name, 'field.field')) {
+              $this->addDefaultEncodeData($defaultConfs);
+            }
+            $string = Yaml::encode($defaultConfs);
             debugLog::logger($string, $name . '.yml', false, 'file');
             self::$configEntities[$name] = [
               'status' => true,
@@ -194,6 +202,22 @@ class LoadConfigs extends ControllerBase {
   }
   
   /**
+   * --
+   */
+  protected function addDefaultEncodeData(array &$defaultConfs) {
+    if (!empty($defaultConfs['field_type']) && $defaultConfs['field_type'] == 'image' && !empty($defaultConfs['settings']['default_image']['uuid'])) {
+      $uuid = $defaultConfs['settings']['default_image']['uuid'];
+      if ($id = \Drupal::service('paragraphs_type.uuid_lookup')->get($uuid)) {
+        $file = File::load($id);
+        if ($file) {
+          $defaultConfs["default_encode_file"] = 'data:' . $file->getMimeType() . ';base64,' . base64_encode(file_get_contents($file->getFileUri()));
+          $defaultConfs["default_filename"] = $file->getFilename();
+        }
+      }
+    }
+  }
+  
+  /**
    *
    * @param string $entity_type
    * @param string $bundle
@@ -206,8 +230,12 @@ class LoadConfigs extends ControllerBase {
      */
     $FieldConfig = $this->entityTypeManager()->getStorage('field_config')->load($entity_type . '.' . $bundle . '.' . $fieldName);
     if ($FieldConfig) {
+      // On charge les images par defaut au format base64.
+      
       $definition = $this->entityTypeManager()->getDefinition('field_config');
-      $this->getConfigFromName($definition->getConfigPrefix() . '.' . $entity_type . '.' . $bundle . '.' . $fieldName);
+      $name = $definition->getConfigPrefix() . '.' . $entity_type . '.' . $bundle . '.' . $fieldName;
+      // dump($name);
+      $this->getConfigFromName($name);
       $this->getConfig($FieldConfig->getDependencies());
     }
     

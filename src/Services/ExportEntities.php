@@ -459,6 +459,7 @@ class ExportEntities extends ControllerBase {
           $name = $entityTypeDefinition->getConfigPrefix() . '.' . $value->id();
           if (!$this->LoadConfigs->hasGenerate($name)) {
             $this->LoadConfigs->getConfigFromName($name);
+            // il faudra peut etre gerer la traduction.
           }
         }
         

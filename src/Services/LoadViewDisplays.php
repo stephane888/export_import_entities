@@ -11,7 +11,7 @@ use Drupal\export_import_entities\Services\ThirdPartySettings;
  * d'entité.
  *
  * @author stephane
- *
+ *        
  */
 class LoadViewDisplays extends ControllerBase {
   /**
@@ -19,18 +19,18 @@ class LoadViewDisplays extends ControllerBase {
    * @var \Drupal\export_import_entities\Services\ThirdPartySettings
    */
   protected $ThirdPartySettings;
-
+  
   /**
    *
    * @var LoadConfigs
    */
   protected $LoadConfigs;
-
+  
   function __construct(LoadConfigs $LoadConfigs, ThirdPartySettings $ThirdPartySettings) {
     $this->LoadConfigs = $LoadConfigs;
     $this->ThirdPartySettings = $ThirdPartySettings;
   }
-
+  
   public function setNewDomain($domaineId) {
     $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
     if ($domain)
@@ -41,9 +41,9 @@ class LoadViewDisplays extends ControllerBase {
     $this->LoadConfigs->setNewDomain($domaineId);
     $this->ThirdPartySettings->setNewDomain($domaineId);
   }
-
+  
   /**
-   * Permet de charger l
+   * Permet de charger.
    *
    * @param string $entity_type
    * @param array $bundles
@@ -56,7 +56,7 @@ class LoadViewDisplays extends ControllerBase {
      */
     $definition = $this->entityTypeManager()->getDefinition('entity_view_display');
     $prefix = $definition->getConfigPrefix();
-
+    
     foreach ($bundles as $bundle) {
       $keySearch = $entity_type . '.' . $bundle;
       $query = $this->entityTypeManager()->getStorage('entity_view_display')->getQuery();
@@ -81,5 +81,5 @@ class LoadViewDisplays extends ControllerBase {
       }
     }
   }
-
+  
 }
