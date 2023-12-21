@@ -71,17 +71,26 @@ class DynamicRoutes {
    */
   protected function routeForMainMenu(array &$routes) {
     $entity_query = \Drupal::entityTypeManager()->getStorage('menu')->getQuery();
-    $entity_query->condition('id', '_main', 'CONTAINS');
+    $or = $entity_query->orConditionGroup();
+    // Ce ci est fait pour les anciens sites.
+    $or->condition('id', '_main', 'CONTAINS');
+    $or->condition('id', '-main', 'CONTAINS');
+    $entity_query->condition($or);
     // $entity_query->g
     $ids = $entity_query->execute();
-    foreach ($ids as $menu_id) {
-      $routes['jsonapi.menu_link_content--' . $menu_id . '.individual'] = new Route('/jsonapi/export/menu-link-content', [
-        '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\MenuLinkContent',
-        '_jsonapi_resource_types' => [
-          'menu_link_content--' . $menu_id
-        ]
-      ]);
+    $resource_types = [];
+    foreach ($ids as $id) {
+      $resource_types[] = 'menu_link_content--' . $id;
     }
+    $routes['jsonapi.menu_link_content--menu.individual'] = new Route('/%jsonapi%/export/menu-link-content', [
+      '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\MenuLinkContent',
+      '_jsonapi_resource_types' => $resource_types,
+      'requirements' => [
+        '_permission' => 'access content',
+        '_user_is_logged_in' => TRUE,
+        '_auth' => 'basic_auth'
+      ]
+    ]);
   }
   
 }

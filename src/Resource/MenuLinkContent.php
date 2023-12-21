@@ -23,7 +23,7 @@ class MenuLinkContent extends EntityQueryResourceBase {
   /**
    */
   private $typeMenu;
-
+  
   /**
    * Process the resource request.
    *
@@ -31,9 +31,9 @@ class MenuLinkContent extends EntityQueryResourceBase {
    *        The request.
    * @param \Drupal\user\UserInterface $user
    *        The user.
-   *
+   *        
    * @return \Drupal\jsonapi\ResourceResponse The response.
-   *
+   *        
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
@@ -51,35 +51,41 @@ class MenuLinkContent extends EntityQueryResourceBase {
     //
     //
     $cacheability = new CacheableMetadata();
-
+    
     // try to load theme;
     // $confTheme = ConfigDrupal::config('system.theme');
-    $entity_query = $this->getEntityQuery('menu_link_content')->condition('bundle', $this->getTypeMenu() . '_main');
+    $entity_query = $this->getEntityQuery('menu_link_content');
+    $or = $entity_query->orConditionGroup();
+    $or->condition('bundle', $this->getTypeMenu() . '_main');
+    $or->condition('bundle', $this->getTypeMenu() . '-main');
+    $entity_query->condition($or);
+    
     // $query =
     // \Drupal::entityTypeManager()->getStorage('menu_link_content')->getQuery();
     // $query->condition('bundle', 'test62_wb_horizon_kksa' . '%', "LIKE");
     // dump($entity_query->execute());
     // die();
-
+    
     $cacheability->addCacheContexts([
       'url.path'
     ]);
-
-    // $this->test();
-
+    
     $paginator = $this->getPaginatorForRequest($request);
     $paginator->applyToQuery($entity_query, $cacheability);
-
+    
     $data = $this->loadResourceObjectDataFromEntityQuery($entity_query, $cacheability);
-
+    
     $pagination_links = $paginator->getPaginationLinks($entity_query, $cacheability, TRUE);
-
+    
     $response = $this->createJsonapiResponse($data, $request, 200, [], $pagination_links);
     $response->addCacheableDependency($cacheability);
-
+    
     return $response;
   }
-
+  
+  /**
+   * --
+   */
   protected function test() {
     /**
      *
@@ -95,29 +101,33 @@ class MenuLinkContent extends EntityQueryResourceBase {
     $route = $routerProvider->getRouteByName('jsonapi.block_content--container_breamcrumb.individual');
     dump($route);
   }
-
+  
   /**
    * jsonapi.menu_link_content--test_main.individual
    *
    * {@inheritdoc}
    */
   public function getRouteResourceTypes(Route $route, string $route_name): array {
-    return array_map(function ($resource_type_name) use ($route_name) {
-      $resource_type_name = 'menu_link_content--' . $this->getTypeMenu() . '_main';
-      $resource_type = $this->resourceTypeRepository->getByTypeName($resource_type_name);
-      if (is_null($resource_type)) {
-        // @todo: try to move this exception into
-        // Drupal\jsonapi_resources\Routing\ResourceRoutes::ensureResourceImplementationValid().
-        throw new RouteDefinitionException("The $route_name route
-        definition's _jsonapi_resource_types route default declares the
-        resource type $resource_type_name but a resource type by that name
-        does not exist.");
-      }
-      return $resource_type;
-    }, $route->getDefault('_jsonapi_resource_types') ?: []);
+    return parent::getRouteResourceTypes($route, $route_name);
+    // return array_map(function ($resource_type_name) use ($route_name) {
+    // $resource_type_name = 'menu_link_content--' . $this->getTypeMenu() .
+    // '_main';
+    // $resource_type =
+    // $this->resourceTypeRepository->getByTypeName($resource_type_name);
+    // if (is_null($resource_type)) {
+    // // @todo: try to move this exception into
+    // throw new RouteDefinitionException("The $route_name route
+    // definition's _jsonapi_resource_types route default declares the
+    // resource type $resource_type_name but a resource type by that name
+    // does not exist.");
+    // }
+    // return $resource_type;
+    // }, $route->getDefault('_jsonapi_resource_types') ?: []);
   }
-
+  
   /**
+   * Recupere les sous domaines.
+   * (ces donnes sont uniques).
    *
    * @return string
    */
@@ -145,6 +155,6 @@ class MenuLinkContent extends EntityQueryResourceBase {
     // dump($this->typeMenu);
     return $this->typeMenu;
   }
-
+  
 }
 

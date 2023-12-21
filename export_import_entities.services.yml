@@ -1,5 +1,4 @@
-services:
-  
+services:  
   export_import_entities.export.entites:
     class: Drupal\export_import_entities\Services\ExportEntities
     arguments: ['@entity_field.manager','@config.storage','@export_import_entities.export.form.displays','@export_import_entities.export.form.LoadConfigs','@export_import_entities.export.view.displays']

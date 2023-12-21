@@ -177,20 +177,20 @@ export_import_entities.block:
     _auth: 'basic_auth'    
     
 # Defines a route where a particular user's articles can be found.
-export_import_entities.menu_link_content:
-  # %jsonapi% is a placeholder for the JSON:API base path, which can be
-  # configured in a site's services.yml file.
-  path: '/%jsonapi%/export/menu-link-content'
-  defaults:
-    # Every JSON:API resource route must declare a _jsonapi_resource. The
-    # value can either be a class or a service ID. Unlike the _controller
-    # route default, it is not possible to declare a method name to be called.
-    _jsonapi_resource: Drupal\export_import_entities\Resource\MenuLinkContent
-    _jsonapi_resource_types: ['menu_link_content--entreprise-btiment_main']
-  requirements:
-    _permission: 'access content'
-    _user_is_logged_in: 'TRUE'  
-    _auth: 'basic_auth'
+#export_import_entities.menu_link_content:
+#  # %jsonapi% is a placeholder for the JSON:API base path, which can be
+#  # configured in a site's services.yml file.
+#  path: '/%jsonapi%/export/menu-link-content'
+#  defaults:
+#    # Every JSON:API resource route must declare a _jsonapi_resource. The
+#    # value can either be a class or a service ID. Unlike the _controller
+#    # route default, it is not possible to declare a method name to be called.
+#    _jsonapi_resource: Drupal\export_import_entities\Resource\MenuLinkContent
+#    _jsonapi_resource_types: ['menu_link_content--entreprise-btiment_main']
+#  requirements:
+#    _permission: 'access content'
+#    _user_is_logged_in: 'TRUE'  
+#    _auth: 'basic_auth'
     
     
 # .
