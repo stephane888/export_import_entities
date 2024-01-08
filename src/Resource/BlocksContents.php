@@ -5,14 +5,16 @@ namespace Drupal\export_import_entities\Resource;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\jsonapi\ResourceResponse;
 use Drupal\jsonapi_resources\Resource\EntityQueryResourceBase;
+use Drupal\user\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Stephane888\Debug\Repositories\ConfigDrupal;
 
 /**
  * Permet de retourner les pages en function du domaine.
  *
  * @internal
  */
-class CommerceProduct extends EntityQueryResourceBase {
+class BlocksContents extends EntityQueryResourceBase {
   
   /**
    * Process the resource request.
@@ -29,11 +31,10 @@ class CommerceProduct extends EntityQueryResourceBase {
    */
   public function process(Request $request): ResourceResponse {
     $cacheability = new CacheableMetadata();
-    $entity_query = $this->getEntityQuery('commerce_product');
+    $entity_query = $this->getEntityQuery('blocks_contents');
     $cacheability->addCacheContexts([
       'url.path'
     ]);
-    
     $paginator = $this->getPaginatorForRequest($request);
     $paginator->applyToQuery($entity_query, $cacheability);
     $data = $this->loadResourceObjectDataFromEntityQuery($entity_query, $cacheability);

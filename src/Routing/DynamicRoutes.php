@@ -17,7 +17,36 @@ class DynamicRoutes {
     $routes = [];
     $this->routeForMainMenu($routes);
     $this->routeForEvreryParagraph($routes);
+    $this->routeForBlocksContents($routes);
     return $routes;
+  }
+  
+  /**
+   * _role: 'gerant_de_site_web+administrator'
+   *
+   * @param array $routes
+   */
+  public function routeForBlocksContents(array &$routes) {
+    if (\Drupal::moduleHandler()->moduleExists('blockscontent')) {
+      /**
+       * Routes pour tous les produits.
+       */
+      $blocks_contents_types = \Drupal::entityTypeManager()->getStorage('blocks_contents_type')->loadMultiple();
+      $resource_types = [];
+      foreach ($blocks_contents_types as $blocks_contents_type) {
+        $resource_types[] = 'blocks_contents--' . $blocks_contents_type->id();
+      }
+      $routes['export_import_entities.blocks_contents'] = new Route('/%jsonapi%/export/blocks_contents', [
+        '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\BlocksContents',
+        '_jsonapi_resource_types' => $resource_types,
+        'requirements' => [
+          '_permission' => 'access content',
+          '_role' => 'administrator',
+          '_user_is_logged_in' => TRUE,
+          '_auth' => 'basic_auth'
+        ]
+      ]);
+    }
   }
   
   /**
@@ -39,6 +68,7 @@ class DynamicRoutes {
       '_jsonapi_resource_types' => $resource_types,
       'requirements' => [
         '_permission' => 'access content',
+        '_role' => 'administrator',
         '_user_is_logged_in' => TRUE,
         '_auth' => 'basic_auth'
       ]
@@ -57,6 +87,7 @@ class DynamicRoutes {
         '_jsonapi_resource_types' => $resource_types,
         'requirements' => [
           '_permission' => 'access content',
+          '_role' => 'administrator',
           '_user_is_logged_in' => TRUE,
           '_auth' => 'basic_auth'
         ]
@@ -71,12 +102,6 @@ class DynamicRoutes {
    */
   protected function routeForMainMenu(array &$routes) {
     $entity_query = \Drupal::entityTypeManager()->getStorage('menu')->getQuery();
-    $or = $entity_query->orConditionGroup();
-    // Ce ci est fait pour les anciens sites.
-    $or->condition('id', '_main', 'CONTAINS');
-    $or->condition('id', '-main', 'CONTAINS');
-    $entity_query->condition($or);
-    // $entity_query->g
     $ids = $entity_query->execute();
     $resource_types = [];
     foreach ($ids as $id) {
@@ -87,6 +112,7 @@ class DynamicRoutes {
       '_jsonapi_resource_types' => $resource_types,
       'requirements' => [
         '_permission' => 'access content',
+        '_role' => 'administrator',
         '_user_is_logged_in' => TRUE,
         '_auth' => 'basic_auth'
       ]

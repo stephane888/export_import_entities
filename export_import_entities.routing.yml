@@ -8,6 +8,7 @@ export_import_entities.current_export:
     _controller: '\Drupal\export_import_entities\Controller\ExportImportEntitiesController::build'
   requirements:
     _permission: 'access content'
+    _role: 'gerant_de_site_web+administrator'
     
 export_import_entities.clean_configs:
   path: '/admin/config/development/export-import-entities/clean-config'
@@ -24,6 +25,7 @@ export_import_entities.downloadsitezip:
     _controller: '\Drupal\export_import_entities\Controller\ExportImportEntitiesController::DownloadSiteZip'
   requirements:
     _permission: 'access content'
+    _role: 'gerant_de_site_web+administrator'
 
 export_import_entities.settings_form:
   path: '/admin/config/system/export-import-entities'
@@ -52,6 +54,7 @@ export_import_entities.config:
     _controller: '\Drupal\export_import_entities\Controller\ExportImportEntitiesController::ShowSiteConfig'
   requirements:
     _permission: 'access content'
+    _role: 'gerant_de_site_web+administrator'
     
 # Defines a route where a particular user's articles can be found.
 export_import_entities.page_web:
@@ -66,8 +69,10 @@ export_import_entities.page_web:
     _jsonapi_resource_types: ['site_internet_entity--architecte','site_internet_entity--default_commerce','site_internet_entity--partenaire','site_internet_entity--rc_web']
   requirements:
     _permission: 'access content'
+    _role: 'administrator'
     _user_is_logged_in: 'TRUE'
-    _auth: 'basic_auth'
+  options:    
+    _auth: ['basic_auth', 'cookie']
     # The following requirements will automatically be set for every JSON:API
     # resource route and cannot be overridden here.
     # _content_type_format: api_json
@@ -88,8 +93,10 @@ export_import_entities.template_theme:
     _jsonapi_resource_types: ['config_theme_entity--config_theme_entity']
   requirements:
     _permission: 'access content'
+    _role: 'administrator'
     _user_is_logged_in: 'TRUE'
-    _auth: 'basic_auth'
+  options:    
+    _auth: ['basic_auth', 'cookie']
     # The following requirements will automatically be set for every JSON:API
     # resource route and cannot be overridden here.
     # _content_type_format: api_json
@@ -109,8 +116,10 @@ export_import_entities.block_content:
     _jsonapi_resource_types: ['block_content--basic','block_content--clothings_hero','block_content--container_breamcrumb','block_content--delivery_service','block_content--equipes','block_content--etapes','block_content--fake_comments','block_content--footer','block_content--header','block_content--icone_titre_horizontal_','block_content--logos_clients','block_content--menus','block_content--partenaire_service','block_content--rc_web_bloc_price','block_content--rc_web_commentaires','block_content--rc_web_listes_de_bloc','block_content--section_entete','block_content--service_model_rc_web','block_content--teaser_image_rotation_text','block_content--traiteur_collection']
   requirements:
     _permission: 'access content'
+    _role: 'administrator'
     _user_is_logged_in: 'TRUE'
-    _auth: 'basic_auth'
+  options:    
+    _auth: ['basic_auth', 'cookie']
 
 # Permet de charger de maniere statiques les paragraphes en relation avec l'entete.   
 # On dit pouvoir faire une evolution afin de permettre de charger tous les paragraphes. 
@@ -127,7 +136,7 @@ export_import_entities.block_content:
 #  requirements:
 #    _permission: 'access content'
 #    _user_is_logged_in: 'TRUE'
-#    _auth: 'basic_auth'
+#
     
 # .
 export_import_entities.block_content_menu:
@@ -142,8 +151,10 @@ export_import_entities.block_content_menu:
     _jsonapi_resource_types: ['block_content--menus']
   requirements:
     _permission: 'access content'
+    _role: 'administrator'
     _user_is_logged_in: 'TRUE'
-    _auth: 'basic_auth'
+  options:    
+    _auth: ['basic_auth', 'cookie']
     
 export_import_entities.block_content_breamcrumb:
   # %jsonapi% is a placeholder for the JSON:API base path, which can be
@@ -157,8 +168,10 @@ export_import_entities.block_content_breamcrumb:
     _jsonapi_resource_types: ['block_content--container_breamcrumb']
   requirements:
     _permission: 'access content'
+    _role: 'administrator'
     _user_is_logged_in: 'TRUE'
-    _auth: 'basic_auth'
+  options:    
+    _auth: ['basic_auth', 'cookie']
     
 # Defines a route where a particular user's articles can be found.
 export_import_entities.block:
@@ -173,8 +186,10 @@ export_import_entities.block:
     _jsonapi_resource_types: ['block--block']
   requirements:
     _permission: 'access content'
+    _role: 'administrator'
     _user_is_logged_in: 'TRUE'
-    _auth: 'basic_auth'    
+  options:    
+    _auth: ['basic_auth', 'cookie']    
     
 # Defines a route where a particular user's articles can be found.
 #export_import_entities.menu_link_content:
@@ -190,7 +205,7 @@ export_import_entities.block:
 #  requirements:
 #    _permission: 'access content'
 #    _user_is_logged_in: 'TRUE'  
-#    _auth: 'basic_auth'
+
     
     
 # .
@@ -207,7 +222,7 @@ export_import_entities.block:
 #  requirements:
 #    _permission: 'access content'
 #    _user_is_logged_in: 'TRUE'
-#    _auth: 'basic_auth'
+#
 #    
     
     

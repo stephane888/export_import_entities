@@ -65,6 +65,8 @@ class LoadConfigs extends ControllerBase {
   
   /**
    * Crrer la configuration à partir du nom donnée.
+   * Recupere egalement les dependance incluse. ( si cela respecte la logique de
+   * drupal ).
    *
    * @param string $name
    * @param $override //

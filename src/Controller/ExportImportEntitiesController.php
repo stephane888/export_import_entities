@@ -46,6 +46,7 @@ class ExportImportEntitiesController extends ControllerBase {
   
   /**
    * Permet de partager la configuration d'un site.
+   * ( cette logique n'est pas optimal).
    */
   public function ShowSiteConfig() {
     /**

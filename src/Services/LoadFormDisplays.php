@@ -10,7 +10,7 @@ use Drupal\export_import_entities\Services\ThirdPartySettings;
  * d'entité.
  *
  * @author stephane
- *
+ *        
  */
 class LoadFormDisplays extends ControllerBase {
   /**
@@ -18,18 +18,18 @@ class LoadFormDisplays extends ControllerBase {
    * @var \Drupal\export_import_entities\Services\ThirdPartySettings
    */
   protected $ThirdPartySettings;
-
+  
   /**
    *
    * @var LoadConfigs
    */
   protected $LoadConfigs;
-
+  
   function __construct(LoadConfigs $LoadConfigs, ThirdPartySettings $ThirdPartySettings) {
     $this->LoadConfigs = $LoadConfigs;
     $this->ThirdPartySettings = $ThirdPartySettings;
   }
-
+  
   public function setNewDomain($domaineId) {
     $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
     if ($domain)
@@ -39,11 +39,12 @@ class LoadFormDisplays extends ControllerBase {
     //
     $this->LoadConfigs->setNewDomain($domaineId);
   }
-
+  
   /**
    * Permet de charger l
    *
    * @param string $entity_type
+   *        Content entity : example node, blocks_contents
    * @param array $bundles
    * @return [\Drupal\Core\Entity\Entity\EntityFormDisplay]
    */
@@ -54,14 +55,14 @@ class LoadFormDisplays extends ControllerBase {
      */
     $definition = $this->entityTypeManager()->getDefinition('entity_form_display');
     $prefix = $definition->getConfigPrefix();
-
+    
     foreach ($bundles as $bundle) {
       $keySearch = $entity_type . '.' . $bundle;
       $query = $this->entityTypeManager()->getStorage('entity_form_display')->getQuery();
       $query->condition('id', $keySearch, 'CONTAINS');
       $ids = $query->execute();
-      // if ($entity_type == 'block_content') {
-      // dump($ids);
+      // if ($entity_type == 'commerce_order_type') {
+      // dd($ids);
       // }
       if (!empty($ids)) {
         foreach ($ids as $id) {
@@ -86,5 +87,5 @@ class LoadFormDisplays extends ControllerBase {
     }
     // dump($this->LoadConfigs->getGenerate());
   }
-
+  
 }
