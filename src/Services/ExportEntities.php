@@ -241,13 +241,23 @@ class ExportEntities extends ControllerBase {
       $name = 'image.style.' . $image_style->id();
       $this->LoadConfigs->getConfigFromName($name);
     }
+    $responsive_image_styles = $this->entityTypeManager()->getStorage('responsive_image_style')->loadMultiple();
+    foreach ($responsive_image_styles as $responsive_image_style) {
+      $name = 'responsive_image.styles.' . $responsive_image_style->id();
+      $this->LoadConfigs->getConfigFromName($name);
+    }
   }
   
   function getMenus() {
     $entityMenu = $this->entityTypeManager()->getDefinition("menu");
     $query = $this->entityTypeManager()->getStorage("menu")->getQuery();
-    if ($this->currentDomaine)
-      $query->condition('id', $this->currentDomaine->id(), 'CONTAINS');
+    if ($this->currentDomaine) {
+      $or = $query->orConditionGroup();
+      $or->condition('id', $this->currentDomaine->id(), 'CONTAINS');
+      $or->condition('third_party_settings.lesroidelareno.domain_id', $this->currentDomaine->id(), 'CONTAINS');
+      $query->condition($or);
+    }
+    
     $ids = $query->execute();
     foreach ($ids as $id) {
       $name = $entityMenu->getConfigPrefix() . '.' . $id;

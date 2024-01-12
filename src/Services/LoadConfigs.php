@@ -82,11 +82,12 @@ class LoadConfigs extends ControllerBase {
     
     if (empty(self::$configEntities[$name])) {
       $defaultConfs = $this->configStorage->read($name);
-      // if (str_contains($name, "commerce_payment.commerce_payment_gateway")) {
-      // dump($defaultConfs);
+      // if ($name == "system.menu.test851-main") {
+      // dd($defaultConfs);
       // }
       
       if ($defaultConfs) {
+        // $this->removeDependenciesDomain($defaultConfs, $name);
         if (!empty($override)) {
           $configs = NestedArray::mergeDeepArray([
             $defaultConfs,
@@ -106,6 +107,31 @@ class LoadConfigs extends ControllerBase {
         $this->loadDependancyConfig($name);
       }
     }
+  }
+  
+  /**
+   * ( Cette logique peut avoir des comportements inatendu ).
+   * Vise à supprimer toutes les dependances liées au module domaine et au
+   * modules coeurs.
+   */
+  protected function removeDependenciesDomain(array &$defaultConfs, $name) {
+    // cas des menus.
+    if (str_contains($name, "system.menu.")) {
+      $this->removeModulesDependancies($defaultConfs);
+      if ($defaultConfs['third_party_settings']['lesroidelareno'])
+        unset($defaultConfs['third_party_settings']['lesroidelareno']);
+    }
+  }
+  
+  protected function removeModulesDependancies(array &$defaultConfs) {
+    $modules = [
+      'lesroidelareno' => 'lesroidelareno'
+    ];
+    if (!empty($defaultConfs['dependencies']['module']))
+      foreach ($defaultConfs['dependencies']['module'] as $key => $moduleName) {
+        if (in_array($moduleName, $modules))
+          unset($defaultConfs['dependencies']['module'][$key]);
+      }
   }
   
   public function addConfig(string $name, $string) {
