@@ -254,7 +254,7 @@ class ExportEntities extends ControllerBase {
     if ($this->currentDomaine) {
       $or = $query->orConditionGroup();
       $or->condition('id', $this->currentDomaine->id(), 'CONTAINS');
-      $or->condition('third_party_settings.lesroidelareno.domain_id', $this->currentDomaine->id(), 'CONTAINS');
+      $or->condition('third_party_settings.wb_horizon_public.domain_id', $this->currentDomaine->id(), 'CONTAINS');
       $query->condition($or);
     }
     
