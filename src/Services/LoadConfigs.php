@@ -197,6 +197,7 @@ class LoadConfigs extends ControllerBase {
             //
             if (str_contains($name, 'field.field')) {
               $this->addDefaultEncodeData($defaultConfs);
+              $this->removeDefaultValue($defaultConfs);
             }
             $string = Yaml::encode($defaultConfs);
             debugLog::logger($string, $name . '.yml', false, 'file');
@@ -230,7 +231,7 @@ class LoadConfigs extends ControllerBase {
   }
   
   /**
-   * --
+   * Ajoute les images par defaut, mais encodé.
    */
   protected function addDefaultEncodeData(array &$defaultConfs) {
     if (!empty($defaultConfs['field_type']) && $defaultConfs['field_type'] == 'image' && !empty($defaultConfs['settings']['default_image']['uuid'])) {
@@ -246,6 +247,28 @@ class LoadConfigs extends ControllerBase {
   }
   
   /**
+   * Retire les valeurs par defaut pour certains champs.
+   */
+  protected function removeDefaultValue(array &$defaultConfs) {
+    if (!empty($defaultConfs['field_type'])) {
+      $removeDefaultValue = [
+        'text_with_summary',
+        'string',
+        'more_fields_icon_text',
+        'text_long',
+        'link',
+        'entity_reference',
+        'string_long',
+        'geolocation',
+        'phone_international'
+      ];
+      if (in_array($defaultConfs['field_type'], $removeDefaultValue))
+        $defaultConfs['default_value'] = [];
+    }
+  }
+  
+  /**
+   * Permet de recuperer les configurations d'un champs.
    *
    * @param string $entity_type
    * @param string $bundle
@@ -258,11 +281,8 @@ class LoadConfigs extends ControllerBase {
      */
     $FieldConfig = $this->entityTypeManager()->getStorage('field_config')->load($entity_type . '.' . $bundle . '.' . $fieldName);
     if ($FieldConfig) {
-      // On charge les images par defaut au format base64.
-      
       $definition = $this->entityTypeManager()->getDefinition('field_config');
       $name = $definition->getConfigPrefix() . '.' . $entity_type . '.' . $bundle . '.' . $fieldName;
-      // dump($name);
       $this->getConfigFromName($name);
       $this->getConfig($FieldConfig->getDependencies());
     }
