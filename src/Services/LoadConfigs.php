@@ -10,6 +10,7 @@ use Symfony\Component\Finder\Finder;
 use DrupalFinder\DrupalFinder;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\file\Entity\File;
+use Drupal\Core\Extension\ExtensionPathResolver;
 
 /**
  * Permet de charger les diffirents affichage pour une entité.
@@ -29,7 +30,7 @@ class LoadConfigs extends ControllerBase {
   /**
    * The config storage.
    *
-   * @var \Drupal\Core\Config\StorageInterface
+   * @var \Drupal\Core\Config\CachedStorage
    */
   protected $configStorage;
   
@@ -40,13 +41,53 @@ class LoadConfigs extends ControllerBase {
   protected $Finder;
   
   /**
+   * key 'export_import_entities.settings'
+   *
+   * @var array
+   */
+  protected $settings;
+  
+  /**
+   *
+   * @var ExtensionPathResolver
+   */
+  protected $ExtensionPathResolver;
+  /**
+   * Check if config is init;
+   *
+   * @var boolean
+   */
+  private $configInit = false;
+  
+  /**
+   *
+   * @var boolean
+   */
+  protected static $saveIt = true;
+  /**
+   *
+   * @var boolean
+   */
+  protected static $removeUUID = false;
+  
+  /**
+   * Les valeurs par defaut pose probleme dans certaines conditions( voir
+   * wb-horizon).
+   *
+   * @var boolean
+   */
+  protected static $removeDefaultValue = TRUE;
+  
+  /**
    *
    * @var \Drupal\domain\DomainNegotiator
+   * @deprecated car cela doit etre dans le service etendu de wb-hirizon.
    */
   protected $currentDomaine;
   
-  function __construct(StorageInterface $config_storage) {
+  function __construct(StorageInterface $config_storage, ExtensionPathResolver $ExtensionPathResolver) {
     $this->configStorage = $config_storage;
+    $this->ExtensionPathResolver = $ExtensionPathResolver;
   }
   
   public function setNewDomain($domaineId) {
@@ -73,13 +114,7 @@ class LoadConfigs extends ControllerBase {
    *        contient les données qui doivent etre surcharger.
    */
   public function getConfigFromName(string $name, array $override = []) {
-    debugLog::$debug = false;
-    if ($this->currentDomaine)
-      debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
-    else
-      debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install';
-    // dump(debugLog::$path);
-    
+    $this->initExportDir();
     if (empty(self::$configEntities[$name])) {
       $defaultConfs = $this->configStorage->read($name);
       // if ($name == "system.menu.test851-main") {
@@ -96,8 +131,10 @@ class LoadConfigs extends ControllerBase {
         }
         else
           $configs = $defaultConfs;
+        $this->removeUuid($configs);
         $string = Yaml::encode($configs);
-        debugLog::logger($string, $name . '.yml', false, 'file');
+        if (self::$saveIt)
+          debugLog::logger($string, $name . '.yml', false, 'file');
         self::$configEntities[$name] = [
           'status' => true,
           'value' => $string
@@ -135,7 +172,13 @@ class LoadConfigs extends ControllerBase {
   }
   
   public function addConfig(string $name, $string) {
-    debugLog::logger($string, $name . '.yml', false, 'file');
+    $this->initExportDir();
+    $configs = Yaml::decode($string);
+    $this->removeUuid($configs);
+    $string = Yaml::encode($configs);
+    
+    if (self::$saveIt)
+      debugLog::logger($string, $name . '.yml', false, 'file');
     self::$configEntities[$name] = [
       'status' => true,
       'value' => $string
@@ -188,19 +231,21 @@ class LoadConfigs extends ControllerBase {
    * @param array $configEntities
    */
   public function getConfig(array $configs, $entity = null) {
+    $this->initExportDir();
     if (!empty($configs['config']))
       foreach ($configs['config'] as $config) {
         if (empty(self::$configEntities[$config])) {
           $name = $config;
           if ($this->filterConfig($config)) {
             $defaultConfs = $this->configStorage->read($name);
-            //
             if (str_contains($name, 'field.field')) {
               $this->addDefaultEncodeData($defaultConfs);
               $this->removeDefaultValue($defaultConfs);
             }
+            $this->removeUuid($defaultConfs);
             $string = Yaml::encode($defaultConfs);
-            debugLog::logger($string, $name . '.yml', false, 'file');
+            if (self::$saveIt)
+              debugLog::logger($string, $name . '.yml', false, 'file');
             self::$configEntities[$name] = [
               'status' => true,
               'value' => $string
@@ -250,7 +295,7 @@ class LoadConfigs extends ControllerBase {
    * Retire les valeurs par defaut pour certains champs.
    */
   protected function removeDefaultValue(array &$defaultConfs) {
-    if (!empty($defaultConfs['field_type'])) {
+    if (self::$removeDefaultValue && !empty($defaultConfs['field_type'])) {
       $removeDefaultValue = [
         'text_with_summary',
         'string',
@@ -336,6 +381,67 @@ class LoadConfigs extends ControllerBase {
         $this->getConfig($dependencies);
       }
     }
+  }
+  
+  /**
+   * --
+   */
+  protected function initExportDir() {
+    if (!$this->configInit) {
+      $settings = $this->getSettings();
+      debugLog::$debug = false;
+      $pathFull = null;
+      if (!empty($settings['save_data'])) {
+        $path = $this->ExtensionPathResolver->getPath('profile', $settings['save_data']);
+        if ($path) {
+          if ($settings['config_is_required'])
+            $pathFull = $path . "/config/install";
+          else
+            $pathFull = $path . "/config/optional";
+        }
+      }
+      if ($pathFull) {
+        debugLog::$path = DRUPAL_ROOT . "/" . $pathFull;
+      }
+      else
+        debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install';
+      $this->configInit = true;
+    }
+  }
+  
+  protected function removeUuid(array &$confs) {
+    if (self::$removeUUID && !empty($confs['uuid'])) {
+      unset($confs['uuid']);
+    }
+  }
+  
+  /**
+   * La configuration.
+   *
+   * @return array|number|mixed|\Drupal\Component\Render\MarkupInterface|string
+   */
+  protected function getSettings() {
+    if (!$this->settings) {
+      $this->settings = $this->config('export_import_entities.settings')->getRawData();
+    }
+    return $this->settings;
+  }
+  
+  /**
+   * Permet d'enregistrer ou pas les données de configurations.
+   *
+   * @param boolean $action
+   */
+  public function setSaveIt($action = true) {
+    self::$saveIt = $action;
+  }
+  
+  public function setRemoveUUID($action = true) {
+    self::$removeUUID = $action;
+  }
+  
+  public function setRemoveDefaultValue($action = true) {
+    self::$removeDefaultValue = $action;
   }
   
 }

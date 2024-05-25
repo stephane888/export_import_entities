@@ -14,6 +14,13 @@ use Drupal\taxonomy\Entity\Term;
 
 class ExportEntities extends ControllerBase {
   protected static $field_domain_access = 'field_domain_access';
+  /**
+   * Permet d'identifier le domaine.
+   *
+   * @var string
+   * @deprecated Car cela doit etre dans les services propre à wb-horizon.
+   *            
+   */
   protected $currentDomaine;
   protected $entityFieldManger;
   /**
@@ -22,31 +29,6 @@ class ExportEntities extends ControllerBase {
    * @var \Drupal\Core\Config\StorageInterface
    */
   protected $configStorage;
-  
-  /**
-   * Contient la liste des entites dont les configurations doivent etre
-   * extraites si elles remplissent les conditions.
-   * On distingue deux type d 'entité sans bundle et avec.
-   * -- Les entittés avec bundle --
-   * Pour ajouter une entité avec bundle, on doit chosir le bundle (C'est au
-   * niveau du bundle qu'on definit la configuration, les champs, les
-   * formulaires ...) avant l'ajout. Donc pour recuperer la configuration, on
-   * doit recuperer à partir de ce bundle.
-   * -- Les entittés sans bundle --
-   *
-   * @var array
-   * @deprecated
-   */
-  protected $validesEntities = [
-    'node',
-    'paragraph',
-    'config_theme_entity',
-    'site_internet_entity',
-    'block_content',
-    // 'block', // le bloc n'est pas appropié pour le moment, car certains
-    // fonctionnalité (le theme, plugin derivée ) ne sont pas sur le modele.
-    'commerce_product'
-  ];
   
   /**
    *
@@ -108,6 +90,11 @@ class ExportEntities extends ControllerBase {
     $this->LoadViewDisplays = $LoadViewDisplays;
   }
   
+  /**
+   *
+   * @param string $domaineId
+   * @deprecated Car cela doit etre dans les services propre à wb-horizon.
+   */
   public function setNewDomain($domaineId) {
     $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
     if ($domain)
@@ -120,6 +107,10 @@ class ExportEntities extends ControllerBase {
     $this->LoadViewDisplays->setNewDomain($domaineId);
   }
   
+  /**
+   *
+   * @deprecated Car cela doit etre dans les services propre à wb-horizon.
+   */
   public function getCurentDomain() {
     if (\Drupal::moduleHandler()->moduleExists('domain')) {
       $this->currentDomaine = \Drupal::service('domain.negotiator')->getActiveDomain();
@@ -127,6 +118,11 @@ class ExportEntities extends ControllerBase {
     }
   }
   
+  /**
+   * Retourne les entites donc on doit importer la config.
+   *
+   * @return []
+   */
   protected function getValidesEntities() {
     $config = $this->getConfigs();
     $validesEntities = [];
@@ -140,7 +136,7 @@ class ExportEntities extends ControllerBase {
   }
   
   /**
-   * --
+   * La configuration.
    *
    * @return array|number|mixed|\Drupal\Component\Render\MarkupInterface|string
    */

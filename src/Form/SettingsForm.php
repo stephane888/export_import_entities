@@ -4,11 +4,33 @@ namespace Drupal\export_import_entities\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Extension\ProfileExtensionList;
 
 /**
  * Configure Export Import Entities settings for this site.
  */
 class SettingsForm extends ConfigFormBase {
+  
+  /**
+   *
+   * @var ProfileExtensionList
+   */
+  protected $ProfileExtensionList;
+  
+  public function __construct(ConfigFactoryInterface $config_factory, ProfileExtensionList $ProfileExtensionList, protected $typedConfigManager = NULL) {
+    parent::__construct($config_factory, $typedConfigManager);
+    $this->ProfileExtensionList = $ProfileExtensionList;
+  }
+  
+  /**
+   *
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('config.factory'), $container->get('extension.list.profile'), $container->get('config.typed'));
+  }
   
   /**
    *
@@ -34,6 +56,30 @@ class SettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('export_import_entities.settings');
+    //
+    $profilesOptions = [];
+    foreach ($this->ProfileExtensionList->getList() as $name => $profile) {
+      /**
+       *
+       * @var $profile \Drupal\Core\Extension\Extension $profile
+       */
+      $profilesOptions[$name] = $profile->getName();
+    }
+    $profilesOptions['custom_callback'] = "Definie automatiquement au niveau du code";
+    $form['save_data'] = [
+      '#type' => 'select',
+      '#title' => $this->t(" Selectionner le profile ou seront stocker les données "),
+      '#required' => TRUE,
+      '#options' => $profilesOptions,
+      '#default_value' => $config->get('save_data')
+    ];
+    
+    $form['config_is_required'] = [
+      '#type' => 'checkbox',
+      '#title' => "Ces données sont t'elles requises",
+      '#default_value' => $config->get('config_is_required')
+    ];
+    
     // dump($config->getRawData());
     $form['list_entities'] = [
       '#type' => 'details',
@@ -103,6 +149,8 @@ class SettingsForm extends ConfigFormBase {
     $config->set('export_orthers_entities', $form_state->getValue('export_orthers_entities'));
     $config->set('export_image_styles', $form_state->getValue('export_image_styles'));
     $config->set('export_menus', $form_state->getValue('export_menus'));
+    $config->set('save_data', $form_state->getValue('save_data'));
+    $config->set('config_is_required', $form_state->getValue('config_is_required'));
     $config->save();
     parent::submitForm($form, $form_state);
   }

@@ -16,7 +16,9 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\system\Plugin\Archiver\Zip;
 
 /**
- * Configure Export Import Entities settings for this site.
+ * Permet d'exporter le fichier final sur wb-horizon.
+ *
+ * @deprecated car doit etre dans le module propre à wb-horizon.
  */
 class GenerateSite extends ConfigFormBase {
   protected static $keyEditable = "export_import_entities.generatesite";

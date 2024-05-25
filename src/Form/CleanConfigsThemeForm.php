@@ -17,7 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CleanConfigsThemeForm extends FormBase {
   /**
    *
-   * @var \Drupal\export_import_entities\Services\CleanConfigsTheme
+   * @var \Drupal\export_import_entities\Services\CleanConfigsTheme.
+   * @deprecated car doit etre dans le module propre à wb-horizon.
    */
   protected $CleanConfigsTheme;
   
@@ -63,7 +64,7 @@ class CleanConfigsThemeForm extends FormBase {
         '#open' => true
       ];
       /**
-       * si la configuration n'est pas vide et est superieur à 1 ou si le
+       * Si la configuration n'est pas vide et est superieur à 1 ou si le
        * premier element est different de 'core.extension' alors cette
        * configuration a des dependances.
        */
