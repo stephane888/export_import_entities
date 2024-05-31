@@ -1,28 +1,56 @@
-services:  
+services:
   export_import_entities.export.entites:
     class: Drupal\export_import_entities\Services\ExportEntities
-    arguments: ['@entity_field.manager','@config.storage','@export_import_entities.export.form.displays','@export_import_entities.export.form.LoadConfigs','@export_import_entities.export.view.displays']
-    
+    arguments:
+      [
+        "@entity_field.manager",
+        "@config.storage",
+        "@export_import_entities.export.form.displays",
+        "@export_import_entities.export.form.LoadConfigs",
+        "@export_import_entities.export.view.displays",
+      ]
+
   export_import_entities.export.form.displays:
     class: Drupal\export_import_entities\Services\LoadFormDisplays
-    arguments: ['@export_import_entities.export.form.LoadConfigs','@export_import_entities.export.third_party_settings']
-    
+    arguments:
+      [
+        "@export_import_entities.export.form.LoadConfigs",
+        "@export_import_entities.export.third_party_settings",
+      ]
+
   export_import_entities.export.view.displays:
     class: Drupal\export_import_entities\Services\LoadViewDisplays
-    arguments: ['@export_import_entities.export.form.LoadConfigs','@export_import_entities.export.third_party_settings']
-    
+    arguments:
+      [
+        "@export_import_entities.export.form.LoadConfigs",
+        "@export_import_entities.export.third_party_settings",
+      ]
+
   export_import_entities.export.form.write:
     class: Drupal\export_import_entities\Services\LoadFormWrite
-    arguments: ['@export_import_entities.export.form.LoadConfigs','@export_import_entities.export.third_party_settings']
-    
+    arguments:
+      [
+        "@export_import_entities.export.form.LoadConfigs",
+        "@export_import_entities.export.third_party_settings",
+      ]
+
   export_import_entities.export.form.LoadConfigs:
     class: Drupal\export_import_entities\Services\LoadConfigs
-    arguments: ['@config.storage']
-    
+    arguments: ["@config.storage"]
+
   export_import_entities.export.third_party_settings:
     class: Drupal\export_import_entities\Services\ThirdPartySettings
-    arguments: ['@export_import_entities.export.form.LoadConfigs']  
-    
+    arguments: ["@export_import_entities.export.form.LoadConfigs"]
+
   export_import_entities.clean_configs_theme:
     class: Drupal\export_import_entities\Services\CleanConfigsTheme
-    arguments: ['@extension.path.resolver','@asset.css.collection_optimizer','@theme_handler','@config.manager','@config.factory','@module_handler','@router.builder','@extension.list.theme']
+    arguments:
+      [
+        "@asset.css.collection_optimizer",
+        "@theme_handler",
+        "@config.manager",
+        "@config.factory",
+        "@module_handler",
+        "@router.builder",
+        "@extension.list.theme",
+      ]

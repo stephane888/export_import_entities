@@ -2,7 +2,6 @@ name: Export Import Entities
 type: module
 description: permet d&#039;extraire la configuration d&#039;un site et les données pour un autre environnement
 package: Custom
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 dependencies:
   - jsonapi_resources:jsonapi_resources

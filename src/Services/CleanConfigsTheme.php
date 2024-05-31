@@ -25,20 +25,13 @@ use Drupal\Core\Extension\ThemeExtensionList;
  *        
  */
 class CleanConfigsTheme {
-  /**
-   *
-   * @var \Drupal\Core\Extension\ExtensionPathResolver
-   * @deprecated car cela renvoit les warning pour chaque theme manquant. (on va
-   *             passer par ThemeExtensionList)
-   */
-  protected $ExtensionPathResolver;
-  
+
   /**
    *
    * @var \Drupal\Core\Asset\AssetCollectionOptimizerInterface
    */
   protected $cssCollectionOptimizer;
-  
+
   /**
    *
    * @var \Drupal\Core\Extension\ThemeHandlerInterface
@@ -49,40 +42,47 @@ class CleanConfigsTheme {
    * @var \Drupal\Core\Config\ConfigManagerInterface
    */
   protected $configManager;
-  
+
   /**
    *
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
   protected $configFactory;
-  
+
   /**
    *
    * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
   protected $moduleHandler;
-  
+
   /**
    *
    * @var \Drupal\Core\Routing\RouteBuilderInterface
    */
   protected $routeBuilder;
-  
+
   /**
    * Contient la liste de theme qui doit etre supprimer.
    *
    * @var array
    */
   protected $themeNotAvailable = [];
-  
+
   /**
    *
    * @var \Drupal\Core\Extension\ThemeExtensionList
    */
   protected $ThemeExtensionList;
-  
-  function __construct(ExtensionPathResolver $ExtensionPathResolver, AssetCollectionOptimizerInterface $css_collection_optimizer, ThemeHandlerInterface $theme_handler, ConfigManagerInterface $config_manager, ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler, RouteBuilderInterface $route_builder, ThemeExtensionList $ThemeExtensionList) {
-    $this->ExtensionPathResolver = $ExtensionPathResolver;
+
+  function __construct(
+    AssetCollectionOptimizerInterface $css_collection_optimizer,
+    ThemeHandlerInterface $theme_handler,
+    ConfigManagerInterface $config_manager,
+    ConfigFactoryInterface $config_factory,
+    ModuleHandlerInterface $module_handler,
+    RouteBuilderInterface $route_builder,
+    ThemeExtensionList $ThemeExtensionList
+  ) {
     $this->cssCollectionOptimizer = $css_collection_optimizer;
     $this->themeHandler = $theme_handler;
     $this->configManager = $config_manager;
@@ -91,7 +91,7 @@ class CleanConfigsTheme {
     $this->routeBuilder = $route_builder;
     $this->ThemeExtensionList = $ThemeExtensionList;
   }
-  
+
   /**
    * Get the list of themes installed so the files no longer exist.
    */
@@ -104,14 +104,13 @@ class CleanConfigsTheme {
             $this->themeNotAvailable[$themeName] = $themeName;
           }
         }
-      }
-      else {
+      } else {
         $this->messenger()->addWarning("No theme available");
       }
     }
     return $this->themeNotAvailable;
   }
-  
+
   /**
    * Permet de determiner si le theme est compatible avec la logique.
    */
@@ -122,23 +121,22 @@ class CleanConfigsTheme {
     else
       return false;
   }
-  
+
   private function getPathThemeNotAvailable($themeName) {
     try {
       return $this->ThemeExtensionList->getPath($themeName);
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
       return null;
     }
   }
-  
+
   /**
    * Pemet de supprimer un theme.
    */
   public function DeleteThemes(array $theme_list) {
     $this->uninstall($theme_list);
   }
-  
+
   /**
    * La fonction \Drupal\Core\Extension\ThemeInstaller::uninstall() de drupal ne
    * pas pas desintallé un theme qui ne rempli pas les condition de base.
@@ -163,30 +161,30 @@ class CleanConfigsTheme {
     foreach ($theme_list as $key) {
       // The value is not used; the weight is ignored for themes currently.
       $extension_config->clear("theme.$key");
-      
+
       // Reset theme settings.
       $theme_settings = &drupal_static('theme_get_setting');
       unset($theme_settings[$key]);
-      
+
       // Remove all configuration belonging to the theme.( cool )
       $this->configManager->uninstall('theme', $key);
-      
+
       // After theme is delete, we remove that on variables.
       unset($this->themeNotAvailable[$key]);
     }
     // Don't check schema when uninstalling a theme since we are only clearing
     // keys.
     $extension_config->save(TRUE);
-    
+
     // Refresh theme info.
     $this->resetSystem();
     $this->themeHandler->reset();
-    
+
     $this->moduleHandler->invokeAll('themes_uninstalled', [
       $theme_list
     ]);
   }
-  
+
   /**
    * Resets some other systems like rebuilding the route information or caches.
    *
@@ -196,7 +194,7 @@ class CleanConfigsTheme {
     if ($this->routeBuilder) {
       $this->routeBuilder->setRebuildNeeded();
     }
-    
+
     // @todo It feels wrong to have the requirement to clear the local tasks
     // cache here.
     Cache::invalidateTags([
@@ -204,7 +202,7 @@ class CleanConfigsTheme {
     ]);
     $this->themeRegistryRebuild();
   }
-  
+
   /**
    * Wraps drupal_theme_rebuild().
    *
@@ -213,12 +211,11 @@ class CleanConfigsTheme {
   protected function themeRegistryRebuild() {
     drupal_theme_rebuild();
   }
-  
+
   /**
    * Recupere la configuration dependant du theme.
    */
   public function getConfigsDepenceForTheme(string $themeName, $full = false) {
     return ConfigDrupal::searchConfigByWord($themeName, $full);
   }
-  
 }
