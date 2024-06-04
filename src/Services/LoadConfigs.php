@@ -377,6 +377,7 @@ class LoadConfigs extends ControllerBase {
     }
     else {
       $dependencies = \Drupal::config($nameConf)->get('dependencies');
+      dump($nameConf, $dependencies);
       if (!empty($dependencies['config'])) {
         $this->getConfig($dependencies);
       }
