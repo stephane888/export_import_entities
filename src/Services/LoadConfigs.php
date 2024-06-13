@@ -78,7 +78,7 @@ class LoadConfigs extends ControllerBase {
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
     else
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install';
-    
+    //
     if (empty(self::$configEntities[$name])) {
       $defaultConfs = $this->configStorage->read($name);
       // if ($name == "system.menu.test851-main") {
@@ -134,11 +134,13 @@ class LoadConfigs extends ControllerBase {
   }
   
   public function addConfig(string $name, $string) {
-    debugLog::logger($string, $name . '.yml', false, 'file');
-    self::$configEntities[$name] = [
-      'status' => true,
-      'value' => $string
-    ];
+    if (empty(self::$configEntities[$name])) {
+      debugLog::logger($string, $name . '.yml', false, 'file');
+      self::$configEntities[$name] = [
+        'status' => true,
+        'value' => $string
+      ];
+    }
   }
   
   public function hasGenerate($k) {
@@ -327,6 +329,13 @@ class LoadConfigs extends ControllerBase {
         $FieldStorageConfig = $this->entityTypeManager()->getStorage('field_storage_config')->load($entity_type . '.' . $fieldName);
         $this->getConfig($FieldStorageConfig->getDependencies());
         //
+      }
+    }
+    // on determine les dependences lies à la variation de produit
+    elseif (str_contains($nameConf, "commerce_product.commerce_product_type.")) {
+      $defaultConfs = $this->configStorage->read($nameConf);
+      foreach ($defaultConfs['variationTypes'] as $variationType) {
+        $this->getConfigFromName("commerce_product.commerce_product_variation_type." . $variationType);
       }
     }
     else {
