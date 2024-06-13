@@ -11,3 +11,10 @@ export_import_entities.clean_configs:
   parent: system.admin_config_development
   route_name: export_import_entities.clean_configs
   weight: 10  
+
+export_import_entities.select_export_entity:
+  title: Select Export Entity or config
+  description: 'Allows you to select and export a configuration to a profile'
+  parent: export_import_entities.settings_form
+  route_name: export_import_entities.select_export_entity
+  weight: 10 
