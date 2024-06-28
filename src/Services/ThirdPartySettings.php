@@ -12,7 +12,7 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  * d'entité.
  *
  * @author stephane
- *
+ *        
  */
 class ThirdPartySettings extends ControllerBase {
   /**
@@ -21,17 +21,23 @@ class ThirdPartySettings extends ControllerBase {
    */
   protected $viewDefition;
   protected $viewPrefix;
-
+  
   /**
    *
    * @var LoadConfigs
    */
   protected $LoadConfigs;
-
+  
+  /**
+   *
+   * @var \Drupal\domain\DomainNegotiator
+   */
+  protected $currentDomaine;
+  
   function __construct(LoadConfigs $LoadConfigs) {
     $this->LoadConfigs = $LoadConfigs;
   }
-
+  
   public function setNewDomain($domaineId) {
     $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
     if ($domain)
@@ -41,7 +47,7 @@ class ThirdPartySettings extends ControllerBase {
     //
     $this->LoadConfigs->setNewDomain($domaineId);
   }
-
+  
   /**
    * Pour le moment ThirdParty ne fournit pas de mecanisme pour recuprerer
    * efficassement les dependances.
@@ -79,7 +85,7 @@ class ThirdPartySettings extends ControllerBase {
       }
     }
   }
-
+  
   /**
    *
    * @return \Drupal\Core\Config\Entity\ConfigEntityType
@@ -90,7 +96,7 @@ class ThirdPartySettings extends ControllerBase {
     }
     return $this->viewDefition;
   }
-
+  
   /**
    *
    * @return string
@@ -101,7 +107,7 @@ class ThirdPartySettings extends ControllerBase {
     }
     return $this->viewPrefix;
   }
-
+  
 /**
  * --
  */

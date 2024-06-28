@@ -26,6 +26,12 @@ class LoadViewDisplays extends ControllerBase {
    */
   protected $LoadConfigs;
   
+  /**
+   *
+   * @var \Drupal\domain\DomainNegotiator
+   */
+  protected $currentDomaine;
+  
   function __construct(LoadConfigs $LoadConfigs, ThirdPartySettings $ThirdPartySettings) {
     $this->LoadConfigs = $LoadConfigs;
     $this->ThirdPartySettings = $ThirdPartySettings;

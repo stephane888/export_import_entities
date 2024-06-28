@@ -5,7 +5,7 @@ namespace Drupal\export_import_entities\Services;
 use Drupal\Core\Controller\ControllerBase;
 use Stephane888\Debug\debugLog;
 use Drupal\Core\Config\StorageInterface;
-use Drupal\Core\Serialization\Yaml;
+use Drupal\Component\Serialization\Yaml;
 use Symfony\Component\Finder\Finder;
 use DrupalFinder\DrupalFinder;
 use Drupal\Component\Utility\NestedArray;
@@ -81,10 +81,8 @@ class LoadConfigs extends ControllerBase {
     //
     if (empty(self::$configEntities[$name])) {
       $defaultConfs = $this->configStorage->read($name);
-      // if ($name == "system.menu.test851-main") {
-      // dd($defaultConfs);
-      // }
-      
+      // $this->findOccurence("chaussures", $name, 'getConfigFromName',
+      // $defaultConfs);
       if ($defaultConfs) {
         // $this->removeDependenciesDomain($defaultConfs, $name);
         if (!empty($override)) {
@@ -105,6 +103,7 @@ class LoadConfigs extends ControllerBase {
         // On essaie de charger les configurations requises.
         $this->loadDependancyConfig($name);
       }
+      $this->tryGetDependencies($name);
     }
   }
   
@@ -140,6 +139,7 @@ class LoadConfigs extends ControllerBase {
         'status' => true,
         'value' => $string
       ];
+      $this->tryGetDependencies($name);
     }
   }
   
@@ -193,6 +193,7 @@ class LoadConfigs extends ControllerBase {
       foreach ($configs['config'] as $config) {
         if (empty(self::$configEntities[$config])) {
           $name = $config;
+          // $this->findOccurence("chaussures", $name, 'getConfig');
           if ($this->filterConfig($config)) {
             $defaultConfs = $this->configStorage->read($name);
             //
@@ -300,11 +301,23 @@ class LoadConfigs extends ControllerBase {
     }
   }
   
+  public function getConfigFields(array $ids) {
+    foreach ($ids as $id) {
+      $keys = explode(".", $id);
+      if (isset($keys[3]))
+        $this->getConfigField($keys[0], $keys[1], $keys[3]);
+      else {
+        $this->messenger()->addWarning(" Les champs doivent contenir : 'entity_type','bundle' et 'field_name' ");
+      }
+    }
+  }
+  
   /**
    *
    * @param string $nameConf
    */
   private function loadDependancyConfig($nameConf) {
+    $this->tryGetDependencies($nameConf);
     $entity_type = null;
     $ar = explode(".", $nameConf);
     if (!empty($ar[0]))
@@ -331,18 +344,74 @@ class LoadConfigs extends ControllerBase {
         //
       }
     }
-    // on determine les dependences lies à la variation de produit
+    /**
+     * on determine les dependences lies à la variation de produit, car
+     * actuelement le code ne e permet pas de maniere automatique.
+     */
     elseif (str_contains($nameConf, "commerce_product.commerce_product_type.")) {
       $defaultConfs = $this->configStorage->read($nameConf);
       foreach ($defaultConfs['variationTypes'] as $variationType) {
-        $this->getConfigFromName("commerce_product.commerce_product_variation_type." . $variationType);
+        $variationName = "commerce_product.commerce_product_variation_type." . $variationType;
+        $this->getConfigFromName($variationName);
+        // begin test
+        // $defaultConfs = $this->configStorage->read($variationName);
+        // dump($defaultConfs);
+        /**
+         *
+         * @var \Drupal\commerce\EntityTraitManager $traitCommerce
+         */
+        // $traitCommerce =
+        // \Drupal::service('plugin.manager.commerce_entity_trait');
+        
+        // /**
+        // *
+        // * @var \Drupal\commerce_product\Entity\ProductVariationType
+        // $variation
+        // */
+        // $variation =
+        // $this->entityTypeManager()->getStorage('commerce_product_variation_type')->load($variationType);
+        // foreach ($variation->getTraits() as $plugin_id) {
+        // /**
+        // *
+        // * @var
+        // \Drupal\commerce_shipping\Plugin\Commerce\EntityTrait\PurchasableEntityDimensions
+        // $instancetrait
+        // */
+        // $instancetrait = $traitCommerce->createInstance($plugin_id);
+        // dd($instancetrait->buildFieldDefinitions());
+        // }
+        //
+        $queryField = $this->entityTypeManager()->getStorage('field_config')->getQuery();
+        $queryField->accessCheck(TRUE);
+        $queryField->condition('entity_type', 'commerce_product_variation');
+        $queryField->condition('bundle', $variationType);
+        $ids = $queryField->execute();
+        $this->getConfigFields($ids);
       }
     }
-    else {
-      $dependencies = \Drupal::config($nameConf)->get('dependencies');
+  }
+  
+  /**
+   * à partir de toute configuration
+   *
+   * @param string $nameConf
+   */
+  protected function tryGetDependencies(string $nameConf) {
+    $conf = \Drupal::config($nameConf);
+    if ($conf) {
+      $dependencies = $conf->get('dependencies');
       if (!empty($dependencies['config'])) {
         $this->getConfig($dependencies);
       }
+    }
+  }
+  
+  /**
+   * Permet de faire du debug
+   */
+  protected function findOccurence($search, $string, $fonction_name, $datas = []) {
+    if (str_contains($string, $search)) {
+      dd($fonction_name, $string, $datas);
     }
   }
   

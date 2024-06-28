@@ -9,7 +9,7 @@ use Drupal\export_import_entities\Services\ThirdPartySettings;
  * Permet de charger les diffirents affichage pour un formulaire.
  *
  * @author stephane
- *
+ *        
  */
 class LoadFormWrite extends ControllerBase {
   /**
@@ -17,18 +17,24 @@ class LoadFormWrite extends ControllerBase {
    * @var \Drupal\export_import_entities\Services\ThirdPartySettings
    */
   protected $ThirdPartySettings;
-
+  
   /**
    *
    * @var LoadConfigs
    */
   protected $LoadConfigs;
-
+  
+  /**
+   *
+   * @var \Drupal\domain\DomainNegotiator
+   */
+  protected $currentDomaine;
+  
   function __construct(LoadConfigs $LoadConfigs, ThirdPartySettings $ThirdPartySettings) {
     $this->LoadConfigs = $LoadConfigs;
     $this->ThirdPartySettings = $ThirdPartySettings;
   }
-
+  
   public function setNewDomain($domaineId) {
     $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
     if ($domain)
@@ -38,7 +44,7 @@ class LoadFormWrite extends ControllerBase {
     //
     $this->LoadConfigs->setNewDomain($domaineId);
   }
-
+  
   /**
    * Permet de charger l
    *
@@ -53,7 +59,7 @@ class LoadFormWrite extends ControllerBase {
      */
     $definition = $this->entityTypeManager()->getDefinition('entity_form_mode');
     $prefix = $definition->getConfigPrefix();
-
+    
     foreach ($bundles as $bundle) {
       $keySearch = $entity_type . '.' . $bundle;
       $query = $this->entityTypeManager()->getStorage('entity_form_mode')->getQuery();
@@ -76,5 +82,5 @@ class LoadFormWrite extends ControllerBase {
       }
     }
   }
-
+  
 }
