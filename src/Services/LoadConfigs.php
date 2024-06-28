@@ -81,8 +81,7 @@ class LoadConfigs extends ControllerBase {
     //
     if (empty(self::$configEntities[$name])) {
       $defaultConfs = $this->configStorage->read($name);
-      // $this->findOccurence("chaussures", $name, 'getConfigFromName',
-      // $defaultConfs);
+      
       if ($defaultConfs) {
         // $this->removeDependenciesDomain($defaultConfs, $name);
         if (!empty($override)) {
@@ -193,7 +192,7 @@ class LoadConfigs extends ControllerBase {
       foreach ($configs['config'] as $config) {
         if (empty(self::$configEntities[$config])) {
           $name = $config;
-          // $this->findOccurence("chaussures", $name, 'getConfig');
+          
           if ($this->filterConfig($config)) {
             $defaultConfs = $this->configStorage->read($name);
             //
@@ -304,8 +303,8 @@ class LoadConfigs extends ControllerBase {
   public function getConfigFields(array $ids) {
     foreach ($ids as $id) {
       $keys = explode(".", $id);
-      if (isset($keys[3]))
-        $this->getConfigField($keys[0], $keys[1], $keys[3]);
+      if (isset($keys[2]))
+        $this->getConfigField($keys[0], $keys[1], $keys[2]);
       else {
         $this->messenger()->addWarning(" Les champs doivent contenir : 'entity_type','bundle' et 'field_name' ");
       }
