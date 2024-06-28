@@ -1,5 +1,4 @@
 <?php
-declare(strict_types = 1);
 
 namespace Drupal\export_import_entities\Form;
 
@@ -64,7 +63,8 @@ final class SelectExportEntity extends FormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('entity_type.manager'), $container->get('export_import_entities.export.form.displays'), $container->get('export_import_entities.export.view.displays'), $container->get('export_import_entities.export.form.write'), $container->get("export_import_entities.export.form.LoadConfigs"));
+    return new static($container->get('entity_type.manager'), $container->get('export_import_entities.export.form.displays'), $container->get('export_import_entities.export.view.displays'), $container->get(
+      'export_import_entities.export.form.write'), $container->get("export_import_entities.export.form.LoadConfigs"));
   }
   
   /**
@@ -276,5 +276,4 @@ final class SelectExportEntity extends FormBase {
   static public function export_import_select_export_entity(array $form, FormStateInterface $form_state) {
     return $form['datas'];
   }
-  
 }
