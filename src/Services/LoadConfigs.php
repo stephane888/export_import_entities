@@ -350,36 +350,11 @@ class LoadConfigs extends ControllerBase {
     elseif (str_contains($nameConf, "commerce_product.commerce_product_type.")) {
       $defaultConfs = $this->configStorage->read($nameConf);
       foreach ($defaultConfs['variationTypes'] as $variationType) {
+        // On charge le type de produit.
         $variationName = "commerce_product.commerce_product_variation_type." . $variationType;
         $this->getConfigFromName($variationName);
-        // begin test
-        // $defaultConfs = $this->configStorage->read($variationName);
-        // dump($defaultConfs);
-        /**
-         *
-         * @var \Drupal\commerce\EntityTraitManager $traitCommerce
-         */
-        // $traitCommerce =
-        // \Drupal::service('plugin.manager.commerce_entity_trait');
+        // On charge le rendu d'affichage et du formulaire.
         
-        // /**
-        // *
-        // * @var \Drupal\commerce_product\Entity\ProductVariationType
-        // $variation
-        // */
-        // $variation =
-        // $this->entityTypeManager()->getStorage('commerce_product_variation_type')->load($variationType);
-        // foreach ($variation->getTraits() as $plugin_id) {
-        // /**
-        // *
-        // * @var
-        // \Drupal\commerce_shipping\Plugin\Commerce\EntityTrait\PurchasableEntityDimensions
-        // $instancetrait
-        // */
-        // $instancetrait = $traitCommerce->createInstance($plugin_id);
-        // dd($instancetrait->buildFieldDefinitions());
-        // }
-        //
         $queryField = $this->entityTypeManager()->getStorage('field_config')->getQuery();
         $queryField->accessCheck(TRUE);
         $queryField->condition('entity_type', 'commerce_product_variation');
