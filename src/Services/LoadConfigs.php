@@ -2,12 +2,10 @@
 
 namespace Drupal\export_import_entities\Services;
 
-use Drupal\Core\Controller\ControllerBase;
 use Stephane888\Debug\debugLog;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Component\Serialization\Yaml;
 use Symfony\Component\Finder\Finder;
-use DrupalFinder\DrupalFinder;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\file\Entity\File;
 
@@ -17,7 +15,7 @@ use Drupal\file\Entity\File;
  * @author stephane
  *        
  */
-class LoadConfigs extends ControllerBase {
+class LoadConfigs extends LoadBase {
   
   /**
    * Contient la liste des configurations deja crees.
@@ -354,7 +352,6 @@ class LoadConfigs extends ControllerBase {
         $variationName = "commerce_product.commerce_product_variation_type." . $variationType;
         $this->getConfigFromName($variationName);
         // On charge le rendu d'affichage et du formulaire.
-        
         $queryField = $this->entityTypeManager()->getStorage('field_config')->getQuery();
         $queryField->accessCheck(TRUE);
         $queryField->condition('entity_type', 'commerce_product_variation');
@@ -363,6 +360,80 @@ class LoadConfigs extends ControllerBase {
         $this->getConfigFields($ids);
       }
     }
+  }
+  
+  /**
+   * Permet de genrer toutes les configurations en relations avec une entité.
+   * example :
+   * $BundleEntityType = blocks_contents_type
+   * $entiy_type_id = blocks_contents
+   * $bundle = clothings_hero
+   */
+  public function generateAllConfigAboutEntity($entiy_type_id, $bundle, $BundleEntityType = null, $id = null) {
+    /**
+     *
+     * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityTypeDefinition
+     */
+    // Cas des entités avec bundle.
+    if ($BundleEntityType) {
+      $entityTypeDefinition = $this->entityTypeManager()->getDefinition($BundleEntityType);
+      $name = $entityTypeDefinition->getConfigPrefix() . '.' . $bundle;
+      if (!$this->hasGenerate($name)) {
+        $this->getFields($entiy_type_id, $bundle);
+        self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_display');
+        self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_mode');
+        self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_view_display');
+        $this->getConfigFromName($name);
+        $idTranslation = 'language.content_settings.' . $entiy_type_id . '.' . $bundle;
+        $this->getConfigFromName($idTranslation);
+      }
+    }
+    else {
+      /**
+       *
+       * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityTypeDefinition
+       *
+       */
+      $entityTypeDefinition = $this->entityTypeManager()->getDefinition($entiy_type_id);
+      if ($entityTypeDefinition instanceof \Drupal\Core\Config\Entity\ConfigEntityType) {
+        if (!$id) {
+          throw new \Exception("Pour l'entite ($entiy_type_id) de configuration l'id doit etre definit ");
+        }
+        $name = $entityTypeDefinition->getConfigPrefix() . '.' . $id;
+        if (!$this->hasGenerate($name)) {
+          $this->getConfigFromName($name);
+          // il faudra peut etre gerer la traduction.
+        }
+        // Les entités de configurations n'ont pas de champs.
+        else {
+          $this->getFields($entiy_type_id, $bundle);
+          self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_display');
+          self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_mode');
+          self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_view_display');
+        }
+        // ces entites n'ont pas de données de configuration à ce niveau. ils
+        // sont fournir uniquement à partir d'un modele ou d'une configuration,
+        // mais on peut en surcharger les configurations (formDisplays et
+        // viewDisplays) qui en resulte.
+      }
+    }
+  }
+  
+  /**
+   * example :
+   * $entiy_type_id = commerce_product_variation
+   * $bundle = vetements
+   *
+   * @param string $entiy_type_id
+   * @param string $bundle
+   */
+  public function getFields($entiy_type_id, $bundle) {
+    $queryField = $this->entityTypeManager()->getStorage('field_config')->getQuery();
+    $queryField->accessCheck(TRUE);
+    $queryField->condition('entity_type', $entiy_type_id);
+    $queryField->condition('bundle', $bundle);
+    $ids = $queryField->execute();
+    $this->getConfigFields($ids);
   }
   
   /**

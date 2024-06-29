@@ -2,16 +2,13 @@
 
 namespace Drupal\export_import_entities\Services;
 
-use Drupal\Core\Controller\ControllerBase;
-use Drupal\export_import_entities\Services\ThirdPartySettings;
-
 /**
  * Permet de charger les diffirents affichage pour un formulaire.
  *
  * @author stephane
  *        
  */
-class LoadFormWrite extends ControllerBase {
+class LoadFormWrite extends LoadBase {
   /**
    *
    * @var \Drupal\export_import_entities\Services\ThirdPartySettings
@@ -53,33 +50,9 @@ class LoadFormWrite extends ControllerBase {
    * @return [\Drupal\Core\Entity\Entity\EntityFormDisplay]
    */
   function getDisplays(string $entity_type, array $bundles, &$configEntities = []) {
-    /**
-     *
-     * @var \Drupal\Core\Config\Entity\ConfigEntityType $definition
-     */
-    $definition = $this->entityTypeManager()->getDefinition('entity_form_mode');
-    $prefix = $definition->getConfigPrefix();
-    
     foreach ($bundles as $bundle) {
       $keySearch = $entity_type . '.' . $bundle;
-      $query = $this->entityTypeManager()->getStorage('entity_form_mode')->getQuery();
-      $query->condition('id', $keySearch, 'CONTAINS');
-      $ids = $query->execute();
-      if (!empty($ids)) {
-        foreach ($ids as $id) {
-          if (!$this->LoadConfigs->hasGenerate($id)) {
-            /**
-             *
-             * @var \Drupal\Core\Entity\Entity\EntityFormDisplay $entity
-             */
-            $entity = $this->entityTypeManager()->getStorage('entity_form_mode')->load($id);
-            $this->LoadConfigs->getConfigFromName($prefix . '.' . $id);
-            // On se rassure que ses dependances ont été cree ou on les crées.
-            $confs = $entity->getDependencies();
-            $this->LoadConfigs->getConfig($confs);
-          }
-        }
-      }
+      self::loadConfigs($keySearch, 'entity_form_mode');
     }
   }
   

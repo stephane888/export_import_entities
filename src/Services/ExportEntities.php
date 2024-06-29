@@ -9,7 +9,7 @@ use Drupal\node\Entity\Node;
 use Drupal\views\Plugin\views\filter\Bundle;
 use Drupal\Core\Entity\EntityFieldManager;
 use Drupal\Core\Config\StorageInterface;
-use Drupal\Core\Serialization\Yaml;
+use Drupal\Component\Serialization\Yaml;
 use Drupal\taxonomy\Entity\Term;
 
 class ExportEntities extends ControllerBase {
@@ -275,7 +275,7 @@ class ExportEntities extends ControllerBase {
     // Themes config.
     $string = Yaml::encode([
       'admin' => 'claro',
-      'default' => 'theme_reference_wbu'
+      'default' => $this->currentDomaine ? $this->currentDomaine->id() : 'theme_reference_wbu'
     ]);
     $name = 'system.theme';
     $this->LoadConfigs->addConfig($name, $string);
@@ -437,44 +437,55 @@ class ExportEntities extends ControllerBase {
     foreach ($contents as $value) {
       $BundleEntityType = $value->getEntityType()->getBundleEntityType();
       if (!empty($BundleEntityType)) {
-        /**
-         *
-         * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityTypeDefinition
-         */
-        $entityTypeDefinition = $this->entityTypeManager()->getDefinition($BundleEntityType);
-        $bundle = $value->bundle();
-        $name = $entityTypeDefinition->getConfigPrefix() . '.' . $bundle;
-        $bundles[$bundle] = $bundle;
-        if (!$this->LoadConfigs->hasGenerate($name)) {
-          $this->LoadConfigs->getConfigFromName($name);
-          // on genere si possible les configurations liées à la traduction.
-          $idTranslation = 'language.content_settings.' . $value->getEntityTypeId() . '.' . $bundle;
-          $this->LoadConfigs->getConfigFromName($idTranslation);
-        }
-        // elseif ($entity_type == "block_content") {
-        // dump($name);
+        $this->LoadConfigs->generateAllConfigAboutEntity($value->getEntityTypeId(), $value->bundle(), $BundleEntityType, $value->id());
+        // /**
+        // *
+        // * @var \Drupal\Core\Config\Entity\ConfigEntityType
+        // $entityTypeDefinition
+        // */
+        // $entityTypeDefinition =
+        // $this->entityTypeManager()->getDefinition($BundleEntityType);
+        // $bundle = $value->bundle();
+        // $name = $entityTypeDefinition->getConfigPrefix() . '.' . $bundle;
+        
+        // $bundles[$bundle] = $bundle;
+        // if (!$this->LoadConfigs->hasGenerate($name)) {
+        // $this->LoadConfigs->getConfigFromName($name);
+        // // on genere si possible les configurations liées à la traduction.
+        // $idTranslation = 'language.content_settings.' .
+        // $value->getEntityTypeId() . '.' . $bundle;
+        // $this->LoadConfigs->getConfigFromName($idTranslation);
         // }
+        // // elseif ($entity_type == "block_content") {
+        // // dump($name);
+        // // }
       }
       else {
-        /**
-         *
-         * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityTypeDefinition
-         *
-         */
-        $entityTypeDefinition = $this->entityTypeManager()->getDefinition($entity_type);
-        if ($entityTypeDefinition instanceof \Drupal\Core\Config\Entity\ConfigEntityType) {
-          $name = $entityTypeDefinition->getConfigPrefix() . '.' . $value->id();
-          if (!$this->LoadConfigs->hasGenerate($name)) {
-            $this->LoadConfigs->getConfigFromName($name);
-            // il faudra peut etre gerer la traduction.
-          }
-        }
+        $this->LoadConfigs->generateAllConfigAboutEntity($value->getEntityTypeId(), $value->getEntityTypeId(), null, $value->id());
+        // /**
+        // *
+        // * @var \Drupal\Core\Config\Entity\ConfigEntityType
+        // $entityTypeDefinition
+        // *
+        // */
+        // $entityTypeDefinition =
+        // $this->entityTypeManager()->getDefinition($entity_type);
+        // if ($entityTypeDefinition instanceof
+        // \Drupal\Core\Config\Entity\ConfigEntityType) {
+        // $name = $entityTypeDefinition->getConfigPrefix() . '.' .
+        // $value->id();
+        // if (!$this->LoadConfigs->hasGenerate($name)) {
+        // $this->LoadConfigs->getConfigFromName($name);
+        // // il faudra peut etre gerer la traduction.
+        // }
+        // }
         
-        // ces entites n'ont pas de données de configuration à ce niveau. ils
-        // sont fournir uniquement à partir d'un modele ou d'une configuration,
-        // mais on peut en surcharger les configurations (formDisplays et
-        // viewDisplays) qui en resulte.
-        $bundles[$entity_type] = $entity_type;
+        // // ces entites n'ont pas de données de configuration à ce niveau. ils
+        // // sont fournir uniquement à partir d'un modele ou d'une
+        // configuration,
+        // // mais on peut en surcharger les configurations (formDisplays et
+        // // viewDisplays) qui en resulte.
+        // $bundles[$entity_type] = $entity_type;
       }
     }
     
@@ -493,6 +504,7 @@ class ExportEntities extends ControllerBase {
          * @var \Drupal\commerce_product\Entity\Product $product
          */
         $variations = $product->getVariations();
+        
         foreach ($variations as $variation) {
           $BundleEntityType = $variation->getEntityType()->getBundleEntityType();
           /**
@@ -502,87 +514,94 @@ class ExportEntities extends ControllerBase {
           $entityTypeDefinition = $this->entityTypeManager()->getDefinition($BundleEntityType);
           $bundle = $variation->bundle();
           $name = $entityTypeDefinition->getConfigPrefix() . '.' . $bundle;
-          
           $productBundles[$bundle] = $bundle;
-          if (!$this->LoadConfigs->hasGenerate($name)) {
-            
+          
+          // if (!$this->LoadConfigs->hasGenerate($name)) {
+          
+          /**
+           * Les variations de type de produit contiennent des dependances
+           * qui ne respecte pas la logique de drupal :
+           * - orderItemType
+           *
+           * @var \Drupal\commerce_product\Entity\ProductVariationType $entityType
+           */
+          $entityType = $this->entityTypeManager()->getStorage($BundleEntityType)->load($bundle);
+          $OrderItemTypeId = $entityType->getOrderItemTypeId();
+          
+          if ($OrderItemTypeId) {
             /**
-             * Les variations de type de produit contiennent des dependances
-             * qui
-             * ne respecte pas la logique de drupal :
-             * - orderItemType
              *
-             * @var \Drupal\commerce_product\Entity\ProductVariationType $entityType
+             * @var \Drupal\commerce_order\Entity\OrderItemType $OrderItemType
              */
-            $entityType = $this->entityTypeManager()->getStorage($BundleEntityType)->load($bundle);
-            $OrderItemTypeId = $entityType->getOrderItemTypeId();
-            if ($OrderItemTypeId) {
+            $OrderItemType = $this->entityTypeManager()->getStorage("commerce_order_item_type")->load($OrderItemTypeId);
+            $entityTypeDefinition = $this->entityTypeManager()->getDefinition("commerce_order_item_type");
+            $name = $entityTypeDefinition->getConfigPrefix() . '.' . $OrderItemTypeId;
+            // dd($OrderItemType->getEntityTypeId(), $OrderItemType->bundle(),
+            // $OrderItemType->getEntityType()->getBundleEntityType());
+            $this->LoadConfigs->generateAllConfigAboutEntity($OrderItemType->getEntityTypeId(), $OrderItemType->bundle(), $OrderItemType->getEntityType()->getBundleEntityType(), $OrderItemType->id());
+            //
+            if (!$this->LoadConfigs->hasGenerate($name)) {
+              $this->LoadConfigs->getConfigFromName($name);
+              $order_item_type_bundles = [
+                $OrderItemTypeId => $OrderItemTypeId
+              ];
+              $this->LoadFormDisplays->getDisplays("commerce_order_item", $order_item_type_bundles);
+              $this->LoadViewDisplays->getDisplays("commerce_order_item", $order_item_type_bundles);
+            }
+            $OrderTypeId = $OrderItemType->getOrderTypeId();
+            if ($OrderTypeId) {
               /**
                *
-               * @var \Drupal\commerce_order\Entity\OrderItemType $OrderItemType
+               * @var \Drupal\commerce_order\Entity\OrderType $OrderType
                */
-              $OrderItemType = $this->entityTypeManager()->getStorage("commerce_order_item_type")->load($OrderItemTypeId);
-              $entityTypeDefinition = $this->entityTypeManager()->getDefinition("commerce_order_item_type");
-              $name = $entityTypeDefinition->getConfigPrefix() . '.' . $OrderItemTypeId;
+              $OrderType = $this->entityTypeManager()->getStorage("commerce_order_type")->load($OrderTypeId);
+              $this->LoadConfigs->generateAllConfigAboutEntity($OrderType->getEntityTypeId(), $OrderType->bundle(), $OrderType->getEntityType()->getBundleEntityType(), $OrderType->id());
+              $entityTypeDefinition = $this->entityTypeManager()->getDefinition("commerce_order_type");
+              $name = $entityTypeDefinition->getConfigPrefix() . '.' . $OrderTypeId;
               if (!$this->LoadConfigs->hasGenerate($name)) {
                 $this->LoadConfigs->getConfigFromName($name);
-                $order_item_type_bundles = [
-                  $OrderItemTypeId => $OrderItemTypeId
+                $order_type_bundles = [
+                  $OrderTypeId => $OrderTypeId
                 ];
-                $this->LoadFormDisplays->getDisplays("commerce_order_item", $order_item_type_bundles);
-                $this->LoadViewDisplays->getDisplays("commerce_order_item", $order_item_type_bundles);
+                $this->LoadFormDisplays->getDisplays("commerce_order", $order_type_bundles);
+                $this->LoadViewDisplays->getDisplays("commerce_order", $order_type_bundles);
               }
-              $OrderTypeId = $OrderItemType->getOrderTypeId();
-              if ($OrderTypeId) {
+              // Ce paramettre semble est generer via yamp.
+              // $WorkflowId = $OrderType->getWorkflowId();
+              /**
+               * On recupere le process de paiement.
+               *
+               * @var string $checkout_flow_id
+               */
+              $checkout_flow_id = $OrderType->getThirdPartySetting('commerce_checkout', 'checkout_flow');
+              if ($checkout_flow_id) {
                 /**
                  *
-                 * @var \Drupal\commerce_order\Entity\OrderType $OrderType
+                 * @var \Drupal\commerce_checkout\Entity\CheckoutFlow $commerce_checkout_flow
                  */
-                $OrderType = $this->entityTypeManager()->getStorage("commerce_order_type")->load($OrderTypeId);
-                $entityTypeDefinition = $this->entityTypeManager()->getDefinition("commerce_order_type");
-                $name = $entityTypeDefinition->getConfigPrefix() . '.' . $OrderTypeId;
+                $commerce_checkout_flow = $this->entityTypeManager()->getStorage("commerce_checkout_flow")->load($checkout_flow_id);
+                $entityTypeDefinition = $this->entityTypeManager()->getDefinition("commerce_checkout_flow");
+                $name = $entityTypeDefinition->getConfigPrefix() . '.' . $checkout_flow_id;
                 if (!$this->LoadConfigs->hasGenerate($name)) {
                   $this->LoadConfigs->getConfigFromName($name);
-                  $order_type_bundles = [
-                    $OrderTypeId => $OrderTypeId
-                  ];
-                  $this->LoadFormDisplays->getDisplays("commerce_order", $order_type_bundles);
-                  $this->LoadViewDisplays->getDisplays("commerce_order", $order_type_bundles);
                 }
-                // ce paramettre semble est generer via yamp.
-                // $WorkflowId = $OrderType->getWorkflowId();
-                /**
-                 * On recupere le process de paiement.
-                 *
-                 * @var string $checkout_flow_id
-                 */
-                $checkout_flow_id = $OrderType->getThirdPartySetting('commerce_checkout', 'checkout_flow');
-                if ($checkout_flow_id) {
-                  /**
-                   *
-                   * @var \Drupal\commerce_checkout\Entity\CheckoutFlow $commerce_checkout_flow
-                   */
-                  $commerce_checkout_flow = $this->entityTypeManager()->getStorage("commerce_checkout_flow")->load($checkout_flow_id);
-                  $entityTypeDefinition = $this->entityTypeManager()->getDefinition("commerce_checkout_flow");
-                  $name = $entityTypeDefinition->getConfigPrefix() . '.' . $checkout_flow_id;
-                  if (!$this->LoadConfigs->hasGenerate($name)) {
-                    $this->LoadConfigs->getConfigFromName($name);
-                  }
-                  // dd($name);
-                }
+                // dd($name);
               }
             }
-            
-            //
-            $this->LoadConfigs->getConfigFromName($name);
-            // On genere si possible les configurations liées à la traduction.
-            $idTranslation = 'language.content_settings.' . $value->getEntityTypeId() . '.' . $bundle;
-            $this->LoadConfigs->getConfigFromName($idTranslation);
-            //
-            $this->LoadFormDisplays->getDisplays($variation->getEntityTypeId(), $productBundles);
-            $this->LoadViewDisplays->getDisplays($variation->getEntityTypeId(), $productBundles);
           }
+          
+          //
+          $this->LoadConfigs->getConfigFromName($name);
+          // On genere si possible les configurations liées à la traduction.
+          $idTranslation = 'language.content_settings.' . $value->getEntityTypeId() . '.' . $bundle;
+          $this->LoadConfigs->getConfigFromName($idTranslation);
+          //
+          $this->LoadFormDisplays->getDisplays($variation->getEntityTypeId(), $productBundles);
+          $this->LoadViewDisplays->getDisplays($variation->getEntityTypeId(), $productBundles);
+          // }
+          $this->LoadConfigs->generateAllConfigAboutEntity($variation->getEntityTypeId(), $variation->bundle(), $BundleEntityType);
         }
+        $this->LoadConfigs->generateAllConfigAboutEntity($product->getEntityTypeId(), $product->bundle(), $product->getEntityType()->getBundleEntityType());
       }
     }
   }
