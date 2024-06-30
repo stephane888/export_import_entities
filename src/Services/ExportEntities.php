@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityFieldManager;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Component\Serialization\Yaml;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\export_import_entities\Services\ProfileCustomization\ManageProfile;
 
 class ExportEntities extends ControllerBase {
   protected static $field_domain_access = 'field_domain_access';
@@ -95,17 +96,24 @@ class ExportEntities extends ControllerBase {
   
   /**
    *
+   * @var ManageProfile
+   */
+  protected $ManageProfile;
+  
+  /**
+   *
    * @param EntityFieldManager $EntityFieldManager
    * @param StorageInterface $config_storage
    * @param LoadFormDisplays $LoadFormDisplays
    * @param LoadConfigs $LoadConfigs
    */
-  function __construct(EntityFieldManager $EntityFieldManager, StorageInterface $config_storage, LoadFormDisplays $LoadFormDisplays, LoadConfigs $LoadConfigs, LoadViewDisplays $LoadViewDisplays) {
+  function __construct(EntityFieldManager $EntityFieldManager, StorageInterface $config_storage, LoadFormDisplays $LoadFormDisplays, LoadConfigs $LoadConfigs, LoadViewDisplays $LoadViewDisplays, ManageProfile $ManageProfile) {
     $this->entityFieldManger = $EntityFieldManager;
     $this->configStorage = $config_storage;
     $this->LoadFormDisplays = $LoadFormDisplays;
     $this->LoadConfigs = $LoadConfigs;
     $this->LoadViewDisplays = $LoadViewDisplays;
+    $this->ManageProfile = $ManageProfile;
   }
   
   public function setNewDomain($domaineId) {
@@ -118,6 +126,7 @@ class ExportEntities extends ControllerBase {
     $this->LoadConfigs->setNewDomain($domaineId);
     $this->LoadFormDisplays->setNewDomain($domaineId);
     $this->LoadViewDisplays->setNewDomain($domaineId);
+    $this->ManageProfile->setNewDomain($domaineId);
   }
   
   public function getCurentDomain() {
@@ -273,9 +282,10 @@ class ExportEntities extends ControllerBase {
   function generateCustomConfigs() {
     $lang_code = \Drupal::languageManager()->getCurrentLanguage()->getId();
     // Themes config.
+    $theme_name = $this->currentDomaine ? $this->currentDomaine->id() : 'theme_reference_wbu';
     $string = Yaml::encode([
       'admin' => 'claro',
-      'default' => $this->currentDomaine ? $this->currentDomaine->id() : 'theme_reference_wbu'
+      'default' => $theme_name
     ]);
     $name = 'system.theme';
     $this->LoadConfigs->addConfig($name, $string);
@@ -350,6 +360,9 @@ class ExportEntities extends ControllerBase {
     // en attandant le traitement des affichage user
     $name = 'core.entity_view_display.user.user.hot_models_hotlock_menu__user';
     $this->LoadConfigs->getConfigFromName($name);
+    
+    // add theme to install;
+    $this->ManageProfile->addTheme($theme_name);
   }
   
   protected function getConfigCommerce() {

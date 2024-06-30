@@ -8,6 +8,7 @@ services:
         "@export_import_entities.export.form.displays",
         "@export_import_entities.export.form.LoadConfigs",
         "@export_import_entities.export.view.displays",
+        "@export_import_entities.manageprofile"
       ]
 
   export_import_entities.export.form.displays:
@@ -34,6 +35,10 @@ services:
         "@export_import_entities.export.third_party_settings",
       ]
 
+  export_import_entities.manageprofile:
+    class: Drupal\export_import_entities\Services\ProfileCustomization\ManageProfile
+    arguments: []
+
   export_import_entities.export.form.LoadConfigs:
     class: Drupal\export_import_entities\Services\LoadConfigs
     arguments: ["@config.storage"]
@@ -42,6 +47,8 @@ services:
     class: Drupal\export_import_entities\Services\ThirdPartySettings
     arguments: ["@export_import_entities.export.form.LoadConfigs"]
 
+
+    
   export_import_entities.clean_configs_theme:
     class: Drupal\export_import_entities\Services\CleanConfigsTheme
     arguments:

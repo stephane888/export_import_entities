@@ -43,16 +43,24 @@ class LoadConfigs extends LoadBase {
    */
   protected $currentDomaine;
   
+  /**
+   *
+   * @param StorageInterface $config_storage
+   */
   function __construct(StorageInterface $config_storage) {
     $this->configStorage = $config_storage;
   }
   
+  /**
+   *
+   * @param string $domaineId
+   */
   public function setNewDomain($domaineId) {
     $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
     if ($domain)
       $this->currentDomaine = $domain;
     else
-      throw new \Exception("le Domain n'exite pas");
+      throw new \Exception(" Le Domain n'exite pas ");
   }
   
   protected function getInstanceFinder() {
@@ -397,7 +405,7 @@ class LoadConfigs extends LoadBase {
       $entityTypeDefinition = $this->entityTypeManager()->getDefinition($entiy_type_id);
       if ($entityTypeDefinition instanceof \Drupal\Core\Config\Entity\ConfigEntityType) {
         if (!$id) {
-          throw new \Exception("Pour l'entite ($entiy_type_id) de configuration l'id doit etre definit ");
+          throw new \Exception(" Pour l'entite ($entiy_type_id) de configuration l'id doit etre definit ");
         }
         $name = $entityTypeDefinition->getConfigPrefix() . '.' . $id;
         if (!$this->hasGenerate($name)) {
