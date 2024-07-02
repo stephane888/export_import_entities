@@ -45,11 +45,20 @@ class SettingsForm extends ConfigFormBase {
     foreach ($entities as $entity) {
       /**
        *
-       * @var \Drupal\Core\Config\Entity\ConfigEntityType $entity
+       * @var \Drupal\Core\Entity\ContentEntityType $entity
        */
       $table = $entity->getBaseTable();
       if ($table) {
         $table = ' => ContentEntity (' . $table . ')';
+        /**
+         *
+         * @var \Drupal\Core\Entity\EntityFieldManager $entity_field
+         */
+        $entity_field = \Drupal::service("entity_field.manager");
+        $fields = $entity_field->getFieldStorageDefinitions($entity->id());
+        if (!empty($fields['field_domain_access'])) {
+          $table .= ' with field_domain_access';
+        }
       }
       
       $form['list_entities'][$entity->id()] = [

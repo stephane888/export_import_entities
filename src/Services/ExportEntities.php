@@ -549,9 +549,15 @@ class ExportEntities extends ControllerBase {
             $OrderItemType = $this->entityTypeManager()->getStorage("commerce_order_item_type")->load($OrderItemTypeId);
             $entityTypeDefinition = $this->entityTypeManager()->getDefinition("commerce_order_item_type");
             $name = $entityTypeDefinition->getConfigPrefix() . '.' . $OrderItemTypeId;
-            // dd($OrderItemType->getEntityTypeId(), $OrderItemType->bundle(),
-            // $OrderItemType->getEntityType()->getBundleEntityType());
+            // $db = [
+            // 'entiy_type_id' => $OrderItemType->getEntityTypeId(),
+            // 'bundle' => $OrderItemType->bundle(),
+            // 'BundleEntityType' =>
+            // $OrderItemType->getEntityType()->getBundleEntityType(),
+            // 'id' => $OrderItemType->id()
+            // ];
             $this->LoadConfigs->generateAllConfigAboutEntity($OrderItemType->getEntityTypeId(), $OrderItemType->bundle(), $OrderItemType->getEntityType()->getBundleEntityType(), $OrderItemType->id());
+            // dd($OrderItemTypeId, $db);
             //
             if (!$this->LoadConfigs->hasGenerate($name)) {
               $this->LoadConfigs->getConfigFromName($name);
@@ -561,6 +567,7 @@ class ExportEntities extends ControllerBase {
               $this->LoadFormDisplays->getDisplays("commerce_order_item", $order_item_type_bundles);
               $this->LoadViewDisplays->getDisplays("commerce_order_item", $order_item_type_bundles);
             }
+            
             $OrderTypeId = $OrderItemType->getOrderTypeId();
             if ($OrderTypeId) {
               /**

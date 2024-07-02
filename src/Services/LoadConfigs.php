@@ -360,6 +360,8 @@ class LoadConfigs extends LoadBase {
         $variationName = "commerce_product.commerce_product_variation_type." . $variationType;
         $this->getConfigFromName($variationName);
         // On charge le rendu d'affichage et du formulaire.
+        // ( permet de charger les champs de type FieldConfig, definie en
+        // configuration, cela est utile dans ce cas de figure )
         $queryField = $this->entityTypeManager()->getStorage('field_config')->getQuery();
         $queryField->accessCheck(TRUE);
         $queryField->condition('entity_type', 'commerce_product_variation');
@@ -384,23 +386,22 @@ class LoadConfigs extends LoadBase {
      */
     // Cas des entités avec bundle.
     if ($BundleEntityType) {
+      
       $entityTypeDefinition = $this->entityTypeManager()->getDefinition($BundleEntityType);
       $name = $entityTypeDefinition->getConfigPrefix() . '.' . $bundle;
-      if (!$this->hasGenerate($name)) {
-        $this->getFields($entiy_type_id, $bundle);
-        self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_display');
-        self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_mode');
-        self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_view_display');
-        $this->getConfigFromName($name);
-        $idTranslation = 'language.content_settings.' . $entiy_type_id . '.' . $bundle;
-        $this->getConfigFromName($idTranslation);
-      }
+      $this->getConfigFromName($name);
+      $idTranslation = 'language.content_settings.' . $entiy_type_id . '.' . $bundle;
+      $this->getConfigFromName($idTranslation);
+      
+      $this->getFields($entiy_type_id, $bundle);
+      self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_display');
+      self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_mode');
+      self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_view_display');
     }
     else {
       /**
        *
        * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityTypeDefinition
-       *
        */
       $entityTypeDefinition = $this->entityTypeManager()->getDefinition($entiy_type_id);
       if ($entityTypeDefinition instanceof \Drupal\Core\Config\Entity\ConfigEntityType) {
@@ -408,21 +409,28 @@ class LoadConfigs extends LoadBase {
           throw new \Exception(" Pour l'entite ($entiy_type_id) de configuration l'id doit etre definit ");
         }
         $name = $entityTypeDefinition->getConfigPrefix() . '.' . $id;
-        if (!$this->hasGenerate($name)) {
-          $this->getConfigFromName($name);
-          // il faudra peut etre gerer la traduction.
+        $this->getConfigFromName($name);
+        // il faudra peut etre gerer la traduction.
+        
+        /**
+         * Les entités de configurations n'ont pas de champs.
+         * Mais il faut essayer de charger la configuration de l'entite de
+         * content issue de BundleOf.
+         */
+        $entity_content_id = $this->entityTypeManager()->getStorage($entiy_type_id)->getEntityType()->getBundleOf();
+        if ($entity_content_id) {
+          $this->generateAllConfigAboutEntity($entity_content_id, $id, $entiy_type_id);
         }
-        // Les entités de configurations n'ont pas de champs.
-        else {
-          $this->getFields($entiy_type_id, $bundle);
-          self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_display');
-          self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_mode');
-          self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_view_display');
-        }
-        // ces entites n'ont pas de données de configuration à ce niveau. ils
+      }
+      else {
+        // Ces entites n'ont pas de données de configuration à ce niveau. Ils
         // sont fournir uniquement à partir d'un modele ou d'une configuration,
-        // mais on peut en surcharger les configurations (formDisplays et
-        // viewDisplays) qui en resulte.
+        // mais on peut en surcharger les configurations ( formDisplays et
+        // viewDisplays ) qui en resulte.
+        $this->getFields($entiy_type_id, $bundle);
+        self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_display');
+        self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_mode');
+        self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_view_display');
       }
     }
   }
