@@ -78,7 +78,7 @@ class LoadConfigs extends LoadBase {
    * @param $override //
    *        contient les données qui doivent etre surcharger.
    */
-  public function getConfigFromName(string $name, array $override = []) {
+  public function getConfigFromName(string $name, array $override = [], $merge = true) {
     debugLog::$debug = false;
     if ($this->currentDomaine)
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
@@ -90,14 +90,25 @@ class LoadConfigs extends LoadBase {
       
       if ($defaultConfs) {
         // $this->removeDependenciesDomain($defaultConfs, $name);
+        
         if (!empty($override)) {
-          $configs = NestedArray::mergeDeepArray([
-            $defaultConfs,
-            $override
-          ]);
+          if ($merge) {
+            $configs = NestedArray::mergeDeepArray([
+              $defaultConfs,
+              $override
+            ]);
+          }
+          else {
+            // on remplace les cles
+            foreach ($override as $k => $value) {
+              $defaultConfs[$k] = $value;
+            }
+            $configs = $defaultConfs;
+          }
         }
         else
           $configs = $defaultConfs;
+        
         $string = Yaml::encode($configs);
         debugLog::logger($string, $name . '.yml', false, 'file');
         self::$configEntities[$name] = [

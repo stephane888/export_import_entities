@@ -368,13 +368,47 @@ class ExportEntities extends ControllerBase {
   protected function getConfigCommerce() {
     if ($this->currentDomaine) {
       $domaineId = $this->currentDomaine->id();
+      /**
+       *
+       * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityTypeDefinition
+       */
+      $entityTypeDefinition = $this->entityTypeManager()->getDefinition("commerce_payment_gateway");
+      
+      /**
+       *
+       * @var \Drupal\commerce_payment\PaymentGatewayManager $PaymentGatewayManager
+       */
+      $PaymentGatewayManager = \Drupal::service("plugin.manager.commerce_payment_gateway");
       // On charge les moyens qui ont été explicetement definit pour ce
       // domaine.
-      $commerce_payment_gateways = $this->entityTypeManager()->getStorage('commerce_payment_gateway')->loadMultiple();
-      foreach ($commerce_payment_gateways as $commerce_payment_gateway) {
-        $name = 'domain.config.' . $domaineId . '.commerce_payment.commerce_payment_gateway.' . $commerce_payment_gateway->id();
-        $this->LoadConfigs->getConfigFromName($name);
-        // dump(ConfigDrupal::config($name));
+      $commerce_payment_configs = $this->entityTypeManager()->getStorage('commerce_payment_config')->loadByProperties([
+        'domain_id' => $domaineId
+      ]);
+      
+      foreach ($commerce_payment_configs as $commerce_payment_config) {
+        /**
+         *
+         * @var \Drupal\lesroidelareno\Entity\CommercePaymentConfig $commerce_payment_config
+         */
+        $id = $commerce_payment_config->getPaymentPluginId();
+        /**
+         *
+         * @var \Drupal\commerce_payment\Entity\PaymentGateway $commerce_payment_gateway
+         */
+        $commerce_payment_gateway = $this->entityTypeManager()->getStorage("commerce_payment_gateway")->load($id);
+        $pluginId = $commerce_payment_gateway->getPluginId();
+        /**
+         *
+         * @var \Drupal\wb_horizon_public\Plugin\Commerce\PaymentGateway\stripeOverride $lesroidelareno_stripe_override
+         */
+        $lesroidelareno_stripe_override = $PaymentGatewayManager->createInstance($pluginId);
+        $lesroidelareno_stripe_override->__wakeup();
+        $conf = $lesroidelareno_stripe_override->getConfiguration();
+        $name = $entityTypeDefinition->getConfigPrefix() . '.' . $id;
+        // On surcharge la configuration avec les informations du domain.
+        $this->LoadConfigs->getConfigFromName($name, [
+          'configuration' => $conf
+        ], false);
       }
     }
   }
