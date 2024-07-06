@@ -89,7 +89,8 @@ dependencies:
       'bestlayouts',
       'stripebyhabeuk',
       'prise_rendez_vous',
-      'bookingsystem_autoecole'
+      'bookingsystem_autoecole',
+      'hbkcolissimochrono'
     ];
   }
   
