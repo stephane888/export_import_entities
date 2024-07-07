@@ -2,23 +2,22 @@
 
 namespace Drupal\export_import_entities\Services;
 
-use Drupal\Core\Controller\ControllerBase;
 use Stephane888\Debug\debugLog;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Serialization\Yaml;
 use Symfony\Component\Finder\Finder;
-use DrupalFinder\DrupalFinder;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\file\Entity\File;
 use Drupal\Core\Extension\ExtensionPathResolver;
+use Stephane888\DrupalUtility\Export\Config\ExportConfigs;
 
 /**
- * Permet de charger les diffirents affichage pour une entité.
+ * Permet de charger les differents affichage pour une entité.
  *
  * @author stephane
  *        
  */
-class LoadConfigs extends ControllerBase {
+class LoadConfigs extends ExportConfigs {
   
   /**
    * Contient la liste des configurations deja crees.
@@ -78,128 +77,9 @@ class LoadConfigs extends ControllerBase {
    */
   protected static $removeDefaultValue = TRUE;
   
-  /**
-   *
-   * @var \Drupal\domain\DomainNegotiator
-   * @deprecated car cela doit etre dans le service etendu de wb-hirizon.
-   */
-  protected $currentDomaine;
-  
   function __construct(StorageInterface $config_storage, ExtensionPathResolver $ExtensionPathResolver) {
     $this->configStorage = $config_storage;
     $this->ExtensionPathResolver = $ExtensionPathResolver;
-  }
-  
-  public function setNewDomain($domaineId) {
-    $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
-    if ($domain)
-      $this->currentDomaine = $domain;
-    else
-      throw new \Exception("le Domain n'exite pas");
-  }
-  
-  protected function getInstanceFinder() {
-    if (!$this->Finder)
-      $this->Finder = new Finder();
-    return $this->Finder;
-  }
-  
-  /**
-   * Crrer la configuration à partir du nom donnée.
-   * Recupere egalement les dependance incluse. ( si cela respecte la logique de
-   * drupal ).
-   *
-   * @param string $name
-   * @param $override //
-   *        contient les données qui doivent etre surcharger.
-   */
-  public function getConfigFromName(string $name, array $override = []) {
-    $this->initExportDir();
-    if (empty(self::$configEntities[$name])) {
-      $defaultConfs = $this->configStorage->read($name);
-      // if ($name == "system.menu.test851-main") {
-      // dd($defaultConfs);
-      // }
-      
-      if ($defaultConfs) {
-        // $this->removeDependenciesDomain($defaultConfs, $name);
-        if (!empty($override)) {
-          $configs = NestedArray::mergeDeepArray([
-            $defaultConfs,
-            $override
-          ]);
-        }
-        else
-          $configs = $defaultConfs;
-        $this->removeUuid($configs);
-        $string = Yaml::encode($configs);
-        if (self::$saveIt)
-          debugLog::logger($string, $name . '.yml', false, 'file');
-        self::$configEntities[$name] = [
-          'status' => true,
-          'value' => $string
-        ];
-        $this->loadConfigsViewTerms($name);
-        // On essaie de charger les configurations requises.
-        $this->loadDependancyConfig($name);
-      }
-    }
-  }
-  
-  /**
-   * ( Cette logique peut avoir des comportements inatendu ).
-   * Vise à supprimer toutes les dependances liées au module domaine et au
-   * modules coeurs.
-   */
-  protected function removeDependenciesDomain(array &$defaultConfs, $name) {
-    // cas des menus.
-    if (str_contains($name, "system.menu.")) {
-      $this->removeModulesDependancies($defaultConfs);
-      if ($defaultConfs['third_party_settings']['lesroidelareno'])
-        unset($defaultConfs['third_party_settings']['lesroidelareno']);
-    }
-  }
-  
-  protected function removeModulesDependancies(array &$defaultConfs) {
-    $modules = [
-      'lesroidelareno' => 'lesroidelareno'
-    ];
-    if (!empty($defaultConfs['dependencies']['module']))
-      foreach ($defaultConfs['dependencies']['module'] as $key => $moduleName) {
-        if (in_array($moduleName, $modules))
-          unset($defaultConfs['dependencies']['module'][$key]);
-      }
-  }
-  
-  public function addConfig(string $name, $string) {
-    $this->initExportDir();
-    $configs = Yaml::decode($string);
-    $this->removeUuid($configs);
-    $string = Yaml::encode($configs);
-    
-    if (self::$saveIt)
-      debugLog::logger($string, $name . '.yml', false, 'file');
-    self::$configEntities[$name] = [
-      'status' => true,
-      'value' => $string
-    ];
-  }
-  
-  public function hasGenerate($k) {
-    return isset(self::$configEntities[$k]) ? true : false;
-  }
-  
-  /**
-   * Chage une ou toute la config qui a été generée.
-   *
-   * @param string $k
-   * @return NULL|array
-   */
-  public function getGenerate($k = null) {
-    if ($k)
-      return isset(self::$configEntities[$k]) ? self::$configEntities[$k] : null;
-    else
-      return self::$configEntities;
   }
   
   protected function loadConfigsViewTerms($name) {
