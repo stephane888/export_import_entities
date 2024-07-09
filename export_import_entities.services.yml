@@ -17,7 +17,7 @@ services:
     
   export_import_entities.export.form.LoadConfigs:
     class: Drupal\export_import_entities\Services\LoadConfigs
-    arguments: ['@config.storage','@extension.path.resolver','@export_import_entities.export.third_party_settings']
+    arguments: ['@config.storage','@extension.path.resolver']
     
   export_import_entities.export.third_party_settings:
     class: Drupal\export_import_entities\Services\ThirdPartySettings

@@ -10,6 +10,7 @@ use Drupal\export_import_entities\Services\LoadFormDisplays;
 use Drupal\export_import_entities\Services\LoadViewDisplays;
 use Drupal\export_import_entities\Services\LoadFormWrite;
 use Drupal\export_import_entities\Services\LoadConfigs;
+use Drupal\Core\Config\Entity\ConfigEntityType;
 
 /**
  * Permet de selectionner une entité et de l'exporter.
@@ -105,6 +106,7 @@ final class SelectExportEntity extends FormBase {
     $this->LoadConfigs->setRemoveUUID(TRUE);
     $this->LoadConfigs->setRemoveDefaultValue(FALSE);
     if ($entity_id) {
+      
       if ($bundlesOptions = $this->entityconfigHasBundle($entity_id)) {
         $form['datas']['bundle'] = [
           '#type' => 'select',
@@ -126,22 +128,53 @@ final class SelectExportEntity extends FormBase {
         $bundle = $entity_id;
       }
       if ($bundle) {
+        $this->messenger()->addStatus(" entity_id : " . $entity_id . "; Bundle : " . $bundle, true);
         $bundleOf = $this->EntityTypeManager->getStorage($entity_id)->getEntityType()->getBundleOf();
         if (!$bundleOf)
           $bundleOf = $entity_id;
         $bundles = [
           $bundle => $bundle
         ];
-        $this->LoadViewDisplays->getDisplays($bundleOf, $bundles);
-        $this->LoadFormDisplays->getDisplays($bundleOf, $bundles);
-        $this->LoadFormWrite->getDisplays($bundleOf, $bundles);
+        if ($entity_id != $bundle) {
+          // $this->LoadConfigs->generateAllConfigAboutEntity($entity_id,
+          // $bundle);
+          $this->LoadViewDisplays->getDisplays($bundleOf, $bundles);
+          $this->LoadFormDisplays->getDisplays($bundleOf, $bundles);
+          $this->LoadFormWrite->getDisplays($bundleOf, $bundles);
+        }
+        else {
+          $entityType = $this->EntityTypeManager->getStorage($entity_id)->getEntityType();
+          if ($entityType instanceof ConfigEntityType) {
+            $bundlesOptions = $this->getEntitiesConfig($entity_id);
+            $form['datas']['bundle'] = [
+              '#type' => 'select',
+              '#title' => $this->t('Bundle'),
+              '#required' => TRUE,
+              '#options' => $bundlesOptions,
+              '#ajax' => [
+                'callback' => self::class . '::export_import_select_export_entity',
+                'wrapper' => 'export_import_select_export_entity_id',
+                'effect' => 'fade'
+              ]
+            ];
+            $id_string = $form_state->getValue([
+              'datas',
+              'bundle'
+            ]);
+            if ($id_string) {
+              $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $entity_id, NULL, $id_string);
+            }
+            \Stephane888\Debug\debugLog::symfonyDebug($form_state->getValues(), 'symfonyDebug', true);
+          }
+        }
         $form_state->set('entity_type', $bundleOf);
         $form_state->set('bundles', $bundles);
         // \Stephane888\Debug\debugLog::$path = DRUPAL_ROOT .
         // '/themes/custom/habeuk_theme/logs';
         // //
-        // \Stephane888\Debug\debugLog::kintDebugDrupal($this->LoadConfigs->getGenerate(),
-        // 'config_export__' . $bundleOf, true);
+        // \Stephane888\Debug\debugLog::kintDebugDrupal(
+        // $this->LoadConfigs->getGenerate(),
+        // 'config_export__' . $bundleOf, true );
         foreach ($this->LoadConfigs->getGenerate() as $key => $value) {
           $form['datas'][$key] = [
             '#type' => 'details',
@@ -168,10 +201,10 @@ final class SelectExportEntity extends FormBase {
               'wrapper' => 'export_import_select_export_entity_id',
               'effect' => 'fade'
             ],
-            '#submit' => [ //
-                            // focntionne mais la methode doit etre statique.
-                            // self::class .
-                            // '::export_import_submit_save_config'
+            '#submit' => [
+              // focntionne mais la methode doit etre statique.
+              // self::class .
+              // '::export_import_submit_save_config'
               '::export_import_submit_save_config'
             ]
           ]
@@ -205,11 +238,11 @@ final class SelectExportEntity extends FormBase {
       $this->LoadViewDisplays->getDisplays($bundleOf, $bundles);
       $this->LoadFormDisplays->getDisplays($bundleOf, $bundles);
       $this->LoadFormWrite->getDisplays($bundleOf, $bundles);
-      //
-      \Drupal::messenger()->addStatus("Données de configuration exporter à l'emplacement definit.", true);
+      // $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $bundle);
+      \Drupal::messenger()->addStatus(" Données de configuration exporter à l'emplacement definit. ", true);
     }
     else {
-      \Drupal::messenger()->addWarning("aucune données definies.", true);
+      \Drupal::messenger()->addWarning(" Aucune données definies. ", true);
     }
   }
   
@@ -255,6 +288,17 @@ final class SelectExportEntity extends FormBase {
       return $options;
     }
     return false;
+  }
+  
+  /**
+   * --
+   */
+  public function getEntitiesConfig($entity_id) {
+    $options = [];
+    foreach ($this->EntityTypeManager->getStorage($entity_id)->loadMultiple() as $bundle => $entity) {
+      $options[$bundle] = $entity->label();
+    }
+    return $options;
   }
   
   /**

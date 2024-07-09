@@ -1,0 +1,5 @@
+export_import_entities.select_export_entity:
+  route_name: export_import_entities.select_export_entity
+  base_route: config.sync
+  title: 'Select Export Entity'
+  weight: 15
