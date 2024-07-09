@@ -299,7 +299,7 @@ class ExportEntities extends ControllerBase {
     $name = 'language.negotiation';
     // // Surcharger la langue par defaut, ( afin de definir la langue par
     // defaut
-    // // du site d'exportation sur la langue encours)
+    // // du site d'exportation sur la langue encours )
     // $overrides = [
     // 'langcode' => $lang_code
     // ];
@@ -360,7 +360,9 @@ class ExportEntities extends ControllerBase {
     // en attandant le traitement des affichage user
     $name = 'core.entity_view_display.user.user.hot_models_hotlock_menu__user';
     $this->LoadConfigs->getConfigFromName($name);
-    
+    // utilise la configuration encours de l'editeur de crayon.
+    $name = 'formatage_models.configvuejsedit';
+    $this->LoadConfigs->getConfigFromName($name);
     // add theme to install;
     $this->ManageProfile->addTheme($theme_name);
   }
@@ -659,7 +661,7 @@ class ExportEntities extends ControllerBase {
       }
     }
   }
-  
+
 /**
  * \Drupal::entityManager()->getStorage('field_storage_config')->create($field)->save();
  *
