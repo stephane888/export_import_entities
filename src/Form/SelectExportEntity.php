@@ -15,7 +15,7 @@ use Drupal\Core\Config\Entity\ConfigEntityType;
 /**
  * Permet de selectionner une entité et de l'exporter.
  */
-final class SelectExportEntity extends FormBase {
+final class SelectExportEntity extends ExportBase {
   
   /**
    * -
@@ -214,14 +214,6 @@ final class SelectExportEntity extends FormBase {
   
   /**
    *
-   * {@inheritdoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state): void {
-    //
-  }
-  
-  /**
-   *
    * @param array $form
    * @param FormStateInterface $form_stat
    */
@@ -246,15 +238,6 @@ final class SelectExportEntity extends FormBase {
   
   /**
    *
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this->messenger()->addStatus($this->t('The message has been sent.'));
-    $form_state->setRedirect('<front>');
-  }
-  
-  /**
-   *
    * @return []
    */
   protected function getEntitiesListOptions() {
@@ -265,9 +248,8 @@ final class SelectExportEntity extends FormBase {
        *
        * @var \Drupal\Core\Config\Entity\ConfigEntityType $entity
        */
-      $custom = $entity->getBaseTable() ? 'stokage' : 'config';
       if (!$entity->getBaseTable())
-        $options[$entity_id] = $entity->getLabel() . " (" . $custom . ")";
+        $options[$entity_id] = $entity->getLabel();
     }
     return $options;
   }
@@ -297,25 +279,5 @@ final class SelectExportEntity extends FormBase {
       $options[$bundle] = $entity->label();
     }
     return $options;
-  }
-  
-  /**
-   *
-   * @param array $form
-   * @param FormStateInterface $form_state
-   * @return array
-   */
-  static public function export_import_submit_callback(array $form, FormStateInterface $form_state) {
-    return $form['datas'];
-  }
-  
-  /**
-   *
-   * @param array $form
-   * @param FormStateInterface $form_state
-   * @return array
-   */
-  static public function export_import_select_export_entity(array $form, FormStateInterface $form_state) {
-    return $form['datas'];
   }
 }

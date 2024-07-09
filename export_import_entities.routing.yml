@@ -55,13 +55,20 @@ export_import_entities.config:
     _permission: 'access content'
     _role: 'gerant_de_site_web+administrator'
     
-export_import_entities.select_export_entity:
-  path: '/admin/export-import-entities/select-export-entity'
+export_import_entities.select_export_config_entities:
+  path: '/admin/export-import-entities/select-export-config-entity'
   defaults:
-    _title: 'Select Export Entity'
+    _title: 'Select && Export Config Entity'
     _form: 'Drupal\export_import_entities\Form\SelectExportEntity'
   requirements:
     _permission: 'access content'
     _role: 'administrator'
     
-    
+export_import_entities.select_export_storage_entities:
+  path: '/admin/export-import-entities/select-export-storage-entity'
+  defaults:
+    _title: 'Select Export Entity'
+    _form: 'Drupal\export_import_entities\Form\SelectExportStorageEntities'
+  requirements:
+    _permission: 'access content'
+    _role: 'administrator'    

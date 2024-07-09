@@ -12,9 +12,9 @@ export_import_entities.clean_configs:
   route_name: export_import_entities.clean_configs
   weight: 10  
 
-export_import_entities.select_export_entity:
+export_import_entities.select_export_config_entities:
   title: Select Export Entity or config
   description: 'Allows you to select and export a configuration to a profile'
   parent: config.sync
-  route_name: export_import_entities.select_export_entity
+  route_name: export_import_entities.select_export_config_entities
   weight: 10 
