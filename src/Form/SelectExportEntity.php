@@ -128,7 +128,6 @@ final class SelectExportEntity extends FormBase {
         $bundle = $entity_id;
       }
       if ($bundle) {
-        $this->messenger()->addStatus(" entity_id : " . $entity_id . "; Bundle : " . $bundle, true);
         $bundleOf = $this->EntityTypeManager->getStorage($entity_id)->getEntityType()->getBundleOf();
         if (!$bundleOf)
           $bundleOf = $entity_id;
