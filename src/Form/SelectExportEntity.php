@@ -164,7 +164,6 @@ final class SelectExportEntity extends FormBase {
             if ($id_string) {
               $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $entity_id, NULL, $id_string);
             }
-            \Stephane888\Debug\debugLog::symfonyDebug($form_state->getValues(), 'symfonyDebug', true);
           }
         }
         $form_state->set('entity_type', $bundleOf);
