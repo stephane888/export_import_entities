@@ -213,8 +213,9 @@ final class SelectExportStorageEntities extends ExportBase {
       $BundleEntityType = $entity->getEntityType()->getBundleEntityType();
       $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $bundle, $BundleEntityType);
       $this->getOrthersConfig($entity);
+      // debugLog::$path
       $EntitiesArray = $this->generateFormMatrice($entity_id, $entity, $bundle);
-      debugLog::logger($string, $name . '.yml', false, 'file');
+      // debugLog::logger($string, $name . '.yml', false, 'file');
       \Drupal::messenger()->addStatus(" Données de configuration exporter à l'emplacement definit. ", true);
     }
     else {
