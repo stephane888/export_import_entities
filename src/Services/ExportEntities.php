@@ -12,6 +12,11 @@ use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Serialization\Yaml;
 use Drupal\taxonomy\Entity\Term;
 
+/**
+ *
+ * @author stephane
+ *        
+ */
 class ExportEntities extends ControllerBase {
   protected static $field_domain_access = 'field_domain_access';
   /**
@@ -582,7 +587,7 @@ class ExportEntities extends ControllerBase {
       }
     }
   }
-  
+
 /**
  * \Drupal::entityManager()->getStorage('field_storage_config')->create($field)->save();
  *

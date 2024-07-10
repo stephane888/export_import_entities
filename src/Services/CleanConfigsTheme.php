@@ -10,9 +10,9 @@ use Drupal\Core\Extension\Exception\UninstalledExtensionException;
 use Drupal\Core\Config\ConfigManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Cache\Cache;
 use Drupal\Core\Routing\RouteBuilderInterface;
 use Drupal\Core\Extension\ThemeExtensionList;
+use Drupal\Core\Cache\Cache;
 
 /**
  * Permet de supprimer un theme des extentiosn installés et toutes la
@@ -220,5 +220,4 @@ class CleanConfigsTheme {
   public function getConfigsDepenceForTheme(string $themeName, $full = false) {
     return ConfigDrupal::searchConfigByWord($themeName, $full);
   }
-  
 }
