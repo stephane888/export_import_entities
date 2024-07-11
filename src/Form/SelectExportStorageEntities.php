@@ -215,6 +215,8 @@ final class SelectExportStorageEntities extends ExportBase {
       $this->getOrthersConfig($entity);
       // debugLog::$path
       $EntitiesArray = $this->generateFormMatrice($entity_id, $entity, $bundle);
+      debugLog::$max_depth = 15;
+      debugLog::kintDebugDrupal($EntitiesArray, 'generateFormMatrice', true);
       // debugLog::logger($string, $name . '.yml', false, 'file');
       \Drupal::messenger()->addStatus(" Données de configuration exporter à l'emplacement definit. ", true);
     }
