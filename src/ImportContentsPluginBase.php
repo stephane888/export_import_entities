@@ -12,6 +12,7 @@ use Drupal\Core\File\FileSystem;
 use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\File\FileExists;
 use Drupal\Component\Serialization\Json;
+use Drupal\Core\File\FileSystemInterface;
 
 /**
  * Base class for style_scss plugins.
@@ -97,11 +98,12 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   /**
    * Verifie que les dossiers sont ok pour l'export.
    */
-  protected function prepareDirectories(): void {
-    $baseDir = DRUPAL_ROOT . '/' . $this->ExtensionPathResolver->getPath('module', $this->getPluginDefinition()->getProvider());
-    $directoryContents = $baseDir . '/Plugin/ImportContents/' . $this->getContentDirectory();
-    $directoryFiles = $baseDir . '/Plugin/ImportContents/' . $this->getFilesDirectory();
-    if ($this->file_system->prepareDirectory($directoryContents) && $this->file_system->prepareDirectory($directoryFiles)) {
+  protected function prepareDirectories() {
+    $baseDir = DRUPAL_ROOT . '/' . $this->ExtensionPathResolver->getPath('module', $this->getPluginDefinition()['provider']);
+    $directoryContents = $baseDir . '/src/Plugin/ImportContents/' . $this->getContentDirectory();
+    $directoryFiles = $baseDir . '/src/Plugin/ImportContents/' . $this->getFilesDirectory();
+    if ($this->file_system->prepareDirectory($directoryContents, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS) && $this->file_system->prepareDirectory(
+      $directoryFiles, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS)) {
       return [
         'contents' => $directoryContents,
         'files' => $directoryFiles
@@ -116,7 +118,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    * {@inheritdoc}
    * @see \Drupal\export_import_entities\ImportContentsInterface::validateContents()
    */
-  function validateContents(array $datas) {
+  function validateContents(array $datas): bool {
     return true;
   }
   

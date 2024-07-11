@@ -216,7 +216,20 @@ final class SelectExportStorageEntities extends ExportBase {
       // debugLog::$path
       $EntitiesArray = $this->generateFormMatrice($entity_id, $entity, $bundle);
       debugLog::$max_depth = 15;
-      debugLog::kintDebugDrupal($EntitiesArray, 'generateFormMatrice', true);
+      debugLog::$path = null;
+      debugLog::kintDebugDrupal($EntitiesArray, $entity_id . $id . '---', true);
+      //
+      /**
+       *
+       * @var \Drupal\export_import_entities\ImportContentsPluginManager $MangerImportContent
+       */
+      $MangerImportContent = \Drupal::service("plugin.manager.import_content");
+      /**
+       *
+       * @var \Drupal\export_import_entities\Plugin\ImportContents\ImportContents $import_contents
+       */
+      $import_contents = $MangerImportContent->createInstance("export_import_entities_import_contents");
+      $import_contents->saveContents($EntitiesArray, $id, $entity_id);
       // debugLog::logger($string, $name . '.yml', false, 'file');
       \Drupal::messenger()->addStatus(" Données de configuration exporter à l'emplacement definit. ", true);
     }
