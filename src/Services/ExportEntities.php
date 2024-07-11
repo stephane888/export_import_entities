@@ -363,6 +363,12 @@ class ExportEntities extends ControllerBase {
     // utilise la configuration encours de l'editeur de crayon.
     $name = 'formatage_models.configvuejsedit';
     $this->LoadConfigs->getConfigFromName($name);
+    // commerce_cart_block
+    $name = "views.view.commerce_cart_block";
+    $this->LoadConfigs->getConfigFromName($name);
+    // commerce_cart_form
+    $name = "views.view.commerce_cart_form";
+    $this->LoadConfigs->getConfigFromName($name);
     // add theme to install;
     $this->ManageProfile->addTheme($theme_name);
   }
@@ -661,7 +667,7 @@ class ExportEntities extends ControllerBase {
       }
     }
   }
-
+  
 /**
  * \Drupal::entityManager()->getStorage('field_storage_config')->create($field)->save();
  *
