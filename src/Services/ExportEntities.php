@@ -376,6 +376,13 @@ class ExportEntities extends ControllerBase {
     $name = "views.view.commerce_cart_form";
     $this->LoadConfigs->getConfigFromName($name);
     /**
+     * hbk_collissimochrono api login
+     * hbkcolissimochrono.settings  
+     * */
+    $name = "hbkcolissimochrono.settings";
+    $hbkSettings = ConfigDrupal::config($name);
+    $this->LoadConfigs->getConfigFromName($name, $hbkSettings, false);
+    /**
      * Exporter les configurations manuels et automatique des 
      * booking_config_type à utiliser par le site exporté.
      * par défaut sur wb-horizon l'ajout des booking_config_type
