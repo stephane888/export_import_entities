@@ -363,6 +363,25 @@ class ExportEntities extends ControllerBase {
     // utilise la configuration encours de l'editeur de crayon.
     $name = 'formatage_models.configvuejsedit';
     $this->LoadConfigs->getConfigFromName($name);
+    // commerce_cart_block
+    $name = "views.view.commerce_cart_block";
+    $this->LoadConfigs->getConfigFromName($name);
+    // commerce_cart_form
+    $name = "views.view.commerce_cart_form";
+    $this->LoadConfigs->getConfigFromName($name);
+    // commerce_cart_block
+    $name = "views.view.commerce_cart_block";
+    $this->LoadConfigs->getConfigFromName($name);
+    // commerce_cart_form
+    $name = "views.view.commerce_cart_form";
+    $this->LoadConfigs->getConfigFromName($name);
+    /**
+     * hbk_collissimochrono api login
+     * hbkcolissimochrono.settings  
+     * */
+    $name = "hbkcolissimochrono.settings";
+    $hbkSettings = ConfigDrupal::config($name);
+    $this->LoadConfigs->getConfigFromName($name, $hbkSettings, false);
     /**
      * Exporter les configurations manuels et automatique des 
      * booking_config_type à utiliser par le site exporté.
@@ -382,10 +401,9 @@ class ExportEntities extends ControllerBase {
 
   protected function generateBookingConfigFile() {
     $prefix = \Drupal\lesroidelareno\lesroidelareno::getCurrentPrefixDomain();
-    dump($prefix);
     if ($this->entityTypeManager()->getStorage("booking_config_type")->load($prefix)) {
       $config = <<<FILE
-      conduite_auto: {$prefix}_auto
+      conduite_auto: {$prefix}auto
       conduite_manuelle: $prefix
       FILE;
       $this->LoadConfigs->addConfig("wb_horizon_public.config_auto_ecole", $config);
