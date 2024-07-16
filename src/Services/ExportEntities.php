@@ -679,20 +679,4 @@ class ExportEntities extends ControllerBase {
       }
     }
   }
-<<<<<<< HEAD
-  
-/**
- * \Drupal::entityManager()->getStorage('field_storage_config')->create($field)->save();
- *
- * \Drupal::entityManager()->getStorage('field_config')->create($instance)->save();
- */
 }
-=======
-
-  /**
-   * \Drupal::entityManager()->getStorage('field_storage_config')->create($field)->save();
-   *
-   * \Drupal::entityManager()->getStorage('field_config')->create($instance)->save();
-   */
-}
->>>>>>> 789a147 (ajout de l'export manuel d'une configuration sur les booking_config_type)
