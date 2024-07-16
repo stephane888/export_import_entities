@@ -363,14 +363,6 @@ class ExportEntities extends ControllerBase {
     // utilise la configuration encours de l'editeur de crayon.
     $name = 'formatage_models.configvuejsedit';
     $this->LoadConfigs->getConfigFromName($name);
-<<<<<<< HEAD
-    // commerce_cart_block
-    $name = "views.view.commerce_cart_block";
-    $this->LoadConfigs->getConfigFromName($name);
-    // commerce_cart_form
-    $name = "views.view.commerce_cart_form";
-    $this->LoadConfigs->getConfigFromName($name);
-=======
     /**
      * Exporter les configurations manuels et automatique des 
      * booking_config_type à utiliser par le site exporté.
@@ -384,7 +376,6 @@ class ExportEntities extends ControllerBase {
      * NB: Aucune logique ne prévient la suppression de l'un de ce booking_config_type
      */
     $this->generateBookingConfigFile();
->>>>>>> 789a147 (ajout de l'export manuel d'une configuration sur les booking_config_type)
     // add theme to install;
     $this->ManageProfile->addTheme($theme_name);
   }
