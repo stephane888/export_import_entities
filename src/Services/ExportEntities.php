@@ -724,10 +724,4 @@ class ExportEntities extends ControllerBase {
       }
     }
   }
-
-  /**
-   * \Drupal::entityManager()->getStorage('field_storage_config')->create($field)->save();
-   *
-   * \Drupal::entityManager()->getStorage('field_config')->create($instance)->save();
-   */
 }
