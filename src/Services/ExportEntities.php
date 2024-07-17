@@ -289,6 +289,30 @@ class ExportEntities extends ControllerBase {
     ]);
     $name = 'system.theme';
     $this->LoadConfigs->addConfig($name, $string);
+    $configNames = [
+      'language.entity.fr', // Language fr
+      'language.entity.en',
+      'language.negotiation',
+      'system.site',
+      'language.mappings',
+      'language.types',
+      'languageicons.settings',
+      'filter.format.full_html',
+      'filter.format.basic_html',
+      'filter.format.text_html',
+      'generate_style_theme.settings',
+      'commerce_price.commerce_currency.EUR',
+      'commerce_price.commerce_currency.USD',
+      'rest.resource.commerce_cart_add',
+      'editor.editor.basic_html',
+      'editor.editor.full_html',
+      'pathauto.pattern.taxo_term',
+      'pathauto.pattern.page_site_web',
+      'core.entity_view_display.user.user.hot_models_hotlock_menu__user',
+      'formatage_models.configvuejsedit',
+      "views.view.commerce_cart_block"
+    ];
+
     // Language fr
     $name = 'language.entity.fr';
     $this->LoadConfigs->getConfigFromName($name);
@@ -374,6 +398,9 @@ class ExportEntities extends ControllerBase {
     $this->LoadConfigs->getConfigFromName($name);
     // commerce_cart_form
     $name = "views.view.commerce_cart_form";
+    $this->LoadConfigs->getConfigFromName($name);
+    // export user role administrator
+    $name = "user.role.administrator";
     $this->LoadConfigs->getConfigFromName($name);
     /**
      * hbk_collissimochrono api login
