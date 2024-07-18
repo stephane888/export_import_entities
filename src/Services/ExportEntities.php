@@ -257,8 +257,7 @@ class ExportEntities extends ControllerBase {
     }
   }
 
-  function getMenus() {
-    $entityMenu = $this->entityTypeManager()->getDefinition("menu");
+  protected function getMenusIds() {
     $query = $this->entityTypeManager()->getStorage("menu")->getQuery();
     if ($this->currentDomaine) {
       $or = $query->orConditionGroup();
@@ -266,8 +265,12 @@ class ExportEntities extends ControllerBase {
       $or->condition('third_party_settings.wb_horizon_public.domain_id', $this->currentDomaine->id(), 'CONTAINS');
       $query->condition($or);
     }
+    return $query->execute();
+  }
 
-    $ids = $query->execute();
+  function getMenus() {
+    $entityMenu = $this->entityTypeManager()->getDefinition("menu");
+    $ids = $this->getMenusIds();
     foreach ($ids as $id) {
       $name = $entityMenu->getConfigPrefix() . '.' . $id;
       if (!$this->LoadConfigs->hasGenerate($name)) {
@@ -275,6 +278,8 @@ class ExportEntities extends ControllerBase {
       }
     }
   }
+
+
 
   /**
    * --
@@ -402,6 +407,8 @@ class ExportEntities extends ControllerBase {
     // export user role administrator
     $name = "user.role.administrator";
     $this->LoadConfigs->getConfigFromName($name);
+    // site useful configs
+    $this->generateSiteSourcesConfig();
     /**
      * hbk_collissimochrono api login
      * hbkcolissimochrono.settings  
@@ -435,6 +442,17 @@ class ExportEntities extends ControllerBase {
       FILE;
       $this->LoadConfigs->addConfig("wb_horizon_public.config_auto_ecole", $config);
     }
+  }
+
+  protected function generateSiteSourcesConfig() {
+    $config_name = 'wb_horizon_public.source_site_configs';
+    $main_menu_id = reset($this->getMenusIds()) ?? null;
+    $configs = [];
+    if ($main_menu_id) {
+      $configs["main_menu_id"] = $main_menu_id;
+    }
+    $string = Yaml::encode($configs);
+    $this->LoadConfigs->addConfig($config_name, $string);
   }
 
   protected function getConfigCommerce() {
