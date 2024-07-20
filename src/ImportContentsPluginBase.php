@@ -71,6 +71,10 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
       'messenger'));
   }
   
+  public function defaultConfiguration() {
+    return [];
+  }
+  
   /**
    *
    * {@inheritdoc}

@@ -9,6 +9,8 @@ use Drupal\Core\Form\FormStateInterface;
  */
 interface ImportContentsInterface {
   
+  public function defaultConfiguration(): array;
+  
   /**
    * Permet de sauvegarder les données.
    * Elle est charger de recuperer le contenu qui doit etre sauvegarder, la

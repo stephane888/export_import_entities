@@ -30,4 +30,20 @@ class ImportContentsPluginManager extends DefaultPluginManager {
     $this->alterInfo('import_contents_info');
     $this->setCacheBackend($cache_backend, 'import_contents_plugins');
   }
+  
+  /**
+   * Permet d'importer les contenus.
+   */
+  public function ImportContents() {
+    $plugins = $this->getDefinitions();
+    foreach ($plugins as $plugin) {
+      // Merge config with defaultConfiguration
+      $storage[$plugin['id']] += $plugin['class']::defaultConfiguration();
+      /**
+       *
+       * @var \Drupal\export_import_entities\ImportContentsPluginBase $instance
+       */
+      $instance = $this->createInstance($plugin['id'], $storage[$plugin['id']]);
+    }
+  }
 }
