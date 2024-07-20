@@ -13,7 +13,7 @@ use Drupal\Core\Controller\ControllerBase;
  *        
  */
 class DefaultDatas extends ControllerBase {
-  
+
   /**
    *
    * @return string
@@ -38,7 +38,7 @@ dependencies:
   - layoutgenentitystyles
   - migrationwbh';
   }
-  
+
   /**
    * Contient les themes par defaut.
    *
@@ -50,7 +50,7 @@ dependencies:
       'wb_universe'
     ];
   }
-  
+
   /**
    *
    * @return string[]
@@ -91,10 +91,12 @@ dependencies:
       'prise_rendez_vous',
       'bookingsystem_autoecole',
       'hbkcolissimochrono',
-      'contextual_more_links'
+      'contextual_more_links',
+      'hbktemplateuser',
+      'manage_module_config'
     ];
   }
-  
+
   /**
    *
    * @return string[]
@@ -112,7 +114,7 @@ dependencies:
       'commerce_autosku'
     ];
   }
-  
+
   /**
    *
    * @return string[]
@@ -146,7 +148,7 @@ dependencies:
       'ctools'
     ];
   }
-  
+
   /**
    * Contient les themes par defaut.
    *
@@ -189,5 +191,4 @@ dependencies:
       'responsive_image'
     ];
   }
-  
 }

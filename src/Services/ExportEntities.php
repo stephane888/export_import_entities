@@ -417,6 +417,11 @@ class ExportEntities extends ControllerBase {
     $hbkSettings = ConfigDrupal::config($name);
     $this->LoadConfigs->getConfigFromName($name, $hbkSettings, false);
     /**
+     * export du dashboard
+     */
+    $name = "core.entity_view_display.user.user.default";
+    $this->LoadConfigs->getConfigFromName($name);
+    /**
      * Exporter les configurations manuels et automatique des 
      * booking_config_type à utiliser par le site exporté.
      * par défaut sur wb-horizon l'ajout des booking_config_type
