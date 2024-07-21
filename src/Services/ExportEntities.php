@@ -451,7 +451,8 @@ class ExportEntities extends ControllerBase {
 
   protected function generateSiteSourcesConfig() {
     $config_name = 'wb_horizon_public.source_site_configs';
-    $main_menu_id = reset($this->getMenusIds()) ?? null;
+    $Ids = $this->getMenusIds();
+    $main_menu_id = reset($Ids) ?? null;
     $configs = [];
     if ($main_menu_id) {
       $configs["main_menu_id"] = $main_menu_id;
