@@ -94,7 +94,8 @@ dependencies:
       'contextual_more_links',
       'hbktemplateuser',
       'manage_module_config',
-      'managepackvhsost'
+      'managepackvhsost',
+      'wb_commerce'
     ];
   }
 
