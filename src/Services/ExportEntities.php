@@ -409,13 +409,18 @@ class ExportEntities extends ControllerBase {
     $this->LoadConfigs->getConfigFromName($name);
     // site useful configs
     $this->generateSiteSourcesConfig();
+
+    //manage_module_config settgings
+    $name = "manage_module_config.settings";
+    $configs = ConfigDrupal::config($name);
+    $this->LoadConfigs->getConfigFromName($name, $configs, false);
     /**
      * hbk_collissimochrono api login
      * hbkcolissimochrono.settings  
      * */
     $name = "hbkcolissimochrono.settings";
-    $hbkSettings = ConfigDrupal::config($name);
-    $this->LoadConfigs->getConfigFromName($name, $hbkSettings, false);
+    $configs = ConfigDrupal::config($name);
+    $this->LoadConfigs->getConfigFromName($name, $configs, false);
     /**
      * export du dashboard
      */
