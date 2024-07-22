@@ -93,7 +93,8 @@ dependencies:
       'hbkcolissimochrono',
       'contextual_more_links',
       'hbktemplateuser',
-      'manage_module_config'
+      'manage_module_config',
+      'managepackvhsost'
     ];
   }
 
