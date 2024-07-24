@@ -89,7 +89,10 @@ class LoadConfigs extends LoadBase {
       $defaultConfs = $this->configStorage->read($name);
       
       if ($defaultConfs) {
-        // $this->removeDependenciesDomain($defaultConfs, $name);
+        if (str_contains($name, 'field.field')) {
+          $this->addDefaultEncodeData($defaultConfs);
+          $this->removeDefaultValue($defaultConfs);
+        }
         
         if (!empty($override)) {
           if ($merge) {
@@ -486,5 +489,4 @@ class LoadConfigs extends LoadBase {
       dd($fonction_name, $string, $datas);
     }
   }
-  
 }
