@@ -387,7 +387,7 @@ class LoadConfigs extends LoadBase {
   }
   
   /**
-   * Permet de genrer toutes les configurations en relations avec une entité.
+   * Permet de generer toutes les configurations en relations avec une entité.
    * example :
    * $BundleEntityType = blocks_contents_type
    * $entiy_type_id = blocks_contents
