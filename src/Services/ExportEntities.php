@@ -465,7 +465,9 @@ class ExportEntities extends ControllerBase {
     $config_name = 'wb_horizon_public.source_site_configs';
     $Ids = $this->getMenusIds();
     $main_menu_id = reset($Ids) ?? null;
-    $configs = [];
+    $configs = [
+      "domain_source_id" => \Drupal\lesroidelareno\lesroidelareno::getCurrentPrefixDomain()
+    ];
     if ($main_menu_id) {
       $configs["main_menu_id"] = $main_menu_id;
     }
