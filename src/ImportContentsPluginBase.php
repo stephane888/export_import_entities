@@ -42,6 +42,13 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   protected $messenger;
   
   /**
+   * Contient les données ou seront stocques les données.
+   *
+   * @var array
+   */
+  protected $prepareDirectories = [];
+  
+  /**
    * Constructs a StylePluginBase object.
    *
    * @param array $configuration
@@ -71,7 +78,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
       'messenger'));
   }
   
-  public function defaultConfiguration() {
+  public function defaultConfiguration(): array {
     return [];
   }
   
@@ -95,6 +102,19 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    * {@inheritdoc}
    * @see \Drupal\export_import_entities\ImportContentsInterface::saveFiles()
    */
+  function saveConfig(array $configs): void {
+    if ($dirs = $this->prepareDirectories()) {
+      foreach ($configs as $name => $config) {
+        $this->file_system->saveData(Json::encode($config['value']), $dirs['config'] . '/' . $name . '.yml', FileExists::Replace);
+      }
+    }
+  }
+  
+  /**
+   *
+   * {@inheritdoc}
+   * @see \Drupal\export_import_entities\ImportContentsInterface::saveFiles()
+   */
   function saveFiles(array $datas, string $dir): void {
     //
   }
@@ -103,18 +123,26 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    * Verifie que les dossiers sont ok pour l'export.
    */
   protected function prepareDirectories() {
-    $baseDir = DRUPAL_ROOT . '/' . $this->ExtensionPathResolver->getPath('module', $this->getPluginDefinition()['provider']);
-    $directoryContents = $baseDir . '/src/Plugin/ImportContents/' . $this->getContentDirectory();
-    $directoryFiles = $baseDir . '/src/Plugin/ImportContents/' . $this->getFilesDirectory();
-    if ($this->file_system->prepareDirectory($directoryContents, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS) && $this->file_system->prepareDirectory(
-      $directoryFiles, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS)) {
-      return [
-        'contents' => $directoryContents,
-        'files' => $directoryFiles
-      ];
+    if (!$this->prepareDirectories) {
+      $baseDir = DRUPAL_ROOT . '/' . $this->ExtensionPathResolver->getPath('module', $this->getPluginDefinition()['provider']);
+      $directoryContents = $baseDir . '/src/Plugin/ImportContents/' . $this->getContentDirectory();
+      $directoryFiles = $baseDir . '/src/Plugin/ImportContents/' . $this->getFilesDirectory();
+      $directoryConfig = $baseDir . '/src/Plugin/ImportContents/' . $this->getConfigDirectory();
+      if ($this->file_system->prepareDirectory($directoryContents, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS) && $this->file_system->prepareDirectory(
+        $directoryFiles, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS) && $this->file_system->prepareDirectory($directoryConfig,
+        FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS)) {
+        $this->prepareDirectories = [
+          'contents' => $directoryContents,
+          'files' => $directoryFiles,
+          'config' => $directoryConfig
+        ];
+      }
+      else {
+        $this->messenger->addError("Impossible de creer les dossiers");
+        return false;
+      }
     }
-    else
-      return false;
+    return $this->prepareDirectories;
   }
   
   /**
@@ -138,5 +166,12 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    */
   protected function getFilesDirectory(): string {
     return !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] . '/default_files' : 'default_files';
+  }
+  
+  /**
+   * Retourne le dossier qui contiendra les images.
+   */
+  protected function getConfigDirectory(): string {
+    return !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] . '/config' : 'config';
   }
 }

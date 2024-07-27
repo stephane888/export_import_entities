@@ -1,0 +1,1 @@
+"langcode: fr\nstatus: true\ndependencies:\n  module:\n    - node\n    - text\n_core:\n  default_config_hash: EBUo7qOWqaiZaQ_RC9sLY5IoDKphS34v77VIHSACmVY\nid: node.body\nfield_name: body\nentity_type: node\ntype: text_with_summary\nsettings: {  }\nmodule: text\nlocked: false\ncardinality: 1\ntranslatable: true\nindexes: {  }\npersist_with_no_fields: true\ncustom_storage: false\n"

@@ -1,0 +1,1 @@
+"langcode: en\nstatus: true\ndependencies: {  }\n_core:\n  default_config_hash: KuyA4NHPXcmKAjRtwa0vQc2ZcyrUJy6IlS2TAyMNRbc\nname: \u0027Basic page\u0027\ntype: page\ndescription: \u0022Use \u003Cem\u003Ebasic pages\u003C\/em\u003E for your static content, such as an \u0027About us\u0027 page.\u0022\nhelp: null\nnew_revision: true\npreview_mode: 1\ndisplay_submitted: false\n"

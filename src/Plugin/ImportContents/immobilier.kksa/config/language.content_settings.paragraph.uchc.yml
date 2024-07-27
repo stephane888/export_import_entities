@@ -1,0 +1,1 @@
+"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - paragraphs.paragraphs_type.uchc\nid: paragraph.uchc\ntarget_entity_type_id: paragraph\ntarget_bundle: uchc\ndefault_langcode: site_default\nlanguage_alterable: false\n"

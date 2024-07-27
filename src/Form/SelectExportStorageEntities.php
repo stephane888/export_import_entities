@@ -200,7 +200,12 @@ final class SelectExportStorageEntities extends ExportBase {
       'bundle'
     ]);
     if ($entity_id && $id) {
-      $this->LoadConfigs->setSaveIt(TRUE);
+      /**
+       * Recuperation de la configs.
+       */
+      // On ajoute les fichiers de configurations dans le meme dossier que celui
+      // des données.
+      $this->LoadConfigs->setSaveIt(FALSE);
       $this->LoadConfigs->setRemoveUUID(TRUE);
       $this->LoadConfigs->setRemoveDefaultValue(FALSE);
       //
@@ -213,11 +218,18 @@ final class SelectExportStorageEntities extends ExportBase {
       $BundleEntityType = $entity->getEntityType()->getBundleEntityType();
       $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $bundle, $BundleEntityType);
       $this->getOrthersConfig($entity);
-      // debugLog::$path
+      $configs = $this->LoadConfigs->getGenerate();
+      
+      /**
+       * Recuperation des contenus.
+       *
+       * @var array $EntitiesArray
+       */
       $EntitiesArray = $this->generateFormMatrice($entity_id, $entity, $bundle);
-      debugLog::$max_depth = 15;
-      debugLog::$path = null;
-      debugLog::kintDebugDrupal($EntitiesArray, $entity_id . $id . '---', true);
+      // debugLog::$max_depth = 15;
+      // debugLog::$path = null;
+      // debugLog::kintDebugDrupal($EntitiesArray, $entity_id . $id . '---',
+      // true);
       //
       /**
        *
@@ -230,6 +242,7 @@ final class SelectExportStorageEntities extends ExportBase {
        */
       $import_contents = $MangerImportContent->createInstance("export_import_entities_import_contents");
       $import_contents->saveContents($EntitiesArray, $id, $entity_id);
+      $import_contents->saveConfig($configs);
       // debugLog::logger($string, $name . '.yml', false, 'file');
       \Drupal::messenger()->addStatus(" Données de configuration exporter à l'emplacement definit. ", true);
     }

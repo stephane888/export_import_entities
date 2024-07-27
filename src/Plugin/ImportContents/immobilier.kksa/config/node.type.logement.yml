@@ -1,0 +1,1 @@
+"langcode: fr\nstatus: true\ndependencies:\n  module:\n    - menu_ui\nthird_party_settings:\n  menu_ui:\n    available_menus:\n      - main\n    parent: \u0027main:\u0027\nname: logement\ntype: logement\ndescription: null\nhelp: null\nnew_revision: true\npreview_mode: 1\ndisplay_submitted: false\n"
