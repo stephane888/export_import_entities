@@ -1,1 +1,10 @@
-"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - paragraphs.paragraphs_type.test_temoignage\nid: paragraph.test_temoignage\ntarget_entity_type_id: paragraph\ntarget_bundle: test_temoignage\ndefault_langcode: site_default\nlanguage_alterable: false\n"
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.test_temoignage
+id: paragraph.test_temoignage
+target_entity_type_id: paragraph
+target_bundle: test_temoignage
+default_langcode: site_default
+language_alterable: false

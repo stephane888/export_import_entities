@@ -1,1 +1,21 @@
-"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - field.storage.paragraph.field_svg\n    - paragraphs.paragraphs_type.simple_paragraph\n  module:\n    - text\nid: paragraph.simple_paragraph.field_svg\nfield_name: field_svg\nentity_type: paragraph\nbundle: simple_paragraph\nlabel: svg\ndescription: \u0027\u0027\nrequired: false\ntranslatable: false\ndefault_value: {  }\ndefault_value_callback: \u0027\u0027\nsettings:\n  allowed_formats: {  }\nfield_type: text_long\n"
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_svg
+    - paragraphs.paragraphs_type.simple_paragraph
+  module:
+    - text
+id: paragraph.simple_paragraph.field_svg
+field_name: field_svg
+entity_type: paragraph
+bundle: simple_paragraph
+label: svg
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

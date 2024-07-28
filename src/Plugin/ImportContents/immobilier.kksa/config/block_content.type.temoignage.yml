@@ -1,1 +1,7 @@
-"langcode: fr\nstatus: true\ndependencies: {  }\nid: temoignage\nlabel: temoignage\nrevision: false\ndescription: \u0027\u0027\n"
+langcode: fr
+status: true
+dependencies: {  }
+id: temoignage
+label: temoignage
+revision: false
+description: ''

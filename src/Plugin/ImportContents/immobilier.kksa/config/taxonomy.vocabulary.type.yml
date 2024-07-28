@@ -1,1 +1,8 @@
-"langcode: fr\nstatus: true\ndependencies: {  }\nname: \u0027type de bien immobilier\u0027\nvid: type\ndescription: \u0027pour definir un type de logement\u0027\nweight: 0\nnew_revision: false\n"
+langcode: fr
+status: true
+dependencies: {  }
+name: 'type de bien immobilier'
+vid: type
+description: 'pour definir un type de logement'
+weight: 0
+new_revision: false

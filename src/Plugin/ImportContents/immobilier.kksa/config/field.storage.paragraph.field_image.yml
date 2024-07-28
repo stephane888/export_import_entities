@@ -1,1 +1,29 @@
-"langcode: fr\nstatus: true\ndependencies:\n  module:\n    - file\n    - image\n    - paragraphs\nid: paragraph.field_image\nfield_name: field_image\nentity_type: paragraph\ntype: image\nsettings:\n  target_type: file\n  display_field: false\n  display_default: false\n  uri_scheme: public\n  default_image:\n    uuid: \u0027\u0027\n    alt: \u0027\u0027\n    title: \u0027\u0027\n    width: null\n    height: null\nmodule: image\nlocked: false\ncardinality: 1\ntranslatable: true\nindexes: {  }\npersist_with_no_fields: false\ncustom_storage: false\n"
+langcode: fr
+status: true
+dependencies:
+  module:
+    - file
+    - image
+    - paragraphs
+id: paragraph.field_image
+field_name: field_image
+entity_type: paragraph
+type: image
+settings:
+  target_type: file
+  display_field: false
+  display_default: false
+  uri_scheme: public
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+module: image
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

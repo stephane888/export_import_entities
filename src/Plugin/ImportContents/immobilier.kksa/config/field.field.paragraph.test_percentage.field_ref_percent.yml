@@ -1,1 +1,28 @@
-"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - block_content.type.percentage\n    - field.storage.paragraph.field_ref_percent\n    - paragraphs.paragraphs_type.test_percentage\nid: paragraph.test_percentage.field_ref_percent\nfield_name: field_ref_percent\nentity_type: paragraph\nbundle: test_percentage\nlabel: \u0027ref percent\u0027\ndescription: \u0027\u0027\nrequired: false\ntranslatable: false\ndefault_value: {  }\ndefault_value_callback: \u0027\u0027\nsettings:\n  handler: \u0027default:block_content\u0027\n  handler_settings:\n    target_bundles:\n      percentage: percentage\n    sort:\n      field: _none\n      direction: ASC\n    auto_create: false\n    auto_create_bundle: \u0027\u0027\nfield_type: entity_reference\n"
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.percentage
+    - field.storage.paragraph.field_ref_percent
+    - paragraphs.paragraphs_type.test_percentage
+id: paragraph.test_percentage.field_ref_percent
+field_name: field_ref_percent
+entity_type: paragraph
+bundle: test_percentage
+label: 'ref percent'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      percentage: percentage
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,1 +1,8 @@
-"langcode: fr\nstatus: true\ndependencies: {  }\nname: \u0022option d\u0027offre\u0022\nvid: statut\ndescription: \u0027pour les statuts des logements\u0027\nweight: 0\nnew_revision: false\n"
+langcode: fr
+status: true
+dependencies: {  }
+name: "option d'offre"
+vid: statut
+description: 'pour les statuts des logements'
+weight: 0
+new_revision: false

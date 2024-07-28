@@ -1,1 +1,576 @@
-"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - core.entity_view_mode.node.teaser\n    - node.type.logement\n    - system.menu.main\n    - taxonomy.vocabulary.localisation\n    - taxonomy.vocabulary.statut\n    - taxonomy.vocabulary.type\n  module:\n    - better_exposed_filters\n    - formatage_models\n    - more_fields\n    - node\n    - taxonomy\n    - user\nid: logement\nlabel: \u0027logement \u0027\nmodule: views\ndescription: \u0027\u0027\ntag: \u0027\u0027\nbase_table: node_field_data\nbase_field: nid\ndisplay:\n  default:\n    id: default\n    display_title: Default\n    display_plugin: default\n    position: 0\n    display_options:\n      title: \u0027logement \u0027\n      fields:\n        title:\n          id: title\n          table: node_field_data\n          field: title\n          relationship: none\n          group_type: group\n          admin_label: \u0027\u0027\n          plugin_id: field\n          label: \u0027\u0027\n          exclude: false\n          alter:\n            alter_text: false\n            text: \u0027\u0027\n            make_link: false\n            path: \u0027\u0027\n            absolute: false\n            external: false\n            replace_spaces: false\n            path_case: none\n            trim_whitespace: false\n            alt: \u0027\u0027\n            rel: \u0027\u0027\n            link_class: \u0027\u0027\n            prefix: \u0027\u0027\n            suffix: \u0027\u0027\n            target: \u0027\u0027\n            nl2br: false\n            max_length: 0\n            word_boundary: true\n            ellipsis: true\n            more_link: false\n            more_link_text: \u0027\u0027\n            more_link_path: \u0027\u0027\n            strip_tags: false\n            trim: false\n            preserve_tags: \u0027\u0027\n            html: false\n          element_type: \u0027\u0027\n          element_class: \u0027\u0027\n          element_label_type: \u0027\u0027\n          element_label_class: \u0027\u0027\n          element_label_colon: true\n          element_wrapper_type: \u0027\u0027\n          element_wrapper_class: \u0027\u0027\n          element_default_classes: true\n          empty: \u0027\u0027\n          hide_empty: false\n          empty_zero: false\n          hide_alter_empty: true\n          click_sort_column: value\n          type: string\n          settings:\n            link_to_entity: true\n          group_column: value\n          group_columns: {  }\n          group_rows: true\n          delta_limit: 0\n          delta_offset: 0\n          delta_reversed: false\n          delta_first_last: false\n          multi_type: separator\n          separator: \u0027, \u0027\n          field_api_classes: false\n      pager:\n        type: some\n        options:\n          offset: 0\n          items_per_page: 6\n      exposed_form:\n        type: basic\n        options:\n          submit_button: Appliquer\n          reset_button: false\n          reset_button_label: R\u00e9initialiser\n          exposed_sorts_label: \u0027Trier par\u0027\n          expose_sort_order: true\n          sort_asc_label: Asc\n          sort_desc_label: Desc\n      access:\n        type: perm\n        options:\n          perm: \u0027access content\u0027\n      cache:\n        type: tag\n        options: {  }\n      empty: {  }\n      sorts:\n        created:\n          id: created\n          table: node_field_data\n          field: created\n          relationship: none\n          group_type: group\n          admin_label: \u0027\u0027\n          entity_type: node\n          entity_field: created\n          plugin_id: date\n          order: DESC\n          expose:\n            label: \u0027\u0027\n            field_identifier: \u0027\u0027\n          exposed: false\n          granularity: second\n      arguments: {  }\n      filters:\n        status:\n          id: status\n          table: node_field_data\n          field: status\n          entity_type: node\n          entity_field: status\n          plugin_id: boolean\n          value: \u00271\u0027\n          group: 1\n          expose:\n            operator: \u0027\u0027\n        type:\n          id: type\n          table: node_field_data\n          field: type\n          entity_type: node\n          entity_field: type\n          plugin_id: bundle\n          value:\n            logement: logement\n          group: 1\n      filter_groups:\n        operator: AND\n        groups:\n          1: AND\n      style:\n        type: default\n        options:\n          row_class: \u0027col-md-4 col-sm-6 space-inner-bottom py-2 g-2\u0027\n          default_row_class: true\n          uses_fields: false\n      row:\n        type: \u0027entity:node\u0027\n        options:\n          relationship: none\n          view_mode: teaser\n      query:\n        type: views_query\n        options:\n          query_comment: \u0027\u0027\n          disable_sql_rewrite: false\n          distinct: false\n          replica: false\n          query_tags: {  }\n      relationships: {  }\n      css_class: row\n      header: {  }\n      footer: {  }\n      display_extenders: {  }\n    cache_metadata:\n      max-age: -1\n      contexts:\n        - \u0027languages:language_content\u0027\n        - \u0027languages:language_interface\u0027\n        - \u0027user.node_grants:view\u0027\n        - user.permissions\n      tags: {  }\n  block_1:\n    id: block_1\n    display_title: Block\n    display_plugin: block\n    position: 1\n    display_options:\n      display_extenders: {  }\n    cache_metadata:\n      max-age: -1\n      contexts:\n        - \u0027languages:language_content\u0027\n        - \u0027languages:language_interface\u0027\n        - \u0027user.node_grants:view\u0027\n        - user.permissions\n      tags: {  }\n  page_render_1:\n    id: page_render_1\n    display_title: \u0027all properties\u0027\n    display_plugin: page_render\n    position: 2\n    display_options:\n      display_extenders: {  }\n      display_description: \u0027\u0027\n      path: proprietes\n      menu:\n        type: normal\n        title: Properties\n        description: \u0027\u0027\n        expanded: 1\n        parent: \u0027\u0027\n        weight: \u0027-50\u0027\n        context: 0\n        menu_name: main\n        enabled: 0\n      css_class: container\n      defaults:\n        css_class: false\n        exposed_form: false\n        sorts: false\n        filters: false\n        filter_groups: false\n        header: false\n        title: false\n      view_row_css: row\n      exposed_block: true\n      exposed_form:\n        type: bef\n        options:\n          submit_button: Appliquer\n          reset_button: 0\n          reset_button_label: R\u00e9initialiser\n          exposed_sorts_label: \u0027Trier par\u0027\n          expose_sort_order: true\n          sort_asc_label: Asc\n          sort_desc_label: Desc\n          text_input_required: \u0022S\u00e9lectionnez n\u0027importe quel filtre et cliquez sur Appliquer pour voir les r\u00e9sultats\u0022\n          text_input_required_format: basic_html\n          bef:\n            general:\n              autosubmit: 0\n              autosubmit_exclude_textfield: 0\n              autosubmit_textfield_delay: \u0027500\u0027\n              autosubmit_hide: 1\n              input_required: 0\n              allow_secondary: 0\n              secondary_label: \u0027Options avanc\u00e9es\u0027\n              secondary_open: 0\n              reset_button_always_show: 0\n            filter:\n              more_fields_field_type_de_bien_immobilier_target_id:\n                plugin_id: mores_fields_lists\n                advanced:\n                  sort_options: 0\n                  rewrite:\n                    filter_rewrite_values: \u0027\u0027\n                    filter_rewrite_values_key: false\n                  collapsible: 0\n                  is_secondary: 0\n                  collapsible_disable_automatic_open: false\n                select_all_none: false\n                layoutgenentitystyles_view: more_fields\/more_fields_list_simple\n              field_localisation_du_bien_target_id:\n                plugin_id: default\n                advanced:\n                  placeholder_text: \u0027\u0027\n                  rewrite:\n                    filter_rewrite_values: \u0027\u0027\n                    filter_rewrite_values_key: false\n                  collapsible: 0\n                  is_secondary: 0\n                  collapsible_disable_automatic_open: false\n              more_fields_field_option_d_offre_target_id:\n                plugin_id: mores_fields_lists_button_light\n                advanced:\n                  sort_options: 0\n                  rewrite:\n                    filter_rewrite_values: \u0027\u0027\n                    filter_rewrite_values_key: false\n                  collapsible: 0\n                  is_secondary: 0\n                  collapsible_disable_automatic_open: false\n                select_all_none: false\n                layoutgenentitystyles_view: more_fields\/more_fields_list_button_light\n              field_prix_du_bien_value:\n                plugin_id: bef_number\n                advanced:\n                  collapsible: 0\n                  is_secondary: 0\n                  collapsible_disable_automatic_open: false\n                min: \u0027\u0027\n                max: \u0027\u0027\n              field_nombre_de_chambre_value:\n                plugin_id: default\n                advanced:\n                  placeholder_text: \u0027\u0027\n                  collapsible: 0\n                  is_secondary: 0\n                  collapsible_disable_automatic_open: false\n      sorts:\n        created:\n          id: created\n          table: node_field_data\n          field: created\n          relationship: none\n          group_type: group\n          admin_label: \u0027\u0027\n          entity_type: node\n          entity_field: created\n          plugin_id: date\n          order: DESC\n          expose:\n            label: \u0027\u0027\n            field_identifier: \u0027\u0027\n          exposed: false\n          granularity: second\n      filters:\n        more_fields_field_type_de_bien_immobilier_target_id:\n          id: more_fields_field_type_de_bien_immobilier_target_id\n          table: node__field_type_de_bien_immobilier\n          field: more_fields_field_type_de_bien_immobilier_target_id\n          relationship: none\n          group_type: group\n          admin_label: \u0027\u0027\n          operator: or\n          value: {  }\n          group: 1\n          exposed: true\n          expose:\n            operator_id: more_fields_field_type_de_bien_immobilier_target_id_op\n            label: \u0027Type de bien immobilier \u0027\n            description: \u0027\u0027\n            use_operator: 0\n            operator: more_fields_field_type_de_bien_immobilier_target_id_op\n            operator_limit_selection: 0\n            operator_list: {  }\n            identifier: more_fields_field_type_de_bien_immobilier_target_id\n            required: 0\n            remember: 0\n            multiple: 0\n            remember_roles:\n              authenticated: authenticated\n              anonymous: 0\n              content_editor: 0\n              administrator: 0\n            reduce: 0\n          is_grouped: false\n          group_info:\n            label: \u0027\u0027\n            description: \u0027\u0027\n            identifier: \u0027\u0027\n            optional: true\n            widget: select\n            multiple: false\n            remember: 0\n            default_group: All\n            default_group_multiple: {  }\n            group_items: {  }\n          reduce_duplicates: 0\n          type: select\n          limit: true\n          vid: type\n          hierarchy: 0\n          error_message: 1\n          show_entities_numbers: 1\n          ignore_default_value: 0\n          plugin_id: more_fields_checkbox_list\n        more_fields_field_option_d_offre_target_id:\n          id: more_fields_field_option_d_offre_target_id\n          table: node__field_option_d_offre\n          field: more_fields_field_option_d_offre_target_id\n          relationship: none\n          group_type: group\n          admin_label: \u0027\u0027\n          operator: or\n          value: {  }\n          group: 1\n          exposed: true\n          expose:\n            operator_id: more_fields_field_option_d_offre_target_id_op\n            label: \u0022Option d\u0027offre\u0022\n            description: \u0027\u0027\n            use_operator: 0\n            operator: more_fields_field_option_d_offre_target_id_op\n            operator_limit_selection: 0\n            operator_list: {  }\n            identifier: more_fields_field_option_d_offre_target_id\n            required: 0\n            remember: 0\n            multiple: 0\n            remember_roles:\n              authenticated: authenticated\n              anonymous: 0\n              content_editor: 0\n              administrator: 0\n            reduce: 0\n          is_grouped: false\n          group_info:\n            label: \u0027\u0027\n            description: \u0027\u0027\n            identifier: \u0027\u0027\n            optional: true\n            widget: select\n            multiple: false\n            remember: 0\n            default_group: All\n            default_group_multiple: {  }\n            group_items: {  }\n          reduce_duplicates: 0\n          type: select\n          limit: true\n          vid: statut\n          hierarchy: 0\n          error_message: 1\n          show_entities_numbers: 1\n          ignore_default_value: 0\n          plugin_id: more_fields_checkbox_list\n        field_localisation_du_bien_target_id:\n          id: field_localisation_du_bien_target_id\n          table: node__field_localisation_du_bien\n          field: field_localisation_du_bien_target_id\n          relationship: none\n          group_type: group\n          admin_label: \u0027\u0027\n          operator: or\n          value: {  }\n          group: 1\n          exposed: true\n          expose:\n            operator_id: field_localisation_du_bien_target_id_op\n            label: \u0027localisation du bien\u0027\n            description: \u0027\u0027\n            use_operator: 0\n            operator: field_localisation_du_bien_target_id_op\n            operator_limit_selection: 0\n            operator_list: {  }\n            identifier: field_localisation_du_bien_target_id\n            required: 0\n            remember: 0\n            multiple: 0\n            remember_roles:\n              authenticated: authenticated\n              anonymous: 0\n              content_editor: 0\n              administrator: 0\n            reduce: 0\n          is_grouped: false\n          group_info:\n            label: \u0027\u0027\n            description: \u0027\u0027\n            identifier: \u0027\u0027\n            optional: true\n            widget: select\n            multiple: false\n            remember: 0\n            default_group: All\n            default_group_multiple: {  }\n            group_items: {  }\n          reduce_duplicates: 0\n          type: textfield\n          limit: true\n          vid: localisation\n          hierarchy: 0\n          error_message: 1\n          parent: \u0027\u0027\n          level_labels: \u0027\u0027\n          force_deepest: false\n          save_lineage: false\n          hierarchy_depth: 0\n          required_depth: 0\n          none_label: \u0027- Please select -\u0027\n          plugin_id: taxonomy_index_tid\n        type:\n          id: type\n          table: node_field_data\n          field: type\n          entity_type: node\n          entity_field: type\n          plugin_id: bundle\n          value:\n            logement: logement\n          group: 1\n        status:\n          id: status\n          table: node_field_data\n          field: status\n          entity_type: node\n          entity_field: status\n          plugin_id: boolean\n          value: \u00271\u0027\n          group: 1\n          expose:\n            operator: \u0027\u0027\n        title:\n          id: title\n          table: node_field_data\n          field: title\n          relationship: none\n          group_type: group\n          admin_label: \u0027\u0027\n          operator: \u0027=\u0027\n          value: \u0027\u0027\n          group: \u00271\u0027\n          exposed: true\n          expose:\n            operator_id: title_op\n            label: Titre\n            description: \u0027\u0027\n            use_operator: 0\n            operator: title_op\n            operator_limit_selection: 0\n            operator_list: {  }\n            identifier: title\n            required: 0\n            remember: 0\n            multiple: false\n            remember_roles:\n              authenticated: authenticated\n              anonymous: 0\n              content_editor: 0\n              administrator: 0\n            placeholder: \u0027recherchez un logement\u0027\n          is_grouped: false\n          group_info:\n            label: \u0027\u0027\n            description: \u0027\u0027\n            identifier: \u0027\u0027\n            optional: true\n            widget: select\n            multiple: false\n            remember: 0\n            default_group: All\n            default_group_multiple: {  }\n            group_items: {  }\n          entity_type: node\n          entity_field: title\n          plugin_id: string\n      filter_groups:\n        operator: AND\n        groups:\n          1: AND\n      header:\n        result:\n          id: result\n          table: views\n          field: result\n          relationship: none\n          group_type: group\n          admin_label: \u0027\u0027\n          empty: 1\n          content: \u0027\u003Ch2 class=\u0022titre-results\u0022\u003E@total logements trouv\u00e9s\u003C\/h2\u003E\u0027\n          plugin_id: result\n      title: Propri\u00e9t\u00e9s\n    cache_metadata:\n      max-age: -1\n      contexts:\n        - \u0027languages:language_content\u0027\n        - \u0027languages:language_interface\u0027\n        - url\n        - \u0027user.node_grants:view\u0027\n        - user.permissions\n      tags: {  }\n"
+langcode: fr
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.logement
+    - system.menu.main
+    - taxonomy.vocabulary.localisation
+    - taxonomy.vocabulary.statut
+    - taxonomy.vocabulary.type
+  module:
+    - better_exposed_filters
+    - formatage_models
+    - more_fields
+    - node
+    - taxonomy
+    - user
+id: logement
+label: 'logement '
+module: views
+description: ''
+tag: ''
+base_table: node_field_data
+base_field: nid
+display:
+  default:
+    id: default
+    display_title: Default
+    display_plugin: default
+    position: 0
+    display_options:
+      title: 'logement '
+      fields:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 6
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Appliquer
+          reset_button: false
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: tag
+        options: {  }
+      empty: {  }
+      sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
+          granularity: second
+      arguments: {  }
+      filters:
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            logement: logement
+          group: 1
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      style:
+        type: default
+        options:
+          row_class: 'col-md-4 col-sm-6 space-inner-bottom py-2 g-2'
+          default_row_class: true
+          uses_fields: false
+      row:
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: teaser
+      query:
+        type: views_query
+        options:
+          query_comment: ''
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_tags: {  }
+      relationships: {  }
+      css_class: row
+      header: {  }
+      footer: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  block_1:
+    id: block_1
+    display_title: Block
+    display_plugin: block
+    position: 1
+    display_options:
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  page_render_1:
+    id: page_render_1
+    display_title: 'all properties'
+    display_plugin: page_render
+    position: 2
+    display_options:
+      display_extenders: {  }
+      display_description: ''
+      path: proprietes
+      menu:
+        type: normal
+        title: Properties
+        description: ''
+        expanded: 1
+        parent: ''
+        weight: '-50'
+        context: 0
+        menu_name: main
+        enabled: 0
+      css_class: container
+      defaults:
+        css_class: false
+        exposed_form: false
+        sorts: false
+        filters: false
+        filter_groups: false
+        header: false
+        title: false
+      view_row_css: row
+      exposed_block: true
+      exposed_form:
+        type: bef
+        options:
+          submit_button: Appliquer
+          reset_button: 0
+          reset_button_label: Réinitialiser
+          exposed_sorts_label: 'Trier par'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+          text_input_required: "Sélectionnez n'importe quel filtre et cliquez sur Appliquer pour voir les résultats"
+          text_input_required_format: basic_html
+          bef:
+            general:
+              autosubmit: 0
+              autosubmit_exclude_textfield: 0
+              autosubmit_textfield_delay: '500'
+              autosubmit_hide: 1
+              input_required: 0
+              allow_secondary: 0
+              secondary_label: 'Options avancées'
+              secondary_open: 0
+              reset_button_always_show: 0
+            filter:
+              more_fields_field_type_de_bien_immobilier_target_id:
+                plugin_id: mores_fields_lists
+                advanced:
+                  sort_options: 0
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
+                  collapsible: 0
+                  is_secondary: 0
+                  collapsible_disable_automatic_open: false
+                select_all_none: false
+                layoutgenentitystyles_view: more_fields/more_fields_list_simple
+              field_localisation_du_bien_target_id:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
+                  collapsible: 0
+                  is_secondary: 0
+                  collapsible_disable_automatic_open: false
+              more_fields_field_option_d_offre_target_id:
+                plugin_id: mores_fields_lists_button_light
+                advanced:
+                  sort_options: 0
+                  rewrite:
+                    filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
+                  collapsible: 0
+                  is_secondary: 0
+                  collapsible_disable_automatic_open: false
+                select_all_none: false
+                layoutgenentitystyles_view: more_fields/more_fields_list_button_light
+              field_prix_du_bien_value:
+                plugin_id: bef_number
+                advanced:
+                  collapsible: 0
+                  is_secondary: 0
+                  collapsible_disable_automatic_open: false
+                min: ''
+                max: ''
+              field_nombre_de_chambre_value:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  collapsible: 0
+                  is_secondary: 0
+                  collapsible_disable_automatic_open: false
+      sorts:
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
+          granularity: second
+      filters:
+        more_fields_field_type_de_bien_immobilier_target_id:
+          id: more_fields_field_type_de_bien_immobilier_target_id
+          table: node__field_type_de_bien_immobilier
+          field: more_fields_field_type_de_bien_immobilier_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: more_fields_field_type_de_bien_immobilier_target_id_op
+            label: 'Type de bien immobilier '
+            description: ''
+            use_operator: 0
+            operator: more_fields_field_type_de_bien_immobilier_target_id_op
+            operator_limit_selection: 0
+            operator_list: {  }
+            identifier: more_fields_field_type_de_bien_immobilier_target_id
+            required: 0
+            remember: 0
+            multiple: 0
+            remember_roles:
+              authenticated: authenticated
+              anonymous: 0
+              content_editor: 0
+              administrator: 0
+            reduce: 0
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: 0
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: 0
+          type: select
+          limit: true
+          vid: type
+          hierarchy: 0
+          error_message: 1
+          show_entities_numbers: 1
+          ignore_default_value: 0
+          plugin_id: more_fields_checkbox_list
+        more_fields_field_option_d_offre_target_id:
+          id: more_fields_field_option_d_offre_target_id
+          table: node__field_option_d_offre
+          field: more_fields_field_option_d_offre_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: more_fields_field_option_d_offre_target_id_op
+            label: "Option d'offre"
+            description: ''
+            use_operator: 0
+            operator: more_fields_field_option_d_offre_target_id_op
+            operator_limit_selection: 0
+            operator_list: {  }
+            identifier: more_fields_field_option_d_offre_target_id
+            required: 0
+            remember: 0
+            multiple: 0
+            remember_roles:
+              authenticated: authenticated
+              anonymous: 0
+              content_editor: 0
+              administrator: 0
+            reduce: 0
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: 0
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: 0
+          type: select
+          limit: true
+          vid: statut
+          hierarchy: 0
+          error_message: 1
+          show_entities_numbers: 1
+          ignore_default_value: 0
+          plugin_id: more_fields_checkbox_list
+        field_localisation_du_bien_target_id:
+          id: field_localisation_du_bien_target_id
+          table: node__field_localisation_du_bien
+          field: field_localisation_du_bien_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_localisation_du_bien_target_id_op
+            label: 'localisation du bien'
+            description: ''
+            use_operator: 0
+            operator: field_localisation_du_bien_target_id_op
+            operator_limit_selection: 0
+            operator_list: {  }
+            identifier: field_localisation_du_bien_target_id
+            required: 0
+            remember: 0
+            multiple: 0
+            remember_roles:
+              authenticated: authenticated
+              anonymous: 0
+              content_editor: 0
+              administrator: 0
+            reduce: 0
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: 0
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: 0
+          type: textfield
+          limit: true
+          vid: localisation
+          hierarchy: 0
+          error_message: 1
+          parent: ''
+          level_labels: ''
+          force_deepest: false
+          save_lineage: false
+          hierarchy_depth: 0
+          required_depth: 0
+          none_label: '- Please select -'
+          plugin_id: taxonomy_index_tid
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            logement: logement
+          group: 1
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: ''
+          group: '1'
+          exposed: true
+          expose:
+            operator_id: title_op
+            label: Titre
+            description: ''
+            use_operator: 0
+            operator: title_op
+            operator_limit_selection: 0
+            operator_list: {  }
+            identifier: title
+            required: 0
+            remember: 0
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: 0
+              content_editor: 0
+              administrator: 0
+            placeholder: 'recherchez un logement'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: 0
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: title
+          plugin_id: string
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      header:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: 1
+          content: '<h2 class="titre-results">@total logements trouvés</h2>'
+          plugin_id: result
+      title: Propriétés
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }

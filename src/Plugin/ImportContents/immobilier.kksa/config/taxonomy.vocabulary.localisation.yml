@@ -1,1 +1,8 @@
-"langcode: fr\nstatus: true\ndependencies: {  }\nname: localisation\nvid: localisation\ndescription: null\nweight: 0\nnew_revision: false\n"
+langcode: fr
+status: true
+dependencies: {  }
+name: localisation
+vid: localisation
+description: null
+weight: 0
+new_revision: false

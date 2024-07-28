@@ -1,1 +1,21 @@
-"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - field.storage.paragraph.field_description\n    - paragraphs.paragraphs_type.paragraph_logo\n  module:\n    - text\nid: paragraph.paragraph_logo.field_description\nfield_name: field_description\nentity_type: paragraph\nbundle: paragraph_logo\nlabel: Description\ndescription: \u0027\u0027\nrequired: false\ntranslatable: false\ndefault_value: {  }\ndefault_value_callback: \u0027\u0027\nsettings:\n  allowed_formats: {  }\nfield_type: text_long\n"
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_description
+    - paragraphs.paragraphs_type.paragraph_logo
+  module:
+    - text
+id: paragraph.paragraph_logo.field_description
+field_name: field_description
+entity_type: paragraph
+bundle: paragraph_logo
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

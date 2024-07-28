@@ -1,1 +1,20 @@
-"langcode: fr\nstatus: true\ndependencies:\n  module:\n    - paragraphs\nid: paragraph.field_title\nfield_name: field_title\nentity_type: paragraph\ntype: string\nsettings:\n  max_length: 255\n  case_sensitive: false\n  is_ascii: false\nmodule: core\nlocked: false\ncardinality: 1\ntranslatable: true\nindexes: {  }\npersist_with_no_fields: false\ncustom_storage: false\n"
+langcode: fr
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_title
+field_name: field_title
+entity_type: paragraph
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

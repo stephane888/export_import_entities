@@ -1,1 +1,72 @@
-"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - field.field.paragraph.paragraph_consulting.field_background\n    - field.field.paragraph.paragraph_consulting.field_button\n    - field.field.paragraph.paragraph_consulting.field_description\n    - field.field.paragraph.paragraph_consulting.field_image\n    - field.field.paragraph.paragraph_consulting.field_subtitle\n    - field.field.paragraph.paragraph_consulting.field_title\n    - image.style.thumbnail\n    - paragraphs.paragraphs_type.paragraph_consulting\n  module:\n    - image\n    - link\n    - text\nid: paragraph.paragraph_consulting.default\ntargetEntityType: paragraph\nbundle: paragraph_consulting\nmode: default\ncontent:\n  field_background:\n    type: image_image\n    weight: 3\n    region: content\n    settings:\n      progress_indicator: throbber\n      preview_image_style: thumbnail\n    third_party_settings: {  }\n  field_button:\n    type: link_default\n    weight: 4\n    region: content\n    settings:\n      placeholder_url: \u0027\u0027\n      placeholder_title: \u0027\u0027\n    third_party_settings: {  }\n  field_description:\n    type: text_textarea\n    weight: 2\n    region: content\n    settings:\n      rows: 5\n      placeholder: \u0027\u0027\n    third_party_settings: {  }\n  field_image:\n    type: image_image\n    weight: 5\n    region: content\n    settings:\n      progress_indicator: throbber\n      preview_image_style: thumbnail\n    third_party_settings: {  }\n  field_subtitle:\n    type: text_textarea\n    weight: 3\n    region: content\n    settings:\n      rows: 5\n      placeholder: \u0027\u0027\n    third_party_settings: {  }\n  field_title:\n    type: string_textfield\n    weight: 0\n    region: content\n    settings:\n      size: 60\n      placeholder: \u0027\u0027\n    third_party_settings: {  }\nhidden:\n  created: true\n  status: true\n"
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.paragraph_consulting.field_background
+    - field.field.paragraph.paragraph_consulting.field_button
+    - field.field.paragraph.paragraph_consulting.field_description
+    - field.field.paragraph.paragraph_consulting.field_image
+    - field.field.paragraph.paragraph_consulting.field_subtitle
+    - field.field.paragraph.paragraph_consulting.field_title
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.paragraph_consulting
+  module:
+    - image
+    - link
+    - text
+id: paragraph.paragraph_consulting.default
+targetEntityType: paragraph
+bundle: paragraph_consulting
+mode: default
+content:
+  field_background:
+    type: image_image
+    weight: 3
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_button:
+    type: link_default
+    weight: 4
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_description:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_image:
+    type: image_image
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_subtitle:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

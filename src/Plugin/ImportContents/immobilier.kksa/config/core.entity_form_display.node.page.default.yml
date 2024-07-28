@@ -1,1 +1,105 @@
-"langcode: en\nstatus: true\ndependencies:\n  config:\n    - field.field.node.page.body\n    - field.field.node.page.field_paragraph\n    - node.type.page\n  module:\n    - inline_entity_form\n    - path\n    - text\n_core:\n  default_config_hash: SfpLhPExzvR0MgFp0Wp7CrmgEnhcqQ-fXIWFhbf4ue0\nid: node.page.default\ntargetEntityType: node\nbundle: page\nmode: default\ncontent:\n  body:\n    type: text_textarea_with_summary\n    weight: 31\n    region: content\n    settings:\n      rows: 9\n      summary_rows: 3\n      placeholder: \u0027\u0027\n      show_summary: false\n    third_party_settings: {  }\n  created:\n    type: datetime_timestamp\n    weight: 10\n    region: content\n    settings: {  }\n    third_party_settings: {  }\n  field_paragraph:\n    type: inline_entity_form_complex\n    weight: 121\n    region: content\n    settings:\n      form_mode: default\n      override_labels: false\n      label_singular: \u0027\u0027\n      label_plural: \u0027\u0027\n      allow_new: true\n      allow_existing: false\n      match_operator: CONTAINS\n      allow_duplicate: false\n      collapsible: true\n      collapsed: true\n      revision: false\n      removed_reference: optional\n    third_party_settings: {  }\n  langcode:\n    type: language_select\n    weight: 2\n    region: content\n    settings:\n      include_locked: true\n    third_party_settings: {  }\n  path:\n    type: path\n    weight: 30\n    region: content\n    settings: {  }\n    third_party_settings: {  }\n  promote:\n    type: boolean_checkbox\n    weight: 15\n    region: content\n    settings:\n      display_label: true\n    third_party_settings: {  }\n  status:\n    type: boolean_checkbox\n    weight: 120\n    region: content\n    settings:\n      display_label: true\n    third_party_settings: {  }\n  sticky:\n    type: boolean_checkbox\n    weight: 16\n    region: content\n    settings:\n      display_label: true\n    third_party_settings: {  }\n  title:\n    type: string_textfield\n    weight: -5\n    region: content\n    settings:\n      size: 60\n      placeholder: \u0027\u0027\n    third_party_settings: {  }\n  uid:\n    type: entity_reference_autocomplete\n    weight: 5\n    region: content\n    settings:\n      match_operator: CONTAINS\n      match_limit: 10\n      size: 60\n      placeholder: \u0027\u0027\n    third_party_settings: {  }\nhidden: {  }\n"
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.page.body
+    - field.field.node.page.field_paragraph
+    - node.type.page
+  module:
+    - inline_entity_form
+    - path
+    - text
+_core:
+  default_config_hash: SfpLhPExzvR0MgFp0Wp7CrmgEnhcqQ-fXIWFhbf4ue0
+id: node.page.default
+targetEntityType: node
+bundle: page
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 31
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_paragraph:
+    type: inline_entity_form_complex
+    weight: 121
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: true
+      collapsed: true
+      revision: false
+      removed_reference: optional
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 15
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 120
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 16
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

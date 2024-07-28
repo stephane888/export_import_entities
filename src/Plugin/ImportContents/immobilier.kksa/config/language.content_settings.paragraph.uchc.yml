@@ -1,1 +1,10 @@
-"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - paragraphs.paragraphs_type.uchc\nid: paragraph.uchc\ntarget_entity_type_id: paragraph\ntarget_bundle: uchc\ndefault_langcode: site_default\nlanguage_alterable: false\n"
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.uchc
+id: paragraph.uchc
+target_entity_type_id: paragraph
+target_bundle: uchc
+default_langcode: site_default
+language_alterable: false

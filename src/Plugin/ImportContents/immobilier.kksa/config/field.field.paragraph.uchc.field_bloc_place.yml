@@ -1,1 +1,28 @@
-"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - block_content.type.place\n    - field.storage.paragraph.field_bloc_place\n    - paragraphs.paragraphs_type.uchc\nid: paragraph.uchc.field_bloc_place\nfield_name: field_bloc_place\nentity_type: paragraph\nbundle: uchc\nlabel: \u0027bloc place\u0027\ndescription: \u0027\u0027\nrequired: false\ntranslatable: false\ndefault_value: {  }\ndefault_value_callback: \u0027\u0027\nsettings:\n  handler: \u0027default:block_content\u0027\n  handler_settings:\n    target_bundles:\n      place: place\n    sort:\n      field: _none\n      direction: ASC\n    auto_create: false\n    auto_create_bundle: \u0027\u0027\nfield_type: entity_reference\n"
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.place
+    - field.storage.paragraph.field_bloc_place
+    - paragraphs.paragraphs_type.uchc
+id: paragraph.uchc.field_bloc_place
+field_name: field_bloc_place
+entity_type: paragraph
+bundle: uchc
+label: 'bloc place'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      place: place
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

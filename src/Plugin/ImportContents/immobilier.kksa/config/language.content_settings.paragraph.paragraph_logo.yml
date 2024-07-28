@@ -1,1 +1,10 @@
-"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - paragraphs.paragraphs_type.paragraph_logo\nid: paragraph.paragraph_logo\ntarget_entity_type_id: paragraph\ntarget_bundle: paragraph_logo\ndefault_langcode: site_default\nlanguage_alterable: false\n"
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.paragraph_logo
+id: paragraph.paragraph_logo
+target_entity_type_id: paragraph
+target_bundle: paragraph_logo
+default_langcode: site_default
+language_alterable: false

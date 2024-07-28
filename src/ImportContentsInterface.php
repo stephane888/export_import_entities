@@ -45,7 +45,7 @@ interface ImportContentsInterface {
    * @param array $datas
    * @return array
    */
-  public function SaveIdentificationEntities(array $datas): array;
+  public function SaveIdentificationEntities(array $datas): bool;
   
   /**
    * Permet de recuperer les données d'identifications.

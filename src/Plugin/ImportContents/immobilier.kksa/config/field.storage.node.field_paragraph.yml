@@ -1,1 +1,20 @@
-"langcode: fr\nstatus: true\ndependencies:\n  module:\n    - entity_reference_revisions\n    - node\n    - paragraphs\nid: node.field_paragraph\nfield_name: field_paragraph\nentity_type: node\ntype: entity_reference_revisions\nsettings:\n  target_type: paragraph\nmodule: entity_reference_revisions\nlocked: false\ncardinality: -1\ntranslatable: true\nindexes: {  }\npersist_with_no_fields: false\ncustom_storage: false\n"
+langcode: fr
+status: true
+dependencies:
+  module:
+    - entity_reference_revisions
+    - node
+    - paragraphs
+id: node.field_paragraph
+field_name: field_paragraph
+entity_type: node
+type: entity_reference_revisions
+settings:
+  target_type: paragraph
+module: entity_reference_revisions
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

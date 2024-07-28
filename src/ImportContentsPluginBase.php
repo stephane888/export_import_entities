@@ -53,7 +53,8 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    *
    * @var string
    */
-  private static $base_dir = '/src/Plugin/ImportContents/';
+  private static $base_plugin = 'src/Plugin/ImportContents';
+  private static $base_dir = null;
   private static $name_identification_file = "identification.json";
   
   /**
@@ -113,7 +114,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   function saveConfig(array $configs): void {
     if ($dirs = $this->prepareDirectories()) {
       foreach ($configs as $name => $config) {
-        $this->file_system->saveData(Json::encode($config['value']), $dirs['config'] . '/' . $name . '.yml', FileExists::Replace);
+        $this->file_system->saveData($config['value'], $dirs['config'] . '/' . $name . '.yml', FileExists::Replace);
       }
     }
   }
@@ -132,17 +133,18 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    * {@inheritdoc}
    * @see \Drupal\export_import_entities\ImportContentsInterface::identificationEntities()
    */
-  function SaveIdentificationEntities(array $datas): array {
+  function SaveIdentificationEntities(array $datas): bool {
     if ($this->prepareDirectories()) {
       if ($datas['id']) {
         $confsEntities = $this->getIdentificationEntities();
         $confsEntities[$datas['id']] = $datas;
-        $path = $this->getBaseDirectory() ? self::$base_dir . '/' . $this->getBaseDirectory() : self::$base_dir;
-        $this->file_system->saveData(Json::encode($confsEntities), $path . '/' . self::$name_identification_file, FileExists::Replace);
+        $result = $this->file_system->saveData(Json::encode($confsEntities), $this->getBaseDirectory() . '/' . self::$name_identification_file, FileExists::Replace);
+        return $result ? true : false;
       }
       else
         $this->messenger->addError("Paramettre manquant");
     }
+    return false;
   }
   
   /**
@@ -163,8 +165,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   protected function getJsonFile(string $type): array {
     switch ($type) {
       case 'identification':
-        $path = $this->getBaseDirectory() ? self::$base_dir . '/' . $this->getBaseDirectory() : self::$base_dir;
-        $rawString = file_get_contents($path . '/' . self::$name_identification_file);
+        $rawString = file_get_contents($this->getBaseDirectory() . '/' . self::$name_identification_file);
         if ($rawString) {
           return Json::decode($rawString);
         }
@@ -183,17 +184,13 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    */
   protected function prepareDirectories() {
     if (!$this->prepareDirectories) {
-      $baseDir = DRUPAL_ROOT . '/' . $this->ExtensionPathResolver->getPath('module', $this->getPluginDefinition()['provider']);
-      $directoryContents = $baseDir . self::$base_dir . $this->getContentDirectory();
-      $directoryFiles = $baseDir . self::$base_dir . $this->getFilesDirectory();
-      $directoryConfig = $baseDir . self::$base_dir . $this->getConfigDirectory();
-      if ($this->file_system->prepareDirectory($directoryContents, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS) && $this->file_system->prepareDirectory(
-        $directoryFiles, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS) && $this->file_system->prepareDirectory($directoryConfig,
+      if ($this->file_system->prepareDirectory($this->getContentDirectory(), FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS) && $this->file_system->prepareDirectory(
+        $this->getFilesDirectory(), FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS) && $this->file_system->prepareDirectory($this->getConfigDirectory(),
         FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS)) {
         $this->prepareDirectories = [
-          'contents' => $directoryContents,
-          'files' => $directoryFiles,
-          'config' => $directoryConfig
+          'contents' => $this->getContentDirectory(),
+          'files' => $this->getFilesDirectory(),
+          'config' => $this->getConfigDirectory()
         ];
       }
       else {
@@ -217,28 +214,33 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    * Retourne le dossier qui contiendra les données.
    */
   protected function getContentDirectory(): string {
-    return !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] . '/default_contents' : 'default_contents';
+    return $this->getBaseDirectory() . '/default_contents';
   }
   
   /**
    * Retourne le dossier qui contiendra les images.
    */
   protected function getFilesDirectory(): string {
-    return !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] . '/default_files' : 'default_files';
+    return $this->getBaseDirectory() . '/default_files';
   }
   
   /**
    * Retourne le dossier qui contiendra les configurations.
    */
   protected function getConfigDirectory(): string {
-    return !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] . '/config' : 'config';
+    return $this->getBaseDirectory() . '/config';
   }
   
   /**
+   * Recupere le dossier de base pour la sauvegarde des données.
    *
    * @return string
    */
   protected function getBaseDirectory() {
-    return !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
+    if (!self::$base_dir) {
+      $baseDir = DRUPAL_ROOT . '/' . $this->ExtensionPathResolver->getPath('module', $this->getPluginDefinition()['provider']) . '/' . self::$base_plugin;
+      self::$base_dir = !empty($_SERVER['HTTP_HOST']) ? $baseDir . '/' . $_SERVER['HTTP_HOST'] : $baseDir;
+    }
+    return self::$base_dir;
   }
 }

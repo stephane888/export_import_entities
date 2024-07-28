@@ -1,1 +1,31 @@
-"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - field.field.paragraph.test_logement.field_sous_titre2\n    - field.field.paragraph.test_logement.field_titre\n    - paragraphs.paragraphs_type.test_logement\nid: paragraph.test_logement.default\ntargetEntityType: paragraph\nbundle: test_logement\nmode: default\ncontent:\n  field_sous_titre2:\n    type: string_textfield\n    weight: 1\n    region: content\n    settings:\n      size: 60\n      placeholder: \u0027\u0027\n    third_party_settings: {  }\n  field_titre:\n    type: string_textfield\n    weight: 0\n    region: content\n    settings:\n      size: 60\n      placeholder: \u0027\u0027\n    third_party_settings: {  }\nhidden:\n  created: true\n  status: true\n"
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.test_logement.field_sous_titre2
+    - field.field.paragraph.test_logement.field_titre
+    - paragraphs.paragraphs_type.test_logement
+id: paragraph.test_logement.default
+targetEntityType: paragraph
+bundle: test_logement
+mode: default
+content:
+  field_sous_titre2:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_titre:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

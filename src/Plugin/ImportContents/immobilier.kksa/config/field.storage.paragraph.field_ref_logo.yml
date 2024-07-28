@@ -1,1 +1,19 @@
-"langcode: fr\nstatus: true\ndependencies:\n  module:\n    - block_content\n    - paragraphs\nid: paragraph.field_ref_logo\nfield_name: field_ref_logo\nentity_type: paragraph\ntype: entity_reference\nsettings:\n  target_type: block_content\nmodule: core\nlocked: false\ncardinality: -1\ntranslatable: true\nindexes: {  }\npersist_with_no_fields: false\ncustom_storage: false\n"
+langcode: fr
+status: true
+dependencies:
+  module:
+    - block_content
+    - paragraphs
+id: paragraph.field_ref_logo
+field_name: field_ref_logo
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: block_content
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

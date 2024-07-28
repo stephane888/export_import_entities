@@ -1,1 +1,18 @@
-"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - field.storage.paragraph.field_title\n    - paragraphs.paragraphs_type.uchc\nid: paragraph.uchc.field_title\nfield_name: field_title\nentity_type: paragraph\nbundle: uchc\nlabel: Title\ndescription: \u0027\u0027\nrequired: false\ntranslatable: false\ndefault_value: {  }\ndefault_value_callback: \u0027\u0027\nsettings: {  }\nfield_type: string\n"
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.uchc
+id: paragraph.uchc.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: uchc
+label: Title
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

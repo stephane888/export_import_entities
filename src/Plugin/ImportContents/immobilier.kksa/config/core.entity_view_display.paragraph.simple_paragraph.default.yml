@@ -1,1 +1,469 @@
-"langcode: fr\nstatus: true\ndependencies:\n  config:\n    - field.field.paragraph.simple_paragraph.field_background\n    - field.field.paragraph.simple_paragraph.field_subtitle\n    - field.field.paragraph.simple_paragraph.field_svg\n    - field.field.paragraph.simple_paragraph.field_title\n    - field.field.paragraph.simple_paragraph.field_title2\n    - paragraphs.paragraphs_type.simple_paragraph\n  module:\n    - formatage_models\n    - image\n    - layout_builder\n    - text\nthird_party_settings:\n  layout_builder:\n    enabled: true\n    allow_custom: false\n    sections:\n      -\n        layout_id: formatage_models_simple_block\n        layout_settings:\n          label: \u0027 One column custom  ( formatage_models_simple_block ) \u0027\n          context_mapping: {  }\n          css: \u0027d-flex justify-content-center align-items-center background--attached mb-0\u0027\n          region_tag_main: div\n          config_section:\n            type_container: container\n            container_class: \u0027d-flex justify-content-around flex-wrap\u0027\n            id: formatage-models-simple-block-1690--gA199xY0b5A\n          sf:\n            builder-form: true\n            info:\n              title: \u0027 Contenu \u0027\n              loader: dynamic\n            fields:\n              main:\n                text_html:\n                  label: Description\n                  value: \u0027\u0027\n                  format: full_html\n              teasers_container:\n                text_html:\n                  label: \u0027Container pour Teaser\u0027\n                  value: \u0027\u0027\n                  format: full_html\n              image_bg:\n                img_bg:\n                  label: image\n                  fids: {  }\n                  style: \u0027\u0027\n                  class: \u0027\u0027\n                  inbg: 0\n          region_css_main: \u0027col-md-4 space-inner-padding bg-light d-flex flex-column justify-content-center space-inner-px col-12 col-sm-12\u0027\n          region_css_image_bg: \u0027\u0027\n          region_css_teasers_container: \u0027d-flex justify-content-center align-items-center wbu-titre-biggest text-light fw-bold\u0027\n          load_clean_value: 0\n          save_by_domain: null\n          load_libray: false\n          container_wrapper:\n            bootstrap_styles:\n              background:\n                background_type: null\n              background_color:\n                class: null\n              background_media:\n                image:\n                  media_id: null\n                video:\n                  media_id: null\n                background_options:\n                  background_position: center\n                  background_repeat: no-repeat\n                  background_attachment: not_fixed\n                  background_size: cover\n              text_color:\n                class: null\n              text_alignment:\n                class: null\n              padding:\n                class: _none\n              padding_left:\n                class: _none\n              padding_top:\n                class: _none\n              padding_right:\n                class: _none\n              padding_bottom:\n                class: _none\n              margin:\n                class: _none\n              margin_left:\n                class: _none\n              margin_top:\n                class: _none\n              margin_right:\n                class: _none\n              margin_bottom:\n                class: _none\n              border:\n                border_style:\n                  class: null\n                border_width:\n                  class: _none\n                border_color:\n                  class: null\n                rounded_corners:\n                  class: _none\n                border_left_style:\n                  class: null\n                border_left_width:\n                  class: _none\n                border_left_color:\n                  class: null\n                border_top_style:\n                  class: null\n                border_top_width:\n                  class: _none\n                border_top_color:\n                  class: null\n                border_right_style:\n                  class: null\n                border_right_width:\n                  class: _none\n                border_right_color:\n                  class: null\n                border_bottom_style:\n                  class: null\n                border_bottom_width:\n                  class: _none\n                border_bottom_color:\n                  class: null\n                rounded_corner_top_left:\n                  class: _none\n                rounded_corner_top_right:\n                  class: _none\n                rounded_corner_bottom_left:\n                  class: _none\n                rounded_corner_bottom_right:\n                  class: _none\n              box_shadow:\n                class: null\n              scroll_effects:\n                class: null\n          id: formatage-models-simple-block-1690--gA199xY0b5A\n          cover_section:\n            active: cover-bg-theme\n            model: cover-dark\n            opacity: opacity-before-055\n            zindex: \u0027\u0027\n          aos_attributes:\n            main:\n              data_aos: \u0027\u0027\n              data_aos_anchor_placement: \u0027\u0027\n              data_aos_duration: \u0027\u0027\n              data_aos_delay: \u0027\u0027\n              data_aos_ease: \u0027\u0027\n            image_bg:\n              data_aos: \u0027\u0027\n              data_aos_anchor_placement: \u0027\u0027\n              data_aos_duration: \u0027\u0027\n              data_aos_delay: \u0027\u0027\n              data_aos_ease: \u0027\u0027\n            teasers_container:\n              data_aos: \u0027\u0027\n              data_aos_anchor_placement: \u0027\u0027\n              data_aos_duration: \u0027\u0027\n              data_aos_delay: \u0027\u0027\n              data_aos_ease: \u0027\u0027\n          region_tag_image_bg: \u0027\u0027\n          region_tag_teasers_container: \u0027\u0027\n          default_class:\n            background_position:\n              class: \u0027\u0027\n              background:\n                \u0027\u0027: 0\n                background--attached: 0\n                background--cover: 0\n                background--contain: 0\n            spaces:\n              class:\n                \u0027\u0027: 0\n                space-bottom: 0\n                space-top-inv: 0\n                space-padding: 0\n                space-inner-padding: 0\n                space-inner-bottom: 0\n                space-inner-top: 0\n                padding-top: 0\n                margin-top: 0\n                padding-bottom: 0\n            border_radius:\n              class: \u0027\u0027\n            box_shadow:\n              class: \u0027\u0027\n            container_width:\n              class: \u0027\u0027\n            regions:\n              main:\n                background_position:\n                  class: \u0027\u0027\n                  background:\n                    \u0027\u0027: 0\n                    background--attached: 0\n                    background--cover: 0\n                    background--contain: 0\n                spaces:\n                  class:\n                    \u0027\u0027: 0\n                    space-bottom: 0\n                    space-top-inv: 0\n                    space-padding: 0\n                    space-inner-padding: 0\n                    space-inner-bottom: 0\n                    space-inner-top: 0\n                    padding-top: 0\n                    margin-top: 0\n                    padding-bottom: 0\n                border_radius:\n                  class: \u0027\u0027\n                box_shadow:\n                  class: \u0027\u0027\n                container_width:\n                  class: \u0027\u0027\n              image_bg:\n                background_position:\n                  class: \u0027\u0027\n                  background:\n                    \u0027\u0027: 0\n                    background--attached: 0\n                    background--cover: 0\n                    background--contain: 0\n                spaces:\n                  class:\n                    \u0027\u0027: 0\n                    space-bottom: 0\n                    space-top-inv: 0\n                    space-padding: 0\n                    space-inner-padding: 0\n                    space-inner-bottom: 0\n                    space-inner-top: 0\n                    padding-top: 0\n                    margin-top: 0\n                    padding-bottom: 0\n                border_radius:\n                  class: \u0027\u0027\n                box_shadow:\n                  class: \u0027\u0027\n                container_width:\n                  class: \u0027\u0027\n              teasers_container:\n                background_position:\n                  class: \u0027\u0027\n                  background:\n                    \u0027\u0027: 0\n                    background--attached: 0\n                    background--cover: 0\n                    background--contain: 0\n                spaces:\n                  class:\n                    \u0027\u0027: 0\n                    space-bottom: 0\n                    space-top-inv: 0\n                    space-padding: 0\n                    space-inner-padding: 0\n                    space-inner-bottom: 0\n                    space-inner-top: 0\n                    padding-top: 0\n                    margin-top: 0\n                    padding-bottom: 0\n                border_radius:\n                  class: \u0027\u0027\n                box_shadow:\n                  class: \u0027\u0027\n                container_width:\n                  class: \u0027\u0027\n          scss:\n            scss_field: \u0022min-height: 790px;\\r\\n.svg-box-custom{\\r\\n    height: 41px;\\r\\n  width: 41px;\\r\\n  border-radius: 50%;\\r\\n  text-align: center;\\r\\n  display: block;\\r\\n  font-size: 17px;\\r\\n  padding: 0 !important;\\r\\n  overflow: hidden;\\r\\n  background-color: #00a376;\\r\\n    svg{\\r\\n      width: 20px;\\r\\n  height: 20px;\\r\\n  fill: #fff;\\r\\n    stroke: #fff;\\r\\n\\r\\n}\\r\\n\u0026:hover{\\r\\n  animation: bottomtotop .4s linear forwards;\\r\\n  background-color: #01815d;\\r\\n}\\r\\n  }\u0022\n          class_row: \u0027col-12 col-sm-12 col-md-4\u0027\n        components:\n          7dd818b7-c072-41ce-8a1a-65f88949891d:\n            uuid: 7dd818b7-c072-41ce-8a1a-65f88949891d\n            region: image_bg\n            configuration:\n              id: \u0027field_block:paragraph:simple_paragraph:field_background\u0027\n              label: background\n              label_display: \u00270\u0027\n              provider: layout_builder\n              context_mapping:\n                entity: layout_builder.entity\n                view_mode: view_mode\n              formatter:\n                type: image_url\n                label: hidden\n                settings:\n                  image_style: tres_large\n                third_party_settings:\n                  formatage_models:\n                    classes:\n                      container: \u0027\u0027\n                      title: \u0027\u0027\n                      value: \u0027\u0027\n                      item: \u0027\u0027\n            weight: 0\n            additional: {  }\n          0d7ead57-bb06-4a67-a2b5-788c1d646454:\n            uuid: 0d7ead57-bb06-4a67-a2b5-788c1d646454\n            region: main\n            configuration:\n              id: \u0027field_block:paragraph:simple_paragraph:field_title\u0027\n              label: Title\n              label_display: \u00270\u0027\n              provider: layout_builder\n              context_mapping:\n                entity: layout_builder.entity\n                view_mode: view_mode\n              formatter:\n                type: string\n                label: hidden\n                settings:\n                  link_to_entity: false\n                third_party_settings:\n                  formatage_models:\n                    classes:\n                      container: \u0027\u0027\n                      title: \u0027\u0027\n                      value: \u0027\u0027\n                      item: \u0027text-uppercase fw-bold text-primary h5\u0027\n                      content: \u0027\u0027\n            weight: 0\n            additional: {  }\n          d15c07e0-8d56-43a2-b88a-080fe206e39b:\n            uuid: d15c07e0-8d56-43a2-b88a-080fe206e39b\n            region: main\n            configuration:\n              id: \u0027field_block:paragraph:simple_paragraph:field_subtitle\u0027\n              label: Subtitle\n              label_display: \u00270\u0027\n              provider: layout_builder\n              context_mapping:\n                entity: layout_builder.entity\n                view_mode: view_mode\n              formatter:\n                type: text_default\n                label: hidden\n                settings: {  }\n                third_party_settings:\n                  formatage_models:\n                    classes:\n                      container: \u0027\u0027\n                      title: \u0027\u0027\n                      value: \u0027\u0027\n                      item: \u0027fw-bold h3 text-black\u0027\n                      content: \u0027\u0027\n            weight: 1\n            additional: {  }\n          bc40502d-fef8-4cdb-815e-eed8fcc44a6d:\n            uuid: bc40502d-fef8-4cdb-815e-eed8fcc44a6d\n            region: main\n            configuration:\n              id: \u0027field_block:paragraph:simple_paragraph:field_svg\u0027\n              label: svg\n              label_display: \u00270\u0027\n              provider: layout_builder\n              context_mapping:\n                entity: layout_builder.entity\n                view_mode: view_mode\n              formatter:\n                type: text_default\n                label: hidden\n                settings: {  }\n                third_party_settings:\n                  formatage_models:\n                    classes:\n                      container: \u0027\u0027\n                      title: \u0027\u0027\n                      value: \u0027\u0027\n                      item: \u0027svg-box-custom d-flex align-items-center justify-content-center\u0027\n                      content: \u0027\u0027\n            weight: 2\n            additional: {  }\n          c87842d9-d1c4-4df2-b507-1484018edb8f:\n            uuid: c87842d9-d1c4-4df2-b507-1484018edb8f\n            region: teasers_container\n            configuration:\n              id: \u0027field_block:paragraph:simple_paragraph:field_title2\u0027\n              label: Title2\n              label_display: \u00270\u0027\n              provider: layout_builder\n              context_mapping:\n                entity: layout_builder.entity\n                view_mode: view_mode\n              formatter:\n                type: basic_string\n                label: hidden\n                settings: {  }\n                third_party_settings:\n                  formatage_models:\n                    classes:\n                      container: \u0027\u0027\n                      title: \u0027\u0027\n                      value: \u0027\u0027\n                      item: \u0027\u0027\n                      content: \u0027\u0027\n            weight: 0\n            additional: {  }\n        third_party_settings: {  }\nid: paragraph.simple_paragraph.default\ntargetEntityType: paragraph\nbundle: simple_paragraph\nmode: default\ncontent:\n  field_background:\n    type: image_url\n    label: hidden\n    settings:\n      image_style: tres_large\n    third_party_settings:\n      formatage_models:\n        classes:\n          container: \u0027\u0027\n          title: \u0027\u0027\n          value: \u0027\u0027\n          item: \u0027\u0027\n    weight: 2\n    region: content\n  field_subtitle:\n    type: text_default\n    label: hidden\n    settings: {  }\n    third_party_settings:\n      formatage_models:\n        classes:\n          container: \u0027\u0027\n          title: \u0027\u0027\n          value: \u0027text-uppercase fw-bold text-primary\u0027\n          item: \u0027\u0027\n    weight: 1\n    region: content\n  field_svg:\n    type: text_default\n    label: above\n    settings: {  }\n    third_party_settings: {  }\n    weight: 3\n    region: content\n  field_title:\n    type: string\n    label: hidden\n    settings:\n      link_to_entity: false\n    third_party_settings:\n      formatage_models:\n        classes:\n          container: \u0027\u0027\n          title: \u0027\u0027\n          value: \u0027fw-bold h2 text-black\u0027\n          item: \u0027\u0027\n    weight: 0\n    region: content\n  field_title2:\n    type: basic_string\n    label: above\n    settings: {  }\n    third_party_settings: {  }\n    weight: 4\n    region: content\nhidden: {  }\n"
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.simple_paragraph.field_background
+    - field.field.paragraph.simple_paragraph.field_subtitle
+    - field.field.paragraph.simple_paragraph.field_svg
+    - field.field.paragraph.simple_paragraph.field_title
+    - field.field.paragraph.simple_paragraph.field_title2
+    - paragraphs.paragraphs_type.simple_paragraph
+  module:
+    - formatage_models
+    - image
+    - layout_builder
+    - text
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: formatage_models_simple_block
+        layout_settings:
+          label: ' One column custom  ( formatage_models_simple_block ) '
+          context_mapping: {  }
+          css: 'd-flex justify-content-center align-items-center background--attached mb-0'
+          region_tag_main: div
+          config_section:
+            type_container: container
+            container_class: 'd-flex justify-content-around flex-wrap'
+            id: formatage-models-simple-block-1690--gA199xY0b5A
+          sf:
+            builder-form: true
+            info:
+              title: ' Contenu '
+              loader: dynamic
+            fields:
+              main:
+                text_html:
+                  label: Description
+                  value: ''
+                  format: full_html
+              teasers_container:
+                text_html:
+                  label: 'Container pour Teaser'
+                  value: ''
+                  format: full_html
+              image_bg:
+                img_bg:
+                  label: image
+                  fids: {  }
+                  style: ''
+                  class: ''
+                  inbg: 0
+          region_css_main: 'col-md-4 space-inner-padding bg-light d-flex flex-column justify-content-center space-inner-px col-12 col-sm-12'
+          region_css_image_bg: ''
+          region_css_teasers_container: 'd-flex justify-content-center align-items-center wbu-titre-biggest text-light fw-bold'
+          load_clean_value: 0
+          save_by_domain: null
+          load_libray: false
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: null
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              text_alignment:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              box_shadow:
+                class: null
+              scroll_effects:
+                class: null
+          id: formatage-models-simple-block-1690--gA199xY0b5A
+          cover_section:
+            active: cover-bg-theme
+            model: cover-dark
+            opacity: opacity-before-055
+            zindex: ''
+          aos_attributes:
+            main:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            image_bg:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            teasers_container:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+          region_tag_image_bg: ''
+          region_tag_teasers_container: ''
+          default_class:
+            background_position:
+              class: ''
+              background:
+                '': 0
+                background--attached: 0
+                background--cover: 0
+                background--contain: 0
+            spaces:
+              class:
+                '': 0
+                space-bottom: 0
+                space-top-inv: 0
+                space-padding: 0
+                space-inner-padding: 0
+                space-inner-bottom: 0
+                space-inner-top: 0
+                padding-top: 0
+                margin-top: 0
+                padding-bottom: 0
+            border_radius:
+              class: ''
+            box_shadow:
+              class: ''
+            container_width:
+              class: ''
+            regions:
+              main:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              image_bg:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              teasers_container:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+          scss:
+            scss_field: "min-height: 790px;\r\n.svg-box-custom{\r\n    height: 41px;\r\n  width: 41px;\r\n  border-radius: 50%;\r\n  text-align: center;\r\n  display: block;\r\n  font-size: 17px;\r\n  padding: 0 !important;\r\n  overflow: hidden;\r\n  background-color: #00a376;\r\n    svg{\r\n      width: 20px;\r\n  height: 20px;\r\n  fill: #fff;\r\n    stroke: #fff;\r\n\r\n}\r\n&:hover{\r\n  animation: bottomtotop .4s linear forwards;\r\n  background-color: #01815d;\r\n}\r\n  }"
+          class_row: 'col-12 col-sm-12 col-md-4'
+        components:
+          7dd818b7-c072-41ce-8a1a-65f88949891d:
+            uuid: 7dd818b7-c072-41ce-8a1a-65f88949891d
+            region: image_bg
+            configuration:
+              id: 'field_block:paragraph:simple_paragraph:field_background'
+              label: background
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: image_url
+                label: hidden
+                settings:
+                  image_style: tres_large
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+            weight: 0
+            additional: {  }
+          0d7ead57-bb06-4a67-a2b5-788c1d646454:
+            uuid: 0d7ead57-bb06-4a67-a2b5-788c1d646454
+            region: main
+            configuration:
+              id: 'field_block:paragraph:simple_paragraph:field_title'
+              label: Title
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: 'text-uppercase fw-bold text-primary h5'
+                      content: ''
+            weight: 0
+            additional: {  }
+          d15c07e0-8d56-43a2-b88a-080fe206e39b:
+            uuid: d15c07e0-8d56-43a2-b88a-080fe206e39b
+            region: main
+            configuration:
+              id: 'field_block:paragraph:simple_paragraph:field_subtitle'
+              label: Subtitle
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: 'fw-bold h3 text-black'
+                      content: ''
+            weight: 1
+            additional: {  }
+          bc40502d-fef8-4cdb-815e-eed8fcc44a6d:
+            uuid: bc40502d-fef8-4cdb-815e-eed8fcc44a6d
+            region: main
+            configuration:
+              id: 'field_block:paragraph:simple_paragraph:field_svg'
+              label: svg
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: 'svg-box-custom d-flex align-items-center justify-content-center'
+                      content: ''
+            weight: 2
+            additional: {  }
+          c87842d9-d1c4-4df2-b507-1484018edb8f:
+            uuid: c87842d9-d1c4-4df2-b507-1484018edb8f
+            region: teasers_container
+            configuration:
+              id: 'field_block:paragraph:simple_paragraph:field_title2'
+              label: Title2
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: basic_string
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: paragraph.simple_paragraph.default
+targetEntityType: paragraph
+bundle: simple_paragraph
+mode: default
+content:
+  field_background:
+    type: image_url
+    label: hidden
+    settings:
+      image_style: tres_large
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+    weight: 2
+    region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: 'text-uppercase fw-bold text-primary'
+          item: ''
+    weight: 1
+    region: content
+  field_svg:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: 'fw-bold h2 text-black'
+          item: ''
+    weight: 0
+    region: content
+  field_title2:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+hidden: {  }
