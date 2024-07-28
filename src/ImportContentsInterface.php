@@ -37,4 +37,20 @@ interface ImportContentsInterface {
    * @param array $datas
    */
   public function validateContents(array $datas): bool;
+  
+  /**
+   * Permet d'identifier les differentes pages exporter.
+   * Elle sauvegarde les données tels que le nom, la description l'image.
+   *
+   * @param array $datas
+   * @return array
+   */
+  public function SaveIdentificationEntities(array $datas): array;
+  
+  /**
+   * Permet de recuperer les données d'identifications.
+   *
+   * @return array
+   */
+  public function getIdentificationEntities(): array;
 }

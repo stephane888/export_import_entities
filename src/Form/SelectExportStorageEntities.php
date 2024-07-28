@@ -148,7 +148,36 @@ final class SelectExportStorageEntities extends ExportBase {
         $BundleEntityType = $entity->getEntityType()->getBundleEntityType();
         $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $bundle, $BundleEntityType);
         $this->getOrthersConfig($entity);
-        
+        // On definie les champs permettant d'identifier le contenu lors de
+        // l'import.
+        $form['datas']['data'] = [
+          '#type' => 'details',
+          '#open' => true,
+          '#title' => t('Identification de la page'),
+          '#attributes' => [],
+          '#tree' => true
+        ];
+        $form['datas']['data']['id'] = [
+          "#type" => 'hidden',
+          '#title' => "id de l'entité",
+          '#default_value' => $entity->id()
+        ];
+        $form['datas']['data']['name'] = [
+          "#type" => 'textfield',
+          '#title' => "Nom de l'entité",
+          '#default_value' => $entity->label()
+        ];
+        $form['datas']['data']['description'] = [
+          "#type" => 'text_format',
+          '#title' => "Description",
+          '#default_value' => "",
+          '#format' => 'full_html'
+        ];
+        $form['datas']['data']['image'] = [
+          "#type" => 'managed_file',
+          '#title' => "Image",
+          '#default_value' => ""
+        ];
         foreach ($this->LoadConfigs->getGenerate() as $key => $value) {
           $form['datas'][$key] = [
             '#type' => 'details',
@@ -245,6 +274,15 @@ final class SelectExportStorageEntities extends ExportBase {
       $import_contents->saveConfig($configs);
       // debugLog::logger($string, $name . '.yml', false, 'file');
       \Drupal::messenger()->addStatus(" Données de configuration exporter à l'emplacement definit. ", true);
+      //
+      /**
+       * On enregistre la configuration en relation avec la page.
+       */
+      $data = $form_state->getValue([
+        'datas',
+        'data'
+      ]);
+      $import_contents->SaveIdentificationEntities($data);
     }
     else {
       \Drupal::messenger()->addWarning(" Aucune données definies. ", true);
