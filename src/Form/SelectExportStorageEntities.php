@@ -255,10 +255,9 @@ final class SelectExportStorageEntities extends ExportBase {
        * @var array $EntitiesArray
        */
       $EntitiesArray = $this->generateFormMatrice($entity_id, $entity, $bundle);
-      // debugLog::$max_depth = 15;
-      // debugLog::$path = null;
-      // debugLog::kintDebugDrupal($EntitiesArray, $entity_id . $id . '---',
-      // true);
+      debugLog::$max_depth = 15;
+      debugLog::$path = null;
+      debugLog::symfonyDebug($EntitiesArray, $entity_id . $id . '---', true);
       //
       /**
        *
@@ -336,8 +335,8 @@ final class SelectExportStorageEntities extends ExportBase {
    * @param string $view_mode
    * @param \Drupal\Core\Entity\ContentEntityBase $entity
    */
-  protected function generateFormMatrice($entity_type_id, \Drupal\Core\Entity\ContentEntityBase $entity, $bundle, $duplicate = true, $add_form = true, $view_mode = 'default') {
-    $form = $this->GenerateForm->getForm($entity_type_id, $bundle, $view_mode, $entity->createDuplicate());
+  protected function generateFormMatrice($entity_type_id, \Drupal\Core\Entity\ContentEntityBase $entity, $bundle, $duplicate = false, $add_form = true, $view_mode = 'default') {
+    $form = $this->GenerateForm->getForm($entity_type_id, $bundle, $view_mode, $entity);
     // Ajout de la configuration des champs layout_builder__layout. ( il faudra
     // completer l'issue ).
     $this->DuplicateEntityReference->toArrayLayoutBuilderField($form['entity']);

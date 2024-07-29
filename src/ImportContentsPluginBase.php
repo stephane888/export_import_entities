@@ -13,6 +13,7 @@ use Drupal\Core\Extension\ExtensionPathResolver;
 use Drupal\Core\File\FileExists;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Entity\EntityTypeManager;
 
 /**
  * Base class for style_scss plugins.
@@ -49,6 +50,12 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   protected $prepareDirectories = [];
   
   /**
+   *
+   * @var EntityTypeManager
+   */
+  protected $EntityTypeManager;
+  
+  /**
    * chemin de base pour les fichiers generées.
    *
    * @var string
@@ -70,12 +77,13 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *        The configuration factory.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, FileSystem $file_system, ExtensionPathResolver $ExtensionPathResolver, MessengerInterface $messenger) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, FileSystem $file_system, ExtensionPathResolver $ExtensionPathResolver, MessengerInterface $messenger, EntityTypeManager $EntityTypeManager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->configFactory = $config_factory;
     $this->file_system = $file_system;
     $this->ExtensionPathResolver = $ExtensionPathResolver;
     $this->messenger = $messenger;
+    $this->EntityTypeManager = $EntityTypeManager;
   }
   
   /**
@@ -84,7 +92,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static($configuration, $plugin_id, $plugin_definition, $container->get('config.factory'), $container->get('file_system'), $container->get('extension.path.resolver'), $container->get(
-      'messenger'));
+      'messenger'), $container->get('entity_type.manager'));
   }
   
   public function defaultConfiguration(): array {
@@ -99,7 +107,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   function saveContents(array $datas, int $id, string $entity_id): void {
     if ($this->validateContents($datas) && $dirs = $this->prepareDirectories()) {
       $this->file_system->saveData(Json::encode($datas), $dirs['contents'] . '/' . $entity_id . $id . '.json', FileExists::Replace);
-      $this->saveFiles($datas, $dirs['files']);
+      $this->saveFiles($datas, $dirs['files'], $id, $entity_id);
     }
     else {
       $this->messenger->addError("Impossible de sauvegarder le contenu");
@@ -120,12 +128,14 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   }
   
   /**
+   * Permet d'exporter les fichiers et les mettre dans un fichier json.
    *
-   * {@inheritdoc}
    * @see \Drupal\export_import_entities\ImportContentsInterface::saveFiles()
    */
-  function saveFiles(array $datas, string $dir): void {
-    //
+  protected function saveFiles(array $datas, string $path, int $id, string $entity_id): void {
+    $files = [];
+    $this->retriveFiles($datas, $files);
+    $this->file_system->saveData(Json::encode($files), $path . '/' . $entity_id . $id . '__files.json', FileExists::Replace);
   }
   
   /**
@@ -142,7 +152,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
         return $result ? true : false;
       }
       else
-        $this->messenger->addError("Paramettre manquant");
+        $this->messenger->addError(" Paramettre manquant ");
     }
     return false;
   }
@@ -199,6 +209,64 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
       }
     }
     return $this->prepareDirectories;
+  }
+  
+  /**
+   * Permet de recuperer les fichiers contenus dans la matrice.
+   *
+   * @param array $data
+   * @param array $files
+   */
+  protected function retriveFiles(array $data, array &$files) {
+    if (!empty($data['entity']) && !empty($data['target_type'])) {
+      /**
+       *
+       * @var \Drupal\node\NodeStorage $storage
+       */
+      $storage = $this->EntityTypeManager->getStorage($data['target_type']);
+      $idKey = $storage->getEntityType()->getKey('id');
+      $id = null;
+      if (!empty($data['entity'][$idKey][0])) {
+        $id = $data['entity'][$idKey][0]['value'];
+      }
+      if ($id) {
+        /**
+         * On essaie de filtrer tous les champs de types files, images et on
+         * recupere les fichiers.
+         *
+         * @var \Drupal\node\Entity\Node $entity
+         */
+        $entity = $storage->load($id);
+        $fields = $entity->getFieldDefinitions();
+        foreach ($fields as $field_name => $field) {
+          /**
+           *
+           * @var \Drupal\Core\Field\BaseFieldDefinition $field
+           */
+          if ($field->getType() == 'image' || $field->getType() == 'file' || $field->getType() == 'more_fields_hbk_file') {
+            $values = $data['entity'][$field_name];
+            foreach ($values as $delta => $value) {
+              $files[$data['target_type']][$id][$delta] = $value;
+              $file = \Drupal\file\Entity\File::load($value['target_id']);
+              if ($file) {
+                $files[$data['target_type']][$id][$delta]["default_encode_file"] = 'data:' . $file->getMimeType() . ';base64,' . base64_encode(file_get_contents($file->getFileUri()));
+                $files[$data['target_type']][$id][$delta]["default_filename"] = $file->getFilename();
+              }
+            }
+          }
+        }
+        if (!empty($data['entities'])) {
+          foreach ($data['entities'] as $entities) {
+            foreach ($entities as $data) {
+              $this->retriveFiles($data, $files);
+            }
+          }
+        }
+      }
+    }
+    else {
+      $this->messenger->addError("entite mal definie", true);
+    }
   }
   
   /**

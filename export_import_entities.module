@@ -1,6 +1,7 @@
 <?php
 
 /**
+ *
  * @file
  * Primary module hooks for Export Import Entities module.
  *
@@ -8,3 +9,25 @@
  * This file is no longer required in Drupal 8.
  * @see https://www.drupal.org/node/2217931
  */
+
+/**
+ * Implement hook_preprocess_page
+ */
+function export_import_entities_preprocess_page(&$variables) {
+/**
+ *
+ * @var \Drupal\node\NodeStorage $storage
+ */
+  // $storage = \Drupal::entityTypeManager()->getStorage("node");
+  // $entity = $storage->load(1);
+  // $fields = $entity->getFieldDefinitions();
+  // foreach ($fields as $field_name=>$field) {
+  // /**
+  // *
+  // * @var \Drupal\Core\Field\BaseFieldDefinition $field
+  // */
+  // if ($field->getType() == 'entity_reference') {
+  // $entity->;
+  // }
+  // }
+}

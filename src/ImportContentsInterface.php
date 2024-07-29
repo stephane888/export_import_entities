@@ -24,13 +24,6 @@ interface ImportContentsInterface {
   public function saveContents(array $datas, int $id, string $entity_id): void;
   
   /**
-   * Permet de sauvegarder les fichiers contenus dans les données
-   *
-   * @return bool
-   */
-  public function saveFiles(array $datas, string $dir): void;
-  
-  /**
    * Permet de se rassurer que toutes les données sont valide avant la
    * sauvegarde.
    *
