@@ -148,36 +148,50 @@ final class SelectExportStorageEntities extends ExportBase {
         $BundleEntityType = $entity->getEntityType()->getBundleEntityType();
         $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $bundle, $BundleEntityType);
         $this->getOrthersConfig($entity);
+        //
+        $allDatas = $this->getPluginImportContent()->getIdentificationEntities();
+        $vals = !empty($allDatas[$entity_id . $id]) ? $allDatas[$entity_id . $id] : [];
+        
         // On definie les champs permettant d'identifier le contenu lors de
         // l'import.
-        $form['datas']['data'] = [
+        $form['datas']['data' . $id] = [
           '#type' => 'details',
           '#open' => true,
           '#title' => t('Identification de la page'),
           '#attributes' => [],
           '#tree' => true
         ];
-        $form['datas']['data']['id'] = [
+        $form['datas']['data' . $id]['id'] = [
           "#type" => 'hidden',
           '#title' => "id de l'entité",
           '#default_value' => $entity->id()
         ];
-        $form['datas']['data']['name'] = [
+        $form['datas']['data' . $id]['name'] = [
           "#type" => 'textfield',
           '#title' => "Nom de l'entité",
           '#default_value' => $entity->label()
         ];
-        $form['datas']['data']['description'] = [
+        $form['datas']['data' . $id]['description'] = [
           "#type" => 'text_format',
           '#title' => "Description",
-          '#default_value' => "",
-          '#format' => 'full_html'
+          '#default_value' => !empty($vals['description']['value']) ? $vals['description']['value'] : '',
+          '#format' => !empty($vals['description']['format']) ? $vals['description']['format'] : 'full_html'
         ];
-        $form['datas']['data']['image'] = [
-          "#type" => 'managed_file',
+        $form['datas']['data' . $id]['image'] = [
+          "#type" => 'file',
           '#title' => "Image",
           '#default_value' => ""
         ];
+        if (!empty($vals['image']))
+          $form['datas']['data' . $id]['image_src'] = [
+            "#type" => 'html_tag',
+            '#tag' => "img",
+            // '#markup' => '<img src="' . $vals['image'] . '" />',
+            '#attributes' => [
+              'src' => $vals['image'],
+              'style' => "max-width:600px; height:auto; width:auto; max-height:1000px;"
+            ]
+          ];
         foreach ($this->LoadConfigs->getGenerate() as $key => $value) {
           $form['datas'][$key] = [
             '#type' => 'details',
@@ -259,16 +273,7 @@ final class SelectExportStorageEntities extends ExportBase {
       debugLog::$path = null;
       debugLog::symfonyDebug($EntitiesArray, $entity_id . $id . '---', true);
       //
-      /**
-       *
-       * @var \Drupal\export_import_entities\ImportContentsPluginManager $MangerImportContent
-       */
-      $MangerImportContent = \Drupal::service("plugin.manager.import_content");
-      /**
-       *
-       * @var \Drupal\export_import_entities\Plugin\ImportContents\ImportContents $import_contents
-       */
-      $import_contents = $MangerImportContent->createInstance("export_import_entities_import_contents");
+      $import_contents = $this->getPluginImportContent();
       $import_contents->saveContents($EntitiesArray, $id, $entity_id);
       $import_contents->saveConfig($configs);
       // debugLog::logger($string, $name . '.yml', false, 'file');
@@ -279,13 +284,26 @@ final class SelectExportStorageEntities extends ExportBase {
        */
       $data = $form_state->getValue([
         'datas',
-        'data'
+        'data' . $id
       ]);
-      $import_contents->SaveIdentificationEntities($data);
+      $import_contents->SaveIdentificationEntities($data, $entity_id, $id);
     }
     else {
       \Drupal::messenger()->addWarning(" Aucune données definies. ", true);
     }
+  }
+  
+  /**
+   *
+   * @return \Drupal\export_import_entities\Plugin\ImportContents\ImportContents
+   */
+  protected function getPluginImportContent() {
+    /**
+     *
+     * @var \Drupal\export_import_entities\ImportContentsPluginManager $MangerImportContent
+     */
+    $MangerImportContent = \Drupal::service("plugin.manager.import_content");
+    return $MangerImportContent->createInstance("export_import_entities_import_contents");
   }
   
   /**

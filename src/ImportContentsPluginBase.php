@@ -14,6 +14,8 @@ use Drupal\Core\File\FileExists;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Base class for style_scss plugins.
@@ -143,11 +145,28 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    * {@inheritdoc}
    * @see \Drupal\export_import_entities\ImportContentsInterface::identificationEntities()
    */
-  function SaveIdentificationEntities(array $datas): bool {
+  function SaveIdentificationEntities(array $datas, $entity_id, $id): bool {
     if ($this->prepareDirectories()) {
       if ($datas['id']) {
         $confsEntities = $this->getIdentificationEntities();
-        $confsEntities[$datas['id']] = $datas;
+        $request = Request::createFromGlobals();
+        $filesUpload = $request->files->get('files');
+        if ($filesUpload) {
+          foreach ($filesUpload as $file) {
+            /**
+             *
+             * @var UploadedFile $file
+             */
+            if ($file) {
+              $fileContent = file_get_contents($file->getPathname());
+              $datas['image'] = 'data:' . $file->getMimeType() . ';base64,' . base64_encode($fileContent);
+            }
+          }
+        }
+        else {
+          $datas['image'] = $confsEntities[$entity_id . $id]['image'];
+        }
+        $confsEntities[$entity_id . $id] = $datas;
         $result = $this->file_system->saveData(Json::encode($confsEntities), $this->getBaseDirectory() . '/' . self::$name_identification_file, FileExists::Replace);
         return $result ? true : false;
       }
