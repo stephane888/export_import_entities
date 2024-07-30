@@ -56,14 +56,14 @@ final class SelectImportStorageEntities extends ImportBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $plugin = $this->getPluginImportContent();
-    $allDatas = $plugin->getIdentificationEntities();
+    $allDatas = $plugin->ListConfigToImport();
     $options = [];
     foreach ($allDatas as $k => $vals) {
       if (!empty($vals['image']))
         $options[$k] = [
           "#type" => "html_tag",
           "#tag" => "div",
-          "#value" => $vals['name'],
+          "#value" => $vals['site'] . ' : ' . $vals['name'],
           [
             "#type" => "html_tag",
             "#tag" => "img",
@@ -74,7 +74,7 @@ final class SelectImportStorageEntities extends ImportBase {
           ]
         ];
     }
-    $form['page_modele'] = [
+    $form['site_page_modele'] = [
       "#type" => "radios",
       "#title" => "Selectionner une page",
       "#options" => $options,
@@ -93,10 +93,13 @@ final class SelectImportStorageEntities extends ImportBase {
       ],
       '#tree' => true
     ];
-    $page_modele_id = $form_state->getValue('page_modele');
-    $plugin->ListConfigToImport();
-    if ($page_modele_id) {
-      //
+    $site_page_modele = $form_state->getValue('site_page_modele');
+    if ($site_page_modele) {
+      [
+        $base_directory,
+        $keyIdentification
+      ] = explode("--__", $site_page_modele);
+      $plugin->checkConfigToimport($base_directory);
     }
     return $form;
   }

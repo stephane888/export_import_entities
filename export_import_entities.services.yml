@@ -30,3 +30,7 @@ services:
   export_import_entities.clean_configs_theme:
     class: Drupal\export_import_entities\Services\CleanConfigsTheme
     arguments: ['@extension.path.resolver','@asset.css.collection_optimizer','@theme_handler','@config.manager','@config.factory','@module_handler','@router.builder','@extension.list.theme']
+
+  export_import_entities.import_config_custom:
+    class: Drupal\export_import_entities\Services
+    arguments: ['@entity_type.manager','@config.storage','@renderer','@event_dispatcher','@config.manager','@lock.persistent','@config.typed','@module_installer','@theme_handler','@extension.list.module','@extension.list.theme','@messenger']

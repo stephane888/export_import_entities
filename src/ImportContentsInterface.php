@@ -41,7 +41,7 @@ interface ImportContentsInterface {
   public function SaveIdentificationEntities(array $datas, string $entity_id, mixed $i): bool;
   
   /**
-   * Permet de recuperer les données d'identifications.
+   * Permet de recuperer les données permettant d'identifier les pages exporter.
    *
    * @return array
    */
