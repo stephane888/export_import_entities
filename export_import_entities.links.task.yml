@@ -9,3 +9,9 @@ export_import_entities.select_export_storage_entities:
   base_route: config.sync
   title: 'Select & Export storge Entities'
   weight: 16
+
+export_import_entities.select_import_storage_entities:
+  route_name: export_import_entities.select_import_storage_entities
+  base_route: config.sync
+  title: 'Import storge Entities'
+  weight: 16

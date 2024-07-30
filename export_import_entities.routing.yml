@@ -72,3 +72,12 @@ export_import_entities.select_export_storage_entities:
   requirements:
     _permission: 'access content'
     _role: 'administrator'    
+
+export_import_entities.select_import_storage_entities:
+  path: '/admin/export-import-entities/select-import-storage-entity'
+  defaults:
+    _title: 'Select Import Entity'
+    _form: 'Drupal\export_import_entities\Form\SelectImportStorageEntities'
+  requirements:
+    _permission: 'access content'
+    _role: 'administrator'
