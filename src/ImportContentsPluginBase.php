@@ -186,6 +186,28 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   }
   
   /**
+   *
+   * {@inheritdoc}
+   * @see \Drupal\export_import_entities\ImportContentsInterface::ListConfigToImport()
+   */
+  function ListConfigToImport() {
+    $pathConfig = $this->getConfigDirectory();
+    $mask = '/.*\.yml$/';
+    $filesConfigToImport = $this->file_system->scanDirectory($pathConfig, "$mask");
+    $source = new \Drupal\Core\Config\FileStorage($pathConfig);
+    /**
+     *
+     * @var \Drupal\Core\Config\CachedStorage $config_storage
+     */
+    $config_storage = \Drupal::service('config.storage');
+    // dump($config_storage->);
+    foreach ($filesConfigToImport as $fileConfigToImport) {
+      // $config_storage->write($configToImport,
+      // $source->read($configToImport));
+    }
+  }
+  
+  /**
    * Retourne les données contenu dans un fichier json.
    *
    * @param string $type

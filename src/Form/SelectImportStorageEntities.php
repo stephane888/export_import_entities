@@ -55,7 +55,8 @@ final class SelectImportStorageEntities extends ImportBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $allDatas = $this->getPluginImportContent()->getIdentificationEntities();
+    $plugin = $this->getPluginImportContent();
+    $allDatas = $plugin->getIdentificationEntities();
     $options = [];
     foreach ($allDatas as $k => $vals) {
       if (!empty($vals['image']))
@@ -92,6 +93,11 @@ final class SelectImportStorageEntities extends ImportBase {
       ],
       '#tree' => true
     ];
+    $page_modele_id = $form_state->getValue('page_modele');
+    $plugin->ListConfigToImport();
+    if ($page_modele_id) {
+      //
+    }
     return $form;
   }
   
