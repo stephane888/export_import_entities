@@ -8,6 +8,7 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\config\StorageReplaceDataWrapper;
 use Drupal\Core\Config\StorageComparer;
 //
+use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -27,6 +28,12 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  *        
  */
 class ConfigImportCustom {
+  /**
+   * The config storage.
+   *
+   * @var \Drupal\Core\Config\StorageInterface
+   */
+  protected $configStorage;
   /**
    * The event dispatcher used to notify subscribers.
    *
@@ -158,7 +165,8 @@ class ConfigImportCustom {
    */
   protected $messenger;
   
-  public function __construct(EventDispatcherInterface $event_dispatcher, ConfigManagerInterface $config_manager, LockBackendInterface $lock, TypedConfigManagerInterface $typed_config, ModuleHandlerInterface $module_handler, ModuleInstallerInterface $module_installer, ThemeHandlerInterface $theme_handler, TranslationInterface $string_translation, ModuleExtensionList $extension_list_module, ThemeExtensionList $extension_list_theme, MessengerInterface $messenger) {
+  public function __construct(StorageInterface $config_storage, EventDispatcherInterface $event_dispatcher, ConfigManagerInterface $config_manager, LockBackendInterface $lock, TypedConfigManagerInterface $typed_config, ModuleHandlerInterface $module_handler, ModuleInstallerInterface $module_installer, ThemeHandlerInterface $theme_handler, TranslationInterface $string_translation, ModuleExtensionList $extension_list_module, ThemeExtensionList $extension_list_theme, MessengerInterface $messenger) {
+    $this->configStorage = $config_storage;
     $this->moduleExtensionList = $extension_list_module;
     $this->eventDispatcher = $event_dispatcher;
     $this->configManager = $config_manager;
@@ -175,25 +183,22 @@ class ConfigImportCustom {
   /**
    * Permet d'importer une configurations et ses depences.
    */
-  function importCustomConfig(string $name, $config) {
+  function importCustomConfig(string $name, array $configDatas) {
     // Decode the submitted import.
-    $data = Yaml::decode($config);
-    if ($data) {
-      $config = \Drupal::config($name);
-      if ($config->isNew()) {
-        $source_storage = new StorageReplaceDataWrapper($this->configStorage);
-        $source_storage->replaceData($name, $data);
-        $storage_comparer = new StorageComparer($source_storage, $this->configStorage);
-        $storage_comparer->createChangelist();
-        if ($storage_comparer->hasChanges()) {
-          $config_importer = new ConfigImporter($storage_comparer, $this->eventDispatcher, $this->configManager, $this->lock, $this->typedConfigManager, $this->moduleHandler, $this->moduleInstaller, $this->themeHandler, $this->getStringTranslation(), $this->moduleExtensionList, $this->themeExtensionList);
-          if ($config_importer->validate()) {
-            if ($config_importer->alreadyImporting()) {
-              $this->messenger->addError($this->t('Another request may be importing configuration already.'));
-            }
-            else {
-              $config_importer->import();
-            }
+    $config = \Drupal::config($name);
+    if ($config->isNew()) {
+      $source_storage = new StorageReplaceDataWrapper($this->configStorage);
+      $source_storage->replaceData($name, $configDatas);
+      $storage_comparer = new StorageComparer($source_storage, $this->configStorage);
+      $storage_comparer->createChangelist();
+      if ($storage_comparer->hasChanges()) {
+        $config_importer = new ConfigImporter($storage_comparer, $this->eventDispatcher, $this->configManager, $this->lock, $this->typedConfigManager, $this->moduleHandler, $this->moduleInstaller, $this->themeHandler, $this->getStringTranslation(), $this->moduleExtensionList, $this->themeExtensionList);
+        if ($config_importer->validate()) {
+          if ($config_importer->alreadyImporting()) {
+            $this->messenger->addError($this->t('Another request may be importing configuration already.'));
+          }
+          else {
+            $config_importer->import();
           }
         }
       }
