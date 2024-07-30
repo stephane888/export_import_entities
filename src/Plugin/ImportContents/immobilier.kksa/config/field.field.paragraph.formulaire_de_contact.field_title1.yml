@@ -1,0 +1,18 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title1
+    - paragraphs.paragraphs_type.formulaire_de_contact
+id: paragraph.formulaire_de_contact.field_title1
+field_name: field_title1
+entity_type: paragraph
+bundle: formulaire_de_contact
+label: Title1
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

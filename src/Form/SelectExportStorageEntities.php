@@ -186,7 +186,6 @@ final class SelectExportStorageEntities extends ExportBase {
           $form['datas']['data' . $id]['image_src'] = [
             "#type" => 'html_tag',
             '#tag' => "img",
-            // '#markup' => '<img src="' . $vals['image'] . '" />',
             '#attributes' => [
               'src' => $vals['image'],
               'style' => "max-width:600px; height:auto; width:auto; max-height:1000px;"

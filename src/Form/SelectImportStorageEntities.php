@@ -55,14 +55,31 @@ final class SelectImportStorageEntities extends ImportBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $form['entity_id'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Entity id'),
-      '#required' => TRUE,
-      '#options' => $this->getEntitiesListOptions(),
+    $allDatas = $this->getPluginImportContent()->getIdentificationEntities();
+    $options = [];
+    foreach ($allDatas as $k => $vals) {
+      if (!empty($vals['image']))
+        $options[$k] = [
+          "#type" => "html_tag",
+          "#tag" => "div",
+          "#value" => $vals['name'],
+          [
+            "#type" => "html_tag",
+            "#tag" => "img",
+            '#attributes' => [
+              'src' => $vals['image'],
+              'style' => "max-width:600px; height:auto; width:auto; max-height:1000px;"
+            ]
+          ]
+        ];
+    }
+    $form['page_modele'] = [
+      "#type" => "radios",
+      "#title" => "Selectionner une page",
+      "#options" => $options,
       '#ajax' => [
-        'callback' => self::class . '::export_import_select_export_entity',
-        'wrapper' => 'export_import_select_export_entity_id',
+        'callback' => self::class . '::export_import_select_import_entity',
+        'wrapper' => 'export_import_select_import_entity_id',
         'effect' => 'fade'
       ]
     ];
@@ -71,121 +88,10 @@ final class SelectImportStorageEntities extends ImportBase {
       '#open' => true,
       '#title' => t('datas'),
       '#attributes' => [
-        'id' => 'export_import_select_export_entity_id'
+        'id' => 'export_import_select_import_entity_id'
       ],
       '#tree' => true
     ];
-    $entity_id = $form_state->getValue('entity_id');
-    $this->LoadConfigs->setSaveIt(FALSE);
-    $this->LoadConfigs->setRemoveUUID(TRUE);
-    $this->LoadConfigs->setRemoveDefaultValue(FALSE);
-    if ($entity_id) {
-      $bundlesOptions = $this->getContentEntities($entity_id);
-      $form['datas']['bundle'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Bundle'),
-        '#required' => TRUE,
-        '#options' => $bundlesOptions,
-        '#ajax' => [
-          'callback' => self::class . '::export_import_select_export_entity',
-          'wrapper' => 'export_import_select_export_entity_id',
-          'effect' => 'fade'
-        ]
-      ];
-      $id = $form_state->getValue([
-        'datas',
-        'bundle'
-      ]);
-      if ($id) {
-        /**
-         *
-         * @var \Drupal\node\Entity\Node $entity
-         */
-        $entity = $this->EntityTypeManager->getStorage($entity_id)->load($id);
-        $bundle = $entity->bundle() ? $entity->bundle() : $entity_id;
-        $BundleEntityType = $entity->getEntityType()->getBundleEntityType();
-        $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $bundle, $BundleEntityType);
-        $this->getOrthersConfig($entity);
-        //
-        $allDatas = $this->getPluginImportContent()->getIdentificationEntities();
-        $vals = !empty($allDatas[$entity_id . $id]) ? $allDatas[$entity_id . $id] : [];
-        
-        // On definie les champs permettant d'identifier le contenu lors de
-        // l'import.
-        $form['datas']['data' . $id] = [
-          '#type' => 'details',
-          '#open' => true,
-          '#title' => t('Identification de la page'),
-          '#attributes' => [],
-          '#tree' => true
-        ];
-        $form['datas']['data' . $id]['id'] = [
-          "#type" => 'hidden',
-          '#title' => "id de l'entité",
-          '#default_value' => $entity->id()
-        ];
-        $form['datas']['data' . $id]['name'] = [
-          "#type" => 'textfield',
-          '#title' => "Nom de l'entité",
-          '#default_value' => $entity->label()
-        ];
-        $form['datas']['data' . $id]['description'] = [
-          "#type" => 'text_format',
-          '#title' => "Description",
-          '#default_value' => !empty($vals['description']['value']) ? $vals['description']['value'] : '',
-          '#format' => !empty($vals['description']['format']) ? $vals['description']['format'] : 'full_html'
-        ];
-        $form['datas']['data' . $id]['image'] = [
-          "#type" => 'file',
-          '#title' => "Image",
-          '#default_value' => ""
-        ];
-        if (!empty($vals['image']))
-          $form['datas']['data' . $id]['image_src'] = [
-            "#type" => 'html_tag',
-            '#tag' => "img",
-            // '#markup' => '<img src="' . $vals['image'] . '" />',
-            '#attributes' => [
-              'src' => $vals['image'],
-              'style' => "max-width:600px; height:auto; width:auto; max-height:1000px;"
-            ]
-          ];
-        foreach ($this->LoadConfigs->getGenerate() as $key => $value) {
-          $form['datas'][$key] = [
-            '#type' => 'details',
-            '#open' => false,
-            '#title' => $key
-          ];
-          $form['datas'][$key]['value'] = [
-            '#type' => 'html_tag',
-            '#tag' => 'pre',
-            '#value' => $value['value'],
-            '#attributes' => [
-              'style' => "word-wrap:break-word;"
-            ]
-          ];
-        }
-        //
-        $form['datas']['actions'] = [
-          '#type' => 'actions',
-          'submit' => [
-            '#type' => 'submit',
-            '#value' => $this->t('Save config'),
-            '#ajax' => [
-              'callback' => self::class . '::export_import_submit_callback',
-              'wrapper' => 'export_import_select_export_entity_id',
-              'effect' => 'fade'
-            ],
-            '#submit' => [
-              // focntionne mais la methode doit etre statique.
-              // self::class .
-              // '::export_import_submit_save_config'
-              '::export_import_submit_save_config'
-            ]
-          ]
-        ];
-      }
-    }
     return $form;
   }
   
