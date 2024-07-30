@@ -27,14 +27,6 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  *        
  */
 class ConfigImportCustom {
-  
-  /**
-   * The storage comparer used to discover configuration changes.
-   *
-   * @var \Drupal\Core\Config\StorageComparerInterface
-   */
-  protected $storageComparer;
-  
   /**
    * The event dispatcher used to notify subscribers.
    *
@@ -166,9 +158,8 @@ class ConfigImportCustom {
    */
   protected $messenger;
   
-  public function __construct(StorageComparerInterface $storage_comparer, EventDispatcherInterface $event_dispatcher, ConfigManagerInterface $config_manager, LockBackendInterface $lock, TypedConfigManagerInterface $typed_config, ModuleHandlerInterface $module_handler, ModuleInstallerInterface $module_installer, ThemeHandlerInterface $theme_handler, TranslationInterface $string_translation, ModuleExtensionList $extension_list_module, ThemeExtensionList $extension_list_theme, MessengerInterface $messenger) {
+  public function __construct(EventDispatcherInterface $event_dispatcher, ConfigManagerInterface $config_manager, LockBackendInterface $lock, TypedConfigManagerInterface $typed_config, ModuleHandlerInterface $module_handler, ModuleInstallerInterface $module_installer, ThemeHandlerInterface $theme_handler, TranslationInterface $string_translation, ModuleExtensionList $extension_list_module, ThemeExtensionList $extension_list_theme, MessengerInterface $messenger) {
     $this->moduleExtensionList = $extension_list_module;
-    $this->storageComparer = $storage_comparer;
     $this->eventDispatcher = $event_dispatcher;
     $this->configManager = $config_manager;
     $this->lock = $lock;

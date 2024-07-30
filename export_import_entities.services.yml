@@ -33,4 +33,4 @@ services:
 
   export_import_entities.import_config_custom:
     class: Drupal\export_import_entities\Services\ConfigImportCustom
-    arguments: ['@entity_type.manager','@config.storage','@renderer','@event_dispatcher','@config.manager','@lock.persistent','@config.typed','@module_installer','@theme_handler','@extension.list.module','@extension.list.theme','@messenger']
+    arguments: ['@event_dispatcher','@config.manager','@lock.persistent','@config.typed','@module_handler','@module_installer','@theme_handler', '@string_translation','@extension.list.module','@extension.list.theme','@messenger']
