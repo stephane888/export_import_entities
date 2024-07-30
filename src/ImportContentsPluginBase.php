@@ -232,10 +232,17 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
      */
     $config_storage = \Drupal::service('config.storage');
     foreach ($filesConfigToImport as $fileConfigToImport) {
-      $config_storage->write($fileConfigToImport->name, $source->read($fileConfigToImport->name));
-      $config = \Drupal::config($fileConfigToImport->name);
-      $dependencies = $config->get('dependencies');
-      dump($dependencies);
+      // $config_storage->write($fileConfigToImport->name,
+      // $source->read($fileConfigToImport->name));
+      // $config = \Drupal::config($fileConfigToImport->name);
+      // $dependencies = $config->get('dependencies');
+      // dump($dependencies);
+      /**
+       *
+       * @var \Drupal\export_import_entities\Services\ConfigImportCustom $import_config_custom
+       */
+      $import_config_custom = \Drupal::service("export_import_entities.import_config_custom");
+      $import_config_custom->importCustomConfig($fileConfigToImport->name, $source->read($fileConfigToImport->name));
     }
   }
   

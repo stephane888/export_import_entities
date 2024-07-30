@@ -57,6 +57,7 @@ final class SelectImportStorageEntities extends ImportBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $plugin = $this->getPluginImportContent();
     $allDatas = $plugin->ListConfigToImport();
+    
     $options = [];
     foreach ($allDatas as $k => $vals) {
       if (!empty($vals['image']))
