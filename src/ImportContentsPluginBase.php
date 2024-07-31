@@ -231,6 +231,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
      * @var \Drupal\Core\Config\CachedStorage $config_storage
      */
     $config_storage = \Drupal::service('config.storage');
+    $configs = [];
     foreach ($filesConfigToImport as $fileConfigToImport) {
       // $config_storage->write($fileConfigToImport->name,
       // $source->read($fileConfigToImport->name));
@@ -241,9 +242,10 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
        *
        * @var \Drupal\export_import_entities\Services\ConfigImportCustom $import_config_custom
        */
-      $import_config_custom = \Drupal::service("export_import_entities.import_config_custom");
-      $import_config_custom->importCustomConfig($fileConfigToImport->name, $source->read($fileConfigToImport->name));
+      $configs[$fileConfigToImport->name] = $source->read($fileConfigToImport->name);
     }
+    $import_config_custom = \Drupal::service("export_import_entities.import_config_custom");
+    $import_config_custom->importCustomConfig($configs);
   }
   
   /**

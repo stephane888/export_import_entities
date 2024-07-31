@@ -182,16 +182,54 @@ class ConfigImportCustom {
   
   /**
    * Permet d'importer une configurations et ses depences.
+   *
+   * @param array $configDatas
+   *        // ['name1'=>'config', 'name2'=>'config']
    */
-  function importCustomConfig(string $name, array $configDatas) {
-    // Decode the submitted import.
+  function importCustomConfig(array $configDatas) {
+    foreach ($configDatas as $name => $configData) {
+      $this->ImportConfigRecurssive($name, $configData, $configDatas);
+    }
+  }
+  
+  /**
+   * Cette matrice permet de construire un tableau multi-dimensionnelle
+   * permettant d'instammer les configs n'ayant pas de depence ou celle donc les
+   * depence existe deja.
+   */
+  protected function ImportConfigRecurssive(string $name, array $configData, array $configDatas) {
     $config = \Drupal::config($name);
     if ($config->isNew()) {
       $source_storage = new StorageReplaceDataWrapper($this->configStorage);
-      $source_storage->replaceData($name, $configDatas);
+      $source_storage->replaceData($name, $configData);
       $storage_comparer = new StorageComparer($source_storage, $this->configStorage);
       $storage_comparer->createChangelist();
       if ($storage_comparer->hasChanges()) {
+        /**
+         * On verifie s'il ya des dependences de module.
+         */
+        if (!empty($configData['dependencies']['module'])) {
+          foreach ($configData['dependencies']['module'] as $module) {
+            if (!$this->moduleHandler->moduleExists($module)) {
+              throw new \ErrorException(" La module : '$module', n'est pas installé. ");
+            }
+          }
+        }
+        /**
+         * On verifie s'il ya des dependences de config
+         */
+        if (!empty($configData['dependencies']['config'])) {
+          foreach ($configData['dependencies']['config'] as $sub_name) {
+            $Sub_config = \Drupal::config($sub_name);
+            if ($Sub_config->isNew()) {
+              if (!empty($configDatas[$sub_name]))
+                $this->ImportConfigRecurssive($sub_name, $configDatas[$sub_name], $configDatas);
+              else {
+                throw new \ErrorException(" La configuration : '$sub_name', n'est pas definit dans la liste des configurations à importer. ");
+              }
+            }
+          }
+        }
         $config_importer = new ConfigImporter($storage_comparer, $this->eventDispatcher, $this->configManager, $this->lock, $this->typedConfigManager, $this->moduleHandler, $this->moduleInstaller, $this->themeHandler, $this->getStringTranslation(), $this->moduleExtensionList, $this->themeExtensionList);
         if ($config_importer->validate()) {
           if ($config_importer->alreadyImporting()) {
