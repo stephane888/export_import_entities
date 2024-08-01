@@ -55,55 +55,11 @@ final class SelectImportStorageEntities extends ImportBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $plugin = $this->getPluginImportContent();
-    $allDatas = $plugin->ListConfigToImport();
+    if (!$form_state->has('step')) {
+      $form_state->set('step', 0);
+    }
+    $this->buildFormByStep($form, $form_state);
     
-    $options = [];
-    foreach ($allDatas as $k => $vals) {
-      if (!empty($vals['image']))
-        $options[$k] = [
-          "#type" => "html_tag",
-          "#tag" => "div",
-          "#value" => $vals['site'] . ' : ' . $vals['name'],
-          [
-            "#type" => "html_tag",
-            "#tag" => "img",
-            '#attributes' => [
-              'src' => $vals['image'],
-              'style' => "max-width:600px; height:auto; width:auto; max-height:1000px;"
-            ]
-          ]
-        ];
-    }
-    $form['site_page_modele'] = [
-      "#type" => "radios",
-      "#title" => "Selectionner une page",
-      "#options" => $options,
-      '#ajax' => [
-        'callback' => self::class . '::export_import_select_import_entity',
-        'wrapper' => 'export_import_select_import_entity_id',
-        'effect' => 'fade'
-      ]
-    ];
-    $form['datas'] = [
-      '#type' => 'details',
-      '#open' => true,
-      '#title' => t('datas'),
-      '#attributes' => [
-        'id' => 'export_import_select_import_entity_id'
-      ],
-      '#tree' => true
-    ];
-    $site_page_modele = $form_state->getValue('site_page_modele');
-    if ($site_page_modele) {
-      [
-        $base_directory,
-        $keyIdentification
-      ] = explode("--__", $site_page_modele);
-      // $plugin->checkConfigToimport($base_directory);
-      $form_state->set('base_directory', $base_directory);
-      $form_state->set('keyIdentification', $keyIdentification);
-    }
     return $form;
   }
   
@@ -167,19 +123,6 @@ final class SelectImportStorageEntities extends ImportBase {
     else {
       \Drupal::messenger()->addWarning(" Aucune données definies. ", true);
     }
-  }
-  
-  /**
-   *
-   * @return \Drupal\export_import_entities\Plugin\ImportContents\ImportContents
-   */
-  protected function getPluginImportContent() {
-    /**
-     *
-     * @var \Drupal\export_import_entities\ImportContentsPluginManager $MangerImportContent
-     */
-    $MangerImportContent = \Drupal::service("plugin.manager.import_content");
-    return $MangerImportContent->createInstance("export_import_entities_import_contents");
   }
   
   /**

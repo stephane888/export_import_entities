@@ -192,6 +192,61 @@ class ConfigImportCustom {
     }
   }
   
+  function buildBatchImportConfigs(array $configDatas, array &$configsBatch) {
+    foreach ($configDatas as $name => $configData) {
+      $this->ImportArrayBash($name, $configData, $configDatas, $configsBatch);
+    }
+  }
+  
+  /**
+   * Importe les configurations.
+   *
+   * @param string $name
+   * @param string $configData
+   */
+  function importConfig(string $name, string $configData) {
+    $configData = Yaml::decode($configData);
+    $config = \Drupal::config($name);
+    if ($config->isNew()) {
+      $source_storage = new StorageReplaceDataWrapper($this->configStorage);
+      $source_storage->replaceData($name, $configData);
+      $storage_comparer = new StorageComparer($source_storage, $this->configStorage);
+      $storage_comparer->createChangelist();
+      if ($storage_comparer->hasChanges()) {
+        /**
+         * On verifie s'il ya des dependences de module.
+         */
+        if (!empty($configData['dependencies']['module'])) {
+          foreach ($configData['dependencies']['module'] as $module) {
+            if (!$this->moduleHandler->moduleExists($module)) {
+              throw new \ErrorException(" La module : '$module', n'est pas installé. ");
+            }
+          }
+        }
+        /**
+         * On verifie s'il ya des dependences de config
+         */
+        if (!empty($configData['dependencies']['config'])) {
+          foreach ($configData['dependencies']['config'] as $sub_name) {
+            $Sub_config = \Drupal::config($sub_name);
+            if ($Sub_config->isNew()) {
+              throw new \ErrorException(" La configuration : '$sub_name', n'est pas importer. ");
+            }
+          }
+        }
+        $config_importer = new ConfigImporter($storage_comparer, $this->eventDispatcher, $this->configManager, $this->lock, $this->typedConfigManager, $this->moduleHandler, $this->moduleInstaller, $this->themeHandler, $this->getStringTranslation(), $this->moduleExtensionList, $this->themeExtensionList);
+        if ($config_importer->validate()) {
+          if ($config_importer->alreadyImporting()) {
+            $this->messenger->addError($this->t('Another request may be importing configuration already.'));
+          }
+          else {
+            $config_importer->import();
+          }
+        }
+      }
+    }
+  }
+  
   /**
    * Il est important de construire l'import des configs dans un bash afin de ne
    * pas saturer l'environnement d'import.
@@ -200,8 +255,43 @@ class ConfigImportCustom {
    * @param array $configData
    * @param array $configDatas
    */
-  protected function ImportArrayBash(string $name, array $configData, array $configDatas) {
-    //
+  protected function ImportArrayBash(string $name, array $configData, array $configDatas, array &$configsBatch) {
+    $config = \Drupal::config($name);
+    if ($config->isNew() && empty($configsBatch[$name])) {
+      $source_storage = new StorageReplaceDataWrapper($this->configStorage);
+      $source_storage->replaceData($name, $configData);
+      $storage_comparer = new StorageComparer($source_storage, $this->configStorage);
+      $storage_comparer->createChangelist();
+      if ($storage_comparer->hasChanges()) {
+        /**
+         * On verifie s'il ya des dependences de module.
+         */
+        if (!empty($configData['dependencies']['module'])) {
+          foreach ($configData['dependencies']['module'] as $module) {
+            if (!$this->moduleHandler->moduleExists($module)) {
+              throw new \ErrorException(" La module : '$module', n'est pas installé. ");
+            }
+          }
+        }
+        /**
+         * On verifie s'il ya des dependences de config
+         */
+        if (!empty($configData['dependencies']['config'])) {
+          foreach ($configData['dependencies']['config'] as $sub_name) {
+            $Sub_config = \Drupal::config($sub_name);
+            if ($Sub_config->isNew()) {
+              if (!empty($configDatas[$sub_name]))
+                $this->ImportArrayBash($sub_name, $configDatas[$sub_name], $configDatas, $configsBatch);
+              else {
+                throw new \ErrorException(" La configuration : '$sub_name', n'est pas definit dans la liste des configurations à importer. ");
+              }
+            }
+          }
+        }
+        //
+        $configsBatch[$name] = Yaml::encode($configDatas[$name]);
+      }
+    }
   }
   
   /**

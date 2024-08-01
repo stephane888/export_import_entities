@@ -4,11 +4,174 @@ namespace Drupal\export_import_entities\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Serialization\Yaml;
 
 /**
  * Permet de selectionner une entité et de l'exporter.
  */
 abstract class ImportBase extends FormBase {
+  protected $steps = [
+    'Import config',
+    'Import content'
+  ];
+  
+  /**
+   *
+   * @param array $form
+   * @param FormStateInterface $form_state
+   */
+  protected function getSubmitText(array $form, FormStateInterface $form_state) {
+    $step = $form_state->get('step');
+    return !empty($this->steps[$step]) ? $this->steps[$step] : 'Next';
+  }
+  
+  /**
+   *
+   * @param array $form
+   * @param FormStateInterface $form_state
+   */
+  protected function buildFormByStep(array &$form, FormStateInterface $form_state) {
+    $step = $form_state->get('step');
+    if ($step == 0) {
+      $plugin = self::getPluginImportContent();
+      $allDatas = $plugin->ListConfigToImport();
+      $options = [];
+      foreach ($allDatas as $k => $vals) {
+        if (!empty($vals['image']))
+          $options[$k] = [
+            "#type" => "html_tag",
+            "#tag" => "div",
+            "#value" => $vals['site'] . ' : ' . $vals['name'],
+            [
+              "#type" => "html_tag",
+              "#tag" => "img",
+              '#attributes' => [
+                'src' => $vals['image'],
+                'style' => "max-width:600px; height:auto; width:auto; max-height:1000px;"
+              ]
+            ]
+          ];
+      }
+      $form['site_page_modele'] = [
+        "#type" => "radios",
+        "#title" => "Selectionner une page",
+        "#options" => $options,
+        '#ajax' => [
+          'callback' => self::class . '::import_select_import_entity',
+          'wrapper' => 'import_select_import_entity_id',
+          'effect' => 'fade'
+        ]
+      ];
+      $form['datas'] = [
+        '#type' => 'details',
+        '#open' => true,
+        '#title' => t('datas'),
+        '#attributes' => [
+          'id' => 'import_select_import_entity_id'
+        ],
+        '#tree' => true
+      ];
+      $site_page_modele = $form_state->getValue('site_page_modele');
+      if ($site_page_modele) {
+        [
+          $base_directory,
+          $keyIdentification
+        ] = explode("--__", $site_page_modele);
+        // $plugin->checkConfigToimport($base_directory);
+        $form_state->set('base_directory', $base_directory);
+        $form_state->set('keyIdentification', $keyIdentification);
+        //
+        $configs = $plugin->BuildBatchImportConfigs($base_directory);
+        $form_state->set('BatchImportConfigs', $configs);
+        foreach ($configs as $name => $config) {
+          $form['datas'][$name] = [
+            '#type' => 'details',
+            '#open' => false,
+            '#title' => $name
+          ];
+          $form['datas'][$name]['value'] = [
+            '#type' => 'html_tag',
+            '#tag' => 'pre',
+            '#value' => $config,
+            '#attributes' => [
+              'style' => "word-wrap:break-word;"
+            ]
+          ];
+        }
+        $form['datas']['actions'] = [
+          '#type' => 'actions',
+          'submit' => [
+            '#type' => 'submit',
+            '#value' => $this->getSubmitText($form, $form_state),
+            // '#ajax' => [
+            // 'callback' => self::class . '::export_import_submit_callback',
+            // 'wrapper' => 'export_import_select_export_entity_id',
+            // 'effect' => 'fade'
+            // ],
+            '#submit' => [
+              // focntionne mais la methode doit etre statique.
+              // self::class .
+              // '::import_config_submit'
+              '::import_config_submit'
+            ]
+          ]
+        ];
+      }
+    }
+  }
+  
+  /**
+   *
+   * @param array $form
+   * @param FormStateInterface $form_stat
+   */
+  public function import_config_submit(array &$form, FormStateInterface $form_state) {
+    $configs = $form_state->get('BatchImportConfigs');
+    if ($configs) {
+      $operations = [];
+      foreach ($configs as $name => $value) {
+        $operations[] = [
+          self::class . '::import_single_config',
+          [
+            $name,
+            $value
+          ]
+        ];
+      }
+      $batch = [
+        'operations' => $operations,
+        'finished' => self::class . '::import_single_config_batch_finished',
+        'title' => "Import de la configuration",
+        'init_message' => "Debut de l'import de la configuration",
+        'progress_message' => t('Processed @current out of @total.'),
+        'error_message' => t('Batch has encountered an error.')
+      ];
+      batch_set($batch);
+    }
+  }
+  
+  static public function import_single_config($name, $config, &$context) {
+    $context['message'] = "Import config : " . $name;
+    $plugin = self::getPluginImportContent();
+    sleep(1);
+  }
+  
+  static public function import_single_config_batch_finished() {
+    \Drupal::messenger()->addMessage("Run import_single_config_batch_finished");
+  }
+  
+  /**
+   *
+   * @return \Drupal\export_import_entities\Plugin\ImportContents\ImportContents
+   */
+  static function getPluginImportContent() {
+    /**
+     *
+     * @var \Drupal\export_import_entities\ImportContentsPluginManager $MangerImportContent
+     */
+    $MangerImportContent = \Drupal::service("plugin.manager.import_content");
+    return $MangerImportContent->createInstance("export_import_entities_import_contents");
+  }
   
   /**
    *

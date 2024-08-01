@@ -220,7 +220,13 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     return $options;
   }
   
-  function checkConfigToimport($base_directory) {
+  /**
+   * Permet de construire un batch pour effectuer l'import.
+   *
+   * @param string $base_directory
+   */
+  function BuildBatchImportConfigs(string $base_directory) {
+    $configsBatch = [];
     self::$base_directory = $base_directory;
     $pathConfig = $this->getConfigDirectory();
     $mask = '/.*\.yml$/';
@@ -233,19 +239,15 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     $config_storage = \Drupal::service('config.storage');
     $configs = [];
     foreach ($filesConfigToImport as $fileConfigToImport) {
-      // $config_storage->write($fileConfigToImport->name,
-      // $source->read($fileConfigToImport->name));
-      // $config = \Drupal::config($fileConfigToImport->name);
-      // $dependencies = $config->get('dependencies');
-      // dump($dependencies);
-      /**
-       *
-       * @var \Drupal\export_import_entities\Services\ConfigImportCustom $import_config_custom
-       */
       $configs[$fileConfigToImport->name] = $source->read($fileConfigToImport->name);
     }
+    /**
+     *
+     * @var \Drupal\export_import_entities\Services\ConfigImportCustom $import_config_custom
+     */
     $import_config_custom = \Drupal::service("export_import_entities.import_config_custom");
-    $import_config_custom->importCustomConfig($configs);
+    $import_config_custom->buildBatchImportConfigs($configs, $configsBatch);
+    return $configsBatch;
   }
   
   /**
