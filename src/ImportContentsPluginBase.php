@@ -251,6 +251,21 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   }
   
   /**
+   * Import config.
+   *
+   * @param string $name
+   * @param string $configData
+   */
+  function importConfig(string $name, string $configData) {
+    /**
+     *
+     * @var \Drupal\export_import_entities\Services\ConfigImportCustom $import_config_custom
+     */
+    $import_config_custom = \Drupal::service("export_import_entities.import_config_custom");
+    $import_config_custom->importConfig($name, $configData);
+  }
+  
+  /**
    * Retourne les données contenu dans un fichier json.
    *
    * @param string $type

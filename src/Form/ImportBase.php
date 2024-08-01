@@ -153,7 +153,7 @@ abstract class ImportBase extends FormBase {
   static public function import_single_config($name, $config, &$context) {
     $context['message'] = "Import config : " . $name;
     $plugin = self::getPluginImportContent();
-    sleep(1);
+    $plugin->importConfig($name, $config);
   }
   
   static public function import_single_config_batch_finished() {

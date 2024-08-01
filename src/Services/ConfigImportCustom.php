@@ -318,7 +318,7 @@ class ConfigImportCustom {
           }
         }
         /**
-         * On verifie s'il ya des dependences de config
+         * On verifie s'il ya des dependences de config.
          */
         if (!empty($configData['dependencies']['config'])) {
           foreach ($configData['dependencies']['config'] as $sub_name) {
