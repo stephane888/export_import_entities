@@ -100,7 +100,9 @@ final class SelectImportStorageEntities extends ImportBase {
         $base_directory,
         $keyIdentification
       ] = explode("--__", $site_page_modele);
-      $plugin->checkConfigToimport($base_directory);
+      // $plugin->checkConfigToimport($base_directory);
+      $form_state->set('base_directory', $base_directory);
+      $form_state->set('keyIdentification', $keyIdentification);
     }
     return $form;
   }

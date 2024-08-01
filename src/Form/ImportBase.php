@@ -26,7 +26,7 @@ abstract class ImportBase extends FormBase {
    * @param FormStateInterface $form_state
    * @return array
    */
-  static public function export_import_select_import_entity(array $form, FormStateInterface $form_state) {
+  static public function import_select_import_entity(array $form, FormStateInterface $form_state) {
     return $form['datas'];
   }
   

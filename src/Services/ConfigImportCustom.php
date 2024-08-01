@@ -193,6 +193,18 @@ class ConfigImportCustom {
   }
   
   /**
+   * Il est important de construire l'import des configs dans un bash afin de ne
+   * pas saturer l'environnement d'import.
+   *
+   * @param string $name
+   * @param array $configData
+   * @param array $configDatas
+   */
+  protected function ImportArrayBash(string $name, array $configData, array $configDatas) {
+    //
+  }
+  
+  /**
    * Cette matrice permet de construire un tableau multi-dimensionnelle
    * permettant d'instammer les configs n'ayant pas de depence ou celle donc les
    * depence existe deja.
