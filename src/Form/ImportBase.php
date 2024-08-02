@@ -32,91 +32,106 @@ abstract class ImportBase extends FormBase {
    */
   protected function buildFormByStep(array &$form, FormStateInterface $form_state) {
     $step = $form_state->get('step');
-    if ($step == 0) {
-      $plugin = self::getPluginImportContent();
-      $allDatas = $plugin->ListConfigToImport();
-      $options = [];
-      foreach ($allDatas as $k => $vals) {
-        if (!empty($vals['image']))
-          $options[$k] = [
-            "#type" => "html_tag",
-            "#tag" => "div",
-            "#value" => $vals['site'] . ' : ' . $vals['name'],
-            [
+    switch ($step) {
+      case 0:
+        $plugin = self::getPluginImportContent();
+        $allDatas = $plugin->ListConfigToImport();
+        $options = [];
+        foreach ($allDatas as $k => $vals) {
+          if (!empty($vals['image']))
+            $options[$k] = [
               "#type" => "html_tag",
-              "#tag" => "img",
+              "#tag" => "div",
+              "#value" => $vals['site'] . ' : ' . $vals['name'],
+              [
+                "#type" => "html_tag",
+                "#tag" => "img",
+                '#attributes' => [
+                  'src' => $vals['image'],
+                  'style' => "max-width:600px; height:auto; width:auto; max-height:1000px;"
+                ]
+              ]
+            ];
+        }
+        $form['site_page_modele'] = [
+          "#type" => "radios",
+          "#title" => "Selectionner une page",
+          "#options" => $options,
+          '#ajax' => [
+            'callback' => self::class . '::import_select_import_entity',
+            'wrapper' => 'import_select_import_entity_id',
+            'effect' => 'fade'
+          ]
+        ];
+        $form['datas'] = [
+          '#type' => 'details',
+          '#open' => true,
+          '#title' => t('datas'),
+          '#attributes' => [
+            'id' => 'import_select_import_entity_id'
+          ],
+          '#tree' => true
+        ];
+        $site_page_modele = $form_state->getValue('site_page_modele');
+        if ($site_page_modele) {
+          [
+            $base_directory,
+            $keyIdentification
+          ] = explode("--__", $site_page_modele);
+          // $plugin->checkConfigToimport($base_directory);
+          $form_state->set('base_directory', $base_directory);
+          $form_state->set('keyIdentification', $keyIdentification);
+          //
+          $configs = $plugin->BuildBatchImportConfigs($base_directory);
+          $form_state->set('BatchImportConfigs', $configs);
+          foreach ($configs as $name => $config) {
+            $form['datas'][$name] = [
+              '#type' => 'details',
+              '#open' => false,
+              '#title' => $name
+            ];
+            $form['datas'][$name]['value'] = [
+              '#type' => 'html_tag',
+              '#tag' => 'pre',
+              '#value' => $config,
               '#attributes' => [
-                'src' => $vals['image'],
-                'style' => "max-width:600px; height:auto; width:auto; max-height:1000px;"
+                'style' => "word-wrap:break-word;"
+              ]
+            ];
+          }
+          $form['datas']['actions'] = [
+            '#type' => 'actions',
+            'submit' => [
+              '#type' => 'submit',
+              '#value' => $this->getSubmitText($form, $form_state),
+              // '#ajax' => [
+              // 'callback' => self::class . '::export_import_submit_callback',
+              // 'wrapper' => 'export_import_select_export_entity_id',
+              // 'effect' => 'fade'
+              // ],
+              '#submit' => [
+                // focntionne mais la methode doit etre statique.
+                // self::class .
+                // '::import_config_submit'
+                '::import_config_submit'
               ]
             ]
           ];
-      }
-      $form['site_page_modele'] = [
-        "#type" => "radios",
-        "#title" => "Selectionner une page",
-        "#options" => $options,
-        '#ajax' => [
-          'callback' => self::class . '::import_select_import_entity',
-          'wrapper' => 'import_select_import_entity_id',
-          'effect' => 'fade'
-        ]
-      ];
-      $form['datas'] = [
-        '#type' => 'details',
-        '#open' => true,
-        '#title' => t('datas'),
-        '#attributes' => [
-          'id' => 'import_select_import_entity_id'
-        ],
-        '#tree' => true
-      ];
-      $site_page_modele = $form_state->getValue('site_page_modele');
-      if ($site_page_modele) {
-        [
-          $base_directory,
-          $keyIdentification
-        ] = explode("--__", $site_page_modele);
-        // $plugin->checkConfigToimport($base_directory);
+        }
+        break;
+      
+      case 1:
+        $base_directory = isset($_GET['base_directory']) ? $_GET['base_directory'] : '';
+        $keyIdentification = isset($_GET['keyIdentification']) ? $_GET['keyIdentification'] : '';
         $form_state->set('base_directory', $base_directory);
         $form_state->set('keyIdentification', $keyIdentification);
-        //
-        $configs = $plugin->BuildBatchImportConfigs($base_directory);
-        $form_state->set('BatchImportConfigs', $configs);
-        foreach ($configs as $name => $config) {
-          $form['datas'][$name] = [
-            '#type' => 'details',
-            '#open' => false,
-            '#title' => $name
-          ];
-          $form['datas'][$name]['value'] = [
-            '#type' => 'html_tag',
-            '#tag' => 'pre',
-            '#value' => $config,
-            '#attributes' => [
-              'style' => "word-wrap:break-word;"
-            ]
-          ];
-        }
-        $form['datas']['actions'] = [
-          '#type' => 'actions',
-          'submit' => [
-            '#type' => 'submit',
-            '#value' => $this->getSubmitText($form, $form_state),
-            // '#ajax' => [
-            // 'callback' => self::class . '::export_import_submit_callback',
-            // 'wrapper' => 'export_import_select_export_entity_id',
-            // 'effect' => 'fade'
-            // ],
-            '#submit' => [
-              // focntionne mais la methode doit etre statique.
-              // self::class .
-              // '::import_config_submit'
-              '::import_config_submit'
-            ]
-          ]
-        ];
-      }
+        // $this->messenger()->addMessage("base_directory : " .
+        // $form_state->get("base_directory"));
+        
+        break;
+      default:
+        ;
+        break;
     }
   }
   
@@ -126,6 +141,8 @@ abstract class ImportBase extends FormBase {
    * @param FormStateInterface $form_stat
    */
   public function import_config_submit(array &$form, FormStateInterface $form_state) {
+    $nextStep = !empty($_GET['step']) ? $_GET['step'] + 1 : 1;
+    $form_state->set('step', $nextStep);
     $configs = $form_state->get('BatchImportConfigs');
     if ($configs) {
       $operations = [];
@@ -148,6 +165,14 @@ abstract class ImportBase extends FormBase {
       ];
       batch_set($batch);
     }
+    $form_state->setRedirect('export_import_entities.select_import_storage_entities', [],
+      [
+        'query' => [
+          'step' => $nextStep,
+          'base_directory' => $form_state->get("base_directory"),
+          'keyIdentification' => $form_state->get("keyIdentification")
+        ]
+      ]);
   }
   
   static public function import_single_config($name, $config, &$context) {

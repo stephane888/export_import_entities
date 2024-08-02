@@ -55,8 +55,9 @@ final class SelectImportStorageEntities extends ImportBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
+    $step = isset($_GET['step']) ? $_GET['step'] : 0;
     if (!$form_state->has('step')) {
-      $form_state->set('step', 0);
+      $form_state->set('step', $step);
     }
     $this->buildFormByStep($form, $form_state);
     
