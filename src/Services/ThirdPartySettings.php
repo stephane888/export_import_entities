@@ -12,7 +12,7 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  * d'entité.
  *
  * @author stephane
- *
+ *        
  */
 class ThirdPartySettings extends ControllerBase {
   /**
@@ -21,17 +21,17 @@ class ThirdPartySettings extends ControllerBase {
    */
   protected $viewDefition;
   protected $viewPrefix;
-
+  
   /**
    *
    * @var LoadConfigs
    */
   protected $LoadConfigs;
-
+  
   function __construct(LoadConfigs $LoadConfigs) {
     $this->LoadConfigs = $LoadConfigs;
   }
-
+  
   public function setNewDomain($domaineId) {
     $domain = \Drupal::entityTypeManager()->getStorage('domain')->load($domaineId);
     if ($domain)
@@ -41,7 +41,7 @@ class ThirdPartySettings extends ControllerBase {
     //
     $this->LoadConfigs->setNewDomain($domaineId);
   }
-
+  
   /**
    * Pour le moment ThirdParty ne fournit pas de mecanisme pour recuprerer
    * efficassement les dependances.
@@ -49,6 +49,7 @@ class ThirdPartySettings extends ControllerBase {
    * @param ConfigEntityInterface $ConfigEntity
    */
   function getConfigFromThirdParty(ConfigEntityInterface $ConfigEntity) {
+    \Stephane888\Debug\debugLog::$path = NULL;
     foreach ($ConfigEntity->getThirdPartyProviders() as $moduleName) {
       $confs = $ConfigEntity->getThirdPartySettings($moduleName);
       if (!empty($confs['sections'])) {
@@ -64,14 +65,28 @@ class ThirdPartySettings extends ControllerBase {
              * @var \Drupal\layout_builder\SectionComponent $component
              */
             $confComponent = $component->toArray();
+            //
+            $nameOld = !empty($confComponent['configuration']['formatter']['type']) ? $confComponent['configuration']['formatter']['type'] : 'none';
             if (!empty($confComponent['configuration']['formatter']['type'])) {
+              $field_type = $confComponent['configuration']['formatter']['type'];
               // Ajout de la configuration pour le champs :
               // fielditem_renderby_view_formatter
-              if ($confComponent['configuration']['formatter']['type'] == 'fielditem_renderby_view_formatter') {
-                if (!empty($confComponent['configuration']['formatter']['settings']['view_name'])) {
-                  $name = $this->getViewConfigPrefix() . '.' . $confComponent['configuration']['formatter']['settings']['view_name'];
-                  $this->LoadConfigs->getConfigFromName($name);
-                }
+              switch ($field_type) {
+                case 'fielditem_renderby_view_formatter':
+                  if (!empty($confComponent['configuration']['formatter']['settings']['view_name'])) {
+                    $name = $this->getViewConfigPrefix() . '.' . $confComponent['configuration']['formatter']['settings']['view_name'];
+                    $this->LoadConfigs->getConfigFromName($name);
+                  }
+                  break;
+                // ajout de la configuration pour les styles images.
+                case 'image':
+                  if (!empty($confComponent['configuration']['formatter']['settings']['image_style'])) {
+                    $this->LoadConfigs->getConfigFromName('image.style.' . $confComponent['configuration']['formatter']['settings']['image_style']);
+                  }
+                  break;
+                default:
+                  ;
+                  break;
               }
             }
           }
@@ -79,7 +94,7 @@ class ThirdPartySettings extends ControllerBase {
       }
     }
   }
-
+  
   /**
    *
    * @return \Drupal\Core\Config\Entity\ConfigEntityType
@@ -90,7 +105,7 @@ class ThirdPartySettings extends ControllerBase {
     }
     return $this->viewDefition;
   }
-
+  
   /**
    *
    * @return string
