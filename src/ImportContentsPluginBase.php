@@ -352,7 +352,18 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
      * @var \Drupal\export_import_entities\Services\ConfigImportCustom $import_config_custom
      */
     $import_config_custom = \Drupal::service("export_import_entities.import_config_custom");
-    $import_config_custom->importConfig($name, $configData);
+    $arrayConfig = $import_config_custom->importConfig($name, $configData);
+    /**
+     * Les styles incluent "core.entity_view_display." ne seront pas charger car
+     * cela est limité exclusivement à la MAJ du contenu au niveau du module
+     * 'layoutgenentitystyles'.
+     * Pour pallier à ce probleme, on ferra une sauvegarde suite à la creation
+     * d'une entité de MAJ.
+     */
+    if (str_contains($name, "core.entity_view_display.")) {
+      $entityView = $this->EntityTypeManager->getStorage("entity_view_display")->load($arrayConfig['id']);
+      $entityView->save();
+    }
   }
   
   /**

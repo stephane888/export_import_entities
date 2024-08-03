@@ -245,6 +245,7 @@ class ConfigImportCustom {
         }
       }
     }
+    return $configData;
   }
   
   /**
