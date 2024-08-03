@@ -4,7 +4,6 @@ namespace Drupal\export_import_entities\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Serialization\Yaml;
 
 /**
  * Permet de selectionner une entité et de l'exporter.
@@ -125,9 +124,13 @@ abstract class ImportBase extends FormBase {
         $keyIdentification = isset($_GET['keyIdentification']) ? $_GET['keyIdentification'] : '';
         $form_state->set('base_directory', $base_directory);
         $form_state->set('keyIdentification', $keyIdentification);
+        $plugin = self::getPluginImportContent();
+        // On sauvegarde directecment les contenus.( on na plus de temps, on
+        // pourra ameliorer plus tard).
+        $entity = $plugin->getContent($base_directory, $keyIdentification);
         // $this->messenger()->addMessage("base_directory : " .
         // $form_state->get("base_directory"));
-        
+        $this->messenger()->addMessage("La nouvelle page a été generer ou mise à jour : " . $entity->id());
         break;
       default:
         ;
@@ -161,7 +164,8 @@ abstract class ImportBase extends FormBase {
         'title' => "Import de la configuration",
         'init_message' => "Debut de l'import de la configuration",
         'progress_message' => t('Processed @current out of @total.'),
-        'error_message' => t('Batch has encountered an error.')
+        'error_message' => t('Batch has encountered an error.'),
+        'message' => "Import config : " . $name
       ];
       batch_set($batch);
     }

@@ -60,7 +60,6 @@ final class SelectImportStorageEntities extends ImportBase {
       $form_state->set('step', $step);
     }
     $this->buildFormByStep($form, $form_state);
-    
     return $form;
   }
   
@@ -95,7 +94,6 @@ final class SelectImportStorageEntities extends ImportBase {
       $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $bundle, $BundleEntityType);
       $this->getOrthersConfig($entity);
       $configs = $this->LoadConfigs->getGenerate();
-      
       /**
        * Recuperation des contenus.
        *

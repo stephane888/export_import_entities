@@ -16,6 +16,8 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\Component\Serialization\Yaml;
+use Drupal\Core\Entity\EntityRepository;
 
 /**
  * Base class for style_scss plugins.
@@ -58,6 +60,12 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   protected $EntityTypeManager;
   
   /**
+   *
+   * @var EntityRepository
+   */
+  protected $EntityRepository;
+  
+  /**
    * chemin de base pour les fichiers generées.
    *
    * @var string
@@ -80,13 +88,14 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *        The configuration factory.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, FileSystem $file_system, ExtensionPathResolver $ExtensionPathResolver, MessengerInterface $messenger, EntityTypeManager $EntityTypeManager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory, FileSystem $file_system, ExtensionPathResolver $ExtensionPathResolver, MessengerInterface $messenger, EntityTypeManager $EntityTypeManager, EntityRepository $EntityRepository) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->configFactory = $config_factory;
     $this->file_system = $file_system;
     $this->ExtensionPathResolver = $ExtensionPathResolver;
     $this->messenger = $messenger;
     $this->EntityTypeManager = $EntityTypeManager;
+    $this->EntityRepository = $EntityRepository;
   }
   
   /**
@@ -95,7 +104,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static($configuration, $plugin_id, $plugin_definition, $container->get('config.factory'), $container->get('file_system'), $container->get('extension.path.resolver'), $container->get(
-      'messenger'), $container->get('entity_type.manager'));
+      'messenger'), $container->get('entity_type.manager'), $container->get('entity.repository'));
   }
   
   public function defaultConfiguration(): array {
@@ -184,6 +193,87 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    */
   function getIdentificationEntities(): array {
     return $this->getJsonFile('identification');
+  }
+  
+  /**
+   * Recuperer les données à creer.
+   *
+   * @param string $base_directory
+   * @param string $content_key
+   */
+  function getContent(string $base_directory, string $content_key) {
+    self::$base_directory = $base_directory;
+    $contents = $this->getJsonFile("contents");
+    $page = !empty($contents[$content_key]) ? $contents[$content_key] : [];
+    if ($page) {
+      return $this->savePage($page);
+    }
+    return $page;
+  }
+  
+  function savePage(array $page, $unique = true) {
+    if (empty($page['entity']))
+      throw new \ErrorException("Aucune entité n'a été definit");
+    if (!empty($page['entities'])) {
+      foreach ($page['entities'] as $field_name => $entities) {
+        /**
+         * On vide les anciennes ids.
+         */
+        $page['entity'][$field_name] = [];
+        foreach ($entities as $entity) {
+          /**
+           *
+           * @var \Drupal\node\Entity\Node $newEntity
+           */
+          $newEntity = $this->savePage($entity);
+          $value = [
+            'target_id' => $newEntity->id()
+          ];
+          $key = 'revision';
+          if ($newEntity->getEntityType()->hasKey($key)) {
+            $field_name_key = $newEntity->getEntityType()->getKey($key);
+            $definition = $newEntity->getFieldDefinition($field_name_key);
+            $property = $definition->getFieldStorageDefinition()->getMainPropertyName();
+            $value['target_revision_id'] = $newEntity->get($field_name_key)->$property;
+          }
+          $page['entity'][$field_name][] = $value;
+        }
+        // dump($field_name, $page['entity'][$field_name]);
+      }
+    }
+    /**
+     *
+     * @var \Drupal\node\NodeStorage $storage
+     */
+    $storage = $this->EntityTypeManager->getStorage($page['target_type']);
+    /**
+     * S'il faut recreer, il faut egalement vide le champs uuid
+     */
+    if (!$unique) {
+      $page['entity']['uuid'] = [];
+    }
+    else {
+      if (!empty($page['entity']['uuid'][0]['value'])) {
+        $uuid = $page['entity']['uuid'][0]['value'];
+        $oldEntity = $this->EntityRepository->loadEntityByUuid($page['target_type'], $uuid);
+        if ($oldEntity)
+          return $oldEntity;
+      }
+    }
+    // On nettoie les revisions.
+    if ($storage->getEntityType()->hasKey('revision')) {
+      $revision_idKey = $storage->getEntityType()->getKey('revision');
+      $page['entity'][$revision_idKey] = [];
+    }
+    $idKey = $storage->getEntityType()->getKey('id');
+    if (!empty($page['entity'][$idKey])) {
+      $page['entity'][$idKey] = [];
+      $newEntity = $storage->create($page['entity']);
+      $newEntity->save();
+      return $newEntity;
+    }
+    else
+      throw new \ErrorException("La clee d'id de l'entité n'a pas pu etre determinée.");
   }
   
   function getListePagesModeles() {
@@ -283,7 +373,16 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
         }
         return [];
         break;
-      
+      case 'contents':
+        $contents = [];
+        $path = $this->getContentDirectory();
+        $mask = '/.*/';
+        $filesConfigToImport = $this->file_system->scanDirectory($path, "$mask");
+        foreach ($filesConfigToImport as $fileConfigToImport) {
+          $contents[$fileConfigToImport->name] = Yaml::decode(file_get_contents($fileConfigToImport->uri));
+        }
+        return $contents;
+        break;
       default:
         ;
         break;
