@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
  */
 abstract class ImportBase extends FormBase {
   protected $steps = [
-    'Import config',
+    'Import config and page',
     'Import content'
   ];
   
