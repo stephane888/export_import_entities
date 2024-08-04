@@ -65,7 +65,7 @@ abstract class ImportBase extends FormBase {
         $form['datas'] = [
           '#type' => 'details',
           '#open' => true,
-          '#title' => t('datas'),
+          '#title' => 'datas',
           '#attributes' => [
             'id' => 'import_select_import_entity_id'
           ],
@@ -83,6 +83,7 @@ abstract class ImportBase extends FormBase {
           //
           $configs = $plugin->BuildBatchImportConfigs($base_directory);
           $form_state->set('BatchImportConfigs', $configs);
+          $form['datas']['#title'] = 'datas (' . count($configs) . ' à importer )';
           foreach ($configs as $name => $config) {
             $form['datas'][$name] = [
               '#type' => 'details',
