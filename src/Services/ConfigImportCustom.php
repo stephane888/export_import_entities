@@ -20,6 +20,7 @@ use Drupal\Core\Lock\LockBackendInterface;
 use Drupal\Core\Config\StorageComparerInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Drupal\Core\Form\FormState;
 
 /**
  * Permet d'importer les configurations suivant une logique propre à HBK.
@@ -241,6 +242,29 @@ class ConfigImportCustom {
           }
           else {
             $config_importer->import();
+            /**
+             * Les styles incluent dans la config des layouts ne seront pas
+             * chargés, car cela se fait uniquement pendant la sauvegarde du
+             * layout.
+             */
+            if (str_contains($name, "core.entity_view_display.")) {
+              if (!empty($configData['third_party_settings']['layout_builder']['sections'])) {
+                $form_state = new FormState();
+                $form = [];
+                /**
+                 *
+                 * @var \Drupal\layout_custom_style\StyleScssPluginManager $PluginManager
+                 */
+                $PluginManager = \Drupal::service("plugin.manager.style_scss");
+                foreach ($configData['third_party_settings']['layout_builder']['sections'] as $section) {
+                  if (!empty($section['layout_settings']['scss']['scss_field'])) {
+                    $form_state->setValue('scss', $section['layout_settings']['scss']);
+                    $storage = $section['layout_settings'];
+                    $PluginManager->submitConfigurationForm($form, $form_state, $storage);
+                  }
+                }
+              }
+            }
           }
         }
       }
