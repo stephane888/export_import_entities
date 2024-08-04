@@ -211,6 +211,12 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     return $page;
   }
   
+  /**
+   *
+   * @param array $page
+   * @param boolean $unique
+   * @return \Drupal\Core\Entity\EntityInterface|NULL|\Drupal\node\Entity\Node
+   */
   function savePage(array $page, $unique = true) {
     if (empty($page['entity']))
       throw new \ErrorException("Aucune entité n'a été definit");
