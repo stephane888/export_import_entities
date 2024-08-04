@@ -1,0 +1,45 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.percentage
+    - field.field.block_content.percentage.field_number
+    - field.field.block_content.percentage.field_symbole
+    - field.field.block_content.percentage.field_title
+id: block_content.percentage.default
+targetEntityType: block_content
+bundle: percentage
+mode: default
+content:
+  field_number:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_symbole:
+    type: string_textfield
+    weight: 26
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 0
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden:
+  info: true

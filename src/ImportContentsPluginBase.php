@@ -247,6 +247,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
         // dump($field_name, $page['entity'][$field_name]);
       }
     }
+    
     /**
      *
      * @var \Drupal\node\NodeStorage $storage
