@@ -314,7 +314,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
         $new_files = [];
         foreach ($values as $delta => $value) {
           if (!empty($files[$page['target_type']][$id][$delta]["default_encode_file"])) {
-            $file = $this->base64_to_file($files[$page['target_type']][$id][$delta]["default_encode_file"], $files[$page['target_type']][$id][$delta]["default_filename"]);
+            $file = $this->base64_to_file($files[$page['target_type']][$id][$delta]["default_encode_file"], $files[$page['target_type']][$id][$delta]["default_filename"], $page['target_type']);
             if ($file) {
               $new_files[$delta] = $value;
               $new_files[$delta]['target_id'] = $file->id();
@@ -332,15 +332,20 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    * @param array $configs
    * @return string[]|array[]|NULL[]|array
    */
-  public function base64_to_file($base64_string, $fileName) {
-    $destination = "public://export_import/" . date('Y-m');
+  public function base64_to_file($base64_string, $fileName, $group) {
+    if (!empty(self::$base_directory)) {
+      $group = str_replace(".", "_", self::$base_directory);
+    }
+    $destination = "public://export_import/" . $group . "/" . date('Y-m');
     // Check the directory exists before writing data to it.
     $this->file_system->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
     $file_destination = $destination . '/' . $fileName;
     // Save the default icon file.
     /** @var \Drupal\file\FileRepositoryInterface $fileRepository */
     $fileRepository = \Drupal::service('file.repository');
-    return $fileRepository->writeData(base64_decode($base64_string), $file_destination, FileExists::Rename);
+    // On remplace car la probabilité de se retrouver avec des images de meme
+    // nom et de contenu differents est faible.
+    return $fileRepository->writeData(base64_decode($base64_string), $file_destination, FileExists::Replace);
     // $file = $this->file_system->saveData(base64_decode($base64_string),
     // $file_destination, FileExists::Rename);
   }
