@@ -10,8 +10,8 @@ use Drupal\Core\Form\FormStateInterface;
  */
 abstract class ImportBase extends FormBase {
   protected $steps = [
-    'Import config and page',
-    'Import content'
+    'Import config',
+    'Import page'
   ];
   
   /**
@@ -82,6 +82,7 @@ abstract class ImportBase extends FormBase {
           $form_state->set('keyIdentification', $keyIdentification);
           //
           $configs = $plugin->BuildBatchImportConfigs($base_directory);
+          
           $form_state->set('BatchImportConfigs', $configs);
           $form['datas']['#title'] = 'datas (' . count($configs) . ' à importer )';
           foreach ($configs as $name => $config) {
@@ -126,16 +127,70 @@ abstract class ImportBase extends FormBase {
         $form_state->set('base_directory', $base_directory);
         $form_state->set('keyIdentification', $keyIdentification);
         $plugin = self::getPluginImportContent();
-        // On sauvegarde directecment les contenus.( on na plus de temps, on
-        // pourra ameliorer plus tard).
-        $entity = $plugin->getContent($base_directory, $keyIdentification);
-        // $this->messenger()->addMessage("base_directory : " .
-        // $form_state->get("base_directory"));
-        $this->messenger()->addMessage(" La nouvelle page a été generer ou mise à jour : " . $entity->id());
+        $allFiles = $plugin->getFiles($base_directory, $keyIdentification);
+        $options = [];
+        foreach ($allFiles as $contentFiles) {
+          foreach ($contentFiles as $files) {
+            foreach ($files as $file) {
+              $options[] = [
+                "#type" => "html_tag",
+                "#tag" => "div",
+                "#value" => $file['alt'],
+                [
+                  "#type" => "html_tag",
+                  "#tag" => "img",
+                  '#attributes' => [
+                    'src' => $file['default_encode_file'],
+                    'style' => "max-width:600px; height:auto; width:auto;
+        max-height:1000px;"
+                  ]
+                ]
+              ];
+              $pii = explode("base64,", $file['default_encode_file']);
+              $plugin->base64_to_file($pii[1], $file['default_filename']);
+            }
+          }
+        }
+        $form['datas']['files'] = $options;
+        $form['datas']['actions'] = [
+          '#type' => 'actions',
+          'submit' => [
+            '#type' => 'submit',
+            '#value' => $this->getSubmitText($form, $form_state),
+            // '#ajax' => [
+            // 'callback' => self::class . '::export_import_submit_callback',
+            // 'wrapper' => 'export_import_select_export_entity_id',
+            // 'effect' => 'fade'
+            // ],
+            '#submit' => [
+              // focntionne mais la methode doit etre statique.
+              // self::class .
+              // '::import_config_submit'
+              '::import_page_submit'
+            ]
+          ]
+        ];
         break;
       default:
         ;
         break;
+    }
+  }
+  
+  public function import_page_submit(array &$form, FormStateInterface $form_state) {
+    $base_directory = $form_state->get('base_directory');
+    $keyIdentification = $form_state->get('keyIdentification');
+    if ($base_directory && $keyIdentification) {
+      $plugin = self::getPluginImportContent();
+      // On sauvegarde directecment les contenus. ( On na plus de temps, on
+      // pourra ameliorer plus tard ).
+      $entity = $plugin->getContent($base_directory, $keyIdentification);
+      // $this->messenger()->addMessage("base_directory : " .
+      // $form_state->get("base_directory"));
+      $this->messenger()->addMessage(" La nouvelle page a été generer ou mise à jour : " . $entity->id());
+    }
+    else {
+      $this->messenger()->addError(" Paramettre d'import non definie ");
     }
   }
   

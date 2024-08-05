@@ -169,6 +169,8 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
              */
             if ($file) {
               $fileContent = file_get_contents($file->getPathname());
+              // cette image serra directement affichir dans le navigateur, donc
+              // on garde "'data:' . $file->getMimeType() . ';base64,' .".
               $datas['image'] = 'data:' . $file->getMimeType() . ';base64,' . base64_encode($fileContent);
             }
           }
@@ -206,12 +208,17 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     $contents = $this->getJsonFile("contents");
     $page = !empty($contents[$content_key]) ? $contents[$content_key] : [];
     //
-    $files = $this->getJsonFile('files');
-    $file = !empty($files[$content_key]) ? $files[$content_key] : [];
+    $files = $this->getFiles($base_directory, $content_key);
     if ($page) {
-      return $this->savePage($page);
+      return $this->savePage($page, true, $files);
     }
     return $page;
+  }
+  
+  function getFiles(string $base_directory, string $content_key) {
+    self::$base_directory = $base_directory;
+    $AllsFiles = $this->getJsonFile('files');
+    return !empty($AllsFiles[$content_key . '__files']) ? $AllsFiles[$content_key . '__files'] : [];
   }
   
   /**
@@ -220,7 +227,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    * @param boolean $unique
    * @return \Drupal\Core\Entity\EntityInterface|NULL|\Drupal\node\Entity\Node
    */
-  function savePage(array $page, $unique = true) {
+  function savePage(array $page, $unique = true, array $files = []) {
     if (empty($page['entity']))
       throw new \ErrorException("Aucune entité n'a été definit");
     if (!empty($page['entities'])) {
@@ -234,7 +241,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
            *
            * @var \Drupal\node\Entity\Node $newEntity
            */
-          $newEntity = $this->savePage($entity);
+          $newEntity = $this->savePage($entity, true, $files);
           $value = [
             'target_id' => $newEntity->id()
           ];
@@ -276,9 +283,10 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     }
     $idKey = $storage->getEntityType()->getKey('id');
     if (!empty($page['entity'][$idKey])) {
+      $id = !empty($page['entity'][$idKey][0]['value']) ? $page['entity'][$idKey][0]['value'] : 0;
       $page['entity'][$idKey] = [];
       $newEntity = $storage->create($page['entity']);
-      $this->restoreFileAndIdFile($newEntity, $page);
+      $this->restoreFileAndIdFile($id, $newEntity, $page, $files);
       $newEntity->save();
       return $newEntity;
     }
@@ -292,7 +300,9 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    *
    * @param \Drupal\node\Entity\Node $newEntity
    */
-  function restoreFileAndIdFile(\Drupal\node\Entity\Node &$newEntity, $page) {
+  function restoreFileAndIdFile($id, \Drupal\Core\Entity\ContentEntityBase &$newEntity, $page, $files) {
+    if (!$id)
+      return;
     $fields = $newEntity->getFieldDefinitions();
     foreach ($fields as $field_name => $field) {
       /**
@@ -301,11 +311,38 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
        */
       if ($field->getType() == 'image' || $field->getType() == 'file' || $field->getType() == 'more_fields_hbk_file') {
         $values = $page['entity'][$field_name];
+        $new_files = [];
         foreach ($values as $delta => $value) {
-          //
+          if (!empty($files[$page['target_type']][$id][$delta]["default_encode_file"])) {
+            $file = $this->base64_to_file($files[$page['target_type']][$id][$delta]["default_encode_file"], $files[$page['target_type']][$id][$delta]["default_filename"]);
+            if ($file) {
+              $new_files[$delta] = $value;
+              $new_files[$delta]['target_id'] = $file->id();
+            }
+          }
         }
+        $newEntity->set($field_name, $new_files);
       }
     }
+  }
+  
+  /**
+   *
+   * @param String $base64_string
+   * @param array $configs
+   * @return string[]|array[]|NULL[]|array
+   */
+  public function base64_to_file($base64_string, $fileName) {
+    $destination = "public://export_import/" . date('Y-m');
+    // Check the directory exists before writing data to it.
+    $this->file_system->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
+    $file_destination = $destination . '/' . $fileName;
+    // Save the default icon file.
+    /** @var \Drupal\file\FileRepositoryInterface $fileRepository */
+    $fileRepository = \Drupal::service('file.repository');
+    return $fileRepository->writeData(base64_decode($base64_string), $file_destination, FileExists::Rename);
+    // $file = $this->file_system->saveData(base64_decode($base64_string),
+    // $file_destination, FileExists::Rename);
   }
   
   function getListePagesModeles() {
@@ -494,7 +531,13 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
               $files[$data['target_type']][$id][$delta] = $value;
               $file = \Drupal\file\Entity\File::load($value['target_id']);
               if ($file) {
-                $files[$data['target_type']][$id][$delta]["default_encode_file"] = 'data:' . $file->getMimeType() . ';base64,' . base64_encode(file_get_contents($file->getFileUri()));
+                /**
+                 * Il ne faut pas forcement ajouter "'data:' .
+                 * $file->getMimeType() . ';base64,' ." devant l'image, cela est
+                 * utile si l'on souhaite affiché l'image uniquement via le
+                 * navigateur.
+                 */
+                $files[$data['target_type']][$id][$delta]["default_encode_file"] = base64_encode(file_get_contents($file->getFileUri()));
                 $files[$data['target_type']][$id][$delta]["default_filename"] = $file->getFilename();
               }
             }
