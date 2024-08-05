@@ -126,32 +126,35 @@ abstract class ImportBase extends FormBase {
         $keyIdentification = isset($_GET['keyIdentification']) ? $_GET['keyIdentification'] : '';
         $form_state->set('base_directory', $base_directory);
         $form_state->set('keyIdentification', $keyIdentification);
-        $plugin = self::getPluginImportContent();
-        $allFiles = $plugin->getFiles($base_directory, $keyIdentification);
-        $options = [];
-        foreach ($allFiles as $contentFiles) {
-          foreach ($contentFiles as $files) {
-            foreach ($files as $file) {
-              $options[] = [
-                "#type" => "html_tag",
-                "#tag" => "div",
-                "#value" => $file['alt'],
-                [
-                  "#type" => "html_tag",
-                  "#tag" => "img",
-                  '#attributes' => [
-                    'src' => $file['default_encode_file'],
-                    'style' => "max-width:600px; height:auto; width:auto;
-        max-height:1000px;"
-                  ]
-                ]
-              ];
-              $pii = explode("base64,", $file['default_encode_file']);
-              $plugin->base64_to_file($pii[1], $file['default_filename']);
-            }
-          }
-        }
-        $form['datas']['files'] = $options;
+        /**
+         * Tests rendu des images.
+         */
+        // $plugin = self::getPluginImportContent();
+        // $allFiles = $plugin->getFiles($base_directory, $keyIdentification);
+        // $options = [];
+        // foreach ($allFiles as $contentFiles) {
+        // foreach ($contentFiles as $files) {
+        // foreach ($files as $file) {
+        // $options[] = [
+        // "#type" => "html_tag",
+        // "#tag" => "div",
+        // "#value" => $file['alt'],
+        // [
+        // "#type" => "html_tag",
+        // "#tag" => "img",
+        // '#attributes' => [
+        // 'src' => $file['default_encode_file'],
+        // 'style' => "max-width:600px; height:auto; width:auto;
+        // max-height:1000px;"
+        // ]
+        // ]
+        // ];
+        // $pii = explode("base64,", $file['default_encode_file']);
+        // $plugin->base64_to_file($pii[1], $file['default_filename']);
+        // }
+        // }
+        // }
+        // $form['datas']['files'] = $options;
         $form['datas']['actions'] = [
           '#type' => 'actions',
           'submit' => [
