@@ -205,6 +205,9 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     self::$base_directory = $base_directory;
     $contents = $this->getJsonFile("contents");
     $page = !empty($contents[$content_key]) ? $contents[$content_key] : [];
+    //
+    $files = $this->getJsonFile('files');
+    $file = !empty($files[$content_key]) ? $files[$content_key] : [];
     if ($page) {
       return $this->savePage($page);
     }
@@ -244,7 +247,6 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
           }
           $page['entity'][$field_name][] = $value;
         }
-        // dump($field_name, $page['entity'][$field_name]);
       }
     }
     
@@ -276,11 +278,34 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     if (!empty($page['entity'][$idKey])) {
       $page['entity'][$idKey] = [];
       $newEntity = $storage->create($page['entity']);
+      $this->restoreFileAndIdFile($newEntity, $page);
       $newEntity->save();
       return $newEntity;
     }
     else
       throw new \ErrorException("La clee d'id de l'entité n'a pas pu etre determinée.");
+  }
+  
+  /**
+   * Permet de restorer les fichiers et si necessaire d'ajuster l'id du fichier
+   * afin de ne pas pertuber les fichiers existant.
+   *
+   * @param \Drupal\node\Entity\Node $newEntity
+   */
+  function restoreFileAndIdFile(\Drupal\node\Entity\Node &$newEntity, $page) {
+    $fields = $newEntity->getFieldDefinitions();
+    foreach ($fields as $field_name => $field) {
+      /**
+       *
+       * @var \Drupal\Core\Field\BaseFieldDefinition $field
+       */
+      if ($field->getType() == 'image' || $field->getType() == 'file' || $field->getType() == 'more_fields_hbk_file') {
+        $values = $page['entity'][$field_name];
+        foreach ($values as $delta => $value) {
+          //
+        }
+      }
+    }
   }
   
   function getListePagesModeles() {
@@ -389,6 +414,16 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
           $contents[$fileConfigToImport->name] = Yaml::decode(file_get_contents($fileConfigToImport->uri));
         }
         return $contents;
+        break;
+      case 'files':
+        $files = [];
+        $path = $this->getFilesDirectory();
+        $mask = '/.*/';
+        $filesContentFiles = $this->file_system->scanDirectory($path, "$mask");
+        foreach ($filesContentFiles as $filesContentFile) {
+          $files[$filesContentFile->name] = Yaml::decode(file_get_contents($filesContentFile->uri));
+        }
+        return $files;
         break;
       default:
         ;
