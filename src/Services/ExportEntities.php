@@ -9,7 +9,7 @@ use Drupal\node\Entity\Node;
 use Drupal\views\Plugin\views\filter\Bundle;
 use Drupal\Core\Entity\EntityFieldManager;
 use Drupal\Core\Config\StorageInterface;
-use Drupal\Core\Serialization\Yaml;
+use Drupal\Component\Serialization\Yaml;
 use Drupal\taxonomy\Entity\Term;
 
 /**
