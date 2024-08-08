@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.hero_sliders
+id: paragraph.hero_sliders
+target_entity_type_id: paragraph
+target_bundle: hero_sliders
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,9 @@
+langcode: fr
+status: true
+dependencies: {  }
+id: hero_sliders
+label: 'hero sliders'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }
