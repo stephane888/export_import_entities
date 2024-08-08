@@ -1,0 +1,9 @@
+langcode: fr
+status: true
+dependencies: {  }
+id: images_texte
+label: 'images texte'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }
