@@ -1,0 +1,25 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.logo_partenaire.field_images
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.logo_partenaire
+  module:
+    - image
+id: paragraph.logo_partenaire.default
+targetEntityType: paragraph
+bundle: logo_partenaire
+mode: default
+content:
+  field_images:
+    type: image_image
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
