@@ -491,7 +491,9 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
         ];
       }
       else {
-        $this->messenger->addError("Impossible de creer les dossiers");
+        $this->messenger->addError("Echec creation du dossier contenus : " . $directoryContent);
+        $this->messenger->addError("Echec creation du dossier Files : " . $directoryFiles);
+        $this->messenger->addError("Echec creation du dossier Config : " . $directoryConfig);
         return false;
       }
     }
