@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.count_down_region
+id: paragraph.count_down_region
+target_entity_type_id: paragraph
+target_bundle: count_down_region
+default_langcode: site_default
+language_alterable: false

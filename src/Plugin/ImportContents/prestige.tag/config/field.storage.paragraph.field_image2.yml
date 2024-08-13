@@ -1,12 +1,12 @@
-langcode: fr
+langcode: en
 status: true
 dependencies:
   module:
     - file
     - image
     - paragraphs
-id: paragraph.field_background
-field_name: field_background
+id: paragraph.field_image2
+field_name: field_image2
 entity_type: paragraph
 type: image
 settings:
@@ -15,11 +15,11 @@ settings:
   display_default: false
   uri_scheme: public
   default_image:
-    uuid: dd089e0b-5753-4649-bb6f-443dfd9201a7
+    uuid: ''
     alt: ''
     title: ''
-    width: 3200
-    height: 1200
+    width: null
+    height: null
 module: image
 locked: false
 cardinality: 1
