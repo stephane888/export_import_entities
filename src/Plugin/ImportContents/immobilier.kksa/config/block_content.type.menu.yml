@@ -1,7 +1,0 @@
-langcode: fr
-status: true
-dependencies: {  }
-id: menu
-label: menu
-revision: false
-description: ''

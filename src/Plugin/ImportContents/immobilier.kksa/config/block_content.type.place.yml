@@ -1,7 +1,0 @@
-langcode: fr
-status: true
-dependencies: {  }
-id: place
-label: place
-revision: false
-description: 'pour les blocs des differents type de place'
