@@ -2,14 +2,15 @@ langcode: fr
 status: true
 dependencies:
   module:
+    - datetime
     - paragraphs
-    - text
-id: paragraph.field_description
-field_name: field_description
+id: paragraph.field_decompte
+field_name: field_decompte
 entity_type: paragraph
-type: text_long
-settings: {  }
-module: text
+type: datetime
+settings:
+  datetime_type: datetime
+module: datetime
 locked: false
 cardinality: 1
 translatable: true

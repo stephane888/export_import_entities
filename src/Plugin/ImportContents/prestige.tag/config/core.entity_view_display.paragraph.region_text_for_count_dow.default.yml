@@ -2,12 +2,16 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.field.paragraph.logo_partenaire.field_images
-    - paragraphs.paragraphs_type.logo_partenaire
+    - field.field.paragraph.region_text_for_count_dow.field_btn1
+    - field.field.paragraph.region_text_for_count_dow.field_description
+    - field.field.paragraph.region_text_for_count_dow.field_subtitle
+    - field.field.paragraph.region_text_for_count_dow.field_title
+    - paragraphs.paragraphs_type.region_text_for_count_dow
   module:
     - formatage_models
-    - image
     - layout_builder
+    - link
+    - text
 third_party_settings:
   layout_builder:
     enabled: true
@@ -18,12 +22,12 @@ third_party_settings:
         layout_settings:
           label: ' One column custom  ( formatage_models_simple_block ) '
           context_mapping: {  }
-          css: mb-0
+          css: ''
           region_tag_main: div
           config_section:
             type_container: ''
             container_class: ''
-            id: ''
+            id: formatage-models-simple-block-6000--W7F6RWGZX_c
           sf:
             builder-form: true
             info:
@@ -47,9 +51,9 @@ third_party_settings:
                   style: ''
                   class: ''
                   inbg: 0
-          region_css_main: ''
-          region_css_block_2: ''
-          region_css_block_3: ''
+          region_css_main: 'h6 text-uppercase text-white mb-5 custom-text-1'
+          region_css_block_2: 'h2 text-uppercase text-white mb-5 custom-text'
+          region_css_block_3: ' text-white mb-5 '
           region_css_block_4: ''
           region_css_block_5: ''
           region_css_block_6: ''
@@ -143,11 +147,11 @@ third_party_settings:
                 class: null
               scroll_effects:
                 class: null
-          id: formatage-models-simple-block-4664--mHqd_DVD0Cs
+          id: formatage-models-simple-block-6000--W7F6RWGZX_c
           cover_section:
             active: 0
-            model: ''
-            opacity: ''
+            model: cover-dark
+            opacity: opacity-before-03
             zindex: ''
           aos_attributes:
             main:
@@ -441,28 +445,25 @@ third_party_settings:
                 container_width:
                   class: ''
           scss:
-            scss_field: ''
+            scss_field: ".custom-text-1{\r\n  letter-spacing: 4px;\r\n}\r\n.custom-text{\r\n  letter-spacing: 8px;\r\n}"
           class_row: ''
         components:
-          d170e8bd-dfd1-47f0-b6b5-79cbc19b3448:
-            uuid: d170e8bd-dfd1-47f0-b6b5-79cbc19b3448
+          c03067ea-e6f4-4d85-a7df-a763e20e1fc8:
+            uuid: c03067ea-e6f4-4d85-a7df-a763e20e1fc8
             region: main
             configuration:
-              id: 'field_block:paragraph:logo_partenaire:field_images'
-              label: images
+              id: 'field_block:paragraph:region_text_for_count_dow:field_subtitle'
+              label: 'Sous titre'
               label_display: '0'
               provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: image
+                type: string
                 label: hidden
                 settings:
-                  image_link: ''
-                  image_style: 120_120_logo_partenaire
-                  image_loading:
-                    attribute: lazy
+                  link_to_entity: false
                 third_party_settings:
                   formatage_models:
                     classes:
@@ -473,21 +474,154 @@ third_party_settings:
                       content: ''
             weight: 0
             additional: {  }
+          8a23d687-c6b2-4aad-89e2-837156b3686a:
+            uuid: 8a23d687-c6b2-4aad-89e2-837156b3686a
+            region: block_2
+            configuration:
+              id: 'field_block:paragraph:region_text_for_count_dow:field_title'
+              label: Titre
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          ef9193e7-263c-4c8d-b418-1c92be9dbb4a:
+            uuid: ef9193e7-263c-4c8d-b418-1c92be9dbb4a
+            region: block_3
+            configuration:
+              id: 'field_block:paragraph:region_text_for_count_dow:field_description'
+              label: Description
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          9387022b-e57b-4844-9890-ef87de048b59:
+            uuid: 9387022b-e57b-4844-9890-ef87de048b59
+            region: block_4
+            configuration:
+              id: 'field_block:paragraph:region_text_for_count_dow:field_btn1'
+              label: Button
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: link
+                label: hidden
+                settings:
+                  trim_length: 80
+                  url_only: false
+                  url_plain: false
+                  rel: '0'
+                  target: '0'
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: 'btn btn-primary'
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
         third_party_settings: {  }
-id: paragraph.logo_partenaire.default
+id: paragraph.region_text_for_count_dow.default
 targetEntityType: paragraph
-bundle: logo_partenaire
+bundle: region_text_for_count_dow
 mode: default
 content:
-  field_images:
-    type: image
-    label: above
+  field_btn1:
+    type: link
+    label: hidden
     settings:
-      image_link: ''
-      image_style: ''
-      image_loading:
-        attribute: lazy
-    third_party_settings: {  }
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: 'btn btn-primary  w-100'
+          content: text-wbu-secondary
+    weight: 3
+    region: content
+  field_description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
+    weight: 2
+    region: content
+  field_subtitle:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
     weight: 1
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: 'text-center mb-3 h5 line-height-1 fw-light'
+          content: ''
+    weight: 0
     region: content
 hidden: {  }

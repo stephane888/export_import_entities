@@ -2,8 +2,9 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.field.paragraph.logo_partenaire.field_images
-    - paragraphs.paragraphs_type.logo_partenaire
+    - field.field.paragraph.section_count_down.field_background
+    - field.field.paragraph.section_count_down.field_paragraphs
+    - paragraphs.paragraphs_type.section_count_down
   module:
     - formatage_models
     - image
@@ -18,12 +19,12 @@ third_party_settings:
         layout_settings:
           label: ' One column custom  ( formatage_models_simple_block ) '
           context_mapping: {  }
-          css: mb-0
+          css: 'space-padding  background--cover background-position--center'
           region_tag_main: div
           config_section:
-            type_container: ''
+            type_container: container
             container_class: ''
-            id: ''
+            id: formatage-models-simple-block-9387--7aGw7NFaeqI
           sf:
             builder-form: true
             info:
@@ -143,11 +144,11 @@ third_party_settings:
                 class: null
               scroll_effects:
                 class: null
-          id: formatage-models-simple-block-4664--mHqd_DVD0Cs
+          id: formatage-models-simple-block-9387--7aGw7NFaeqI
           cover_section:
-            active: 0
-            model: ''
-            opacity: ''
+            active: cover-bg-theme
+            model: cover-dark
+            opacity: opacity-before-03
             zindex: ''
           aos_attributes:
             main:
@@ -444,25 +445,22 @@ third_party_settings:
             scss_field: ''
           class_row: ''
         components:
-          d170e8bd-dfd1-47f0-b6b5-79cbc19b3448:
-            uuid: d170e8bd-dfd1-47f0-b6b5-79cbc19b3448
-            region: main
+          68928640-5c43-4bad-a1b1-b395e249e5f8:
+            uuid: 68928640-5c43-4bad-a1b1-b395e249e5f8
+            region: image_bg
             configuration:
-              id: 'field_block:paragraph:logo_partenaire:field_images'
-              label: images
+              id: 'field_block:paragraph:section_count_down:field_background'
+              label: 'Image d’arrière plan'
               label_display: '0'
               provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: image
+                type: image_url
                 label: hidden
                 settings:
-                  image_link: ''
-                  image_style: 120_120_logo_partenaire
-                  image_loading:
-                    attribute: lazy
+                  image_style: wide
                 third_party_settings:
                   formatage_models:
                     classes:
@@ -473,21 +471,131 @@ third_party_settings:
                       content: ''
             weight: 0
             additional: {  }
+          e25865a9-115f-45d0-9358-a079ab0092f3:
+            uuid: e25865a9-115f-45d0-9358-a079ab0092f3
+            region: main
+            configuration:
+              id: 'field_block:paragraph:section_count_down:field_paragraphs'
+              label: Paragraphs
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: 'd-flex flex-wrap'
+                      item: ' col-md-6 col-sm-12 col-12'
+                      content: ''
+            weight: 0
+            additional: {  }
         third_party_settings: {  }
-id: paragraph.logo_partenaire.default
+id: paragraph.section_count_down.default
 targetEntityType: paragraph
-bundle: logo_partenaire
+bundle: section_count_down
 mode: default
 content:
-  field_images:
-    type: image
+  field_background:
+    type: image_url
+    label: hidden
+    settings:
+      image_style: ''
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
+    weight: 6
+    region: main
+  field_btn1:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: 'btn btn-primary  w-100'
+          content: text-wbu-secondary
+    weight: 3
+    region: content
+  field_decompte:
+    type: datetime_default
     label: above
     settings:
-      image_link: ''
-      image_style: ''
-      image_loading:
-        attribute: lazy
-    third_party_settings: {  }
+      timezone_override: ''
+      format_type: medium
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
+    weight: 4
+    region: content
+  field_description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
+    weight: 2
+    region: content
+  field_subtitle:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
     weight: 1
     region: content
-hidden: {  }
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: 'text-center mb-3 h5 line-height-1 fw-light'
+          content: ''
+    weight: 0
+    region: content
+hidden:
+  field_paragraphs: true

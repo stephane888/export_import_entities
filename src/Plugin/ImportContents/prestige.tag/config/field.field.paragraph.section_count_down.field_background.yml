@@ -2,15 +2,15 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_images
-    - paragraphs.paragraphs_type.logo_partenaire
+    - field.storage.paragraph.field_background
+    - paragraphs.paragraphs_type.section_count_down
   module:
     - image
-id: paragraph.logo_partenaire.field_images
-field_name: field_images
+id: paragraph.section_count_down.field_background
+field_name: field_background
 entity_type: paragraph
-bundle: logo_partenaire
-label: images
+bundle: section_count_down
+label: 'Image d’arrière plan'
 description: ''
 required: false
 translatable: false

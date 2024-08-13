@@ -2,62 +2,58 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.field.paragraph.logo_partenaire.field_images
-    - paragraphs.paragraphs_type.logo_partenaire
+    - field.field.paragraph.count_down_region.field_decompte
+    - paragraphs.paragraphs_type.count_down_region
   module:
-    - formatage_models
-    - image
+    - datetime
     - layout_builder
+    - vixcon
 third_party_settings:
   layout_builder:
     enabled: true
     allow_custom: false
     sections:
       -
-        layout_id: formatage_models_simple_block
+        layout_id: vixcon_count_the_days_section
         layout_settings:
-          label: ' One column custom  ( formatage_models_simple_block ) '
+          label: ' Vixcon : Count the days  ( vixcon_count_the_days_section ) '
           context_mapping: {  }
-          css: mb-0
-          region_tag_main: div
-          config_section:
-            type_container: ''
-            container_class: ''
-            id: ''
-          sf:
+          load_libray: true
+          region_css_text_event_finish: 'text-center mx-auto pt-3 h2'
+          derivate:
+            value: vixon-counter-section--simple
+            options:
+              vixon-counter-section--simple: simple
+          infos:
             builder-form: true
             info:
-              title: ' Contenu '
+              title: 'Layout informations'
               loader: dynamic
             fields:
-              main:
-                text_html:
+              bold_title:
+                text:
+                  label: 'Titre gras'
+                  value: 'Count the day'
+              title:
+                text:
+                  label: Titre
+                  value: 'until conference start'
+              description:
+                text:
                   label: Description
-                  value: ''
-                  format: full_html
-              teasers_container:
+                  value: 'Accusantium provident suspicit dicta magni dolor deserunt nam abcaecati non veraris optio'
+              counter:
                 text_html:
-                  label: 'Container pour Teaser'
-                  value: ''
+                  label: 'Arrière Plan'
+                  value: 'The counter is down'
                   format: full_html
-              image_bg:
-                img_bg:
-                  label: image
-                  fids: {  }
-                  style: ''
-                  class: ''
-                  inbg: 0
-          region_css_main: ''
-          region_css_block_2: ''
-          region_css_block_3: ''
-          region_css_block_4: ''
-          region_css_block_5: ''
-          region_css_block_6: ''
-          region_css_image_bg: ''
-          region_css_teasers_container: ''
+          region_css_title: ''
+          region_css_bold_title: ''
+          region_css_description: ''
+          region_css_counter: ''
+          css: 'mb-0 p-0'
           load_clean_value: 0
           save_by_domain: null
-          load_libray: false
           container_wrapper:
             bootstrap_styles:
               background:
@@ -143,68 +139,52 @@ third_party_settings:
                 class: null
               scroll_effects:
                 class: null
-          id: formatage-models-simple-block-4664--mHqd_DVD0Cs
+          id: vixcon-count-the-days-section-7457--odsEao81l0Y
+          config_section:
+            type_container: ''
+            container_class: ''
+            id: vixcon-count-the-days-section-7457--odsEao81l0Y
           cover_section:
             active: 0
             model: ''
             opacity: ''
             zindex: ''
           aos_attributes:
-            main:
+            title:
               data_aos: ''
               data_aos_anchor_placement: ''
               data_aos_duration: ''
               data_aos_delay: ''
               data_aos_ease: ''
-            block_2:
+            bold_title:
               data_aos: ''
               data_aos_anchor_placement: ''
               data_aos_duration: ''
               data_aos_delay: ''
               data_aos_ease: ''
-            block_3:
+            description:
               data_aos: ''
               data_aos_anchor_placement: ''
               data_aos_duration: ''
               data_aos_delay: ''
               data_aos_ease: ''
-            block_4:
+            counter:
               data_aos: ''
               data_aos_anchor_placement: ''
               data_aos_duration: ''
               data_aos_delay: ''
               data_aos_ease: ''
-            block_5:
+            text_event_finish:
               data_aos: ''
               data_aos_anchor_placement: ''
               data_aos_duration: ''
               data_aos_delay: ''
               data_aos_ease: ''
-            block_6:
-              data_aos: ''
-              data_aos_anchor_placement: ''
-              data_aos_duration: ''
-              data_aos_delay: ''
-              data_aos_ease: ''
-            image_bg:
-              data_aos: ''
-              data_aos_anchor_placement: ''
-              data_aos_duration: ''
-              data_aos_delay: ''
-              data_aos_ease: ''
-            teasers_container:
-              data_aos: ''
-              data_aos_anchor_placement: ''
-              data_aos_duration: ''
-              data_aos_delay: ''
-              data_aos_ease: ''
-          region_tag_block_2: ''
-          region_tag_block_3: ''
-          region_tag_block_4: ''
-          region_tag_block_5: ''
-          region_tag_block_6: ''
-          region_tag_image_bg: ''
-          region_tag_teasers_container: ''
+          region_tag_title: ''
+          region_tag_bold_title: ''
+          region_tag_description: ''
+          region_tag_counter: ''
+          region_tag_text_event_finish: ''
           default_class:
             background_position:
               class: ''
@@ -232,7 +212,7 @@ third_party_settings:
             container_width:
               class: ''
             regions:
-              main:
+              title:
                 background_position:
                   class: ''
                   background:
@@ -258,7 +238,7 @@ third_party_settings:
                   class: ''
                 container_width:
                   class: ''
-              block_2:
+              bold_title:
                 background_position:
                   class: ''
                   background:
@@ -284,7 +264,7 @@ third_party_settings:
                   class: ''
                 container_width:
                   class: ''
-              block_3:
+              description:
                 background_position:
                   class: ''
                   background:
@@ -310,7 +290,7 @@ third_party_settings:
                   class: ''
                 container_width:
                   class: ''
-              block_4:
+              counter:
                 background_position:
                   class: ''
                   background:
@@ -336,85 +316,7 @@ third_party_settings:
                   class: ''
                 container_width:
                   class: ''
-              block_5:
-                background_position:
-                  class: ''
-                  background:
-                    '': 0
-                    background--attached: 0
-                    background--cover: 0
-                    background--contain: 0
-                spaces:
-                  class:
-                    '': 0
-                    space-bottom: 0
-                    space-top-inv: 0
-                    space-padding: 0
-                    space-inner-padding: 0
-                    space-inner-bottom: 0
-                    space-inner-top: 0
-                    padding-top: 0
-                    margin-top: 0
-                    padding-bottom: 0
-                border_radius:
-                  class: ''
-                box_shadow:
-                  class: ''
-                container_width:
-                  class: ''
-              block_6:
-                background_position:
-                  class: ''
-                  background:
-                    '': 0
-                    background--attached: 0
-                    background--cover: 0
-                    background--contain: 0
-                spaces:
-                  class:
-                    '': 0
-                    space-bottom: 0
-                    space-top-inv: 0
-                    space-padding: 0
-                    space-inner-padding: 0
-                    space-inner-bottom: 0
-                    space-inner-top: 0
-                    padding-top: 0
-                    margin-top: 0
-                    padding-bottom: 0
-                border_radius:
-                  class: ''
-                box_shadow:
-                  class: ''
-                container_width:
-                  class: ''
-              image_bg:
-                background_position:
-                  class: ''
-                  background:
-                    '': 0
-                    background--attached: 0
-                    background--cover: 0
-                    background--contain: 0
-                spaces:
-                  class:
-                    '': 0
-                    space-bottom: 0
-                    space-top-inv: 0
-                    space-padding: 0
-                    space-inner-padding: 0
-                    space-inner-bottom: 0
-                    space-inner-top: 0
-                    padding-top: 0
-                    margin-top: 0
-                    padding-bottom: 0
-                border_radius:
-                  class: ''
-                box_shadow:
-                  class: ''
-                container_width:
-                  class: ''
-              teasers_container:
+              text_event_finish:
                 background_position:
                   class: ''
                   background:
@@ -442,27 +344,23 @@ third_party_settings:
                   class: ''
           scss:
             scss_field: ''
-          class_row: ''
         components:
-          d170e8bd-dfd1-47f0-b6b5-79cbc19b3448:
-            uuid: d170e8bd-dfd1-47f0-b6b5-79cbc19b3448
-            region: main
+          f4c3ee19-5524-4d88-ad9c-2a20b32ce50f:
+            uuid: f4c3ee19-5524-4d88-ad9c-2a20b32ce50f
+            region: counter
             configuration:
-              id: 'field_block:paragraph:logo_partenaire:field_images'
-              label: images
+              id: 'field_block:paragraph:count_down_region:field_decompte'
+              label: decompte
               label_display: '0'
               provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: image
+                type: commerce_store_datetime
                 label: hidden
                 settings:
-                  image_link: ''
-                  image_style: 120_120_logo_partenaire
-                  image_loading:
-                    attribute: lazy
+                  date_format: medium
                 third_party_settings:
                   formatage_models:
                     classes:
@@ -474,20 +372,18 @@ third_party_settings:
             weight: 0
             additional: {  }
         third_party_settings: {  }
-id: paragraph.logo_partenaire.default
+id: paragraph.count_down_region.default
 targetEntityType: paragraph
-bundle: logo_partenaire
+bundle: count_down_region
 mode: default
 content:
-  field_images:
-    type: image
+  field_decompte:
+    type: datetime_default
     label: above
     settings:
-      image_link: ''
-      image_style: ''
-      image_loading:
-        attribute: lazy
+      timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
 hidden: {  }

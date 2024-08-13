@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_btn1
-    - paragraphs.paragraphs_type.text_et_partenaire
+    - paragraphs.paragraphs_type.region_text_for_count_dow
   module:
     - link
-id: paragraph.text_et_partenaire.field_btn1
+id: paragraph.region_text_for_count_dow.field_btn1
 field_name: field_btn1
 entity_type: paragraph
-bundle: text_et_partenaire
+bundle: region_text_for_count_dow
 label: Button
 description: ''
 required: false
@@ -18,7 +18,7 @@ default_value:
   -
     attributes: {  }
     uri: 'internal:#'
-    title: 'Learn more'
+    title: 'achetez maintenant'
     options: {  }
 default_value_callback: ''
 settings:

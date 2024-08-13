@@ -2,9 +2,9 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - paragraphs.paragraphs_type.logo_partenaire
-id: paragraph.logo_partenaire
+    - paragraphs.paragraphs_type.count_down_region
+id: paragraph.count_down_region
 target_entity_type_id: paragraph
-target_bundle: logo_partenaire
+target_bundle: count_down_region
 default_langcode: site_default
 language_alterable: false
