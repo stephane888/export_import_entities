@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: '300_500'
+label: '300*500'
+effects:
+  c1d7ee11-a71a-4493-a0eb-b1f3af1100a7:
+    uuid: c1d7ee11-a71a-4493-a0eb-b1f3af1100a7
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 300
+      height: 500
+      anchor: center-center
