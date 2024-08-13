@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.simple_paragraph
+id: paragraph.simple_paragraph
+target_entity_type_id: paragraph
+target_bundle: simple_paragraph
+default_langcode: site_default
+language_alterable: false

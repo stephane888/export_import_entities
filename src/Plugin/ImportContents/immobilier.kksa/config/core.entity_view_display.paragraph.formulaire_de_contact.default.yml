@@ -1,0 +1,1549 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.formulaire_de_contact.field_bloc_de_contac
+    - field.field.paragraph.formulaire_de_contact.field_description1
+    - field.field.paragraph.formulaire_de_contact.field_description2
+    - field.field.paragraph.formulaire_de_contact.field_formulaire
+    - field.field.paragraph.formulaire_de_contact.field_map
+    - field.field.paragraph.formulaire_de_contact.field_title1
+    - field.field.paragraph.formulaire_de_contact.field_title3
+    - paragraphs.paragraphs_type.formulaire_de_contact
+  module:
+    - formatage_models
+    - geolocation
+    - layout_builder
+    - text
+    - webform
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: formatage_models_contact_page
+        layout_settings:
+          label: ' contact page by TMC  ( formatage_models_contact_page ) '
+          context_mapping: {  }
+          region_css_left_content: ''
+          region_css_center_content: ''
+          region_css_form_content: ''
+          region_css_title: ''
+          region_css_subtitle: ''
+          region_css_socials: ''
+          region_css_title_contact: ''
+          region_css_title_contact_anime: ''
+          region_css_headercontact: ''
+          region_css_textcontact: ''
+          region_css_map: ''
+          region_css_form: ''
+          css: 'container mb-0 space-inner-padding custom-parargraph '
+          load_clean_value: 0
+          save_by_domain: null
+          load_libray: false
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: null
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              text_alignment:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              box_shadow:
+                class: null
+              scroll_effects:
+                class: null
+          id: formatage-models-contact-page-6542--Y4l60gppRl8
+          config_section:
+            type_container: container
+            container_class: custom
+            id: formatage-models-contact-page-6542--Y4l60gppRl8
+          cover_section:
+            active: 0
+            model: ''
+            opacity: ''
+            zindex: ''
+          noumel:
+            builder-form: true
+            info:
+              title: 'Content 1'
+              loader: dynamic
+            fields:
+              title:
+                text:
+                  label: titre
+                  value: 'Paula Bianco Architecte'
+              subtitle:
+                text_html:
+                  label: ' Sous titre '
+                  value: ' 103 Rue de la Dhuys <br> 93130 Noisy-le-Sec '
+                  format: full_html
+              socials:
+                text_html:
+                  label: ' Socials RX '
+                  value: '<ul class="social-networks nav"><li class="nav-item"><a class="nav-link" href="#" target="_blank"><span>Whatapp&nbsp;</span></a></li><li class="nav-item"><a class="nav-link" href="#" target="_blank"><span>instagram&nbsp;</span></a></li><li class="nav-item"><a class="nav-link" href="#" target="_blank"><span>Facebook&nbsp;</span></a></li><li class="nav-item"><a class="nav-link" href="#" target="_blank"><span>Houzz&nbsp;</span></a></li><li class="nav-item"><a class="nav-link" href="#" target="_blank"><span>Linkedln&nbsp;</span></a></li><li class="nav-item"><a class="nav-link" href="#" target="_blank"><span>homify&nbsp;</span></a></li><li class="nav-item"><a class="nav-link" href="#" target="_blank"><span>Skype&nbsp;</span></a></li></ul>'
+                  format: full_html
+              title_contact:
+                text:
+                  label: ' Title contact '
+                  value: ' Vous souhaitez : '
+              title_contact_anime:
+                text_html:
+                  label: ' Title contact anime '
+                  value: ''
+                  format: full_html
+              headercontact:
+                text_html:
+                  label: ' Text contact '
+                  value: '<p>Contactez nous via notre formulaire, ou directement par :</p>'
+                  format: full_html
+              textcontact:
+                text_html:
+                  label: ' Description contact '
+                  value: '<p><strong>Email :&nbsp;</strong><br><a class="" href="mailto:architecte@paulabianco.net">architecte@paulabianco.net</a></p><p><strong>Tél : </strong><a class="" href="tel:+33148596469"><strong>+33(0) 1 48 59 64 69</strong></a><br><strong>Portable : </strong><a class="" href="tel:+33601931068">+33(0) 6 01 93 10 68</a><br><strong>Fax : </strong>+33(0)1 48 59 64 69</p>'
+                  format: full_html
+              map:
+                text_html:
+                  label: ' Map google ou autre '
+                  value: ''
+                  format: full_html
+              form:
+                text_html:
+                  label: ' formulaire de contact '
+                  value: ''
+                  format: full_html
+          aos_attributes:
+            left_content:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            center_content:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            form_content:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            title:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            subtitle:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            socials:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            title_contact:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            title_contact_anime:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            headercontact:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            textcontact:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            map:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            form:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+          region_tag_left_content: ''
+          region_tag_center_content: ''
+          region_tag_form_content: ''
+          region_tag_title: ''
+          region_tag_subtitle: ''
+          region_tag_socials: ''
+          region_tag_title_contact: ''
+          region_tag_title_contact_anime: ''
+          region_tag_headercontact: ''
+          region_tag_textcontact: ''
+          region_tag_map: ''
+          region_tag_form: ''
+          default_class:
+            background_position:
+              class: ''
+              background:
+                '': 0
+                background--attached: 0
+                background--cover: 0
+                background--contain: 0
+            spaces:
+              class:
+                '': 0
+                space-bottom: 0
+                space-top-inv: 0
+                space-padding: 0
+                space-inner-padding: 0
+                space-inner-bottom: 0
+                space-inner-top: 0
+                padding-top: 0
+                margin-top: 0
+                padding-bottom: 0
+            border_radius:
+              class: ''
+            box_shadow:
+              class: ''
+            container_width:
+              class: ''
+            regions:
+              left_content:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              center_content:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              form_content:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              title:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              subtitle:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              socials:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              title_contact:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              title_contact_anime:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              headercontact:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              textcontact:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              map:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              form:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+          scss:
+            scss_field: ".right_content{\r\n  @extend .col-md-12, .col-sm-12, .col-12, .col-lg-6, .h-100, .space-inner-px, .border, .rounded-4, .mx-5, .bg-white ;\r\n}\r\n\r\n#edit-submit{\r\n    margin-bottom: 1.5rem !important;\r\n    width: 100% !important;\r\n  }\r\n > .row{\r\n    @extend .justify-content-center;\r\n   > div{\r\n    @extend .col-md-12, .col-sm-12, .col-12, .col-lg-4;\r\n   }\r\n  }"
+        components:
+          8ad4723e-4a42-4f5d-919b-0cc2b156b323:
+            uuid: 8ad4723e-4a42-4f5d-919b-0cc2b156b323
+            region: left_content
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_title1'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          6f02fef4-f875-4577-abbd-c0b45c048005:
+            uuid: 6f02fef4-f875-4577-abbd-c0b45c048005
+            region: left_content
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_description1'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          b31eac05-5a66-4cfd-81be-599326a28700:
+            uuid: b31eac05-5a66-4cfd-81be-599326a28700
+            region: left_content
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_title3'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 11
+            additional: {  }
+          fac859d3-48fa-4c73-a8eb-f7af0793cbd2:
+            uuid: fac859d3-48fa-4c73-a8eb-f7af0793cbd2
+            region: left_content
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_description2'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 12
+            additional: {  }
+          9a8f1f55-5103-4a49-9f15-2e11f517642e:
+            uuid: 9a8f1f55-5103-4a49-9f15-2e11f517642e
+            region: map
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_description2'
+              label: Description2
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: 'h5 text-black-50'
+                      content: ''
+            weight: 1
+            additional: {  }
+          2f3223df-ca65-4eda-a55e-98d8457f9fdf:
+            uuid: 2f3223df-ca65-4eda-a55e-98d8457f9fdf
+            region: title
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_title1'
+              label: Title1
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: 'h4 fw-bold text-black'
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          e269fcf3-ab20-4d9f-b45a-b1f209200d5e:
+            uuid: e269fcf3-ab20-4d9f-b45a-b1f209200d5e
+            region: subtitle
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_description1'
+              label: Description1
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: 'h5 text-black-50'
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          dd014eca-cd00-4d42-bc0a-f6d0086ec4c7:
+            uuid: dd014eca-cd00-4d42-bc0a-f6d0086ec4c7
+            region: left_content
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_formulaire'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: webform_entity_reference_entity_view
+                label: above
+                settings:
+                  source_entity: true
+                  lazy: false
+                third_party_settings: {  }
+            weight: 13
+            additional: {  }
+          a17fe57c-0995-4299-9ee0-1e66a97f6f1b:
+            uuid: a17fe57c-0995-4299-9ee0-1e66a97f6f1b
+            region: form
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_formulaire'
+              label: formulaire
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: webform_entity_reference_entity_view
+                label: hidden
+                settings:
+                  source_entity: true
+                  lazy: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          58e20311-5e95-4987-9ce6-6a8365819c4c:
+            uuid: 58e20311-5e95-4987-9ce6-6a8365819c4c
+            region: left_content
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_bloc_de_contac'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: entity_reference_label
+                label: above
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 14
+            additional: {  }
+          1864b61a-1cfb-496b-b0d4-e28102212201:
+            uuid: 1864b61a-1cfb-496b-b0d4-e28102212201
+            region: socials
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_bloc_de_contac'
+              label: 'bloc de contac'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: custom-contact
+                      item: 'p-3 bg-white border rounded-4 space-inner-bottom custom-bloc-contact'
+                      content: ''
+            weight: 0
+            additional: {  }
+          0530d2cb-f400-4461-9534-7a06caf1ddc5:
+            uuid: 0530d2cb-f400-4461-9534-7a06caf1ddc5
+            region: map
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_title3'
+              label: Title2
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: 'h4 fw-bold text-black'
+                      content: ''
+            weight: 0
+            additional: {  }
+          0cdd85d9-bd8e-4d3c-a18f-9079df1db62d:
+            uuid: 0cdd85d9-bd8e-4d3c-a18f-9079df1db62d
+            region: left_content
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_map'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: geolocation_latlng
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 15
+            additional: {  }
+          24bf240e-58eb-4015-a09c-de1e11f41f54:
+            uuid: 24bf240e-58eb-4015-a09c-de1e11f41f54
+            region: left_content
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_map'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: geolocation_latlng
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 16
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: formatage_models_simple_block
+        layout_settings:
+          label: ' One column custom  ( formatage_models_simple_block ) '
+          context_mapping: {  }
+          css: mb-0
+          region_tag_main: div
+          config_section:
+            type_container: ''
+            container_class: ''
+            id: formatage-models-simple-block-1124--ni2DmTgiLs0
+          sf:
+            builder-form: true
+            info:
+              title: ' Contenu '
+              loader: static
+            fields:
+              main:
+                text_html:
+                  label: Description
+                  value: ''
+                  format: full_html
+              teasers_container:
+                text_html:
+                  label: 'Container pour Teaser'
+                  value: ''
+                  format: full_html
+              image_bg:
+                img_bg:
+                  label: image
+                  fids: {  }
+                  style: ''
+                  class: ''
+                  inbg: 0
+          region_css_main: ''
+          region_css_image_bg: ''
+          region_css_teasers_container: ''
+          load_clean_value: 0
+          save_by_domain: null
+          load_libray: false
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: null
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              text_alignment:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              box_shadow:
+                class: null
+              scroll_effects:
+                class: null
+          id: formatage-models-simple-block-1124--ni2DmTgiLs0
+          cover_section:
+            active: 0
+            model: ''
+            opacity: ''
+            zindex: ''
+          aos_attributes:
+            main:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            image_bg:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            teasers_container:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+          region_tag_image_bg: ''
+          region_tag_teasers_container: ''
+          default_class:
+            background_position:
+              class: ''
+              background:
+                '': 0
+                background--attached: 0
+                background--cover: 0
+                background--contain: 0
+            spaces:
+              class:
+                '': 0
+                space-bottom: 0
+                space-top-inv: 0
+                space-padding: 0
+                space-inner-padding: 0
+                space-inner-bottom: 0
+                space-inner-top: 0
+                padding-top: 0
+                margin-top: 0
+                padding-bottom: 0
+            border_radius:
+              class: ''
+            box_shadow:
+              class: ''
+            container_width:
+              class: ''
+            regions:
+              main:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              image_bg:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              teasers_container:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+          scss:
+            scss_field: ''
+          class_row: ''
+        components:
+          8bed1891-3122-4ff0-8dad-f2b4593a4f56:
+            uuid: 8bed1891-3122-4ff0-8dad-f2b4593a4f56
+            region: main
+            configuration:
+              id: 'field_block:paragraph:formulaire_de_contact:field_map'
+              label: map
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: geolocation_map
+                label: hidden
+                settings:
+                  set_marker: true
+                  show_label: false
+                  use_overridden_map_settings: false
+                  title: ''
+                  info_text:
+                    value: ''
+                    format: plain_text
+                  replacement_patterns:
+                    token_geolocation:
+                      token_items: ''
+                  centre:
+                    fit_bounds:
+                      enable: true
+                      weight: -101
+                      settings:
+                        reset_zoom: true
+                        min_zoom: null
+                      map_center_id: fit_bounds
+                    fixed_boundaries:
+                      enable: false
+                      weight: 0
+                      settings:
+                        south: ''
+                        west: ''
+                        north: ''
+                        east: ''
+                      map_center_id: fixed_boundaries
+                    fixed_value:
+                      enable: false
+                      weight: 0
+                      settings:
+                        location_option_id: fixed_value
+                        latitude: null
+                        longitude: null
+                      map_center_id: location_plugins
+                    ipstack:
+                      enable: false
+                      weight: 0
+                      settings:
+                        location_option_id: ipstack
+                        access_key: ''
+                      map_center_id: location_plugins
+                    client_location:
+                      enable: false
+                      weight: 0
+                      map_center_id: client_location
+                  map_provider_id: google_maps
+                  map_provider_settings:
+                    map_features:
+                      google_maps_layer_bicycling:
+                        weight: 0
+                        enabled: false
+                      client_location_indicator:
+                        weight: 0
+                        enabled: false
+                      context_popup:
+                        weight: 0
+                        settings:
+                          content:
+                            value: ''
+                            format: basic_html
+                        enabled: false
+                      drawing:
+                        weight: 0
+                        settings:
+                          polyline: false
+                          strokeColor: '#FF0000'
+                          strokeOpacity: '0.8'
+                          strokeWeight: '2'
+                          geodesic: false
+                          polygon: false
+                          fillColor: '#FF0000'
+                          fillOpacity: '0.35'
+                        enabled: false
+                      geolocation_google_maps_control_directions:
+                        weight: 0
+                        settings:
+                          position: RIGHT_CENTER
+                          behavior: default
+                          origin_source: exposed
+                          origin_static_value: ''
+                          destination_source: exposed
+                          destination_static_value: ''
+                          travel_mode: exposed
+                          directions_container: below
+                          directions_container_custom_id: ''
+                        enabled: false
+                      map_disable_tilt:
+                        weight: 0
+                        enabled: false
+                      map_disable_poi:
+                        weight: 0
+                        enabled: false
+                      map_disable_user_interaction:
+                        weight: 0
+                        enabled: false
+                      geolocation_shapes:
+                        weight: 0
+                        settings:
+                          remove_markers: false
+                          polyline: true
+                          polyline_title: ''
+                          strokeColor: '#FF0000'
+                          strokeOpacity: 0.8
+                          strokeWidth: '2'
+                          polygon: false
+                          polygon_title: ''
+                          fillColor: '#FF0000'
+                          fillOpacity: 0.35
+                        enabled: false
+                      control_fullscreen:
+                        weight: 0
+                        settings:
+                          position: RIGHT_CENTER
+                          behavior: default
+                        enabled: false
+                      control_geocoder:
+                        weight: 0
+                        settings:
+                          position: TOP_LEFT
+                          geocoder: google_geocoding_api
+                          settings:
+                            label: Adresse
+                            description: 'Enter an address to be localized.'
+                            autocomplete_min_length: 1
+                            component_restrictions:
+                              route: ''
+                              country: ''
+                              administrative_area: ''
+                              locality: ''
+                              postal_code: ''
+                            boundary_restriction:
+                              south: ''
+                              west: ''
+                              north: ''
+                              east: ''
+                            region: ''
+                        enabled: false
+                      control_loading_indicator:
+                        weight: 0
+                        settings:
+                          position: TOP_LEFT
+                          loading_label: Loading
+                        enabled: false
+                      control_locate:
+                        weight: 0
+                        settings:
+                          position: TOP_LEFT
+                        enabled: true
+                      control_maptype:
+                        weight: 0
+                        settings:
+                          position: RIGHT_BOTTOM
+                          behavior: default
+                          style: DEFAULT
+                        enabled: true
+                      control_recenter:
+                        weight: 0
+                        settings:
+                          position: TOP_LEFT
+                        enabled: false
+                      control_rotate:
+                        weight: 0
+                        settings:
+                          position: RIGHT_CENTER
+                          behavior: default
+                        enabled: false
+                      control_streetview:
+                        weight: 0
+                        settings:
+                          position: RIGHT_CENTER
+                          behavior: default
+                        enabled: false
+                      control_zoom:
+                        weight: 0
+                        settings:
+                          position: RIGHT_CENTER
+                          behavior: default
+                          style: LARGE
+                        enabled: true
+                      map_restriction:
+                        weight: 0
+                        settings:
+                          north: ''
+                          south: ''
+                          east: ''
+                          west: ''
+                          strict: true
+                        enabled: false
+                      map_type_style:
+                        weight: 0
+                        settings:
+                          style: '[]'
+                        enabled: false
+                      marker_clusterer:
+                        weight: 0
+                        settings:
+                          image_path: ''
+                          styles: ''
+                          max_zoom: 15
+                          minimum_cluster_size: 2
+                          zoom_on_click: true
+                          average_center: false
+                          grid_size: 60
+                        enabled: false
+                      marker_icon:
+                        weight: 0
+                        settings:
+                          marker_icon_path: ''
+                          anchor:
+                            x: 0
+                            'y': 0
+                          origin:
+                            x: 0
+                            'y': 0
+                          label_origin:
+                            x: 0
+                            'y': 0
+                          size:
+                            width: null
+                            height: null
+                          scaled_size:
+                            width: null
+                            height: null
+                        enabled: false
+                      marker_infobubble:
+                        weight: 0
+                        settings:
+                          close_other: 1
+                          close_button: 0
+                          close_button_src: ''
+                          shadow_style: 0
+                          padding: 10
+                          border_radius: 8
+                          border_width: 2
+                          border_color: '#039be5'
+                          background_color: '#fff'
+                          min_width: null
+                          max_width: 550
+                          min_height: null
+                          max_height: null
+                          arrow_style: 2
+                          arrow_position: 30
+                          arrow_size: 10
+                        enabled: false
+                      marker_infowindow:
+                        weight: 0
+                        settings:
+                          info_window_solitary: true
+                          disable_auto_pan: true
+                          info_auto_display: false
+                          max_width: null
+                        enabled: true
+                      marker_label:
+                        weight: 0
+                        settings:
+                          color: ''
+                          font_family: ''
+                          font_size: ''
+                          font_weight: ''
+                        enabled: false
+                      marker_opacity:
+                        weight: 0
+                        settings:
+                          opacity: 1.0
+                        enabled: false
+                      geolocation_marker_scroll_to_id:
+                        weight: 0
+                        settings:
+                          scroll_target_id: ''
+                        enabled: false
+                      marker_zoom_to_animate:
+                        weight: 0
+                        settings:
+                          marker_zoom_anchor_id: ''
+                        enabled: false
+                      spiderfying:
+                        weight: 0
+                        settings:
+                          spiderfiable_marker_path: /modules/contrib/geolocation/modules/geolocation_google_maps/images/marker-plus.svg
+                          markersWontMove: true
+                          markersWontHide: false
+                          keepSpiderfied: true
+                          ignoreMapClick: false
+                          nearbyDistance: 20
+                          circleSpiralSwitchover: 9
+                          circleFootSeparation: 23
+                          spiralFootSeparation: 26
+                          spiralLengthStart: 11
+                          spiralLengthFactor: 4
+                          legWeight: 1.5
+                          spiralIconWidth: 23
+                          spiralIconHeight: 32
+                        enabled: false
+                      google_maps_layer_traffic:
+                        weight: 0
+                        enabled: false
+                      google_maps_layer_transit:
+                        weight: 0
+                        enabled: false
+                    type: ROADMAP
+                    zoom: 10
+                    minZoom: 0
+                    maxZoom: 20
+                    height: 400px
+                    width: 100%
+                    gestureHandling: auto
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: paragraph.formulaire_de_contact.default
+targetEntityType: paragraph
+bundle: formulaire_de_contact
+mode: default
+content:
+  field_bloc_de_contac:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 14
+    region: left_content
+  field_description1:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: left_content
+  field_description2:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
+    region: left_content
+  field_formulaire:
+    type: webform_entity_reference_entity_view
+    label: above
+    settings:
+      source_entity: true
+      lazy: false
+    third_party_settings: {  }
+    weight: 13
+    region: left_content
+  field_map:
+    type: geolocation_latlng
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 16
+    region: left_content
+  field_title1:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: left_content
+  field_title3:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 11
+    region: left_content
+hidden: {  }

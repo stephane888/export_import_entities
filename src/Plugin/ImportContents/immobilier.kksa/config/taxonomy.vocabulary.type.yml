@@ -1,0 +1,8 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: 'type de bien immobilier'
+vid: type
+description: 'pour definir un type de logement'
+weight: 0
+new_revision: false

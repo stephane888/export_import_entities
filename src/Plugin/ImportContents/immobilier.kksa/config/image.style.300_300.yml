@@ -1,0 +1,14 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: '300_300'
+label: '200*150'
+effects:
+  0f969f48-02dc-456b-b2e1-b2398d48a835:
+    uuid: 0f969f48-02dc-456b-b2e1-b2398d48a835
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 200
+      height: 150
+      anchor: center-center

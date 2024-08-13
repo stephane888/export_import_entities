@@ -2,12 +2,12 @@ langcode: fr
 status: true
 dependencies:
   module:
+    - block_content
     - file
     - image
-    - paragraphs
-id: paragraph.field_images
-field_name: field_images
-entity_type: paragraph
+id: block_content.field_image2
+field_name: field_image2
+entity_type: block_content
 type: image
 settings:
   target_type: file
@@ -18,8 +18,8 @@ settings:
     uuid: ''
     alt: ''
     title: ''
-    width: 1000
-    height: 1000
+    width: null
+    height: null
 module: image
 locked: false
 cardinality: 1

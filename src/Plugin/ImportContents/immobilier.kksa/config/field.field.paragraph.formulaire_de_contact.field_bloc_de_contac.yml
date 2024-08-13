@@ -1,0 +1,28 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.bloc_contact
+    - field.storage.paragraph.field_bloc_de_contac
+    - paragraphs.paragraphs_type.formulaire_de_contact
+id: paragraph.formulaire_de_contact.field_bloc_de_contac
+field_name: field_bloc_de_contac
+entity_type: paragraph
+bundle: formulaire_de_contact
+label: 'bloc de contac'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      bloc_contact: bloc_contact
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

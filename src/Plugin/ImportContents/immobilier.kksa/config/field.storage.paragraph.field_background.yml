@@ -5,8 +5,8 @@ dependencies:
     - file
     - image
     - paragraphs
-id: paragraph.field_images
-field_name: field_images
+id: paragraph.field_background
+field_name: field_background
 entity_type: paragraph
 type: image
 settings:
@@ -18,8 +18,8 @@ settings:
     uuid: ''
     alt: ''
     title: ''
-    width: 1000
-    height: 1000
+    width: null
+    height: null
 module: image
 locked: false
 cardinality: 1

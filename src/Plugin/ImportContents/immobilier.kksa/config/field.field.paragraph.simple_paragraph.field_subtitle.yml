@@ -1,0 +1,21 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_subtitle
+    - paragraphs.paragraphs_type.simple_paragraph
+  module:
+    - text
+id: paragraph.simple_paragraph.field_subtitle
+field_name: field_subtitle
+entity_type: paragraph
+bundle: simple_paragraph
+label: Subtitle
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

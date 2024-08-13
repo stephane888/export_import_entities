@@ -15,14 +15,14 @@ settings:
   display_default: false
   uri_scheme: public
   default_image:
-    uuid: ''
+    uuid: a47d7d95-be30-4f8f-a67c-18f195585b9d
     alt: ''
     title: ''
-    width: 1000
-    height: 1000
+    width: 777
+    height: 636
 module: image
 locked: false
-cardinality: 1
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false
