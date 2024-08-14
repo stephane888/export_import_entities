@@ -1,0 +1,452 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.navigate_to_next
+  module:
+    - formatage_models
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: formatage_models_simple_block
+        layout_settings:
+          label: ' One column custom  ( formatage_models_simple_block ) '
+          context_mapping: {  }
+          css: ''
+          region_tag_main: div
+          config_section:
+            type_container: ''
+            container_class: ''
+            id: formatage-models-simple-block-3033--wLi3kQgKsgI
+          sf:
+            builder-form: true
+            info:
+              title: ' Contenu '
+              loader: static
+            fields:
+              main:
+                text_html:
+                  label: Description
+                  value: "<button data-action=\"navigate-next\" class=\"navigate-next d-flex align-items-center justify-content-center btn btn-light\">\r\n        <span class=\"sr-only\">Navigate to next section</span><svg aria-hidden=\"true\" focusable=\"false\" fill=\"none\" width=\"18\" class=\"icon icon-arrow-down\" viewBox=\"0 0 18 16\">\r\n      <path d=\"m1 4 8 8 8-8\" stroke=\"currentColor\" stroke-linecap=\"square\"></path>\r\n    </svg></button>"
+                  format: texte_code
+              teasers_container:
+                text_html:
+                  label: 'Container pour Teaser'
+                  value: ''
+                  format: full_html
+              image_bg:
+                img_bg:
+                  label: image
+                  fids: {  }
+                  style: ''
+                  class: ''
+                  inbg: 0
+          region_css_main: 'd-flex align-items-center justify-content-center'
+          region_css_block_2: ''
+          region_css_block_3: ''
+          region_css_block_4: ''
+          region_css_block_5: ''
+          region_css_block_6: ''
+          region_css_image_bg: ''
+          region_css_teasers_container: ''
+          load_clean_value: 0
+          save_by_domain: null
+          load_libray: false
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: null
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              text_alignment:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              box_shadow:
+                class: null
+              scroll_effects:
+                class: null
+          id: formatage-models-simple-block-3033--wLi3kQgKsgI
+          cover_section:
+            active: 0
+            model: ''
+            opacity: ''
+            zindex: ''
+          aos_attributes:
+            main:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            block_2:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            block_3:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            block_4:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            block_5:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            block_6:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            image_bg:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            teasers_container:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+          region_tag_block_2: ''
+          region_tag_block_3: ''
+          region_tag_block_4: ''
+          region_tag_block_5: ''
+          region_tag_block_6: ''
+          region_tag_image_bg: ''
+          region_tag_teasers_container: ''
+          default_class:
+            background_position:
+              class: ''
+              background:
+                '': 0
+                background--attached: 0
+                background--cover: 0
+                background--contain: 0
+            spaces:
+              class:
+                '': 0
+                space-bottom: 0
+                space-top-inv: 0
+                space-padding: 0
+                space-inner-padding: 0
+                space-inner-bottom: 0
+                space-inner-top: 0
+                padding-top: 0
+                margin-top: 0
+                padding-bottom: 0
+            border_radius:
+              class: ''
+            box_shadow:
+              class: ''
+            container_width:
+              class: ''
+            regions:
+              main:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              block_2:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              block_3:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              block_4:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              block_5:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              block_6:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              image_bg:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              teasers_container:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+          scss:
+            scss_field: "  position: relative;\r\n  z-index: 10;\r\n  $rayon: $wbu-margin * 2.8;\r\n  .navigate-next {\r\n    border-radius: 50%;\r\n    box-shadow: 0 0.125rem 0.625rem rgb(28 28 28 / 0.15);\r\n    width: $rayon;\r\n    height: $rayon;\r\n    padding: 0;\r\n    margin-top: -$rayon * 0.5;\r\n    .icon {\r\n      height: auto;\r\n      transition: transform 0.2s;\r\n      display: block;\r\n    }\r\n    &:hover svg {\r\n      animation: 0.35s ease-in-out forwards animateIconBlock;\r\n    }\r\n  }\r\n  @keyframes animateIconBlock {\r\n    0% {\r\n      opacity: 1;\r\n      transform: translateY(0%);\r\n    }\r\n\r\n    50% {\r\n      opacity: 0;\r\n      transform: translateY(100%);\r\n    }\r\n\r\n    51% {\r\n      opacity: 0;\r\n      transform: translateY(-100%);\r\n    }\r\n\r\n    100% {\r\n      opacity: 1;\r\n      transform: translateY(0%);\r\n    }\r\n  }"
+            file_js: "Drupal.behaviors.paragraph_navigate_to_next = {\r\n    attach: function (context, settings) {\r\n      if (context.querySelectorAll && context.querySelectorAll('[data-action=\"navigate-next\"]')) {\r\n        once(\"paragraph_navigate_to_next\", '[data-action=\"navigate-next\"]', context).forEach((scrollToTopBtn) => {\r\n          scrollToTopBtn.addEventListener(\"click\", function () {\r\n            // Obtenir la position du bouton par rapport au haut de la page\r\n            const buttonPosition = scrollToTopBtn.getBoundingClientRect().top + window.scrollY;\r\n            window.scrollTo({\r\n              top: buttonPosition,\r\n              behavior: \"smooth\", // Pour un défilement fluide\r\n            });\r\n          });\r\n        });\r\n      }\r\n    },\r\n  };"
+          class_row: ''
+        components: {  }
+        third_party_settings: {  }
+id: paragraph.navigate_to_next.default
+targetEntityType: paragraph
+bundle: navigate_to_next
+mode: default
+content: {  }
+hidden: {  }
