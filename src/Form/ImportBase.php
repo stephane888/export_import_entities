@@ -88,9 +88,18 @@ abstract class ImportBase extends FormBase {
           $form_state->set('base_directory', $base_directory);
           $form_state->set('keyIdentification', $keyIdentification);
           //
-          $configs = $plugin->BuildBatchImportConfigs($base_directory, $keyIdentification);
-          
-          $installedConfigs = $plugin->getInstalledConfig($base_directory, $keyIdentification);
+          $configs = [];
+          $installedConfigs = [];
+          try {
+            $configs = $plugin->BuildBatchImportConfigs($base_directory, $keyIdentification);
+            $installedConfigs = $plugin->getInstalledConfig($base_directory, $keyIdentification);
+          }
+          catch (\ErrorException $e) {
+            $this->messenger()->addError($e->getMessage());
+          }
+          catch (\Error $e) {
+            $this->messenger()->addError($e->getMessage());
+          }
           
           $form_state->set('BatchImportConfigs', $configs);
           $form['datas']['configs'] = [
