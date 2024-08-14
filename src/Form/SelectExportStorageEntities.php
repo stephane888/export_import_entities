@@ -261,7 +261,6 @@ final class SelectExportStorageEntities extends ExportBase {
       $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $bundle, $BundleEntityType);
       $this->getOrthersConfig($entity);
       $configs = $this->LoadConfigs->getGenerate();
-      
       /**
        * Recuperation des contenus.
        *

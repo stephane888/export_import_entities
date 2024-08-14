@@ -66,6 +66,12 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   protected $EntityRepository;
   
   /**
+   *
+   * @var array
+   */
+  protected $configAll = [];
+  
+  /**
    * chemin de base pour les fichiers generées.
    *
    * @var string
@@ -401,29 +407,52 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    */
   function BuildBatchImportConfigs(string $base_directory, $keyIdentification) {
     $configsBatch = [];
-    self::$base_directory = $base_directory;
-    $pathConfig = $this->getConfigDirectory();
-    if (file_exists($pathConfig . '/' . $keyIdentification))
-      $pathConfig = $pathConfig . '/' . $keyIdentification;
-    $mask = '/.*\.yml$/';
-    $filesConfigToImport = $this->file_system->scanDirectory($pathConfig, "$mask");
-    $source = new \Drupal\Core\Config\FileStorage($pathConfig);
-    /**
-     *
-     * @var \Drupal\Core\Config\CachedStorage $config_storage
-     */
-    $config_storage = \Drupal::service('config.storage');
-    $configs = [];
-    foreach ($filesConfigToImport as $fileConfigToImport) {
-      $configs[$fileConfigToImport->name] = $source->read($fileConfigToImport->name);
-    }
     /**
      *
      * @var \Drupal\export_import_entities\Services\ConfigImportCustom $import_config_custom
      */
     $import_config_custom = \Drupal::service("export_import_entities.import_config_custom");
-    $import_config_custom->buildBatchImportConfigs($configs, $configsBatch);
+    $import_config_custom->buildBatchImportConfigs($this->getAllConfigs($base_directory, $keyIdentification), $configsBatch);
     return $configsBatch;
+  }
+  
+  function getInstalledConfig(string $base_directory, $keyIdentification) {
+    $installedConfigs = [];
+    foreach ($this->getAllConfigs($base_directory, $keyIdentification) as $name => $value) {
+      $config = \Drupal::config($name);
+      if (!$config->isNew()) {
+        $installedConfigs[$name] = Yaml::encode($value);
+      }
+    }
+    return $installedConfigs;
+  }
+  
+  /**
+   *
+   * @param string $base_directory
+   * @param string $keyIdentification
+   */
+  protected function getAllConfigs(string $base_directory, $keyIdentification) {
+    self::$base_directory = $base_directory;
+    if (empty($this->configAll[$keyIdentification])) {
+      $pathConfig = $this->getConfigDirectory();
+      if (file_exists($pathConfig . '/' . $keyIdentification))
+        $pathConfig = $pathConfig . '/' . $keyIdentification;
+      $mask = '/.*\.yml$/';
+      $filesConfigToImport = $this->file_system->scanDirectory($pathConfig, "$mask");
+      $source = new \Drupal\Core\Config\FileStorage($pathConfig);
+      /**
+       *
+       * @var \Drupal\Core\Config\CachedStorage $config_storage
+       */
+      $config_storage = \Drupal::service('config.storage');
+      $configs = [];
+      foreach ($filesConfigToImport as $fileConfigToImport) {
+        $configs[$fileConfigToImport->name] = $source->read($fileConfigToImport->name);
+      }
+      $this->configAll[$keyIdentification] = $configs;
+    }
+    return $this->configAll[$keyIdentification];
   }
   
   /**
@@ -438,7 +467,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
      * @var \Drupal\export_import_entities\Services\ConfigImportCustom $import_config_custom
      */
     $import_config_custom = \Drupal::service("export_import_entities.import_config_custom");
-    $arrayConfig = $import_config_custom->importConfig($name, $configData);
+    return $import_config_custom->importConfig($name, $configData);
   }
   
   /**

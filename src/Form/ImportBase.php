@@ -90,15 +90,23 @@ abstract class ImportBase extends FormBase {
           //
           $configs = $plugin->BuildBatchImportConfigs($base_directory, $keyIdentification);
           
+          $installedConfigs = $plugin->getInstalledConfig($base_directory, $keyIdentification);
+          
           $form_state->set('BatchImportConfigs', $configs);
-          $form['datas']['#title'] = 'datas (' . count($configs) . ' à importer )';
+          $form['datas']['configs'] = [
+            '#type' => 'details',
+            '#open' => true,
+            '#title' => 'Configuation à installer : (' . count($configs) . '  )',
+            '#attributes' => [],
+            '#tree' => true
+          ];
           foreach ($configs as $name => $config) {
-            $form['datas'][$name] = [
+            $form['datas']['configs'][$name] = [
               '#type' => 'details',
               '#open' => false,
               '#title' => $name
             ];
-            $form['datas'][$name]['value'] = [
+            $form['datas']['configs'][$name]['value'] = [
               '#type' => 'html_tag',
               '#tag' => 'pre',
               '#value' => $config,
@@ -107,6 +115,30 @@ abstract class ImportBase extends FormBase {
               ]
             ];
           }
+          $form['datas']['configs_installed'] = [
+            '#type' => 'details',
+            '#open' => true,
+            '#title' => 'Configuration existant : (' . count($installedConfigs) . '  )',
+            '#attributes' => [],
+            '#tree' => true
+          ];
+          foreach ($installedConfigs as $name => $config) {
+            $form['datas']['configs_installed'][$name] = [
+              '#type' => 'details',
+              '#open' => false,
+              '#title' => $name
+            ];
+            $form['datas']['configs_installed'][$name]['value'] = [
+              '#type' => 'html_tag',
+              '#tag' => 'pre',
+              '#value' => $config,
+              '#attributes' => [
+                'style' => "word-wrap:break-word;"
+              ]
+            ];
+          }
+          
+          //
           $form['datas']['actions'] = [
             '#type' => 'actions',
             'submit' => [
