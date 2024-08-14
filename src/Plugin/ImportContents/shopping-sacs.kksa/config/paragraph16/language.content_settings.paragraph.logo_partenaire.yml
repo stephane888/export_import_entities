@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.logo_partenaire
+id: paragraph.logo_partenaire
+target_entity_type_id: paragraph
+target_bundle: logo_partenaire
+default_langcode: site_default
+language_alterable: false
