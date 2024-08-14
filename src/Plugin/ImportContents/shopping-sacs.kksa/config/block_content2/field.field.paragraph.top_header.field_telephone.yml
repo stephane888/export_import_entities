@@ -1,0 +1,20 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_telephone
+    - paragraphs.paragraphs_type.top_header
+  module:
+    - phone_international
+id: paragraph.top_header.field_telephone
+field_name: field_telephone
+entity_type: paragraph
+bundle: top_header
+label: telephone
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: phone_international

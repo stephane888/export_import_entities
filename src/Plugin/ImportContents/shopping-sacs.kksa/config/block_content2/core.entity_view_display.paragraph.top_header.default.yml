@@ -1,0 +1,631 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.top_header.field_icons_buttons
+    - field.field.paragraph.top_header.field_subtitle
+    - field.field.paragraph.top_header.field_telephone
+    - paragraphs.paragraphs_type.top_header
+    - system.menu.account
+  module:
+    - formatage_models
+    - layout_builder
+    - more_fields
+    - phone_international
+    - system
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: formatage_models_header_thegem_01
+        layout_settings:
+          label: ' Header Thegem 01  ( formatage_models_header_thegem_01 ) '
+          context_mapping: {  }
+          css: 'bg-dark text-white mb-0'
+          region_css_data_mobile: 'me-auto d-lg-none'
+          load_libray: true
+          infos:
+            builder-form: true
+            info:
+              title: 'Texte information'
+              loader: dynamic
+            fields:
+              infos_f1:
+                icon-f:
+                  value: 'fas fa-map-marker-alt'
+                  link: '#'
+                  text: ''
+                  label: ''
+                  class: ''
+                  show_text: 0
+                text:
+                  value: ' 19th Ave New York, NY 95822, USA'
+              infos_f2:
+                icon-f:
+                  value: 'fas fa-phone-alt'
+                  link: '#'
+                  text: ''
+                  label: ''
+                  class: ''
+                  show_text: 0
+                text:
+                  value: ' +237 694-900-622 '
+          social-items:
+            builder-form: true
+            info:
+              title: 'Social icone'
+              loader: dynamic
+            fields:
+              socials_rx:
+                text_html:
+                  label: rx
+                  value: "<ul class=\"social-links\">\r\n            <li class=\"nav-item ml-3\">\r\n              <a class=\"nav-link link\">\r\n                <svg\r\n                  xmlns=\"http://www.w3.org/2000/svg\"\r\n                  width=\"7\"\r\n                  height=\"14.41\"\r\n                  preserveAspectRatio=\"xMidYMid meet\"\r\n                  viewBox=\"0 0 486.037 1000\"\r\n                >\r\n                  <path\r\n                    fill=\"currentColor\"\r\n                    d=\"M124.074 1000V530.771H0V361.826h124.074V217.525C124.074 104.132 197.365 0 366.243 0C434.619 0 485.18 6.555 485.18 6.555l-3.984 157.766s-51.564-.502-107.833-.502c-60.9 0-70.657 28.065-70.657 74.646v123.361h183.331l-7.977 168.945H302.706V1000H124.074\"\r\n                  />\r\n                </svg>\r\n              </a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a href=\"#\" class=\"nav-link link\">\r\n                <svg\r\n                  xmlns=\"http://www.w3.org/2000/svg\"\r\n                  width=\"15\"\r\n                  height=\"15\"\r\n                  preserveAspectRatio=\"xMidYMid meet\"\r\n                  viewBox=\"0 0 24 24\"\r\n                >\r\n                  <path\r\n                    fill=\"currentColor\"\r\n                    fill-rule=\"evenodd\"\r\n                    d=\"M9.429 8.969h3.714v1.85c.535-1.064 1.907-2.02 3.968-2.02c3.951 0 4.889 2.118 4.889 6.004V22h-4v-6.312c0-2.213-.535-3.461-1.897-3.461c-1.889 0-2.674 1.345-2.674 3.46V22h-4V8.969ZM2.57 21.83h4V8.799h-4V21.83ZM7.143 4.55a2.53 2.53 0 0 1-.753 1.802a2.573 2.573 0 0 1-1.82.748a2.59 2.59 0 0 1-1.818-.747A2.548 2.548 0 0 1 2 4.55c0-.677.27-1.325.753-1.803A2.583 2.583 0 0 1 4.571 2c.682 0 1.336.269 1.819.747c.482.478.753 1.126.753 1.803Z\"\r\n                    clip-rule=\"evenodd\"\r\n                  />\r\n                </svg>\r\n              </a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a href=\"#\" class=\"nav-link link\">\r\n                <svg\r\n                  xmlns=\"http://www.w3.org/2000/svg\"\r\n                  width=\"16\"\r\n                  height=\"16\"\r\n                  preserveAspectRatio=\"xMidYMid meet\"\r\n                  viewBox=\"0 0 32 32\"\r\n                >\r\n                  <path\r\n                    fill=\"currentColor\"\r\n                    d=\"M16.021 0C7.193 0 .037 7.156.037 15.984c0 6.771 4.214 12.552 10.161 14.88c-.141-1.266-.266-3.203.052-4.583c.292-1.25 1.875-7.943 1.875-7.943s-.479-.964-.479-2.375c0-2.219 1.292-3.88 2.891-3.88c1.365 0 2.026 1.021 2.026 2.25c0 1.37-.87 3.422-1.323 5.323c-.38 1.589.797 2.885 2.365 2.885c2.839 0 5.026-2.995 5.026-7.318c0-3.813-2.75-6.49-6.677-6.49c-4.547 0-7.214 3.417-7.214 6.932c0 1.375.526 2.854 1.188 3.651c.13.161.146.302.109.464c-.12.5-.391 1.599-.443 1.818c-.073.297-.229.359-.536.219c-1.99-.922-3.245-3.839-3.245-6.193c0-5.036 3.667-9.672 10.563-9.672c5.542 0 9.854 3.958 9.854 9.229c0 5.516-3.474 9.953-8.307 9.953c-1.62 0-3.141-.839-3.677-1.839l-1 3.797c-.359 1.391-1.339 3.135-2 4.193c1.5.458 3.078.714 4.734.714c8.813 0 15.979-7.151 15.979-15.984C31.959 7.187 24.792.036 15.98.036z\"\r\n                  />\r\n                </svg>\r\n              </a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a href=\"#\" class=\"nav-link link\">\r\n                <svg\r\n                  xmlns=\"http://www.w3.org/2000/svg\"\r\n                  width=\"17\"\r\n                  height=\"17\"\r\n                  preserveAspectRatio=\"xMidYMid meet\"\r\n                  viewBox=\"0 0 512 512\"\r\n                >\r\n                  <path\r\n                    fill=\"currentColor\"\r\n                    d=\"M508.64 148.79c0-45-33.1-81.2-74-81.2C379.24 65 322.74 64 265 64h-18c-57.6 0-114.2 1-169.6 3.6C36.6 67.6 3.5 104 3.5 149C1 184.59-.06 220.19 0 255.79q-.15 53.4 3.4 106.9c0 45 33.1 81.5 73.9 81.5c58.2 2.7 117.9 3.9 178.6 3.8q91.2.3 178.6-3.8c40.9 0 74-36.5 74-81.5c2.4-35.7 3.5-71.3 3.4-107q.34-53.4-3.26-106.9ZM207 353.89v-196.5l145 98.2Z\"\r\n                  />\r\n                </svg>\r\n              </a>\r\n            </li>\r\n          </ul>"
+                  format: full_html
+          button-action:
+            builder-form: true
+            info:
+              title: 'Button action'
+              loader: dynamic
+            fields:
+              button_f1:
+                url:
+                  label: url
+                  value:
+                    link: '#'
+                    text: 'Join now'
+                    class: 'btn btn-info'
+          region_css_infos_f1: ''
+          region_css_infos_f2: ''
+          region_css_socials_rx: ''
+          region_css_button_f1: ''
+          region_css_button_f2: ''
+          region_css_user_compact: ''
+          load_clean_value: 0
+          save_by_domain: null
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: null
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              text_alignment:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              box_shadow:
+                class: null
+              scroll_effects:
+                class: null
+          id: formatage-models-header-thegem-01-5418--kjCm2bSo2c4
+          config_section:
+            type_container: container
+            container_class: ''
+            id: ''
+          cover_section:
+            active: 0
+            model: ''
+            opacity: ''
+            zindex: ''
+          aos_attributes:
+            infos_f1:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            infos_f2:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            socials_rx:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            button_f1:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            button_f2:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            user_compact:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            data_mobile:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+          region_tag_infos_f1: ''
+          region_tag_infos_f2: ''
+          region_tag_socials_rx: ''
+          region_tag_button_f1: ''
+          region_tag_button_f2: ''
+          region_tag_user_compact: ''
+          region_tag_data_mobile: ''
+          default_class:
+            background_position:
+              class: ''
+              background:
+                '': 0
+                background--attached: 0
+                background--cover: 0
+                background--contain: 0
+            spaces:
+              class:
+                '': 0
+                space-bottom: 0
+                space-top-inv: 0
+                space-padding: 0
+                space-inner-padding: 0
+                space-inner-bottom: 0
+                space-inner-top: 0
+                padding-top: 0
+                margin-top: 0
+                padding-bottom: 0
+            border_radius:
+              class: ''
+            box_shadow:
+              class: ''
+            container_width:
+              class: ''
+            regions:
+              infos_f1:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              infos_f2:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              socials_rx:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              button_f1:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              button_f2:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              user_compact:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              data_mobile:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+          scss:
+            scss_field: ''
+        components:
+          05cc917d-b747-4cfc-8883-2c06a2e400aa:
+            uuid: 05cc917d-b747-4cfc-8883-2c06a2e400aa
+            region: user_compact
+            configuration:
+              id: 'system_menu_block:account'
+              label: "Menu du compte de l'utilisateur"
+              label_display: '0'
+              provider: system
+              context_mapping: {  }
+              level: 1
+              depth: 0
+              expand_all_items: false
+            weight: 0
+            additional: {  }
+          ce58343b-7b1d-422c-b506-39546e7f02bf:
+            uuid: ce58343b-7b1d-422c-b506-39546e7f02bf
+            region: description
+            configuration:
+              id: 'field_block:paragraph:top_header:field_subtitle'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          b2fda61f-b0e8-412e-bc32-16e796856cc9:
+            uuid: b2fda61f-b0e8-412e-bc32-16e796856cc9
+            region: description
+            configuration:
+              id: 'field_block:paragraph:top_header:field_telephone'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: phone_international_formatter
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          6d2a39e7-a06f-4844-ad88-1dd703e7a042:
+            uuid: 6d2a39e7-a06f-4844-ad88-1dd703e7a042
+            region: description
+            configuration:
+              id: 'field_block:paragraph:top_header:field_icons_buttons'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: more_fields_icon_text_formatter
+                label: above
+                settings:
+                  layoutgenentitystyles_view: more_fields/field-icon-address
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+          a5ebd4a7-06d5-4d2c-bf22-b9d18fa75800:
+            uuid: a5ebd4a7-06d5-4d2c-bf22-b9d18fa75800
+            region: infos_f1
+            configuration:
+              id: 'field_block:paragraph:top_header:field_subtitle'
+              label: 'Sous titre'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          e6089e2c-8311-43f7-bcc6-db982a1c616c:
+            uuid: e6089e2c-8311-43f7-bcc6-db982a1c616c
+            region: infos_f2
+            configuration:
+              id: 'field_block:paragraph:top_header:field_telephone'
+              label: telephone
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: phone_international_formatter
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          70324bb0-c96d-4559-b79e-45c5fe56e17b:
+            uuid: 70324bb0-c96d-4559-b79e-45c5fe56e17b
+            region: socials_rx
+            configuration:
+              id: 'field_block:paragraph:top_header:field_icons_buttons'
+              label: 'icons buttons'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: more_fields_icon_text_formatter2
+                label: hidden
+                settings:
+                  layoutgenentitystyles_view: more_fields/field-icon-svg
+                  size: none
+                  bg: none
+                  custom_class_container: d-flex
+                  custom_class_sub_container: 'd-flex m-0'
+                  custom_class_icon: ''
+                  custom_class_text: d-none
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: paragraph.top_header.default
+targetEntityType: paragraph
+bundle: top_header
+mode: default
+content:
+  field_icons_buttons:
+    type: more_fields_icon_text_formatter
+    label: above
+    settings:
+      layoutgenentitystyles_view: more_fields/field-icon-address
+    third_party_settings: {  }
+    weight: 2
+    region: description
+  field_subtitle:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
+    weight: 0
+    region: description
+  field_telephone:
+    type: phone_international_formatter
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: description
+hidden: {  }

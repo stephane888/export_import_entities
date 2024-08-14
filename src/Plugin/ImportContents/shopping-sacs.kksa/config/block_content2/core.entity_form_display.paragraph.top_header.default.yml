@@ -1,0 +1,48 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.top_header.field_icons_buttons
+    - field.field.paragraph.top_header.field_subtitle
+    - field.field.paragraph.top_header.field_telephone
+    - paragraphs.paragraphs_type.top_header
+  module:
+    - more_fields
+    - phone_international
+id: paragraph.top_header.default
+targetEntityType: paragraph
+bundle: top_header
+mode: default
+content:
+  field_icons_buttons:
+    type: more_fields_icon_text_description_widget
+    weight: 3
+    region: content
+    settings:
+      size: 100
+      label_1: 'Nom du reseau social'
+      label_2: 'Svg or fontawesome'
+    third_party_settings: {  }
+  field_subtitle:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_telephone:
+    type: phone_international_widget
+    weight: 2
+    region: content
+    settings:
+      geolocation: false
+      initial_country: PT
+      exclude_countries: {  }
+      preferred_countries:
+        - PT
+      countries: exclude
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.menu_du_site
+id: block_content.menu_du_site
+target_entity_type_id: block_content
+target_bundle: menu_du_site
+default_langcode: current_interface
+language_alterable: true

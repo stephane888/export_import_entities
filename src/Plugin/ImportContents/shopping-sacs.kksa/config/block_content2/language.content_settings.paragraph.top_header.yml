@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.top_header
+id: paragraph.top_header
+target_entity_type_id: paragraph
+target_bundle: top_header
+default_langcode: current_interface
+language_alterable: true

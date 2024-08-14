@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.top_header
+id: block_content.top_header
+target_entity_type_id: block_content
+target_bundle: top_header
+default_langcode: current_interface
+language_alterable: true

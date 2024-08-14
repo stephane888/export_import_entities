@@ -1,0 +1,20 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_subtitle
+    - paragraphs.paragraphs_type.top_header
+id: paragraph.top_header.field_subtitle
+field_name: field_subtitle
+entity_type: paragraph
+bundle: top_header
+label: 'Sous titre'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: '98883 Av. Georges Naza'
+default_value_callback: ''
+settings: {  }
+field_type: string
