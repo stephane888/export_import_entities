@@ -48,7 +48,7 @@ interface ImportContentsInterface {
   public function getIdentificationEntities(): array;
   
   /**
-   * Permet de lister les configurations qui serront importées
+   * Permet de lister les configurations/contenus qui peuvent etre importées
    */
   public function ListConfigToImport();
 }

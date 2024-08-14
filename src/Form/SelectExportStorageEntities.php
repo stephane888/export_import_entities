@@ -274,7 +274,7 @@ final class SelectExportStorageEntities extends ExportBase {
       //
       $import_contents = $this->getPluginImportContent();
       $import_contents->saveContents($EntitiesArray, $id, $entity_id);
-      $import_contents->saveConfig($configs);
+      $import_contents->saveConfig($configs, $id, $entity_id);
       // debugLog::logger($string, $name . '.yml', false, 'file');
       \Drupal::messenger()->addStatus(" Données de configuration exporter à l'emplacement definit. ", true);
       //

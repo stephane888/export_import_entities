@@ -88,7 +88,7 @@ abstract class ImportBase extends FormBase {
           $form_state->set('base_directory', $base_directory);
           $form_state->set('keyIdentification', $keyIdentification);
           //
-          $configs = $plugin->BuildBatchImportConfigs($base_directory);
+          $configs = $plugin->BuildBatchImportConfigs($base_directory, $keyIdentification);
           
           $form_state->set('BatchImportConfigs', $configs);
           $form['datas']['#title'] = 'datas (' . count($configs) . ' à importer )';

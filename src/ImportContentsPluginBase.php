@@ -131,10 +131,17 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    * {@inheritdoc}
    * @see \Drupal\export_import_entities\ImportContentsInterface::saveFiles()
    */
-  function saveConfig(array $configs): void {
+  function saveConfig(array $configs, int $id, string $entity_id): void {
     if ($dirs = $this->prepareDirectories()) {
       foreach ($configs as $name => $config) {
-        $this->file_system->saveData($config['value'], $dirs['config'] . '/' . $name . '.yml', FileExists::Replace);
+        // On regroupe les configurations par content.
+        /**
+         * Inconvenient : on peut avoir la meme config sauvegarder dans
+         * plusieurs dossiers.
+         * Avantage : lors de l'import, on importe uniquement les
+         * configs qui sont rattachés au contenu.
+         */
+        $this->file_system->saveData($config['value'], $dirs['config'] . '/' . $entity_id . $id . '/' . $name . '.yml', FileExists::Replace);
       }
     }
   }
@@ -389,10 +396,12 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    *
    * @param string $base_directory
    */
-  function BuildBatchImportConfigs(string $base_directory) {
+  function BuildBatchImportConfigs(string $base_directory, $keyIdentification) {
     $configsBatch = [];
     self::$base_directory = $base_directory;
     $pathConfig = $this->getConfigDirectory();
+    if (file_exists($pathConfig . '/' . $keyIdentification))
+      $pathConfig = $pathConfig . '/' . $keyIdentification;
     $mask = '/.*\.yml$/';
     $filesConfigToImport = $this->file_system->scanDirectory($pathConfig, "$mask");
     $source = new \Drupal\Core\Config\FileStorage($pathConfig);
