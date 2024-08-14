@@ -1,0 +1,75 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.prestige_hero1.field_background
+    - field.field.paragraph.prestige_hero1.field_btn1
+    - field.field.paragraph.prestige_hero1.field_btn2
+    - field.field.paragraph.prestige_hero1.field_subtitle
+    - field.field.paragraph.prestige_hero1.field_title
+    - field.field.paragraph.prestige_hero1.field_video
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.prestige_hero1
+  module:
+    - image
+    - link
+    - video
+id: paragraph.prestige_hero1.default
+targetEntityType: paragraph
+bundle: prestige_hero1
+mode: default
+content:
+  field_background:
+    type: image_image
+    weight: 4
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_btn1:
+    type: link_default
+    weight: 2
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_btn2:
+    type: link_default
+    weight: 3
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_subtitle:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_video:
+    type: video_upload
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      file_directory: 'video-thumbnails/[date:custom:Y]-[date:custom:m]'
+      file_extensions: 'mp4 ogv webm'
+      max_filesize: ''
+      uri_scheme: public
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

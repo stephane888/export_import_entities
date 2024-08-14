@@ -133,6 +133,9 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    */
   function saveConfig(array $configs, int $id, string $entity_id): void {
     if ($dirs = $this->prepareDirectories()) {
+      $directoryConfig = $dirs['config'] . '/' . $entity_id . $id;
+      if (!$this->file_system->prepareDirectory($directoryConfig, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS))
+        $this->messenger->addError("Impossible de crrer le dossier : " . $directoryConfig);
       foreach ($configs as $name => $config) {
         // On regroupe les configurations par content.
         /**
@@ -141,7 +144,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
          * Avantage : lors de l'import, on importe uniquement les
          * configs qui sont rattachés au contenu.
          */
-        $this->file_system->saveData($config['value'], $dirs['config'] . '/' . $entity_id . $id . '/' . $name . '.yml', FileExists::Replace);
+        $this->file_system->saveData($config['value'], $directoryConfig . '/' . $name . '.yml', FileExists::Replace);
       }
     }
   }
