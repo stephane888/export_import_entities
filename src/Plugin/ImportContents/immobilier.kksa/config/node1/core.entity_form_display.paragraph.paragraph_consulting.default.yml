@@ -1,0 +1,72 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.paragraph_consulting.field_background
+    - field.field.paragraph.paragraph_consulting.field_button
+    - field.field.paragraph.paragraph_consulting.field_description
+    - field.field.paragraph.paragraph_consulting.field_image
+    - field.field.paragraph.paragraph_consulting.field_subtitle
+    - field.field.paragraph.paragraph_consulting.field_title
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.paragraph_consulting
+  module:
+    - image
+    - link
+    - text
+id: paragraph.paragraph_consulting.default
+targetEntityType: paragraph
+bundle: paragraph_consulting
+mode: default
+content:
+  field_background:
+    type: image_image
+    weight: 3
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_button:
+    type: link_default
+    weight: 4
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_description:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_image:
+    type: image_image
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_subtitle:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

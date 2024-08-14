@@ -1,0 +1,21 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.bloc_contact
+    - field.storage.block_content.field_sous_titre
+  module:
+    - text
+id: block_content.bloc_contact.field_sous_titre
+field_name: field_sous_titre
+entity_type: block_content
+bundle: bloc_contact
+label: 'sous titre'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

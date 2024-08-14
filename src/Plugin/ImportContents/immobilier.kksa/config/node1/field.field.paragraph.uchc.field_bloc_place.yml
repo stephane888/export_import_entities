@@ -1,0 +1,28 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.place
+    - field.storage.paragraph.field_bloc_place
+    - paragraphs.paragraphs_type.uchc
+id: paragraph.uchc.field_bloc_place
+field_name: field_bloc_place
+entity_type: paragraph
+bundle: uchc
+label: 'bloc place'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      place: place
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

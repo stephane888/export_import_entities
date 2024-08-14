@@ -1,0 +1,699 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.paragraph_consulting.field_background
+    - field.field.paragraph.paragraph_consulting.field_button
+    - field.field.paragraph.paragraph_consulting.field_description
+    - field.field.paragraph.paragraph_consulting.field_image
+    - field.field.paragraph.paragraph_consulting.field_subtitle
+    - field.field.paragraph.paragraph_consulting.field_title
+    - paragraphs.paragraphs_type.paragraph_consulting
+  module:
+    - fast_models
+    - formatage_models
+    - image
+    - layout_builder
+    - link
+    - text
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: f_news_right_left_image
+        layout_settings:
+          label: 'f_news_right_left_image ( f_news_right_left_image ) '
+          context_mapping: {  }
+          region_css_right_left_title: mb-0
+          region_css_right_left_text: ''
+          region_css_right_left_button: ''
+          region_css_right_left_image: ''
+          css: 'mb-0 space-inner-px pb-0'
+          load_clean_value: 0
+          save_by_domain: null
+          load_libray: false
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: null
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              text_alignment:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              box_shadow:
+                class: null
+              scroll_effects:
+                class: null
+          id: f-news-right-left-image-6376--K3X1C314VSA
+          config_section:
+            type_container: container
+            container_class: ''
+            id: f-news-right-left-image-6376--K3X1C314VSA
+          cover_section:
+            active: 0
+            model: ''
+            opacity: ''
+            zindex: ''
+          class_row: 'row justify-content-between'
+          class_col_left: 'col-12 col-md-6'
+          class_col_right: 'col-12 col-md-6'
+          fnrls:
+            builder-form: true
+            region_css_right_left_title: h1
+            info:
+              title: Contenu
+              loader: dynamic
+            fields:
+              right_left_title:
+                text_html:
+                  label: Titre
+                  value: 'Name of First Feature'
+                  format: full_html
+              right_left_text:
+                text_html:
+                  label: Paragraphe
+                  value: '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>'
+                  format: full_html
+              right_left_button:
+                url:
+                  label: Button
+                  value:
+                    link: '#'
+                    text: "learn more <i class='btn-angle-right'></i>"
+                    class: load-more-button
+              right_left_image:
+                text_html:
+                  label: Image
+                  value: '<img src="https://demo.morethanthemes.com/flashyplus-news8/default/sites/default/files/styles/mt_large/public/2019-07/mt-service-2-highlight-1.jpg?itok=Gr5UxBWz" alt="" width="1350" height="730">'
+                  format: full_html
+          aos_attributes:
+            right_left_title:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            right_left_text:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            right_left_button:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            right_left_image:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+          region_tag_right_left_title: ''
+          region_tag_right_left_text: ''
+          region_tag_right_left_button: ''
+          region_tag_right_left_image: ''
+          default_class:
+            background_position:
+              class: ''
+              background:
+                '': 0
+                background--attached: 0
+                background--cover: 0
+                background--contain: 0
+            spaces:
+              class:
+                '': 0
+                space-bottom: 0
+                space-top-inv: 0
+                space-padding: 0
+                space-inner-padding: 0
+                space-inner-bottom: 0
+                space-inner-top: 0
+                padding-top: 0
+                margin-top: 0
+                padding-bottom: 0
+            border_radius:
+              class: ''
+            box_shadow:
+              class: ''
+            container_width:
+              class: ''
+            regions:
+              right_left_title:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              right_left_text:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              right_left_button:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              right_left_image:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+          scss:
+            scss_field: ".container{\r\n  .irl-bloc{\r\n    flex-direction: row-reverse;\r\n  }\r\n}\r\n.irl-bloc__img{\r\n  position: relative;\r\n  &::after{\r\n    clip-path: polygon(0 0, 40% 0, 60% 100%, 0% 100%);\r\ncontent: \"\";\r\nbackground-color: #00C194;\r\nposition: absolute;\r\ntop: 0;\r\nleft: 0;\r\nwidth: 100%;\r\nheight: 100%;\r\nz-index: -1;\r\n  }\r\n}\r\n"
+        components:
+          79188a97-e2b2-437f-9e58-b356be829903:
+            uuid: 79188a97-e2b2-437f-9e58-b356be829903
+            region: content
+            configuration:
+              id: 'field_block:paragraph:paragraph_consulting:field_title'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: 'fw-bold h2 text-black'
+                      item: ''
+            weight: 0
+            additional: {  }
+          8ba7a14b-56a2-4b0a-812f-1eb3800a49c8:
+            uuid: 8ba7a14b-56a2-4b0a-812f-1eb3800a49c8
+            region: content
+            configuration:
+              id: 'field_block:paragraph:paragraph_consulting:field_subtitle'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: 'text-uppercase fw-bold text-primary'
+                      item: ''
+            weight: 1
+            additional: {  }
+          64a0c792-9ab4-4d77-ae2d-d6c4cebc7431:
+            uuid: 64a0c792-9ab4-4d77-ae2d-d6c4cebc7431
+            region: content
+            configuration:
+              id: 'field_block:paragraph:paragraph_consulting:field_description'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: text-black-50
+                      item: ''
+            weight: 2
+            additional: {  }
+          d61c9ec4-929f-4644-82e7-c7d216c71ebf:
+            uuid: d61c9ec4-929f-4644-82e7-c7d216c71ebf
+            region: content
+            configuration:
+              id: 'field_block:paragraph:paragraph_consulting:field_button'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: link
+                label: above
+                settings:
+                  trim_length: 80
+                  url_only: false
+                  url_plain: false
+                  rel: ''
+                  target: ''
+                third_party_settings: {  }
+            weight: 3
+            additional: {  }
+          5095927f-2f11-48c2-a180-4a1dce912fa6:
+            uuid: 5095927f-2f11-48c2-a180-4a1dce912fa6
+            region: right_left_title
+            configuration:
+              id: 'field_block:paragraph:paragraph_consulting:field_subtitle'
+              label: Subtitle
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: 'text-uppercase fw-bold text-primary h5 mb-0'
+                      content: mb-0
+            weight: 0
+            additional: {  }
+          007427ce-48f1-4cfb-a97b-1064f63a4699:
+            uuid: 007427ce-48f1-4cfb-a97b-1064f63a4699
+            region: right_left_text
+            configuration:
+              id: 'field_block:paragraph:paragraph_consulting:field_title'
+              label: Title
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: 'fw-bold h2 text-black'
+                      content: ''
+            weight: 0
+            additional: {  }
+          d0afc699-9812-489c-bb8d-315f6f2571c6:
+            uuid: d0afc699-9812-489c-bb8d-315f6f2571c6
+            region: right_left_text
+            configuration:
+              id: 'field_block:paragraph:paragraph_consulting:field_description'
+              label: Description
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 1
+            additional: {  }
+          f5a5141c-09d9-4542-b738-c674e651a738:
+            uuid: f5a5141c-09d9-4542-b738-c674e651a738
+            region: right_left_button
+            configuration:
+              id: 'field_block:paragraph:paragraph_consulting:field_button'
+              label: button
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: link
+                label: hidden
+                settings:
+                  trim_length: 80
+                  url_only: false
+                  url_plain: false
+                  rel: '0'
+                  target: '0'
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: 'btn btn-primary w-25 bg-primary-subtle border-0 text-primary'
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          b819a3ba-81ec-41c5-88bf-90e711b32a31:
+            uuid: b819a3ba-81ec-41c5-88bf-90e711b32a31
+            region: content
+            configuration:
+              id: 'field_block:paragraph:paragraph_consulting:field_background'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: image_url
+                label: hidden
+                settings:
+                  image_style: tres_large
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+            weight: 4
+            additional: {  }
+          e996c4b7-8f7e-485e-beaf-cd8fa758fe70:
+            uuid: e996c4b7-8f7e-485e-beaf-cd8fa758fe70
+            region: right_left_image
+            configuration:
+              id: 'field_block:paragraph:paragraph_consulting:field_background'
+              label: background
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: image
+                label: hidden
+                settings:
+                  image_link: ''
+                  image_style: ''
+                  image_loading:
+                    attribute: lazy
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: 'space-inner-padding space-inner-px'
+                      content: ''
+            weight: 0
+            additional: {  }
+          486cc9c4-0188-419f-a6ca-372840bfc6e8:
+            uuid: 486cc9c4-0188-419f-a6ca-372840bfc6e8
+            region: content
+            configuration:
+              id: 'field_block:paragraph:paragraph_consulting:field_image'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: image
+                label: above
+                settings:
+                  image_link: ''
+                  image_style: ''
+                  image_loading:
+                    attribute: lazy
+                third_party_settings: {  }
+            weight: 5
+            additional: {  }
+          b6735569-11dc-426a-8e99-eb2979a9ecb7:
+            uuid: b6735569-11dc-426a-8e99-eb2979a9ecb7
+            region: right_left_text
+            configuration:
+              id: 'field_block:paragraph:paragraph_consulting:field_image'
+              label: image
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: image
+                label: hidden
+                settings:
+                  image_link: ''
+                  image_style: '400_350'
+                  image_loading:
+                    attribute: lazy
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: custom-img
+                      content: ''
+            weight: 2
+            additional: {  }
+        third_party_settings: {  }
+id: paragraph.paragraph_consulting.default
+targetEntityType: paragraph
+bundle: paragraph_consulting
+mode: default
+content:
+  field_background:
+    type: image_url
+    label: hidden
+    settings:
+      image_style: tres_large
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+    weight: 4
+    region: content
+  field_button:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: text-black-50
+          item: ''
+    weight: 2
+    region: content
+  field_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_subtitle:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: 'text-uppercase fw-bold text-primary'
+          item: ''
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: 'fw-bold h2 text-black'
+          item: ''
+    weight: 0
+    region: content
+hidden: {  }

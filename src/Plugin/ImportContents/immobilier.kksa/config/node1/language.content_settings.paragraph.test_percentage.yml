@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.test_percentage
+id: paragraph.test_percentage
+target_entity_type_id: paragraph
+target_bundle: test_percentage
+default_langcode: site_default
+language_alterable: false

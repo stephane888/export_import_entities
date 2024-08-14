@@ -1,0 +1,34 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.test_temoignage.field_ref
+    - paragraphs.paragraphs_type.test_temoignage
+  module:
+    - inline_entity_form
+id: paragraph.test_temoignage.default
+targetEntityType: paragraph
+bundle: test_temoignage
+mode: default
+content:
+  field_ref:
+    type: inline_entity_form_complex
+    weight: 0
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: true
+      collapsed: true
+      revision: false
+      removed_reference: optional
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.test_logement
+id: paragraph.test_logement
+target_entity_type_id: paragraph
+target_bundle: test_logement
+default_langcode: site_default
+language_alterable: false

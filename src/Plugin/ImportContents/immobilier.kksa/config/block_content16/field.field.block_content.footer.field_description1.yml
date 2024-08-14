@@ -1,0 +1,21 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.footer
+    - field.storage.block_content.field_description1
+  module:
+    - text
+id: block_content.footer.field_description1
+field_name: field_description1
+entity_type: block_content
+bundle: footer
+label: Description1
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

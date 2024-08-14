@@ -1,0 +1,28 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.temoignage
+    - field.storage.paragraph.field_ref
+    - paragraphs.paragraphs_type.test_temoignage
+id: paragraph.test_temoignage.field_ref
+field_name: field_ref
+entity_type: paragraph
+bundle: test_temoignage
+label: ref
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      temoignage: temoignage
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

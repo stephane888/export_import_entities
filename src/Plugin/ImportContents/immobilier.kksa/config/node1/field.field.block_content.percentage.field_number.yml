@@ -1,0 +1,22 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.percentage
+    - field.storage.block_content.field_number
+id: block_content.percentage.field_number
+field_name: field_number
+entity_type: block_content
+bundle: percentage
+label: number
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
