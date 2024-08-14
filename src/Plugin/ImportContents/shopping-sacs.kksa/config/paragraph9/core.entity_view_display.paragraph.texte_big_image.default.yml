@@ -1,0 +1,590 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.texte_big_image.field_background
+    - field.field.paragraph.texte_big_image.field_body
+    - field.field.paragraph.texte_big_image.field_btn1
+    - field.field.paragraph.texte_big_image.field_subtitle
+    - field.field.paragraph.texte_big_image.field_title
+    - paragraphs.paragraphs_type.texte_big_image
+  module:
+    - formatage_models
+    - image
+    - layout_builder
+    - link
+    - text
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: formatage_models_hero_ac
+        layout_settings:
+          label: ' Hero modele AC.  ( formatage_models_hero_ac ) '
+          context_mapping: {  }
+          region_css_subtitle: ''
+          region_css_title: ''
+          region_css_description: ''
+          region_css_button: ''
+          region_css_image: ''
+          css: ''
+          load_clean_value: 0
+          save_by_domain: null
+          load_libray: false
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: null
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              text_alignment:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              box_shadow:
+                class: null
+              scroll_effects:
+                class: null
+          id: formatage-models-hero-ac-1928--M8u3IAXHS-s
+          config_section:
+            type_container: container
+            container_class: ''
+            id: formatage-models-hero-ac-1928--M8u3IAXHS-s
+          cover_section:
+            active: 0
+            model: ''
+            opacity: ''
+            zindex: ''
+          css_left: col-md-6
+          css_right: col-md-6
+          region_tag_title: h2
+          region_tag_subtitle: h4
+          derivate:
+            value: ''
+            options:
+              '': 'image right (default)'
+              image-left: 'image right'
+          sf:
+            builder-form: true
+            info:
+              title: ' Contenu 1 '
+              loader: dynamic
+            fields:
+              subtitle:
+                text:
+                  label: 'Sous titre'
+                  value: "L'agence Web qui vous offre une solution All-In-One !"
+              title:
+                text:
+                  label: ' Titre '
+                  value: ' Habeuk Digital '
+              description:
+                text_html:
+                  label: ' Description '
+                  value: ' Nous croyons dans le pouvoir de l’intelligence et de la technologie pour optimiser vos performances '
+                  format: full_html
+              button:
+                url:
+                  label: ' Button '
+                  value:
+                    text: Contactez-nous
+                    class: 'btn btn-light btn-lg'
+                    link: '#'
+              image:
+                img_bg:
+                  label: ' Image Bg'
+                  fids: {  }
+                  style: ''
+                  class: ''
+                  inbg: 0
+          aos_attributes:
+            subtitle:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            title:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            description:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            button:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            image:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+          region_tag_description: ''
+          region_tag_button: ''
+          region_tag_image: ''
+          default_class:
+            background_position:
+              class: ''
+              background:
+                '': 0
+                background--attached: 0
+                background--cover: 0
+                background--contain: 0
+            spaces:
+              class:
+                '': 0
+                space-bottom: 0
+                space-top-inv: 0
+                space-padding: 0
+                space-inner-padding: 0
+                space-inner-bottom: 0
+                space-inner-top: 0
+                padding-top: 0
+                margin-top: 0
+                padding-bottom: 0
+            border_radius:
+              class: ''
+            box_shadow:
+              class: ''
+            container_width:
+              class: ''
+            regions:
+              subtitle:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              title:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              description:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              button:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              image:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+          scss:
+            scss_field: "  background: inherit;\r\n  color: inherit;\r\n  .layout-region{\r\n    &.subtitle {\r\n      margin-bottom: $wbu-margin;\r\n    }\r\n    &.title{\r\n      margin-bottom: $wbu-margin*1.5;\r\n    }\r\n  }\r\n  .content-text {\r\n    &.space-padding{\r\n      overflow: visible;\r\n    }\r\n    padding-right:$wbu-margin;\r\n    @include media-min(MD){\r\n      min-height: 925px;\r\n    }    \r\n    >  div {\r\n      max-width: 400px;\r\n    }\r\n  }  \r\n  \r\n  .content-image{\r\n    overflow: visible;\r\n     img {\r\n       max-width: 100%;\r\n       min-height: 100%;\r\n       object-fit: cover;\r\n       @include media-min(MD){\r\n         max-width: 1000px;\r\n       }\r\n  }\r\n  }"
+        components:
+          e4bc13f9-7099-4dab-8fd0-e098a184dbf0:
+            uuid: e4bc13f9-7099-4dab-8fd0-e098a184dbf0
+            region: image
+            configuration:
+              id: 'field_block:paragraph:texte_big_image:field_background'
+              label: 'Image d’arrière plan'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: image
+                label: hidden
+                settings:
+                  image_link: ''
+                  image_style: ''
+                  image_loading:
+                    attribute: lazy
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          e88ee5ca-9143-4fbf-acf7-371a6b92cc80:
+            uuid: e88ee5ca-9143-4fbf-acf7-371a6b92cc80
+            region: subtitle
+            configuration:
+              id: 'field_block:paragraph:texte_big_image:field_subtitle'
+              label: 'Sous titre'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          fa702859-8c6f-4399-8c77-9dd16e965040:
+            uuid: fa702859-8c6f-4399-8c77-9dd16e965040
+            region: title
+            configuration:
+              id: 'field_block:paragraph:texte_big_image:field_title'
+              label: Titre
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          5635f8e8-c7db-4069-b193-86a445fda7ff:
+            uuid: 5635f8e8-c7db-4069-b193-86a445fda7ff
+            region: description
+            configuration:
+              id: 'field_block:paragraph:texte_big_image:field_body'
+              label: Description
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          5081ecbe-70f1-4e21-bfa0-ceec3e28d24f:
+            uuid: 5081ecbe-70f1-4e21-bfa0-ceec3e28d24f
+            region: button
+            configuration:
+              id: 'field_block:paragraph:texte_big_image:field_btn1'
+              label: 'Button 1'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: link
+                label: hidden
+                settings:
+                  trim_length: 80
+                  url_only: false
+                  url_plain: false
+                  rel: '0'
+                  target: '0'
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ' btn btn-outline-wbu-thirdly'
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: paragraph.texte_big_image.default
+targetEntityType: paragraph
+bundle: texte_big_image
+mode: default
+content:
+  field_background:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
+    weight: 0
+    region: content
+  field_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: text-center
+          content: ''
+    weight: 3
+    region: content
+  field_btn1:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: 'btn btn-primary  w-100'
+          content: text-wbu-secondary
+    weight: 4
+    region: content
+  field_subtitle:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: 'text-center mb-3 h5 line-height-1 fw-light'
+          content: ''
+    weight: 2
+    region: content
+hidden: {  }
