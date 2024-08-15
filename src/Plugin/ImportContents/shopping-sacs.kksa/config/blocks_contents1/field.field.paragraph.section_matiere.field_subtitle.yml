@@ -1,0 +1,20 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_subtitle
+    - paragraphs.paragraphs_type.section_matiere
+id: paragraph.section_matiere.field_subtitle
+field_name: field_subtitle
+entity_type: paragraph
+bundle: section_matiere
+label: 'Sous titre'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 'Durée limitée seulement'
+default_value_callback: ''
+settings: {  }
+field_type: string

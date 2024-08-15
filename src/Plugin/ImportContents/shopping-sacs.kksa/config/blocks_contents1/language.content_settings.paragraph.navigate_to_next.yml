@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.navigate_to_next
+id: paragraph.navigate_to_next
+target_entity_type_id: paragraph
+target_bundle: navigate_to_next
+default_langcode: current_interface
+language_alterable: true
