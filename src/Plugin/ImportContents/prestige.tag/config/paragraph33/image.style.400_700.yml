@@ -1,0 +1,14 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: '400_700'
+label: '500*700'
+effects:
+  5fb40089-67ac-49c0-974f-0da69a8a1bb4:
+    uuid: 5fb40089-67ac-49c0-974f-0da69a8a1bb4
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 500
+      height: 700
+      anchor: center-center

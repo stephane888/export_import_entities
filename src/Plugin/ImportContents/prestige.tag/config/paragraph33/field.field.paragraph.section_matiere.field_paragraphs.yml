@@ -1,0 +1,87 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_paragraphs
+    - paragraphs.paragraphs_type.section_matiere
+    - paragraphs.paragraphs_type.teaser_section_material
+  module:
+    - entity_reference_revisions
+id: paragraph.section_matiere.field_paragraphs
+field_name: field_paragraphs
+entity_type: paragraph
+bundle: section_matiere
+label: Paragraphs
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      teaser_section_material: teaser_section_material
+    negate: 0
+    target_bundles_drag_drop:
+      bloc_service:
+        weight: 4
+        enabled: false
+      cln_98_region_text_for_count_dow:
+        weight: 20
+        enabled: false
+      count_down_region:
+        weight: 21
+        enabled: false
+      hero_avec_video_22:
+        weight: 11
+        enabled: false
+      hero_avec_video_3:
+        weight: 12
+        enabled: false
+      hero_sliders:
+        weight: 13
+        enabled: false
+      images_texte:
+        weight: 14
+        enabled: false
+      logo_partenaire:
+        weight: 15
+        enabled: false
+      prestige_hero1:
+        weight: 5
+        enabled: false
+      region_text_for_count_dow:
+        weight: 28
+        enabled: false
+      section_count_down:
+        weight: 29
+        enabled: false
+      section_image_et_video:
+        weight: 30
+        enabled: false
+      section_image_exposition:
+        weight: 33
+        enabled: false
+      section_matiere:
+        weight: 31
+        enabled: false
+      section_newsletter:
+        weight: 35
+        enabled: false
+      section_with_text_and_two_images:
+        weight: 32
+        enabled: false
+      services:
+        weight: 6
+        enabled: false
+      teaser_section_material:
+        weight: 34
+        enabled: true
+      text_et_partenaire:
+        weight: 18
+        enabled: false
+      texte_big_image:
+        weight: 35
+        enabled: false
+field_type: entity_reference_revisions

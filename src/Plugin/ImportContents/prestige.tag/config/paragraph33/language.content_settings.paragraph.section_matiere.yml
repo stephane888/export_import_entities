@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.section_matiere
+id: paragraph.section_matiere
+target_entity_type_id: paragraph
+target_bundle: section_matiere
+default_langcode: site_default
+language_alterable: false

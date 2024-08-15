@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.teaser_section_material
+id: paragraph.teaser_section_material
+target_entity_type_id: paragraph
+target_bundle: teaser_section_material
+default_langcode: site_default
+language_alterable: false
