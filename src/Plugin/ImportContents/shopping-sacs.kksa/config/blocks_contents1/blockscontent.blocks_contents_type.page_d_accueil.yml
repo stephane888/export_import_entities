@@ -1,0 +1,8 @@
+langcode: fr
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: '-4FGheiDT4RvFTCJW6eiIkcYMJe8t1TkDrZjIOdamLU'
+id: page_d_accueil
+label: "Pages d'accueil"
+description: 'Contient différent modèles de page d’accueil'
