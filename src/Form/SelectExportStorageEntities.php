@@ -315,25 +315,23 @@ final class SelectExportStorageEntities extends ExportBase {
        *
        * @var \Drupal\field\Entity\FieldConfig $field
        */
-      if ($field instanceof \Drupal\field\Entity\FieldConfig) {
-        $entity_type_id = $field->getSetting("target_type");
-        if ($entity_type_id) {
+      $entity_type_id = $field->getSetting("target_type");
+      if ($entity_type_id) {
+        /**
+         *
+         * @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $FieldItemList
+         */
+        $FieldItemList = $entity->{$fieldName};
+        foreach ($FieldItemList->getValue() as $value) {
           /**
            *
-           * @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $FieldItemList
+           * @var ContentEntityBase $subEntity
            */
-          $FieldItemList = $entity->{$fieldName};
-          foreach ($FieldItemList->getValue() as $value) {
-            /**
-             *
-             * @var ContentEntityBase $subEntity
-             */
-            $subEntity = $this->EntityTypeManager->getStorage($entity_type_id)->load($value['target_id']);
-            if ($subEntity) {
-              $bundle = $subEntity->bundle() ? $subEntity->bundle() : $entity_type_id;
-              $BundleEntityType = $subEntity->getEntityType()->getBundleEntityType();
-              $this->LoadConfigs->generateAllConfigAboutEntity($entity_type_id, $bundle, $BundleEntityType, $value['target_id']);
-            }
+          $subEntity = $this->EntityTypeManager->getStorage($entity_type_id)->load($value['target_id']);
+          if ($subEntity) {
+            $bundle = $subEntity->bundle() ? $subEntity->bundle() : $entity_type_id;
+            $BundleEntityType = $subEntity->getEntityType()->getBundleEntityType();
+            $this->LoadConfigs->generateAllConfigAboutEntity($entity_type_id, $bundle, $BundleEntityType, $value['target_id']);
           }
         }
       }
