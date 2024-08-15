@@ -436,10 +436,22 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     self::$base_directory = $base_directory;
     if (empty($this->configAll[$keyIdentification])) {
       $pathConfig = $this->getConfigDirectory();
-      if (file_exists($pathConfig . '/' . $keyIdentification))
+      if (file_exists($pathConfig . '/' . $keyIdentification)) {
         $pathConfig = $pathConfig . '/' . $keyIdentification;
+      }
+      else {
+        $dir = $pathConfig . '/' . $keyIdentification;
+        $this->messenger->addWarning("Mauvaise configuration, il est preferable de refaire l'export : " . $dir);
+      }
       $mask = '/.*\.yml$/';
-      $filesConfigToImport = $this->file_system->scanDirectory($pathConfig, "$mask");
+      /**
+       * On ne souhaite pas verifier les sous dossiers, uniquement la racine du
+       * dossier.
+       */
+      $options = [
+        'recurse' => false
+      ];
+      $filesConfigToImport = $this->file_system->scanDirectory($pathConfig, "$mask", $options);
       $source = new \Drupal\Core\Config\FileStorage($pathConfig);
       /**
        *
