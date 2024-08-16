@@ -1,0 +1,25 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.banner_page.field_background
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.banner_page
+  module:
+    - image
+id: paragraph.banner_page.default
+targetEntityType: paragraph
+bundle: banner_page
+mode: default
+content:
+  field_background:
+    type: image_image
+    weight: 4
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

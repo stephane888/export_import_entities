@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.accordion_faq
+id: paragraph.accordion_faq
+target_entity_type_id: paragraph
+target_bundle: accordion_faq
+default_langcode: site_default
+language_alterable: false

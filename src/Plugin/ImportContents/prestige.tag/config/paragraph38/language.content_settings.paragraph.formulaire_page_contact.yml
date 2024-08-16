@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.formulaire_page_contact
+id: paragraph.formulaire_page_contact
+target_entity_type_id: paragraph
+target_bundle: formulaire_page_contact
+default_langcode: site_default
+language_alterable: false
