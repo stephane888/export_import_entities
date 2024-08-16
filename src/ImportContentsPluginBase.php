@@ -303,6 +303,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
       $page['entity'][$idKey] = [];
       $newEntity = $storage->create($page['entity']);
       $this->restoreFileAndIdFile($id, $newEntity, $page, $files);
+      
       $newEntity->save();
       return $newEntity;
     }
