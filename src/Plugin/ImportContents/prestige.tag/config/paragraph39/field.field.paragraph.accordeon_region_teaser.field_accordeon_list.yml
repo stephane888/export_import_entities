@@ -1,0 +1,35 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_accordeon_list
+    - paragraphs.paragraphs_type.accordeon_region_teaser
+  module:
+    - more_fields
+id: paragraph.accordeon_region_teaser.field_accordeon_list
+field_name: field_accordeon_list
+entity_type: paragraph
+bundle: accordeon_region_teaser
+label: 'accordeon list'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    field:
+      title:
+        value: '<p>Comment ajouter une FAQ à votre boutique ?</p>'
+        format: full_html
+      icon:
+        value: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"></path></svg>'
+        format: full_html
+      description:
+        value: '<p>Vous pouvez ajouter une page FAQ similaire à votre boutique à l’aide du modèle de page FAQ intégré au thème Prestige. Pour plus d’informations, veuillez lire notre documentation en cliquant ici.</p>'
+        format: full_html
+    format: full_html
+    description: '<p>Vous pouvez ajouter une page FAQ similaire à votre boutique à l’aide du modèle de page FAQ intégré au thème Prestige. Pour plus d’informations, veuillez lire notre documentation en cliquant ici.</p>'
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"></path></svg>'
+    title: '<p>Comment ajouter une FAQ à votre boutique ?</p>'
+default_value_callback: ''
+settings: {  }
+field_type: more_fields_accordion_field

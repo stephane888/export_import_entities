@@ -1,0 +1,542 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.accordeon_region_teaser.field_accordeon_list
+    - field.field.paragraph.accordeon_region_teaser.field_title
+    - paragraphs.paragraphs_type.accordeon_region_teaser
+  module:
+    - formatage_models
+    - layout_builder
+    - more_fields
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: formatage_models_simple_block
+        layout_settings:
+          label: ' One column custom  ( formatage_models_simple_block ) '
+          context_mapping: {  }
+          css: space-inner-bottom
+          region_tag_main: div
+          config_section:
+            type_container: ''
+            container_class: ''
+            id: formatage-models-simple-block-1484--7wsmsopgq-0
+          sf:
+            builder-form: true
+            info:
+              title: ' Contenu '
+              loader: dynamic
+            fields:
+              main:
+                text_html:
+                  label: Description
+                  value: ''
+                  format: full_html
+              teasers_container:
+                text_html:
+                  label: 'Container pour Teaser'
+                  value: ''
+                  format: full_html
+              image_bg:
+                img_bg:
+                  label: image
+                  fids: {  }
+                  style: ''
+                  class: ''
+                  inbg: 0
+          region_css_main: 'text-black text-uppercase h5 mb-4 custom-title'
+          region_css_block_2: ''
+          region_css_block_3: ''
+          region_css_block_4: ''
+          region_css_block_5: ''
+          region_css_block_6: ''
+          region_css_image_bg: ''
+          region_css_teasers_container: ''
+          load_clean_value: 0
+          save_by_domain: null
+          load_libray: false
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: null
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              text_alignment:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              box_shadow:
+                class: null
+              scroll_effects:
+                class: null
+          id: formatage-models-simple-block-1484--7wsmsopgq-0
+          cover_section:
+            active: 0
+            model: ''
+            opacity: ''
+            zindex: ''
+          aos_attributes:
+            main:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            block_2:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            block_3:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            block_4:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            block_5:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            block_6:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            image_bg:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            teasers_container:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+          region_tag_block_2: ''
+          region_tag_block_3: ''
+          region_tag_block_4: ''
+          region_tag_block_5: ''
+          region_tag_block_6: ''
+          region_tag_image_bg: ''
+          region_tag_teasers_container: ''
+          default_class:
+            background_position:
+              class: ''
+              background:
+                '': 0
+                background--attached: 0
+                background--cover: 0
+                background--contain: 0
+            spaces:
+              class:
+                '': 0
+                space-bottom: 0
+                space-top-inv: 0
+                space-padding: 0
+                space-inner-padding: 0
+                space-inner-bottom: 0
+                space-inner-top: 0
+                padding-top: 0
+                margin-top: 0
+                padding-bottom: 0
+            border_radius:
+              class: ''
+            box_shadow:
+              class: ''
+            container_width:
+              class: ''
+            regions:
+              main:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              block_2:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              block_3:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              block_4:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              block_5:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              block_6:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              image_bg:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              teasers_container:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+          scss:
+            scss_field: ".custom-title{\r\n  letter-spacing: 4px;\r\n}\r\n\r\n.fields-box{\r\n  .field-box{\r\n      border-left: none !important;\r\n    border-right: none !important;\r\n    .accordion-header {\r\n      padding-top: 2.5rem !important;\r\npadding-bottom: 2.5rem !important;\r\n      .field-title{\r\n        p{\r\n          font-size: 16px !important;\r\n        }\r\n      }\r\n    }\r\n    .field-description{\r\n      padding-right: 0 !important;\r\n      padding-left: 0 !important;\r\n      color: black !important;\r\n    }\r\n  }\r\n  .accordion-button:not(.collapsed) {\r\n  color: unset !important;\r\n  background-color: unset !important;\r\n  box-shadow: unset !important;\r\n    p{\r\n      margin: 0px !important;\r\n      font-size: 16px !important;\r\n    }\r\n}\r\n}"
+            file_js: ''
+          class_row: ''
+        components:
+          22bc9e74-aaa7-44d9-bda6-95892ebb4a4b:
+            uuid: 22bc9e74-aaa7-44d9-bda6-95892ebb4a4b
+            region: main
+            configuration:
+              id: 'field_block:paragraph:accordeon_region_teaser:field_title'
+              label: Titre
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          fab7f44a-2c55-4a33-87f8-d45d7737db28:
+            uuid: fab7f44a-2c55-4a33-87f8-d45d7737db28
+            region: block_2
+            configuration:
+              id: 'field_block:paragraph:accordeon_region_teaser:field_accordeon_list'
+              label: 'accordeon list'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: more_fields_accordion_field_formatter
+                label: hidden
+                settings:
+                  layoutgenentitystyles_view: more_fields/field-accordion
+                  use_as_accordion: 1
+                  open_action: ''
+                  custom_class: ''
+                  custom_class_item: ''
+                  attribute_header: ''
+                  attribute_content: 'h6 text-black-50'
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: paragraph.accordeon_region_teaser.default
+targetEntityType: paragraph
+bundle: accordeon_region_teaser
+mode: default
+content:
+  field_accordeon_list:
+    type: more_fields_accordion_field_formatter
+    label: above
+    settings:
+      layoutgenentitystyles_view: more_fields/field-accordion
+      open_action: fisrt
+      custom_class: ''
+      custom_class_item: ''
+      attribute_content: 'h6 text-black-50'
+      attribute_header: ''
+      use_as_accordion: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: 'text-center mb-3 h5 line-height-1 fw-light'
+          content: ''
+    weight: 0
+    region: content
+hidden: {  }
