@@ -1,0 +1,28 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - blockscontent.blocks_contents_type.article_de_blogs_prestige
+    - field.storage.paragraph.field_blocks_contents
+    - paragraphs.paragraphs_type.blogs_modele_prestige
+id: paragraph.blogs_modele_prestige.field_blocks_contents
+field_name: field_blocks_contents
+entity_type: paragraph
+bundle: blogs_modele_prestige
+label: 'Blocks contents'
+description: "Les données dans ce champs sont utile uniquement pour le processus d'export/import.\r\n( pour la production, il faut le supprimer )"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:blocks_contents'
+  handler_settings:
+    target_bundles:
+      article_de_blogs_prestige: article_de_blogs_prestige
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

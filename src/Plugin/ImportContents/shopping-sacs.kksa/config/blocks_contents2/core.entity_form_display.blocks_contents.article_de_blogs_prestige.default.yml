@@ -1,0 +1,97 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - blockscontent.blocks_contents_type.article_de_blogs_prestige
+    - field.field.blocks_contents.article_de_blogs_prestige.field_commentaires
+    - field.field.blocks_contents.article_de_blogs_prestige.field_description
+    - field.field.blocks_contents.article_de_blogs_prestige.field_image
+    - field.field.blocks_contents.article_de_blogs_prestige.field_tags_blogs
+    - image.style.thumbnail
+  module:
+    - comment
+    - image
+    - inline_entity_form
+    - select2
+    - text
+id: blocks_contents.article_de_blogs_prestige.default
+targetEntityType: blocks_contents
+bundle: article_de_blogs_prestige
+mode: default
+content:
+  field_commentaires:
+    type: comment_default
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_description:
+    type: text_textarea
+    weight: 2
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_image:
+    type: image_image
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_tags_blogs:
+    type: select2_entity_reference
+    weight: 3
+    region: content
+    settings:
+      width: 100%
+      autocomplete: true
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 5
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  paragraph_revisions:
+    type: inline_entity_form_complex
+    weight: 4
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      collapsible: true
+      collapsed: true
+      revision: false
+      removed_reference: optional
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 6
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

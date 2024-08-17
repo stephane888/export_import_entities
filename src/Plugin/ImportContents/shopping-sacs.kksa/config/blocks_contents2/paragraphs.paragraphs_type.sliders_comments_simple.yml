@@ -1,0 +1,9 @@
+langcode: fr
+status: true
+dependencies: {  }
+id: sliders_comments_simple
+label: 'sliders comments simple'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

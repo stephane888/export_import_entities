@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.blogs_modele_prestige
+id: paragraph.blogs_modele_prestige
+target_entity_type_id: paragraph
+target_bundle: blogs_modele_prestige
+default_langcode: current_interface
+language_alterable: true

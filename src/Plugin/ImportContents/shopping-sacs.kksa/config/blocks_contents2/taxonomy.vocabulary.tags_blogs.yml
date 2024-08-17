@@ -1,0 +1,8 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: 'Tags blogs'
+vid: tags_blogs
+description: null
+weight: 0
+new_revision: false

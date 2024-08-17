@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - blockscontent.blocks_contents_type.article_de_blogs_prestige
+id: blocks_contents.article_de_blogs_prestige
+target_entity_type_id: blocks_contents
+target_bundle: article_de_blogs_prestige
+default_langcode: current_interface
+language_alterable: true

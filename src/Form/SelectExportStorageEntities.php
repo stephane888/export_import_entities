@@ -329,6 +329,11 @@ final class SelectExportStorageEntities extends ExportBase {
            */
           $subEntity = $this->EntityTypeManager->getStorage($entity_type_id)->load($value['target_id']);
           if ($subEntity) {
+            if ($subEntity instanceof ContentEntityBase)
+              $this->getOrthersConfig($subEntity);
+            // \Stephane888\Debug\debugLog::$path = null;
+            // \Stephane888\Debug\debugLog::symfonyDebug($subEntity->toArray(),
+            // 'getOrthersConfig', true);
             $bundle = $subEntity->bundle() ? $subEntity->bundle() : $entity_type_id;
             $BundleEntityType = $subEntity->getEntityType()->getBundleEntityType();
             $this->LoadConfigs->generateAllConfigAboutEntity($entity_type_id, $bundle, $BundleEntityType, $value['target_id']);
