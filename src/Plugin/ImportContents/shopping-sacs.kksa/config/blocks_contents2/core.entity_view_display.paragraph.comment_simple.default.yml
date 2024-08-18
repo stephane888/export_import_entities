@@ -444,7 +444,7 @@ third_party_settings:
                 container_width:
                   class: ''
           scss:
-            scss_field: ''
+            scss_field: " min-height: 200px;\r\n  .avatar img {\r\n    border-radius: 50%;\r\n    max-width: 60px;\r\n    height: 60px;\r\n  }"
             file_js: ''
           class_row: ''
         components:

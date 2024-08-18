@@ -80,7 +80,7 @@ content:
       match_operator: CONTAINS
       allow_duplicate: true
       collapsible: true
-      collapsed: true
+      collapsed: false
       revision: false
       removed_reference: optional
     third_party_settings: {  }
