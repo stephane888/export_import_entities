@@ -1,0 +1,15 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - user
+  enforced:
+    module:
+      - hot_models
+_core:
+  default_config_hash: hA-F5ME2H6firsbmz6m3JerhTpsg7yqofJ0G5NaZvAA
+id: user.hot_models_hotlock_menu__user
+label: 'User model flat (hot_models module)'
+description: ''
+targetEntityType: user
+cache: true

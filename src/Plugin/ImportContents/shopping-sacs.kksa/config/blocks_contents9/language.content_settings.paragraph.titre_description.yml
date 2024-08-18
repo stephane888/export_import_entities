@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.titre_description
+id: paragraph.titre_description
+target_entity_type_id: paragraph
+target_bundle: titre_description
+default_langcode: current_interface
+language_alterable: true

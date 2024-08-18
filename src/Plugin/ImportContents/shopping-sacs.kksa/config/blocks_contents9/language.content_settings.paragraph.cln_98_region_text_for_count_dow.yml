@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.cln_98_region_text_for_count_dow
+id: paragraph.cln_98_region_text_for_count_dow
+target_entity_type_id: paragraph
+target_bundle: cln_98_region_text_for_count_dow
+default_langcode: site_default
+language_alterable: false

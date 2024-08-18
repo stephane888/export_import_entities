@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.sliders_comments_simple
+id: paragraph.sliders_comments_simple
+target_entity_type_id: paragraph
+target_bundle: sliders_comments_simple
+default_langcode: current_interface
+language_alterable: true

@@ -1,0 +1,35 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.sliders_comments_simple.field_paragraphs
+    - paragraphs.paragraphs_type.sliders_comments_simple
+  module:
+    - fielditem_renderby_view
+    - formatage_models
+id: paragraph.sliders_comments_simple.default
+targetEntityType: paragraph
+bundle: sliders_comments_simple
+mode: default
+content:
+  field_paragraphs:
+    type: fielditem_renderby_view_formatter
+    label: hidden
+    settings:
+      view_name: view_hero_sliders
+      configure_view:
+        display_view_id: block_1
+      display_view_id: null
+      view_arguments: {  }
+      view_filters: {  }
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
+    weight: 0
+    region: content
+hidden: {  }
