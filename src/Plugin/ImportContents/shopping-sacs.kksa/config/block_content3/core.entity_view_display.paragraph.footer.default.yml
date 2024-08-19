@@ -1,0 +1,863 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.footer.field_body
+    - field.field.paragraph.footer.field_icons_buttons
+    - field.field.paragraph.footer.field_paragraphs
+    - field.field.paragraph.footer.field_subtitle
+    - field.field.paragraph.footer.field_title
+    - field.field.paragraph.footer.field_titre_3
+    - paragraphs.paragraphs_type.footer
+    - system.menu.a-propos
+    - system.menu.footer-end-menu
+    - system.menu.informations
+  module:
+    - entity_reference_revisions
+    - fast_models
+    - formatage_models
+    - layout_builder
+    - more_fields
+    - system
+    - text
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: f_news_footer
+        layout_settings:
+          label: 'f_news footer ( f_news_footer ) '
+          context_mapping: {  }
+          region_css_top_title: ''
+          region_css_top_text_left: ''
+          region_css_top_icon: ''
+          region_css_top_title_one: ''
+          region_css_top_title_two: ''
+          region_css_footer_teaser: ''
+          region_css_footer_top_menu: ''
+          region_css_footer_top_menu_one: ''
+          region_css_bottom_link: ''
+          region_css_bottom_copy: ''
+          css: mb-0
+          load_clean_value: 0
+          save_by_domain: null
+          load_libray: false
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: null
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              text_alignment:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              box_shadow:
+                class: null
+              scroll_effects:
+                class: null
+          id: f-news-footer-6213--9p7l7JQF_uo
+          config_section:
+            type_container: container
+            container_class: ''
+            id: f-news-footer-6213--9p7l7JQF_uo
+          cover_section:
+            active: 0
+            model: ''
+            opacity: ''
+            zindex: ''
+          part_one:
+            builder-form: true
+            info:
+              title: 'Col one'
+              loader: dynamic
+            fields:
+              top_title:
+                text_html:
+                  label: 'Titre 1'
+                  value: 'follow us'
+                  format: full_html
+              top_text_left:
+                text_html:
+                  label: Paragraphe
+                  value: '<p> Pro eu apeirian suavitate dissentiet, qui dicunt ancillae id, ne mea homero persequeris </p> '
+                  format: full_html
+              top_icon:
+                text_html:
+                  label: 'icone 1'
+                  value: "\r\n\r\n                        <a href=\"#\" class=\"facebook\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 320 512\">\r\n\r\n                                <path d=\"M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z\"></path>\r\n                            </svg></a>\r\n                        <a href=\"#\" class=\"twitter\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\">\r\n\r\n                                <path d=\"M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z\"></path>\r\n                            </svg></a>\r\n                        <a href=\"#\" class=\"instagram\"><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 448 512\">\r\n\r\n                                <path d=\"M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z\"></path>\r\n                            </svg></a>\r\n                    \r\n"
+                  format: full_html
+          part_two:
+            builder-form: true
+            info:
+              title: 'Col two'
+              loader: dynamic
+            fields:
+              top_title_one:
+                text_html:
+                  label: 'Titre 2'
+                  value: explore
+                  format: full_html
+              footer_top_menu:
+                text_html:
+                  label: 'liste lien 1'
+                  value: ''
+                  format: full_html
+          part_three:
+            builder-form: true
+            info:
+              title: 'Col three'
+              loader: dynamic
+            fields:
+              top_title_two:
+                text_html:
+                  label: 'Titre 3'
+                  value: company
+                  format: full_html
+              footer_top_menu_one:
+                text_html:
+                  label: 'liste lien 2'
+                  value: ''
+                  format: full_html
+          part_four:
+            builder-form: true
+            info:
+              title: 'Col four'
+              loader: dynamic
+            fields:
+              footer_teaser:
+                text_html:
+                  label: 'Region vide'
+                  value: '<p>&lt;p&gt;Copyright © 2024 &lt;a href="https://habeuk.com" class="fw-bold"&gt;habeuk.com&lt;/a&gt;&lt;/p&gt;</p>'
+                  format: full_html
+          part_five:
+            builder-form: true
+            info:
+              title: 'footer five'
+              loader: static
+            fields:
+              bottom_copy:
+                text_html:
+                  label: copyright
+                  value: '<p>Copyright © 2024 <a href="https://habeuk.com" class="fw-bold">habeuk.com</a></p>'
+                  format: texte_code
+              bottom_link:
+                text_html:
+                  label: 'lien 1'
+                  value: "<ul class=\"ft-list d-none\">\r\n                        <li><a href=\"#\"> privacy </a></li>\r\n                        <li><a href=\"#\"> Terms and conditions </a></li>\r\n                        <li><a href=\"#\">contact</a></li>\r\n                    </ul>"
+                  format: texte_code
+          aos_attributes:
+            top_title:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            top_text_left:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            top_icon:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            top_title_one:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            top_title_two:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            footer_teaser:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            footer_top_menu:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            footer_top_menu_one:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            bottom_link:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+            bottom_copy:
+              data_aos: ''
+              data_aos_anchor_placement: ''
+              data_aos_duration: ''
+              data_aos_delay: ''
+              data_aos_ease: ''
+          region_tag_top_title: ''
+          region_tag_top_text_left: ''
+          region_tag_top_icon: ''
+          region_tag_top_title_one: ''
+          region_tag_top_title_two: ''
+          region_tag_footer_teaser: ''
+          region_tag_footer_top_menu: ''
+          region_tag_footer_top_menu_one: ''
+          region_tag_bottom_link: ''
+          region_tag_bottom_copy: ''
+          default_class:
+            background_position:
+              class: ''
+              background:
+                '': 0
+                background--attached: 0
+                background--cover: 0
+                background--contain: 0
+            spaces:
+              class:
+                '': 0
+                space-bottom: 0
+                space-top-inv: 0
+                space-padding: 0
+                space-inner-padding: 0
+                space-inner-bottom: 0
+                space-inner-top: 0
+                padding-top: 0
+                margin-top: 0
+                padding-bottom: 0
+            border_radius:
+              class: ''
+            box_shadow:
+              class: ''
+            container_width:
+              class: ''
+            regions:
+              top_title:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              top_text_left:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              top_icon:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              top_title_one:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              top_title_two:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              footer_teaser:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              footer_top_menu:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              footer_top_menu_one:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              bottom_link:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+              bottom_copy:
+                background_position:
+                  class: ''
+                  background:
+                    '': 0
+                    background--attached: 0
+                    background--cover: 0
+                    background--contain: 0
+                spaces:
+                  class:
+                    '': 0
+                    space-bottom: 0
+                    space-top-inv: 0
+                    space-padding: 0
+                    space-inner-padding: 0
+                    space-inner-bottom: 0
+                    space-inner-top: 0
+                    padding-top: 0
+                    margin-top: 0
+                    padding-bottom: 0
+                border_radius:
+                  class: ''
+                box_shadow:
+                  class: ''
+                container_width:
+                  class: ''
+          scss:
+            scss_field: ''
+            file_js: ''
+        components:
+          474ff077-d227-4957-a563-da3ac50c95f9:
+            uuid: 474ff077-d227-4957-a563-da3ac50c95f9
+            region: top_title
+            configuration:
+              id: 'field_block:paragraph:footer:field_title'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 3
+            additional: {  }
+          1df9cedb-e497-4427-8393-8dcaba387def:
+            uuid: 1df9cedb-e497-4427-8393-8dcaba387def
+            region: top_title_one
+            configuration:
+              id: 'field_block:paragraph:footer:field_subtitle'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 1
+            additional: {  }
+          c776f892-18c1-4bde-acae-8999d29a1533:
+            uuid: c776f892-18c1-4bde-acae-8999d29a1533
+            region: top_title_two
+            configuration:
+              id: 'field_block:paragraph:footer:field_titre_3'
+              label: 'Titre 3'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 2
+            additional: {  }
+          77c08a47-eff2-4445-84ec-1e2d2b028c0d:
+            uuid: 77c08a47-eff2-4445-84ec-1e2d2b028c0d
+            region: footer_top_menu
+            configuration:
+              id: 'system_menu_block:a-propos'
+              label: 'À propos'
+              label_display: '0'
+              provider: system
+              context_mapping: {  }
+              level: 1
+              depth: 0
+              expand_all_items: false
+            weight: 0
+            additional: {  }
+          6dce557b-378b-4638-a858-4bb999319054:
+            uuid: 6dce557b-378b-4638-a858-4bb999319054
+            region: footer_top_menu_one
+            configuration:
+              id: 'system_menu_block:informations'
+              label: Informations
+              label_display: '0'
+              provider: system
+              context_mapping: {  }
+              level: 1
+              depth: 0
+              expand_all_items: false
+            weight: 0
+            additional: {  }
+          3cffbb05-5aab-4848-9ac3-0ef407540258:
+            uuid: 3cffbb05-5aab-4848-9ac3-0ef407540258
+            region: top_text_left
+            configuration:
+              id: 'field_block:paragraph:footer:field_body'
+              label: 'Description 1'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 1
+            additional: {  }
+          71008f27-15cb-4f5b-9d00-79e35d24aed6:
+            uuid: 71008f27-15cb-4f5b-9d00-79e35d24aed6
+            region: top_icon
+            configuration:
+              id: 'field_block:paragraph:footer:field_icons_buttons'
+              label: 'icons buttons'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: more_fields_icon_text_formatter2
+                label: hidden
+                settings:
+                  layoutgenentitystyles_view: more_fields/field-icon-svg
+                  size: none
+                  bg: icon-bg-background
+                  custom_class_container: d-flex
+                  custom_class_sub_container: 'd-flex m-0'
+                  custom_class_icon: me-2
+                  custom_class_text: d-none
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 1
+            additional: {  }
+          8c15abaa-9393-4d3b-9c84-2ab3811f2f1a:
+            uuid: 8c15abaa-9393-4d3b-9c84-2ab3811f2f1a
+            region: footer_teaser
+            configuration:
+              id: 'field_block:paragraph:footer:field_paragraphs'
+              label: Paragraphs
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 3
+            additional: {  }
+          882a75f9-f22e-4f1b-9a7c-4f6e7d1ea6ee:
+            uuid: 882a75f9-f22e-4f1b-9a7c-4f6e7d1ea6ee
+            region: bottom_link
+            configuration:
+              id: 'system_menu_block:footer-end-menu'
+              label: 'Footer end menu'
+              label_display: '0'
+              provider: system
+              context_mapping: {  }
+              level: 1
+              depth: 0
+              expand_all_items: false
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: paragraph.footer.default
+targetEntityType: paragraph
+bundle: footer
+mode: default
+content:
+  field_body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: text-center
+          content: ''
+    weight: 3
+    region: top_title
+  field_icons_buttons:
+    type: more_fields_icon_text_formatter
+    label: above
+    settings:
+      layoutgenentitystyles_view: more_fields/field-icon-address
+    third_party_settings: {  }
+    weight: 4
+    region: top_title
+  field_paragraphs:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: mb-5
+          content: ''
+    weight: 5
+    region: top_title
+  field_subtitle:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
+    weight: 1
+    region: top_title
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
+    weight: 0
+    region: top_title
+  field_titre_3:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: top_title
+hidden: {  }

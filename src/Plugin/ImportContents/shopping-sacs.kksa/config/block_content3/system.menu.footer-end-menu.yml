@@ -1,0 +1,7 @@
+langcode: fr
+status: true
+dependencies: {  }
+id: footer-end-menu
+label: 'Footer end menu'
+description: ''
+locked: false

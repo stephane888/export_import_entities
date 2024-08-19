@@ -1,0 +1,14 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: article_teaser_760x380
+label: 'Article teaser 760x380'
+effects:
+  f4f00200-4dd9-4afc-a6ca-0144f6f235fb:
+    uuid: f4f00200-4dd9-4afc-a6ca-0144f6f235fb
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 760
+      height: 380
+      anchor: center-center

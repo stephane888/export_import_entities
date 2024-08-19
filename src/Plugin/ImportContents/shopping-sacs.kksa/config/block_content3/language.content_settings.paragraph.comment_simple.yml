@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.comment_simple
+id: paragraph.comment_simple
+target_entity_type_id: paragraph
+target_bundle: comment_simple
+default_langcode: current_interface
+language_alterable: true

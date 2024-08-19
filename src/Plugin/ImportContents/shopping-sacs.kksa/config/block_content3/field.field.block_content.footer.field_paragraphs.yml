@@ -1,0 +1,118 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.footer
+    - field.storage.block_content.field_paragraphs
+  module:
+    - entity_reference_revisions
+id: block_content.footer.field_paragraphs
+field_name: field_paragraphs
+entity_type: block_content
+bundle: footer
+label: Paragraphs
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles: null
+    negate: 0
+    target_bundles_drag_drop:
+      accordeon_region_teaser:
+        weight: 32
+        enabled: false
+      accordion_faq:
+        weight: 33
+        enabled: false
+      article_sort_by_tag:
+        weight: 34
+        enabled: false
+      banner_page:
+        weight: 35
+        enabled: false
+      bloc_service:
+        weight: 15
+        enabled: false
+      blogs_modele_prestige:
+        weight: 37
+        enabled: false
+      cln_98_region_text_for_count_dow:
+        weight: 38
+        enabled: false
+      comment_simple:
+        weight: 39
+        enabled: false
+      count_down_region:
+        weight: 16
+        enabled: false
+      formulaire_page_contact:
+        weight: 41
+        enabled: false
+      galeries_images:
+        weight: 42
+        enabled: false
+      hero_avec_video_22:
+        weight: 17
+        enabled: false
+      hero_avec_video_3:
+        weight: 18
+        enabled: false
+      hero_sliders:
+        weight: 19
+        enabled: false
+      images_texte:
+        weight: 20
+        enabled: false
+      logo_partenaire:
+        weight: 21
+        enabled: false
+      navigate_to_next:
+        weight: 48
+        enabled: false
+      prestige_hero1:
+        weight: 22
+        enabled: false
+      region_text_for_count_dow:
+        weight: 23
+        enabled: false
+      section_count_down:
+        weight: 24
+        enabled: false
+      section_image_exposition:
+        weight: 52
+        enabled: false
+      section_matiere:
+        weight: 53
+        enabled: false
+      section_newsletter:
+        weight: 54
+        enabled: false
+      section_with_text_and_two_images:
+        weight: 25
+        enabled: false
+      services:
+        weight: 26
+        enabled: false
+      sliders_comments_simple:
+        weight: 57
+        enabled: false
+      teaser_section_material:
+        weight: 58
+        enabled: false
+      text_et_partenaire:
+        weight: 28
+        enabled: false
+      texte_big_image:
+        weight: 27
+        enabled: false
+      titre_description:
+        weight: 61
+        enabled: false
+      top_header:
+        weight: 62
+        enabled: false
+field_type: entity_reference_revisions

@@ -1,0 +1,82 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.footer.field_body
+    - field.field.paragraph.footer.field_icons_buttons
+    - field.field.paragraph.footer.field_paragraphs
+    - field.field.paragraph.footer.field_subtitle
+    - field.field.paragraph.footer.field_title
+    - field.field.paragraph.footer.field_titre_3
+    - paragraphs.paragraphs_type.footer
+  module:
+    - inline_entity_form
+    - more_fields
+    - text
+id: paragraph.footer.default
+targetEntityType: paragraph
+bundle: footer
+mode: default
+content:
+  field_body:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_icons_buttons:
+    type: more_fields_icon_text_description_widget
+    weight: 4
+    region: content
+    settings:
+      size: 100
+      label_1: 'Nom du reseau social'
+      label_2: 'Svg or fontawesome'
+    third_party_settings: {  }
+  field_paragraphs:
+    type: inline_entity_form_complex
+    weight: 5
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      collapsible: true
+      collapsed: true
+      revision: false
+      removed_reference: optional
+    third_party_settings: {  }
+  field_subtitle:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_titre_3:
+    type: string_textfield
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

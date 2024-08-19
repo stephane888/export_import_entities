@@ -1,0 +1,20 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_titre_3
+    - paragraphs.paragraphs_type.footer
+id: paragraph.footer.field_titre_3
+field_name: field_titre_3
+entity_type: paragraph
+bundle: footer
+label: 'Titre 3'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 'À propos'
+default_value_callback: ''
+settings: {  }
+field_type: string
