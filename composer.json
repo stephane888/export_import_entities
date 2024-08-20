@@ -10,6 +10,7 @@
 	],
 	"require" : {
 		"drupal/jsonapi_resources" : "^1.0@beta",
-		"habeuk/debug" : "^2.0.7|dev-2x"
+		"habeuk/debug" : "^2.0.7|dev-2x",
+		"habeuk/drupal_utility": "*1.0.1|dev-1x"
 	}
 }
