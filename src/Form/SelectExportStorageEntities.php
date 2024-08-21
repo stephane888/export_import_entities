@@ -50,16 +50,30 @@ final class SelectExportStorageEntities extends ExportBase {
    * @var LoadConfigs
    */
   protected $LoadConfigs;
+  
   /**
    *
    * @var DuplicateEntityReference
    */
   protected $DuplicateEntityReference;
+  
   /**
    *
    * @var \Drupal\apivuejs\Services\GenerateForm
    */
   protected $GenerateForm;
+  
+  /**
+   * ignore les ces champs pour les sous entites.
+   *
+   * @var array
+   */
+  protected $ignoreFields = [
+    'content_translation_uid',
+    'revision_user',
+    'uid' // cela permet de reduire les boucles infinit qui pourrait remonter à
+          // plus de configuration que necessaire.
+  ];
   
   /**
    * --
@@ -316,7 +330,7 @@ final class SelectExportStorageEntities extends ExportBase {
        * @var \Drupal\field\Entity\FieldConfig $field
        */
       $entity_type_id = $field->getSetting("target_type");
-      if ($entity_type_id) {
+      if (!in_array($fieldName, $this->ignoreFields) && $entity_type_id) {
         /**
          *
          * @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $FieldItemList
