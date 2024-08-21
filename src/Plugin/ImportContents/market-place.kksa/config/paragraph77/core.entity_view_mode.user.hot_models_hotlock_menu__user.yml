@@ -1,0 +1,13 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - user
+  enforced:
+    module:
+      - hot_models
+id: user.hot_models_hotlock_menu__user
+label: 'User model flat (hot_models module)'
+description: ''
+targetEntityType: user
+cache: true
