@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.produits_attributs_colors
+id: paragraph.produits_attributs_colors
+target_entity_type_id: paragraph
+target_bundle: produits_attributs_colors
+default_langcode: site_default
+language_alterable: false

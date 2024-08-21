@@ -74,6 +74,11 @@ final class SelectExportStorageEntities extends ExportBase {
     'uid' // cela permet de reduire les boucles infinit qui pourrait remonter à
           // plus de configuration que necessaire.
   ];
+  /**
+   *
+   * @var integer
+   */
+  protected $termsCount = 0;
   
   /**
    * --
@@ -324,6 +329,12 @@ final class SelectExportStorageEntities extends ExportBase {
    * @param ContentEntityBase $entity
    */
   protected function getOrthersConfig(ContentEntityBase $entity) {
+    // if ($this->termsCount > 1000) {
+    // dd('stop');
+    // }
+    // else
+    // $this->termsCount++;
+    //
     foreach ($entity->getFieldDefinitions() as $fieldName => $field) {
       /**
        *
@@ -343,11 +354,13 @@ final class SelectExportStorageEntities extends ExportBase {
            */
           $subEntity = $this->EntityTypeManager->getStorage($entity_type_id)->load($value['target_id']);
           if ($subEntity) {
-            if ($subEntity instanceof ContentEntityBase)
+            if ($subEntity instanceof ContentEntityBase) {
+              // \Stephane888\Debug\debugLog::$path = NULL;
+              // \Stephane888\Debug\debugLog::symfonyDebug($subEntity->toArray(),
+              // $subEntity->getEntityTypeId() . '____' . $subEntity->id() .
+              // '---getOrthersConfig', true);
               $this->getOrthersConfig($subEntity);
-            // \Stephane888\Debug\debugLog::$path = null;
-            // \Stephane888\Debug\debugLog::symfonyDebug($subEntity->toArray(),
-            // 'getOrthersConfig', true);
+            }
             $bundle = $subEntity->bundle() ? $subEntity->bundle() : $entity_type_id;
             $BundleEntityType = $subEntity->getEntityType()->getBundleEntityType();
             $this->LoadConfigs->generateAllConfigAboutEntity($entity_type_id, $bundle, $BundleEntityType, $value['target_id']);

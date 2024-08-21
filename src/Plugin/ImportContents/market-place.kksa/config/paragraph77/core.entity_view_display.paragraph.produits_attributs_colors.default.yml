@@ -1,0 +1,21 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.produits_attributs_colors.field_attributs_colors
+    - paragraphs.paragraphs_type.produits_attributs_colors
+id: paragraph.produits_attributs_colors.default
+targetEntityType: paragraph
+bundle: produits_attributs_colors
+mode: default
+content:
+  field_attributs_colors:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

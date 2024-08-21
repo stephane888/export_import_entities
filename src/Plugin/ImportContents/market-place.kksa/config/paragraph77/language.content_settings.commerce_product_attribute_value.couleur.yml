@@ -1,0 +1,15 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_attribute.couleur
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: commerce_product_attribute_value.couleur
+target_entity_type_id: commerce_product_attribute_value
+target_bundle: couleur
+default_langcode: site_default
+language_alterable: false
