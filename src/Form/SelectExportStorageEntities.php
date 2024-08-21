@@ -341,7 +341,7 @@ final class SelectExportStorageEntities extends ExportBase {
        * @var \Drupal\field\Entity\FieldConfig $field
        */
       $entity_type_id = $field->getSetting("target_type");
-      if (!in_array($fieldName, $this->ignoreFields) && $entity_type_id) {
+      if ($entity_type_id) {
         /**
          *
          * @var \Drupal\entity_reference_revisions\EntityReferenceRevisionsFieldItemList $FieldItemList
@@ -354,7 +354,8 @@ final class SelectExportStorageEntities extends ExportBase {
            */
           $subEntity = $this->EntityTypeManager->getStorage($entity_type_id)->load($value['target_id']);
           if ($subEntity) {
-            if ($subEntity instanceof ContentEntityBase) {
+            // On souhaite reduire cela aux entites inclus.
+            if (!in_array($fieldName, $this->ignoreFields) && $subEntity instanceof ContentEntityBase) {
               // \Stephane888\Debug\debugLog::$path = NULL;
               // \Stephane888\Debug\debugLog::symfonyDebug($subEntity->toArray(),
               // $subEntity->getEntityTypeId() . '____' . $subEntity->id() .
