@@ -6,5 +6,5 @@ dependencies:
 id: paragraph.produits_attributs_colors
 target_entity_type_id: paragraph
 target_bundle: produits_attributs_colors
-default_langcode: site_default
+default_langcode: current_interface
 language_alterable: false
