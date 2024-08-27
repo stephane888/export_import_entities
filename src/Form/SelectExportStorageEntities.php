@@ -329,7 +329,7 @@ final class SelectExportStorageEntities extends ExportBase {
    * @param ContentEntityBase $entity
    */
   protected function getOrthersConfig(ContentEntityBase $entity) {
-    if ($this->termsCount > 1000) {
+    if ($this->termsCount > 100) {
       dd('stop');
     }
     else
@@ -356,10 +356,8 @@ final class SelectExportStorageEntities extends ExportBase {
           if ($subEntity) {
             // On souhaite reduire cela aux entites inclus.
             if (!in_array($fieldName, $this->ignoreFields) && $subEntity instanceof ContentEntityBase) {
-              // \Stephane888\Debug\debugLog::$path = NULL;
-              // \Stephane888\Debug\debugLog::symfonyDebug($subEntity->toArray(),
-              // $subEntity->getEntityTypeId() . '____' . $subEntity->id() .
-              // '---getOrthersConfig', true);
+              \Stephane888\Debug\debugLog::$path = NULL;
+              \Stephane888\Debug\debugLog::symfonyDebug($subEntity->toArray(), $subEntity->getEntityTypeId() . '____' . $subEntity->id() . '---getOrthersConfig', true);
               $this->getOrthersConfig($subEntity);
             }
             $bundle = $subEntity->bundle() ? $subEntity->bundle() : $entity_type_id;
