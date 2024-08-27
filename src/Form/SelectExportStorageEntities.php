@@ -329,12 +329,12 @@ final class SelectExportStorageEntities extends ExportBase {
    * @param ContentEntityBase $entity
    */
   protected function getOrthersConfig(ContentEntityBase $entity) {
-    // if ($this->termsCount > 1000) {
-    // dd('stop');
-    // }
-    // else
-    // $this->termsCount++;
-    //
+    if ($this->termsCount > 1000) {
+      dd('stop');
+    }
+    else
+      $this->termsCount++;
+    
     foreach ($entity->getFieldDefinitions() as $fieldName => $field) {
       /**
        *
