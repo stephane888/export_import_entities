@@ -1,0 +1,44 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.text_description_location.field_description
+    - field.field.paragraph.text_description_location.field_subtitle
+    - field.field.paragraph.text_description_location.field_title
+    - field.field.paragraph.text_description_location.layout_builder__layout
+    - paragraphs.paragraphs_type.text_description_location
+  module:
+    - text
+id: paragraph.text_description_location.default
+targetEntityType: paragraph
+bundle: text_description_location
+mode: default
+content:
+  field_description:
+    type: text_textarea
+    weight: 5
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_subtitle:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  layout_builder__layout: true
+  status: true
