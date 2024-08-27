@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.galeries_images
+id: paragraph.galeries_images
+target_entity_type_id: paragraph
+target_bundle: galeries_images
+default_langcode: current_interface
+language_alterable: true

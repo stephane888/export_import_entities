@@ -1,0 +1,36 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.galeries_images.field_image2
+    - field.field.paragraph.galeries_images.field_images
+    - field.field.paragraph.galeries_images.layout_builder__layout
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.galeries_images
+  module:
+    - image
+id: paragraph.galeries_images.default
+targetEntityType: paragraph
+bundle: galeries_images
+mode: default
+content:
+  field_image2:
+    type: image_image
+    weight: 6
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_images:
+    type: image_image
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+hidden:
+  created: true
+  layout_builder__layout: true
+  status: true

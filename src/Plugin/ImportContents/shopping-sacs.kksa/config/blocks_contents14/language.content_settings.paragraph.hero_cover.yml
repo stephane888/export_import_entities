@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.hero_cover
+id: paragraph.hero_cover
+target_entity_type_id: paragraph
+target_bundle: hero_cover
+default_langcode: site_default
+language_alterable: false

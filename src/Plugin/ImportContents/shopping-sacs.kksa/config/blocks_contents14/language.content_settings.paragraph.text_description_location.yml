@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.text_description_location
+id: paragraph.text_description_location
+target_entity_type_id: paragraph
+target_bundle: text_description_location
+default_langcode: site_default
+language_alterable: false
