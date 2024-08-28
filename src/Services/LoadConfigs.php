@@ -448,9 +448,6 @@ class LoadConfigs extends LoadBase {
         }
         $name = $entityTypeDefinition->getConfigPrefix() . '.' . $id;
         $this->getConfigFromName($name);
-        if ($entiy_type_id ==  "webform") {
-          dump($name);
-        }
         // il faudra peut etre gerer la traduction.
 
         /**
