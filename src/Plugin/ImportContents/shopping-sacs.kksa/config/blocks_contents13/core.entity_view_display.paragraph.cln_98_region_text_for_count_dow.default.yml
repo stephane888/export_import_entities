@@ -2,15 +2,15 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.field.paragraph.text_description_location.field_description
-    - field.field.paragraph.text_description_location.field_subtitle
-    - field.field.paragraph.text_description_location.field_title
-    - field.field.paragraph.text_description_location.layout_builder__layout
-    - paragraphs.paragraphs_type.text_description_location
+    - field.field.paragraph.cln_98_region_text_for_count_dow.field_background
+    - field.field.paragraph.cln_98_region_text_for_count_dow.field_description
+    - field.field.paragraph.cln_98_region_text_for_count_dow.field_subtitle
+    - field.field.paragraph.cln_98_region_text_for_count_dow.field_title
+    - paragraphs.paragraphs_type.cln_98_region_text_for_count_dow
   module:
     - formatage_models
+    - image
     - layout_builder
-    - text
 third_party_settings:
   layout_builder:
     enabled: true
@@ -21,12 +21,12 @@ third_party_settings:
         layout_settings:
           label: ' One column custom  ( formatage_models_simple_block ) '
           context_mapping: {  }
-          css: ''
+          css: 'background--cover background-position--center  d-flex justify-content-center align-items-center space-padding'
           region_tag_main: div
           config_section:
-            type_container: with-tablet
-            container_class: mx-auto
-            id: formatage-models-simple-block-7318--rhkjfBSObk8
+            type_container: container
+            container_class: 'd-flex justify-content-center align-items-center flex-column space-padding'
+            id: formatage-models-simple-block-9365--4qv_BlL3X7k
           sf:
             builder-form: true
             info:
@@ -50,9 +50,9 @@ third_party_settings:
                   style: ''
                   class: ''
                   inbg: 0
-          region_css_main: 'h6 custom-text small'
-          region_css_block_2: 'small h6'
-          region_css_block_3: 'h6 small'
+          region_css_main: 'text-white h6 mb-4 text-uppercase custom-text'
+          region_css_block_2: 'text-white h4 mb-4 text-uppercase custom-text-1'
+          region_css_block_3: 'text-white text-center'
           region_css_block_4: ''
           region_css_block_5: ''
           region_css_block_6: ''
@@ -146,11 +146,11 @@ third_party_settings:
                 class: null
               scroll_effects:
                 class: null
-          id: formatage-models-simple-block-7318--rhkjfBSObk8
+          id: formatage-models-simple-block-9365--4qv_BlL3X7k
           cover_section:
-            active: 0
-            model: ''
-            opacity: ''
+            active: cover-bg-theme
+            model: cover-dark
+            opacity: opacity-before-03
             zindex: ''
           aos_attributes:
             main:
@@ -444,51 +444,26 @@ third_party_settings:
                 container_width:
                   class: ''
           scss:
-            scss_field: ".custom-text{\r\n  line-height: 3;\r\n}"
+            scss_field: "min-height: 650px;\r\n.custom-text{\r\n  letter-spacing: 4px;\r\n}\r\n.custom-text-1{\r\n  letter-spacing: 7px;\r\n}"
             file_js: ''
           class_row: ''
         components:
-          8353bcc8-70b4-410d-b6f7-41919dd5d177:
-            uuid: 8353bcc8-70b4-410d-b6f7-41919dd5d177
-            region: main
+          b47988b6-4b01-421e-be09-077a2859fd77:
+            uuid: b47988b6-4b01-421e-be09-077a2859fd77
+            region: image_bg
             configuration:
-              id: 'field_block:paragraph:text_description_location:field_description'
-              label: Description
+              id: 'field_block:paragraph:cln_98_region_text_for_count_dow:field_background'
+              label: 'Image d’arrière plan'
               label_display: '0'
               provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: text_default
-                label: hidden
-                settings: {  }
-                third_party_settings:
-                  formatage_models:
-                    classes:
-                      container: ''
-                      title: ''
-                      value: ''
-                      item: ''
-                      content: ''
-            weight: 0
-            additional: {  }
-          c99fc6a1-c446-4b55-b92c-4be46d952719:
-            uuid: c99fc6a1-c446-4b55-b92c-4be46d952719
-            region: block_2
-            configuration:
-              id: 'field_block:paragraph:text_description_location:field_title'
-              label: Titre
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: string
+                type: image_url
                 label: hidden
                 settings:
-                  link_to_entity: false
+                  image_style: wide
                 third_party_settings:
                   formatage_models:
                     classes:
@@ -499,11 +474,11 @@ third_party_settings:
                       content: ''
             weight: 0
             additional: {  }
-          70a516cf-ad57-4ee3-95aa-fd977229a918:
-            uuid: 70a516cf-ad57-4ee3-95aa-fd977229a918
-            region: block_3
+          0591bfc1-f0c6-4bb1-a3f8-a77fa09a668b:
+            uuid: 0591bfc1-f0c6-4bb1-a3f8-a77fa09a668b
+            region: main
             configuration:
-              id: 'field_block:paragraph:text_description_location:field_subtitle'
+              id: 'field_block:paragraph:cln_98_region_text_for_count_dow:field_subtitle'
               label: 'Sous titre'
               label_display: '0'
               provider: layout_builder
@@ -525,46 +500,68 @@ third_party_settings:
                       content: ''
             weight: 0
             additional: {  }
+          c5c87f3f-754c-40c7-8606-0b9d65987674:
+            uuid: c5c87f3f-754c-40c7-8606-0b9d65987674
+            region: block_2
+            configuration:
+              id: 'field_block:paragraph:cln_98_region_text_for_count_dow:field_title'
+              label: Titre
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          86df74f0-1333-4b05-b6df-2f3a1a39c333:
+            uuid: 86df74f0-1333-4b05-b6df-2f3a1a39c333
+            region: block_3
+            configuration:
+              id: 'field_block:paragraph:cln_98_region_text_for_count_dow:field_description'
+              label: Description
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
         third_party_settings: {  }
-id: paragraph.text_description_location.default
+id: paragraph.cln_98_region_text_for_count_dow.default
 targetEntityType: paragraph
-bundle: text_description_location
+bundle: cln_98_region_text_for_count_dow
 mode: default
 content:
-  field_description:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings:
-      formatage_models:
-        classes:
-          container: ''
-          title: ''
-          value: ''
-          item: ''
-          content: ''
-    weight: 2
-    region: content
-  field_subtitle:
-    type: string
+  field_background:
+    type: image_url
     label: hidden
     settings:
-      link_to_entity: false
-    third_party_settings:
-      formatage_models:
-        classes:
-          container: ''
-          title: ''
-          value: ''
-          item: ''
-          content: ''
-    weight: 1
-    region: content
-  field_title:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
+      image_style: ''
     third_party_settings:
       formatage_models:
         classes:
@@ -576,4 +573,6 @@ content:
     weight: 0
     region: content
 hidden:
-  layout_builder__layout: true
+  field_description: true
+  field_subtitle: true
+  field_title: true

@@ -2,15 +2,12 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.field.paragraph.text_description_location.field_description
-    - field.field.paragraph.text_description_location.field_subtitle
-    - field.field.paragraph.text_description_location.field_title
-    - field.field.paragraph.text_description_location.layout_builder__layout
-    - paragraphs.paragraphs_type.text_description_location
+    - blockscontent.blocks_contents_type.autres_pages
+    - field.field.blocks_contents.autres_pages.layout_builder__layout
   module:
+    - entity_reference_revisions
     - formatage_models
     - layout_builder
-    - text
 third_party_settings:
   layout_builder:
     enabled: true
@@ -24,14 +21,14 @@ third_party_settings:
           css: ''
           region_tag_main: div
           config_section:
-            type_container: with-tablet
-            container_class: mx-auto
-            id: formatage-models-simple-block-7318--rhkjfBSObk8
+            type_container: ''
+            container_class: ''
+            id: ''
           sf:
             builder-form: true
             info:
               title: ' Contenu '
-              loader: dynamic
+              loader: static
             fields:
               main:
                 text_html:
@@ -50,9 +47,9 @@ third_party_settings:
                   style: ''
                   class: ''
                   inbg: 0
-          region_css_main: 'h6 custom-text small'
-          region_css_block_2: 'small h6'
-          region_css_block_3: 'h6 small'
+          region_css_main: ''
+          region_css_block_2: ''
+          region_css_block_3: ''
           region_css_block_4: ''
           region_css_block_5: ''
           region_css_block_6: ''
@@ -146,7 +143,7 @@ third_party_settings:
                 class: null
               scroll_effects:
                 class: null
-          id: formatage-models-simple-block-7318--rhkjfBSObk8
+          id: formatage-models-simple-block-684--u41AH1U0ymc
           cover_section:
             active: 0
             model: ''
@@ -444,77 +441,26 @@ third_party_settings:
                 container_width:
                   class: ''
           scss:
-            scss_field: ".custom-text{\r\n  line-height: 3;\r\n}"
+            scss_field: ''
             file_js: ''
           class_row: ''
         components:
-          8353bcc8-70b4-410d-b6f7-41919dd5d177:
-            uuid: 8353bcc8-70b4-410d-b6f7-41919dd5d177
+          f3992087-33ac-4b7d-b6a6-a296f76fdf20:
+            uuid: f3992087-33ac-4b7d-b6a6-a296f76fdf20
             region: main
             configuration:
-              id: 'field_block:paragraph:text_description_location:field_description'
-              label: Description
+              id: 'field_block:blocks_contents:autres_pages:paragraph_revisions'
+              label: ' Sections entities revision '
               label_display: '0'
               provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: text_default
-                label: hidden
-                settings: {  }
-                third_party_settings:
-                  formatage_models:
-                    classes:
-                      container: ''
-                      title: ''
-                      value: ''
-                      item: ''
-                      content: ''
-            weight: 0
-            additional: {  }
-          c99fc6a1-c446-4b55-b92c-4be46d952719:
-            uuid: c99fc6a1-c446-4b55-b92c-4be46d952719
-            region: block_2
-            configuration:
-              id: 'field_block:paragraph:text_description_location:field_title'
-              label: Titre
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: string
+                type: entity_reference_revisions_entity_view
                 label: hidden
                 settings:
-                  link_to_entity: false
-                third_party_settings:
-                  formatage_models:
-                    classes:
-                      container: ''
-                      title: ''
-                      value: ''
-                      item: ''
-                      content: ''
-            weight: 0
-            additional: {  }
-          70a516cf-ad57-4ee3-95aa-fd977229a918:
-            uuid: 70a516cf-ad57-4ee3-95aa-fd977229a918
-            region: block_3
-            configuration:
-              id: 'field_block:paragraph:text_description_location:field_subtitle'
-              label: 'Sous titre'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: string
-                label: hidden
-                settings:
-                  link_to_entity: false
+                  view_mode: default
                 third_party_settings:
                   formatage_models:
                     classes:
@@ -526,54 +472,24 @@ third_party_settings:
             weight: 0
             additional: {  }
         third_party_settings: {  }
-id: paragraph.text_description_location.default
-targetEntityType: paragraph
-bundle: text_description_location
+_core:
+  default_config_hash: i4lJGpLaKRQ8ZxuCpfNB86Qr5UR0H0CG1RCzcPZ0oEw
+id: blocks_contents.autres_pages.default
+targetEntityType: blocks_contents
+bundle: autres_pages
 mode: default
 content:
-  field_description:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings:
-      formatage_models:
-        classes:
-          container: ''
-          title: ''
-          value: ''
-          item: ''
-          content: ''
-    weight: 2
-    region: content
-  field_subtitle:
-    type: string
-    label: hidden
+  paragraph_revisions:
+    type: entity_reference_revisions_entity_view
+    label: above
     settings:
-      link_to_entity: false
-    third_party_settings:
-      formatage_models:
-        classes:
-          container: ''
-          title: ''
-          value: ''
-          item: ''
-          content: ''
-    weight: 1
-    region: content
-  field_title:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings:
-      formatage_models:
-        classes:
-          container: ''
-          title: ''
-          value: ''
-          item: ''
-          content: ''
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
     weight: 0
     region: content
 hidden:
+  langcode: true
   layout_builder__layout: true
+  name: true
+  user_id: true

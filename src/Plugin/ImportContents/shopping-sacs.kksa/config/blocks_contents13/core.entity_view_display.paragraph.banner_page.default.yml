@@ -2,15 +2,14 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.field.paragraph.text_description_location.field_description
-    - field.field.paragraph.text_description_location.field_subtitle
-    - field.field.paragraph.text_description_location.field_title
-    - field.field.paragraph.text_description_location.layout_builder__layout
-    - paragraphs.paragraphs_type.text_description_location
+    - field.field.paragraph.banner_page.field_background
+    - field.field.paragraph.banner_page.layout_builder__layout
+    - paragraphs.paragraphs_type.banner_page
   module:
     - formatage_models
+    - image
     - layout_builder
-    - text
+    - more_fields
 third_party_settings:
   layout_builder:
     enabled: true
@@ -21,12 +20,12 @@ third_party_settings:
         layout_settings:
           label: ' One column custom  ( formatage_models_simple_block ) '
           context_mapping: {  }
-          css: ''
+          css: 'space-padding d-flex justify-content-center align-items-center background--cover background-position--center'
           region_tag_main: div
           config_section:
-            type_container: with-tablet
-            container_class: mx-auto
-            id: formatage-models-simple-block-7318--rhkjfBSObk8
+            type_container: container
+            container_class: 'space-padding d-flex justify-content-center align-items-center flex-column'
+            id: formatage-models-simple-block-879--2NDrRLj8b8M
           sf:
             builder-form: true
             info:
@@ -50,9 +49,9 @@ third_party_settings:
                   style: ''
                   class: ''
                   inbg: 0
-          region_css_main: 'h6 custom-text small'
-          region_css_block_2: 'small h6'
-          region_css_block_3: 'h6 small'
+          region_css_main: 'text-white text-uppercase'
+          region_css_block_2: ''
+          region_css_block_3: ''
           region_css_block_4: ''
           region_css_block_5: ''
           region_css_block_6: ''
@@ -146,11 +145,11 @@ third_party_settings:
                 class: null
               scroll_effects:
                 class: null
-          id: formatage-models-simple-block-7318--rhkjfBSObk8
+          id: formatage-models-simple-block-879--2NDrRLj8b8M
           cover_section:
-            active: 0
-            model: ''
-            opacity: ''
+            active: cover-bg-theme
+            model: cover-dark
+            opacity: opacity-before-03
             zindex: ''
           aos_attributes:
             main:
@@ -444,127 +443,60 @@ third_party_settings:
                 container_width:
                   class: ''
           scss:
-            scss_field: ".custom-text{\r\n  line-height: 3;\r\n}"
+            scss_field: 'min-height: 500px;'
             file_js: ''
           class_row: ''
         components:
-          8353bcc8-70b4-410d-b6f7-41919dd5d177:
-            uuid: 8353bcc8-70b4-410d-b6f7-41919dd5d177
+          17a63306-553e-4572-8e15-9481f2893a26:
+            uuid: 17a63306-553e-4572-8e15-9481f2893a26
+            region: image_bg
+            configuration:
+              id: 'field_block:paragraph:banner_page:field_background'
+              label: 'Image d’arrière plan'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: image_url
+                label: hidden
+                settings:
+                  image_style: ''
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          4bad2146-03f3-4c60-b790-a758826db5c2:
+            uuid: 4bad2146-03f3-4c60-b790-a758826db5c2
             region: main
             configuration:
-              id: 'field_block:paragraph:text_description_location:field_description'
-              label: Description
+              id: more_fields_titre_de_la_page_encours
+              label: 'Title of current page'
               label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: text_default
-                label: hidden
-                settings: {  }
-                third_party_settings:
-                  formatage_models:
-                    classes:
-                      container: ''
-                      title: ''
-                      value: ''
-                      item: ''
-                      content: ''
-            weight: 0
-            additional: {  }
-          c99fc6a1-c446-4b55-b92c-4be46d952719:
-            uuid: c99fc6a1-c446-4b55-b92c-4be46d952719
-            region: block_2
-            configuration:
-              id: 'field_block:paragraph:text_description_location:field_title'
-              label: Titre
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: string
-                label: hidden
-                settings:
-                  link_to_entity: false
-                third_party_settings:
-                  formatage_models:
-                    classes:
-                      container: ''
-                      title: ''
-                      value: ''
-                      item: ''
-                      content: ''
-            weight: 0
-            additional: {  }
-          70a516cf-ad57-4ee3-95aa-fd977229a918:
-            uuid: 70a516cf-ad57-4ee3-95aa-fd977229a918
-            region: block_3
-            configuration:
-              id: 'field_block:paragraph:text_description_location:field_subtitle'
-              label: 'Sous titre'
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: string
-                label: hidden
-                settings:
-                  link_to_entity: false
-                third_party_settings:
-                  formatage_models:
-                    classes:
-                      container: ''
-                      title: ''
-                      value: ''
-                      item: ''
-                      content: ''
+              provider: more_fields
+              context_mapping: {  }
+              suffix_title: ''
+              tag: h1
             weight: 0
             additional: {  }
         third_party_settings: {  }
-id: paragraph.text_description_location.default
+id: paragraph.banner_page.default
 targetEntityType: paragraph
-bundle: text_description_location
+bundle: banner_page
 mode: default
 content:
-  field_description:
-    type: text_default
-    label: hidden
-    settings: {  }
-    third_party_settings:
-      formatage_models:
-        classes:
-          container: ''
-          title: ''
-          value: ''
-          item: ''
-          content: ''
-    weight: 2
-    region: content
-  field_subtitle:
-    type: string
+  field_background:
+    type: image_url
     label: hidden
     settings:
-      link_to_entity: false
-    third_party_settings:
-      formatage_models:
-        classes:
-          container: ''
-          title: ''
-          value: ''
-          item: ''
-          content: ''
-    weight: 1
-    region: content
-  field_title:
-    type: string
-    label: hidden
-    settings:
-      link_to_entity: false
+      image_style: ''
     third_party_settings:
       formatage_models:
         classes:

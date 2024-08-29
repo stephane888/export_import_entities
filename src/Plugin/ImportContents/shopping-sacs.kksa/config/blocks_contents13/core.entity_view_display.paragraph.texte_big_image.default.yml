@@ -2,14 +2,18 @@ langcode: fr
 status: true
 dependencies:
   config:
-    - field.field.paragraph.text_description_location.field_description
-    - field.field.paragraph.text_description_location.field_subtitle
-    - field.field.paragraph.text_description_location.field_title
-    - field.field.paragraph.text_description_location.layout_builder__layout
-    - paragraphs.paragraphs_type.text_description_location
+    - field.field.paragraph.texte_big_image.field_background
+    - field.field.paragraph.texte_big_image.field_body
+    - field.field.paragraph.texte_big_image.field_btn1
+    - field.field.paragraph.texte_big_image.field_subtitle
+    - field.field.paragraph.texte_big_image.field_title
+    - field.field.paragraph.texte_big_image.layout_builder__layout
+    - paragraphs.paragraphs_type.texte_big_image
   module:
     - formatage_models
+    - image
     - layout_builder
+    - link
     - text
 third_party_settings:
   layout_builder:
@@ -17,47 +21,16 @@ third_party_settings:
     allow_custom: true
     sections:
       -
-        layout_id: formatage_models_simple_block
+        layout_id: formatage_models_hero_ac
         layout_settings:
-          label: ' One column custom  ( formatage_models_simple_block ) '
+          label: ' Hero modele AC.  ( formatage_models_hero_ac ) '
           context_mapping: {  }
+          region_css_subtitle: ''
+          region_css_title: ''
+          region_css_description: ''
+          region_css_button: ''
+          region_css_image: ''
           css: ''
-          region_tag_main: div
-          config_section:
-            type_container: with-tablet
-            container_class: mx-auto
-            id: formatage-models-simple-block-7318--rhkjfBSObk8
-          sf:
-            builder-form: true
-            info:
-              title: ' Contenu '
-              loader: dynamic
-            fields:
-              main:
-                text_html:
-                  label: Description
-                  value: ''
-                  format: full_html
-              teasers_container:
-                text_html:
-                  label: 'Container pour Teaser'
-                  value: ''
-                  format: full_html
-              image_bg:
-                img_bg:
-                  label: image
-                  fids: {  }
-                  style: ''
-                  class: ''
-                  inbg: 0
-          region_css_main: 'h6 custom-text small'
-          region_css_block_2: 'small h6'
-          region_css_block_3: 'h6 small'
-          region_css_block_4: ''
-          region_css_block_5: ''
-          region_css_block_6: ''
-          region_css_image_bg: ''
-          region_css_teasers_container: ''
           load_clean_value: 0
           save_by_domain: null
           load_libray: false
@@ -146,68 +119,92 @@ third_party_settings:
                 class: null
               scroll_effects:
                 class: null
-          id: formatage-models-simple-block-7318--rhkjfBSObk8
+          id: formatage-models-hero-ac-1928--M8u3IAXHS-s
+          config_section:
+            type_container: container
+            container_class: ''
+            id: formatage-models-hero-ac-1928--M8u3IAXHS-s
           cover_section:
             active: 0
             model: ''
             opacity: ''
             zindex: ''
+          css_left: col-md-6
+          css_right: col-md-6
+          region_tag_title: h2
+          region_tag_subtitle: h4
+          derivate:
+            value: ''
+            options:
+              '': 'image right (default)'
+              image-left: 'image right'
+          sf:
+            builder-form: true
+            info:
+              title: ' Contenu 1 '
+              loader: dynamic
+            fields:
+              subtitle:
+                text:
+                  label: 'Sous titre'
+                  value: "L'agence Web qui vous offre une solution All-In-One !"
+              title:
+                text:
+                  label: ' Titre '
+                  value: ' Habeuk Digital '
+              description:
+                text_html:
+                  label: ' Description '
+                  value: ' Nous croyons dans le pouvoir de l’intelligence et de la technologie pour optimiser vos performances '
+                  format: full_html
+              button:
+                url:
+                  label: ' Button '
+                  value:
+                    text: Contactez-nous
+                    class: 'btn btn-light btn-lg'
+                    link: '#'
+              image:
+                img_bg:
+                  label: ' Image Bg'
+                  fids: {  }
+                  style: ''
+                  class: ''
+                  inbg: 0
           aos_attributes:
-            main:
+            subtitle:
               data_aos: ''
               data_aos_anchor_placement: ''
               data_aos_duration: ''
               data_aos_delay: ''
               data_aos_ease: ''
-            block_2:
+            title:
               data_aos: ''
               data_aos_anchor_placement: ''
               data_aos_duration: ''
               data_aos_delay: ''
               data_aos_ease: ''
-            block_3:
+            description:
               data_aos: ''
               data_aos_anchor_placement: ''
               data_aos_duration: ''
               data_aos_delay: ''
               data_aos_ease: ''
-            block_4:
+            button:
               data_aos: ''
               data_aos_anchor_placement: ''
               data_aos_duration: ''
               data_aos_delay: ''
               data_aos_ease: ''
-            block_5:
+            image:
               data_aos: ''
               data_aos_anchor_placement: ''
               data_aos_duration: ''
               data_aos_delay: ''
               data_aos_ease: ''
-            block_6:
-              data_aos: ''
-              data_aos_anchor_placement: ''
-              data_aos_duration: ''
-              data_aos_delay: ''
-              data_aos_ease: ''
-            image_bg:
-              data_aos: ''
-              data_aos_anchor_placement: ''
-              data_aos_duration: ''
-              data_aos_delay: ''
-              data_aos_ease: ''
-            teasers_container:
-              data_aos: ''
-              data_aos_anchor_placement: ''
-              data_aos_duration: ''
-              data_aos_delay: ''
-              data_aos_ease: ''
-          region_tag_block_2: ''
-          region_tag_block_3: ''
-          region_tag_block_4: ''
-          region_tag_block_5: ''
-          region_tag_block_6: ''
-          region_tag_image_bg: ''
-          region_tag_teasers_container: ''
+          region_tag_description: ''
+          region_tag_button: ''
+          region_tag_image: ''
           default_class:
             background_position:
               class: ''
@@ -235,7 +232,7 @@ third_party_settings:
             container_width:
               class: ''
             regions:
-              main:
+              subtitle:
                 background_position:
                   class: ''
                   background:
@@ -261,7 +258,7 @@ third_party_settings:
                   class: ''
                 container_width:
                   class: ''
-              block_2:
+              title:
                 background_position:
                   class: ''
                   background:
@@ -287,7 +284,7 @@ third_party_settings:
                   class: ''
                 container_width:
                   class: ''
-              block_3:
+              description:
                 background_position:
                   class: ''
                   background:
@@ -313,7 +310,7 @@ third_party_settings:
                   class: ''
                 container_width:
                   class: ''
-              block_4:
+              button:
                 background_position:
                   class: ''
                   background:
@@ -339,85 +336,7 @@ third_party_settings:
                   class: ''
                 container_width:
                   class: ''
-              block_5:
-                background_position:
-                  class: ''
-                  background:
-                    '': 0
-                    background--attached: 0
-                    background--cover: 0
-                    background--contain: 0
-                spaces:
-                  class:
-                    '': 0
-                    space-bottom: 0
-                    space-top-inv: 0
-                    space-padding: 0
-                    space-inner-padding: 0
-                    space-inner-bottom: 0
-                    space-inner-top: 0
-                    padding-top: 0
-                    margin-top: 0
-                    padding-bottom: 0
-                border_radius:
-                  class: ''
-                box_shadow:
-                  class: ''
-                container_width:
-                  class: ''
-              block_6:
-                background_position:
-                  class: ''
-                  background:
-                    '': 0
-                    background--attached: 0
-                    background--cover: 0
-                    background--contain: 0
-                spaces:
-                  class:
-                    '': 0
-                    space-bottom: 0
-                    space-top-inv: 0
-                    space-padding: 0
-                    space-inner-padding: 0
-                    space-inner-bottom: 0
-                    space-inner-top: 0
-                    padding-top: 0
-                    margin-top: 0
-                    padding-bottom: 0
-                border_radius:
-                  class: ''
-                box_shadow:
-                  class: ''
-                container_width:
-                  class: ''
-              image_bg:
-                background_position:
-                  class: ''
-                  background:
-                    '': 0
-                    background--attached: 0
-                    background--cover: 0
-                    background--contain: 0
-                spaces:
-                  class:
-                    '': 0
-                    space-bottom: 0
-                    space-top-inv: 0
-                    space-padding: 0
-                    space-inner-padding: 0
-                    space-inner-bottom: 0
-                    space-inner-top: 0
-                    padding-top: 0
-                    margin-top: 0
-                    padding-bottom: 0
-                border_radius:
-                  class: ''
-                box_shadow:
-                  class: ''
-                container_width:
-                  class: ''
-              teasers_container:
+              image:
                 background_position:
                   class: ''
                   background:
@@ -444,51 +363,28 @@ third_party_settings:
                 container_width:
                   class: ''
           scss:
-            scss_field: ".custom-text{\r\n  line-height: 3;\r\n}"
+            scss_field: "  background: inherit;\r\n  color: inherit;\r\n  .layout-region{\r\n    &.subtitle {\r\n      margin-bottom: $wbu-margin;\r\n    }\r\n    &.title{\r\n      margin-bottom: $wbu-margin*1.5;\r\n    }\r\n  }\r\n  .content-text {\r\n    &.space-padding{\r\n      overflow: visible;\r\n    }\r\n    padding-right:$wbu-margin;\r\n    @include media-min(MD){\r\n      min-height: 925px;\r\n    }    \r\n    >  div {\r\n      max-width: 400px;\r\n    }\r\n  }  \r\n  \r\n  .content-image{\r\n    overflow: visible;\r\n     img {\r\n       max-width: 100%;\r\n       min-height: 100%;\r\n       object-fit: cover;\r\n       @include media-min(MD){\r\n         min-width: 1000px;\r\n       }\r\n  }\r\n  }"
             file_js: ''
-          class_row: ''
         components:
-          8353bcc8-70b4-410d-b6f7-41919dd5d177:
-            uuid: 8353bcc8-70b4-410d-b6f7-41919dd5d177
-            region: main
+          e4bc13f9-7099-4dab-8fd0-e098a184dbf0:
+            uuid: e4bc13f9-7099-4dab-8fd0-e098a184dbf0
+            region: image
             configuration:
-              id: 'field_block:paragraph:text_description_location:field_description'
-              label: Description
+              id: 'field_block:paragraph:texte_big_image:field_background'
+              label: 'Image d’arrière plan'
               label_display: '0'
               provider: layout_builder
               context_mapping:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: text_default
-                label: hidden
-                settings: {  }
-                third_party_settings:
-                  formatage_models:
-                    classes:
-                      container: ''
-                      title: ''
-                      value: ''
-                      item: ''
-                      content: ''
-            weight: 0
-            additional: {  }
-          c99fc6a1-c446-4b55-b92c-4be46d952719:
-            uuid: c99fc6a1-c446-4b55-b92c-4be46d952719
-            region: block_2
-            configuration:
-              id: 'field_block:paragraph:text_description_location:field_title'
-              label: Titre
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: string
+                type: image
                 label: hidden
                 settings:
-                  link_to_entity: false
+                  image_link: ''
+                  image_style: ''
+                  image_loading:
+                    attribute: lazy
                 third_party_settings:
                   formatage_models:
                     classes:
@@ -499,11 +395,11 @@ third_party_settings:
                       content: ''
             weight: 0
             additional: {  }
-          70a516cf-ad57-4ee3-95aa-fd977229a918:
-            uuid: 70a516cf-ad57-4ee3-95aa-fd977229a918
-            region: block_3
+          e88ee5ca-9143-4fbf-acf7-371a6b92cc80:
+            uuid: e88ee5ca-9143-4fbf-acf7-371a6b92cc80
+            region: subtitle
             configuration:
-              id: 'field_block:paragraph:text_description_location:field_subtitle'
+              id: 'field_block:paragraph:texte_big_image:field_subtitle'
               label: 'Sous titre'
               label_display: '0'
               provider: layout_builder
@@ -525,13 +421,112 @@ third_party_settings:
                       content: ''
             weight: 0
             additional: {  }
+          fa702859-8c6f-4399-8c77-9dd16e965040:
+            uuid: fa702859-8c6f-4399-8c77-9dd16e965040
+            region: title
+            configuration:
+              id: 'field_block:paragraph:texte_big_image:field_title'
+              label: Titre
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          5635f8e8-c7db-4069-b193-86a445fda7ff:
+            uuid: 5635f8e8-c7db-4069-b193-86a445fda7ff
+            region: description
+            configuration:
+              id: 'field_block:paragraph:texte_big_image:field_body'
+              label: Description
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          5081ecbe-70f1-4e21-bfa0-ceec3e28d24f:
+            uuid: 5081ecbe-70f1-4e21-bfa0-ceec3e28d24f
+            region: button
+            configuration:
+              id: 'field_block:paragraph:texte_big_image:field_btn1'
+              label: 'Button 1'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: link
+                label: hidden
+                settings:
+                  trim_length: 80
+                  url_only: false
+                  url_plain: false
+                  rel: '0'
+                  target: '0'
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ' btn btn-outline-wbu-thirdly'
+            weight: 0
+            additional: {  }
         third_party_settings: {  }
-id: paragraph.text_description_location.default
+id: paragraph.texte_big_image.default
 targetEntityType: paragraph
-bundle: text_description_location
+bundle: texte_big_image
 mode: default
 content:
-  field_description:
+  field_background:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
+    weight: 0
+    region: content
+  field_body:
     type: text_default
     label: hidden
     settings: {  }
@@ -541,9 +536,28 @@ content:
           container: ''
           title: ''
           value: ''
-          item: ''
+          item: text-center
           content: ''
-    weight: 2
+    weight: 3
+    region: content
+  field_btn1:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: 'btn btn-primary  w-100'
+          content: text-wbu-secondary
+    weight: 4
     region: content
   field_subtitle:
     type: string
@@ -571,9 +585,9 @@ content:
           container: ''
           title: ''
           value: ''
-          item: ''
+          item: 'text-center mb-3 h5 line-height-1 fw-light'
           content: ''
-    weight: 0
+    weight: 2
     region: content
 hidden:
   layout_builder__layout: true
