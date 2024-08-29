@@ -82,7 +82,7 @@ class LoadConfigs extends LoadBase {
    * @param string $langCode
    *   The language id. Leave empty for current Drupal language.
    *
-   * @return \Drupal\translated_config\TranslatedImmutableConfig
+   * @return array
    *   Returns the combined translated configuration as an object.
    */
   public function getTranslatedConfig($configName, $langCode = NULL) {
@@ -93,11 +93,40 @@ class LoadConfigs extends LoadBase {
     if (!$originalConfig) {
       return false;
     }
-    $translatedConfig = $this->languageManager()->getLanguageConfigOverride($langCode, $configName);
-    $config = array_replace_recursive($originalConfig, $translatedConfig->get());
-    return $config;
+    $translatedConfig = $this->languageManager()->getLanguageConfigOverride($langCode, $configName)->get();
+    $configs = array_replace_recursive($originalConfig, $translatedConfig);
+    if (strpos($configName, 'webform') === 0 && isset($translatedConfig["elements"]) && isset($originalConfig["elements"])) {
+      $elements = Yaml::decode($originalConfig["elements"]);
+      $translatedElements = Yaml::decode($translatedConfig["elements"]);
+      foreach ($translatedElements as $key => $element) {
+        $this->deepFoundAndMerge($key, $element, $elements);
+      }
+      $configs["elements"] = Yaml::encode($elements);
+      $configs["langcode"] = $langCode;
+    }
+    return $configs;
   }
 
+  /**
+   * replace recursively the value of the key once in the array
+   * it will replace the first element it will find deeply
+   */
+  protected function deepFoundAndMerge(string|int $key, mixed &$value, array &$array) {
+    if (isset($array[$key])) {
+      $array[$key] = array_replace_recursive($array[$key], $value);
+      return true;
+    }
+    $found = false;
+    foreach ($array as &$subArray) {
+      if (gettype($subArray) == "array") {
+        if ($this->deepFoundAndMerge($key, $value, $subArray)) {
+          $found = true;
+          break;
+        }
+      }
+    }
+    return $found;
+  }
 
   /**
    * Crrer la configuration à partir du nom donnée.
@@ -114,7 +143,7 @@ class LoadConfigs extends LoadBase {
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
     else
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install';
-    //
+
     if (empty(self::$configEntities[$name])) {
       $defaultConfs = $this->getTranslatedConfig($name);
       if ($defaultConfs) {
