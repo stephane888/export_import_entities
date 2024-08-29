@@ -1,0 +1,6 @@
+langcode: fr
+status: true
+dependencies: {  }
+id: taille
+label: Taille
+elementType: select

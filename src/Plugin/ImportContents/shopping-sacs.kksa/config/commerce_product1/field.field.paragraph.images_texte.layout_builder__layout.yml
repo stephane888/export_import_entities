@@ -1,0 +1,20 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.layout_builder__layout
+    - paragraphs.paragraphs_type.images_texte
+  module:
+    - layout_builder
+id: paragraph.images_texte.layout_builder__layout
+field_name: layout_builder__layout
+entity_type: paragraph
+bundle: images_texte
+label: 'Mise en page'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: layout_section

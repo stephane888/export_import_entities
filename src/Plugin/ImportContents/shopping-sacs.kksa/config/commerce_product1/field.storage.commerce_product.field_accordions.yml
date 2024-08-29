@@ -1,0 +1,19 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - more_fields
+id: commerce_product.field_accordions
+field_name: field_accordions
+entity_type: commerce_product
+type: more_fields_accordion_field
+settings:
+  max_length: 100
+module: more_fields
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

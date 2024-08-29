@@ -71,14 +71,17 @@ final class SelectExportStorageEntities extends ExportBase {
   protected $ignoreFields = [
     'content_translation_uid',
     'revision_user',
-    'uid' // cela permet de reduire les boucles infinit qui pourrait remonter à
-          // plus de configuration que necessaire.
+    'uid' // Cela permet d'eviter de prendre des informations pas toujours
+          // pertinentes. (on verra bien avec le temps).
   ];
+  
   /**
+   * contient les ids qui ont deja été traiter afin d'eviter que le processus ne
+   * tourne sur lui même.
    *
-   * @var integer
+   * @var array
    */
-  protected $termsCount = 0;
+  protected $ProtectAgaintEntitiesInfinixLoop = [];
   
   /**
    * --
@@ -329,12 +332,7 @@ final class SelectExportStorageEntities extends ExportBase {
    * @param ContentEntityBase $entity
    */
   protected function getOrthersConfig(ContentEntityBase $entity) {
-    if ($this->termsCount > 100) {
-      dd('stop');
-    }
-    else
-      $this->termsCount++;
-    
+    $this->ProtectAgaintEntitiesInfinixLoop[$entity->getEntityTypeId()][$entity->id()] = $entity->id();
     foreach ($entity->getFieldDefinitions() as $fieldName => $field) {
       /**
        *
@@ -355,9 +353,11 @@ final class SelectExportStorageEntities extends ExportBase {
           $subEntity = $this->EntityTypeManager->getStorage($entity_type_id)->load($value['target_id']);
           if ($subEntity) {
             // On souhaite reduire cela aux entites inclus.
-            if (!in_array($fieldName, $this->ignoreFields) && $subEntity instanceof ContentEntityBase) {
-              \Stephane888\Debug\debugLog::$path = NULL;
-              \Stephane888\Debug\debugLog::symfonyDebug($subEntity->toArray(), $subEntity->getEntityTypeId() . '____' . $subEntity->id() . '---getOrthersConfig', true);
+            if (empty($this->ProtectAgaintEntitiesInfinixLoop[$entity_type_id][$value['target_id']]) && !in_array($fieldName, $this->ignoreFields) && $subEntity instanceof ContentEntityBase) {
+              // \Stephane888\Debug\debugLog::$path = NULL;
+              // \Stephane888\Debug\debugLog::symfonyDebug($subEntity->toArray(),
+              // $subEntity->getEntityTypeId() . '____' . $subEntity->id() .
+              // '---getOrthersConfig', true);
               $this->getOrthersConfig($subEntity);
             }
             $bundle = $subEntity->bundle() ? $subEntity->bundle() : $entity_type_id;

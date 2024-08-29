@@ -1,0 +1,53 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_paragraphs
+    - paragraphs.paragraphs_type.bloc_service
+    - paragraphs.paragraphs_type.cln_687_services
+  content:
+    - 'paragraph:bloc_service:767b23d0-d6e8-4bde-98c3-4ff3ea8e960b'
+    - 'paragraph:bloc_service:87e05b90-c870-4ca6-8b74-b2292de59a89'
+    - 'paragraph:bloc_service:92749b13-c826-47de-9057-cbbf2c97b714'
+    - 'paragraph:bloc_service:e657fe05-9c04-4436-b716-21d2f68c325c'
+  module:
+    - entity_reference_revisions
+id: paragraph.cln_687_services.field_paragraphs
+field_name: field_paragraphs
+entity_type: paragraph
+bundle: cln_687_services
+label: Paragraphs
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 87e05b90-c870-4ca6-8b74-b2292de59a89
+    target_revision_id: 3
+  -
+    target_uuid: e657fe05-9c04-4436-b716-21d2f68c325c
+    target_revision_id: 4
+  -
+    target_uuid: 92749b13-c826-47de-9057-cbbf2c97b714
+    target_revision_id: 5
+  -
+    target_uuid: 767b23d0-d6e8-4bde-98c3-4ff3ea8e960b
+    target_revision_id: 6
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      bloc_service: bloc_service
+    negate: 0
+    target_bundles_drag_drop:
+      bloc_service:
+        weight: 4
+        enabled: true
+      prestige_hero1:
+        weight: 5
+        enabled: false
+      services:
+        weight: 6
+        enabled: false
+field_type: entity_reference_revisions

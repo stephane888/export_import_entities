@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.sacs_prestige
+id: commerce_product.sacs_prestige
+target_entity_type_id: commerce_product
+target_bundle: sacs_prestige
+default_langcode: current_interface
+language_alterable: true

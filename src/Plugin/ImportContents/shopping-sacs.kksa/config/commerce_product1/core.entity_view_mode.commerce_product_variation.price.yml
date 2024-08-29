@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: commerce_product_variation.price
+label: price
+description: ''
+targetEntityType: commerce_product_variation
+cache: true

@@ -1,0 +1,235 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.sacs_prestige
+    - core.entity_view_display.comment.produits.default
+    - core.entity_view_mode.commerce_product.gaelleries
+    - field.field.commerce_product.sacs_prestige.body
+    - field.field.commerce_product.sacs_prestige.field_accordions
+    - field.field.commerce_product.sacs_prestige.field_collections
+    - field.field.commerce_product.sacs_prestige.field_commentaires
+    - field.field.commerce_product.sacs_prestige.field_etiquettes
+    - field.field.commerce_product.sacs_prestige.field_galleries
+    - field.field.commerce_product.sacs_prestige.field_images
+    - field.field.commerce_product.sacs_prestige.field_key_features
+    - field.field.commerce_product.sacs_prestige.field_other_features
+  module:
+    - comment
+    - commerce_product
+    - entity_reference_revisions
+    - image
+    - layout_builder
+    - more_fields
+    - text
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: commerce_product.sacs_prestige.gaelleries
+targetEntityType: commerce_product
+bundle: sacs_prestige
+mode: gaelleries
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_accordions:
+    type: more_fields_accordion_field_formatter
+    label: above
+    settings:
+      layoutgenentitystyles_view: more_fields/field-accordion
+      open_action: fisrt
+      custom_class: ''
+      custom_class_item: ''
+      attribute_content: 'h6 text-black-50'
+      attribute_header: ''
+      use_as_accordion: true
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_collections:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_commentaires:
+    type: comment_default
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_etiquettes:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_galleries:
+    type: more_fields_hbk_file_formatter
+    label: above
+    settings:
+      video_settings:
+        controls: true
+        autoplay: false
+        loop: false
+        muted: false
+        preload: none
+        field_extension: 'mp4, ogv, webm'
+      image_settings:
+        image_style: ''
+        image_link: ''
+        image_loading:
+          attribute: lazy
+        field_extension: 'png, gif, jpg, jpeg, webp'
+      thumbs_settings:
+        image_style: ''
+        image_loading:
+          attribute: lazy
+      swiper_main:
+        direction: horizontal
+        effect: slide
+        speed: 500
+        spaceBetween: 10
+        loop: false
+        zoom: false
+        pagination:
+          el: .swiper-pagination
+          type: bullets
+          clickable: true
+          enabled: true
+        navigation:
+          nextEl: .swiper-button-next
+          prevEl: .swiper-button-prev
+          enabled: 1
+        parallax: false
+        autoplay:
+          delay: 8000
+          pauseOnMouseEnter: true
+          disableOnInteraction: false
+          waitForTransition: true
+          stopOnLastSlide: false
+        centeredSlides: false
+        freeMode:
+          enabled: false
+          minimumVelocity: 0.2
+          momentum: true
+          momentumBounce: true
+          momentumBounceRatio: 1
+          momentumRatio: 1
+          momentumVelocityRatio: 1
+          sticky: 1
+        pagination_model: ''
+        pagination_color: ''
+        pagination_postion: ''
+        buttons_color: ''
+        buttons_position: buttons_position
+        breakpoints: {  }
+      swiper_thumb:
+        direction: horizontal
+        effect: slide
+        speed: 500
+        spaceBetween: 10
+        loop: false
+        zoom: false
+        pagination:
+          el: .swiper-pagination
+          type: bullets
+          clickable: true
+          enabled: true
+        navigation:
+          nextEl: .swiper-button-next
+          prevEl: .swiper-button-prev
+          enabled: 1
+        parallax: false
+        autoplay:
+          delay: 8000
+          pauseOnMouseEnter: true
+          disableOnInteraction: false
+          waitForTransition: true
+          stopOnLastSlide: false
+        centeredSlides: false
+        freeMode:
+          enabled: false
+          minimumVelocity: 0.2
+          momentum: true
+          momentumBounce: true
+          momentumBounceRatio: 1
+          momentumRatio: 1
+          momentumVelocityRatio: 1
+          sticky: 1
+        pagination_model: ''
+        pagination_color: ''
+        pagination_postion: ''
+        buttons_color: ''
+        buttons_position: buttons_position
+        breakpoints: {  }
+      layoutgenentitystyles_view: more_fields/field-files
+      thumbs_galleries_position: ''
+      enable_zoom_on_hover: false
+      enable_thumb_slider: true
+    third_party_settings: {  }
+    weight: 16
+    region: marque
+  field_images:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 17
+    region: marque
+  field_key_features:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 18
+    region: marque
+  field_other_features:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 19
+    region: marque
+  title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: -5
+    region: content
+  variations:
+    type: commerce_add_to_cart
+    label: above
+    settings:
+      combine: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  created: true
+  langcode: true
+  stores: true
+  uid: true
