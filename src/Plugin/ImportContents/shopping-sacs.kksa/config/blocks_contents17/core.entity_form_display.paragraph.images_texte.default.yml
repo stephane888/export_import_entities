@@ -1,0 +1,64 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.images_texte.field_background
+    - field.field.paragraph.images_texte.field_body
+    - field.field.paragraph.images_texte.field_images
+    - field.field.paragraph.images_texte.field_subtitle
+    - field.field.paragraph.images_texte.field_title
+    - field.field.paragraph.images_texte.layout_builder__layout
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.images_texte
+  module:
+    - image
+    - text
+id: paragraph.images_texte.default
+targetEntityType: paragraph
+bundle: images_texte
+mode: default
+content:
+  field_background:
+    type: image_image
+    weight: 4
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_body:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_images:
+    type: image_image
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_subtitle:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  layout_builder__layout: true
+  status: true

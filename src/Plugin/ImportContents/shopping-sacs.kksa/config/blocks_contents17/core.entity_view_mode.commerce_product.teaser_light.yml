@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: commerce_product.teaser_light
+label: 'teaser light'
+description: ''
+targetEntityType: commerce_product
+cache: true

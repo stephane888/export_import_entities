@@ -1,0 +1,14 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: image_150_150
+label: '150*150 (mise à l’échelle et recadrage )'
+effects:
+  65271845-d522-4950-b35c-86502de176be:
+    uuid: 65271845-d522-4950-b35c-86502de176be
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 150
+      height: 150
+      anchor: center-center

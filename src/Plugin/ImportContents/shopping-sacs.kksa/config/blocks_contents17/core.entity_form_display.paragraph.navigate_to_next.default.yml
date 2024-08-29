@@ -1,0 +1,13 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.navigate_to_next
+id: paragraph.navigate_to_next.default
+targetEntityType: paragraph
+bundle: navigate_to_next
+mode: default
+content: {  }
+hidden:
+  created: true
+  status: true

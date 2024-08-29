@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.section_with_text_and_two_images
+id: paragraph.section_with_text_and_two_images
+target_entity_type_id: paragraph
+target_bundle: section_with_text_and_two_images
+default_langcode: site_default
+language_alterable: false

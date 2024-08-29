@@ -1,0 +1,33 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.produits_explorez_la_collection.field_produits
+    - field.field.paragraph.produits_explorez_la_collection.field_title
+    - paragraphs.paragraphs_type.produits_explorez_la_collection
+id: paragraph.produits_explorez_la_collection.default
+targetEntityType: paragraph
+bundle: produits_explorez_la_collection
+mode: default
+content:
+  field_produits:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

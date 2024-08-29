@@ -1,0 +1,33 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.liste_de_produit_home.field_produits
+    - field.field.paragraph.liste_de_produit_home.field_subtitle
+    - field.field.paragraph.liste_de_produit_home.field_title
+    - paragraphs.paragraphs_type.liste_de_produit_home
+id: paragraph.liste_de_produit_home.default
+targetEntityType: paragraph
+bundle: liste_de_produit_home
+mode: default
+content:
+  field_subtitle:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_produits: true
+  status: true

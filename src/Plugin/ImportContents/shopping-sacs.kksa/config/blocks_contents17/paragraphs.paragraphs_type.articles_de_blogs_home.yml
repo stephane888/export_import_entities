@@ -1,0 +1,9 @@
+langcode: fr
+status: true
+dependencies: {  }
+id: articles_de_blogs_home
+label: 'Articles de blogs home'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

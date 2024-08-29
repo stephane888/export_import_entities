@@ -1,0 +1,44 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.articles_de_blogs_home.field_blocks_contents
+    - field.field.paragraph.articles_de_blogs_home.field_btn1
+    - field.field.paragraph.articles_de_blogs_home.field_subtitle
+    - field.field.paragraph.articles_de_blogs_home.field_title
+    - paragraphs.paragraphs_type.articles_de_blogs_home
+  module:
+    - link
+id: paragraph.articles_de_blogs_home.default
+targetEntityType: paragraph
+bundle: articles_de_blogs_home
+mode: default
+content:
+  field_btn1:
+    type: link_default
+    weight: 2
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_subtitle:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_blocks_contents: true
+  status: true

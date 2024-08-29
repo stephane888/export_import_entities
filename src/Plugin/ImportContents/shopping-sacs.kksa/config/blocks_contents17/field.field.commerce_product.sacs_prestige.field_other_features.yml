@@ -1,0 +1,174 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.sacs_prestige
+    - field.storage.commerce_product.field_other_features
+  content:
+    - 'paragraph:cln_687_services:4b2c5719-ea24-42f7-b204-6af5ec680f2b'
+    - 'paragraph:galeries_images_1_champs:25721e68-ef4d-4589-b414-73ddfacef2fa'
+    - 'paragraph:images_texte:0171aa21-9466-4e32-a365-0914ce37cae3'
+    - 'paragraph:images_texte:c2317a0e-816e-4503-8719-305a68622114'
+    - 'paragraph:images_texte:cd33a46e-f142-47c1-b234-533b18483105'
+    - 'paragraph:section_image_exposition:e74988f7-7ea4-4c01-b466-b3844a76661e'
+    - 'paragraph:services:01c9b11a-b8a8-4576-86a6-b1221027e92e'
+  module:
+    - entity_reference_revisions
+id: commerce_product.sacs_prestige.field_other_features
+field_name: field_other_features
+entity_type: commerce_product
+bundle: sacs_prestige
+label: 'Autres caractéristique'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 4b2c5719-ea24-42f7-b204-6af5ec680f2b
+    target_revision_id: 175
+  -
+    target_uuid: 0171aa21-9466-4e32-a365-0914ce37cae3
+    target_revision_id: 208
+  -
+    target_uuid: cd33a46e-f142-47c1-b234-533b18483105
+    target_revision_id: 206
+  -
+    target_uuid: c2317a0e-816e-4503-8719-305a68622114
+    target_revision_id: 210
+  -
+    target_uuid: 01c9b11a-b8a8-4576-86a6-b1221027e92e
+    target_revision_id: 7
+  -
+    target_uuid: e74988f7-7ea4-4c01-b466-b3844a76661e
+    target_revision_id: 227
+  -
+    target_uuid: 25721e68-ef4d-4589-b414-73ddfacef2fa
+    target_revision_id: 218
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles: null
+    negate: 0
+    target_bundles_drag_drop:
+      accordeon_region_teaser:
+        weight: 39
+        enabled: false
+      accordion_faq:
+        weight: 40
+        enabled: false
+      article_sort_by_tag:
+        weight: 42
+        enabled: false
+      articles_teasers:
+        weight: 41
+        enabled: false
+      banner_page:
+        weight: 43
+        enabled: false
+      bloc_service:
+        weight: 44
+        enabled: false
+      blogs_modele_prestige:
+        weight: 45
+        enabled: false
+      cln_687_services:
+        weight: 46
+        enabled: false
+      cln_94_section_image_exposition:
+        weight: 47
+        enabled: false
+      cln_98_region_text_for_count_dow:
+        weight: 48
+        enabled: false
+      comment_simple:
+        weight: 49
+        enabled: false
+      count_down_region:
+        weight: 50
+        enabled: false
+      footer:
+        weight: 51
+        enabled: false
+      formulaire_page_contact:
+        weight: 52
+        enabled: false
+      galeries_images:
+        weight: 53
+        enabled: false
+      galeries_images_1_champs:
+        weight: 57
+        enabled: false
+      hero_avec_video_22:
+        weight: 54
+        enabled: false
+      hero_avec_video_3:
+        weight: 55
+        enabled: false
+      hero_cover:
+        weight: 56
+        enabled: false
+      hero_sliders:
+        weight: 57
+        enabled: false
+      image_titre:
+        weight: 41
+        enabled: false
+      images_texte:
+        weight: 58
+        enabled: false
+      logo_partenaire:
+        weight: 59
+        enabled: false
+      navigate_to_next:
+        weight: 60
+        enabled: false
+      prestige_hero1:
+        weight: 2
+        enabled: false
+      produits_attributs_colors:
+        weight: 62
+        enabled: false
+      region_text_for_count_dow:
+        weight: 63
+        enabled: false
+      section_count_down:
+        weight: 64
+        enabled: false
+      section_image_exposition:
+        weight: 65
+        enabled: false
+      section_matiere:
+        weight: 66
+        enabled: false
+      section_newsletter:
+        weight: 67
+        enabled: false
+      section_with_text_and_two_images:
+        weight: 68
+        enabled: false
+      services:
+        weight: 69
+        enabled: false
+      sliders_comments_simple:
+        weight: 70
+        enabled: false
+      teaser_section_material:
+        weight: 71
+        enabled: false
+      text_description_location:
+        weight: 73
+        enabled: false
+      text_et_partenaire:
+        weight: 74
+        enabled: false
+      texte_big_image:
+        weight: 72
+        enabled: false
+      titre_description:
+        weight: 75
+        enabled: false
+      top_header:
+        weight: 76
+        enabled: false
+field_type: entity_reference_revisions

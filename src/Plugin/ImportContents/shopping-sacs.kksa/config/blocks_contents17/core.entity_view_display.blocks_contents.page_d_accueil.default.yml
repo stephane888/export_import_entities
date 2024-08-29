@@ -1,0 +1,27 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - blockscontent.blocks_contents_type.page_d_accueil
+  module:
+    - entity_reference_revisions
+_core:
+  default_config_hash: I8ywTf4-i-wVxjJrDfoj8CxLk5id0bjUqnnnqgh58pk
+id: blocks_contents.page_d_accueil.default
+targetEntityType: blocks_contents
+bundle: page_d_accueil
+mode: default
+content:
+  paragraph_revisions:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  name: true
+  user_id: true

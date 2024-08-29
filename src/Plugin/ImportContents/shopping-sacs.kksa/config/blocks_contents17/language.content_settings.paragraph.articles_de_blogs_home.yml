@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.articles_de_blogs_home
+id: paragraph.articles_de_blogs_home
+target_entity_type_id: paragraph
+target_bundle: articles_de_blogs_home
+default_langcode: current_interface
+language_alterable: true

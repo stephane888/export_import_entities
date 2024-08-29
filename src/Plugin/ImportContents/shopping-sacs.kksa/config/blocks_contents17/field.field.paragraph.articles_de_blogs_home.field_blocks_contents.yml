@@ -1,0 +1,47 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - blockscontent.blocks_contents_type.article_de_blogs_prestige
+    - field.storage.paragraph.field_blocks_contents
+    - paragraphs.paragraphs_type.articles_de_blogs_home
+  content:
+    - 'blocks_contents:article_de_blogs_prestige:027e1810-110e-4498-afe1-5ee31e08dc16'
+    - 'blocks_contents:article_de_blogs_prestige:3dc8526b-6dd1-4273-a404-b52cc7bf01cf'
+    - 'blocks_contents:article_de_blogs_prestige:7941f8f7-f29a-408d-8348-74368c8da2c9'
+    - 'blocks_contents:article_de_blogs_prestige:7b48b434-03fe-4872-83fe-c76a93607aac'
+    - 'blocks_contents:article_de_blogs_prestige:82a95b5a-e05a-4e4e-b8bc-dcc29a2c654e'
+    - 'blocks_contents:article_de_blogs_prestige:ca941ec5-f64e-4070-adbc-c046650cf5fb'
+id: paragraph.articles_de_blogs_home.field_blocks_contents
+field_name: field_blocks_contents
+entity_type: paragraph
+bundle: articles_de_blogs_home
+label: 'Blocks contents'
+description: "Les données dans ce champs sont utile uniquement pour le processus d'export/import.\r\n( pour la production, il faut le supprimer )"
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 027e1810-110e-4498-afe1-5ee31e08dc16
+  -
+    target_uuid: ca941ec5-f64e-4070-adbc-c046650cf5fb
+  -
+    target_uuid: 3dc8526b-6dd1-4273-a404-b52cc7bf01cf
+  -
+    target_uuid: 7941f8f7-f29a-408d-8348-74368c8da2c9
+  -
+    target_uuid: 7b48b434-03fe-4872-83fe-c76a93607aac
+  -
+    target_uuid: 82a95b5a-e05a-4e4e-b8bc-dcc29a2c654e
+default_value_callback: ''
+settings:
+  handler: 'default:blocks_contents'
+  handler_settings:
+    target_bundles:
+      article_de_blogs_prestige: article_de_blogs_prestige
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

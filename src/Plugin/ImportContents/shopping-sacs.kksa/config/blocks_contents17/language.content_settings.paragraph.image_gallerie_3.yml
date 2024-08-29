@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.image_gallerie_3
+id: paragraph.image_gallerie_3
+target_entity_type_id: paragraph
+target_bundle: image_gallerie_3
+default_langcode: site_default
+language_alterable: false
