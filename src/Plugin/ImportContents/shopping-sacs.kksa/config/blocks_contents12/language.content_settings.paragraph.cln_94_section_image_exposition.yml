@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.cln_94_section_image_exposition
+id: paragraph.cln_94_section_image_exposition
+target_entity_type_id: paragraph
+target_bundle: cln_94_section_image_exposition
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,25 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.cln_94_section_image_exposition.field_images
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.cln_94_section_image_exposition
+  module:
+    - image
+id: paragraph.cln_94_section_image_exposition.default
+targetEntityType: paragraph
+bundle: cln_94_section_image_exposition
+mode: default
+content:
+  field_images:
+    type: image_image
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

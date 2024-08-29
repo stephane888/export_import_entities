@@ -1,0 +1,34 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.services.field_paragraphs
+    - paragraphs.paragraphs_type.services
+  module:
+    - inline_entity_form
+id: paragraph.services.default
+targetEntityType: paragraph
+bundle: services
+mode: default
+content:
+  field_paragraphs:
+    type: inline_entity_form_complex
+    weight: 0
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      collapsible: true
+      collapsed: true
+      revision: false
+      removed_reference: optional
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

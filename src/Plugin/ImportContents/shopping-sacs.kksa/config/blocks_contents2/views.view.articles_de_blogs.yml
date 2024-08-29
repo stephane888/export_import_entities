@@ -5,6 +5,7 @@ dependencies:
     - blockscontent.blocks_contents_type.article_de_blogs_prestige
     - core.entity_view_mode.blocks_contents.article_teaser_full
     - core.entity_view_mode.blocks_contents.article_teaser_light
+    - core.entity_view_mode.blocks_contents.article_teaser_small
   module:
     - blockscontent
 id: articles_de_blogs
@@ -338,4 +339,76 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
+      tags: {  }
+  block_4:
+    id: block_4
+    display_title: 'Block articles footers'
+    display_plugin: block
+    position: 1
+    display_options:
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 3
+      style:
+        type: default
+        options:
+          row_class: col-sm-12
+          default_row_class: true
+          uses_fields: false
+      row:
+        type: 'entity:blocks_contents'
+        options:
+          relationship: none
+          view_mode: article_teaser_small
+      defaults:
+        css_class: false
+        pager: false
+        style: false
+        row: false
+      css_class: row
+      display_description: ''
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+      tags: {  }
+  block_5:
+    id: block_5
+    display_title: 'Block multi articles home'
+    display_plugin: block
+    position: 1
+    display_options:
+      pager:
+        type: some
+        options:
+          offset: 0
+          items_per_page: 3
+      style:
+        type: default
+        options:
+          row_class: 'col-sm-6 col-md-4'
+          default_row_class: true
+          uses_fields: false
+      row:
+        type: 'entity:blocks_contents'
+        options:
+          relationship: none
+          view_mode: article_teaser_full
+      defaults:
+        css_class: false
+        pager: false
+        style: false
+        row: false
+      css_class: 'row g-inner'
+      display_description: ''
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
       tags: {  }

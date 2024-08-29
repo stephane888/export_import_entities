@@ -1,0 +1,8 @@
+langcode: fr
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: LD5sAAgvh56EN9-_TEq3xJeMBBWme7YfmtzWd9Equvk
+id: page_contacts
+label: 'Pages contacts'
+description: ''

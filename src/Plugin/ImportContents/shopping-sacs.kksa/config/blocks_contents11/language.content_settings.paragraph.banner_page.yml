@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.banner_page
+id: paragraph.banner_page
+target_entity_type_id: paragraph
+target_bundle: banner_page
+default_langcode: site_default
+language_alterable: false

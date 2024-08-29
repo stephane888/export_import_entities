@@ -1,0 +1,147 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_paragraphs
+    - paragraphs.paragraphs_type.galeries_images_1_champs
+    - paragraphs.paragraphs_type.image_titre
+  module:
+    - entity_reference_revisions
+id: paragraph.galeries_images_1_champs.field_paragraphs
+field_name: field_paragraphs
+entity_type: paragraph
+bundle: galeries_images_1_champs
+label: Paragraphs
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      image_titre: image_titre
+    negate: 0
+    target_bundles_drag_drop:
+      accordeon_region_teaser:
+        weight: 25
+        enabled: false
+      accordion_faq:
+        weight: 26
+        enabled: false
+      article_sort_by_tag:
+        weight: 44
+        enabled: false
+      articles_teasers:
+        weight: 45
+        enabled: false
+      banner_page:
+        weight: 27
+        enabled: false
+      bloc_service:
+        weight: 4
+        enabled: false
+      blogs_modele_prestige:
+        weight: 48
+        enabled: false
+      cln_687_services:
+        weight: 49
+        enabled: false
+      cln_94_section_image_exposition:
+        weight: 50
+        enabled: false
+      cln_98_region_text_for_count_dow:
+        weight: 29
+        enabled: false
+      comment_simple:
+        weight: 52
+        enabled: false
+      count_down_region:
+        weight: 30
+        enabled: false
+      footer:
+        weight: 54
+        enabled: false
+      formulaire_page_contact:
+        weight: 31
+        enabled: false
+      galeries_images:
+        weight: 56
+        enabled: false
+      galeries_images_1_champs:
+        weight: 57
+        enabled: false
+      hero_avec_video_22:
+        weight: 11
+        enabled: false
+      hero_avec_video_3:
+        weight: 12
+        enabled: false
+      hero_cover:
+        weight: 60
+        enabled: false
+      hero_sliders:
+        weight: 13
+        enabled: false
+      image_titre:
+        weight: 41
+        enabled: true
+      images_texte:
+        weight: 14
+        enabled: false
+      logo_partenaire:
+        weight: 15
+        enabled: false
+      navigate_to_next:
+        weight: 64
+        enabled: false
+      prestige_hero1:
+        weight: 5
+        enabled: false
+      produits_attributs_colors:
+        weight: 66
+        enabled: false
+      region_text_for_count_dow:
+        weight: 38
+        enabled: false
+      section_count_down:
+        weight: 39
+        enabled: false
+      section_image_exposition:
+        weight: 41
+        enabled: false
+      section_matiere:
+        weight: 42
+        enabled: false
+      section_newsletter:
+        weight: 43
+        enabled: false
+      section_with_text_and_two_images:
+        weight: 44
+        enabled: false
+      services:
+        weight: 6
+        enabled: false
+      sliders_comments_simple:
+        weight: 74
+        enabled: false
+      teaser_section_material:
+        weight: 46
+        enabled: false
+      text_description_location:
+        weight: 76
+        enabled: false
+      text_et_partenaire:
+        weight: 18
+        enabled: false
+      texte_big_image:
+        weight: 47
+        enabled: false
+      titre_description:
+        weight: 79
+        enabled: false
+      top_header:
+        weight: 80
+        enabled: false
+field_type: entity_reference_revisions

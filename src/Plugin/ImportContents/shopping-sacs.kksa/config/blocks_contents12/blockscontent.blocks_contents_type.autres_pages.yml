@@ -1,0 +1,8 @@
+langcode: fr
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Z2Azskth99y7uP98myVO9aUZR9L0iEDR8LfUOYow3rw
+id: autres_pages
+label: 'Autres pages'
+description: ''

@@ -1,0 +1,43 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.hero_cover.field_background
+    - field.field.paragraph.hero_cover.field_subtitle
+    - field.field.paragraph.hero_cover.field_title
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.hero_cover
+  module:
+    - image
+id: paragraph.hero_cover.default
+targetEntityType: paragraph
+bundle: hero_cover
+mode: default
+content:
+  field_background:
+    type: image_image
+    weight: 4
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_subtitle:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

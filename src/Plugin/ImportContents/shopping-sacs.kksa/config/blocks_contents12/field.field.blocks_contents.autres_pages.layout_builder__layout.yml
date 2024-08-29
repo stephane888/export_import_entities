@@ -1,0 +1,20 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - blockscontent.blocks_contents_type.autres_pages
+    - field.storage.blocks_contents.layout_builder__layout
+  module:
+    - layout_builder
+id: blocks_contents.autres_pages.layout_builder__layout
+field_name: layout_builder__layout
+entity_type: blocks_contents
+bundle: autres_pages
+label: 'Mise en page'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: layout_section

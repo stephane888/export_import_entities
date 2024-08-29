@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.cln_98_region_text_for_count_dow.field_description
     - field.field.paragraph.cln_98_region_text_for_count_dow.field_subtitle
     - field.field.paragraph.cln_98_region_text_for_count_dow.field_title
+    - field.field.paragraph.cln_98_region_text_for_count_dow.layout_builder__layout
     - image.style.thumbnail
     - paragraphs.paragraphs_type.cln_98_region_text_for_count_dow
   module:
@@ -50,4 +51,5 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  layout_builder__layout: true
   status: true

@@ -12,7 +12,7 @@ dependencies:
 third_party_settings:
   layout_builder:
     enabled: true
-    allow_custom: false
+    allow_custom: true
     sections:
       -
         layout_id: formatage_models_simple_block
@@ -462,7 +462,7 @@ third_party_settings:
                 label: hidden
                 settings:
                   image_link: ''
-                  image_style: ''
+                  image_style: image_540x710
                   image_loading:
                     attribute: lazy
                 third_party_settings:
@@ -924,7 +924,7 @@ third_party_settings:
                 label: hidden
                 settings:
                   image_link: ''
-                  image_style: article_teaser_760x380
+                  image_style: 1110x556
                   image_loading:
                     attribute: lazy
                 third_party_settings:
