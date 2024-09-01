@@ -444,7 +444,7 @@ third_party_settings:
                 container_width:
                   class: ''
           scss:
-            scss_field: ''
+            scss_field: "  .galleries-images3 {\r\n    > .field__item {\r\n      margin-bottom: $wbu-margin * 1.5;\r\n    }\r\n    > .field__item:nth-child(1) {\r\n      grid-area: image_big;\r\n    }\r\n    > .field__item:nth-child(2) {\r\n      grid-area: image_sm1;\r\n    }\r\n    > .field__item:nth-child(3) {\r\n      grid-area: image_sm2;\r\n    }\r\n    @include media-min(SM) {\r\n      display: grid;\r\n      grid-template-columns: 5fr 3fr;\r\n      grid-gap: 3px;\r\n      //\r\n      > .field__item {\r\n        margin-bottom: 0;\r\n      }\r\n      grid-template-areas:\r\n        \"image_big image_sm1\"\r\n        \"image_big image_sm2\";\r\n      // On fixe le premier block par rapport au deux autres afin d'avoir un rendu carré.\r\n      > .field__item:nth-child(1) {\r\n        position: relative;\r\n        display: flex;\r\n        > .item-cart {\r\n          background: #3c3c3f;\r\n          flex-grow: 2;\r\n          display: flex;\r\n          > .layout {\r\n            flex-grow: 2;\r\n          }\r\n          .content-images {\r\n            position: absolute;\r\n            top: 0;\r\n            left: 0;\r\n            right: auto;\r\n            bottom: 0;\r\n            img {\r\n              object-fit: cover;\r\n              height: 100%;\r\n              width: 100%;\r\n            }\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }"
             file_js: ''
           class_row: ''
         components:

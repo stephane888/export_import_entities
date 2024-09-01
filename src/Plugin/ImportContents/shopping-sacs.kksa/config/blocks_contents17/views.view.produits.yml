@@ -274,3 +274,87 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
       tags: {  }
+  block_render_2:
+    id: block_render_2
+    display_title: 'All products'
+    display_plugin: block_render
+    position: 4
+    display_options:
+      display_extenders: {  }
+      display_description: ''
+      style:
+        type: default
+        options:
+          row_class: 'col-sm-6 col-md-3 col-lg-3 mb-5'
+          default_row_class: 1
+          uses_fields: 0
+      defaults:
+        style: false
+        row: false
+        pager: false
+      row:
+        type: 'entity:commerce_product'
+        options:
+          relationship: none
+          view_mode: teaser_light
+      view_row_css: row
+      pager:
+        type: full
+        options:
+          pagination_heading_level: h4
+          items_per_page: '12'
+          offset: '0'
+          id: '0'
+          total_pages: ''
+          tags:
+            previous: '‹ Précédent'
+            next: 'Suivant ›'
+            first: '« Premier'
+            last: 'Dernier »'
+          expose:
+            items_per_page: 0
+            items_per_page_label: 'Éléments par page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: 0
+            items_per_page_options_all_label: '- Tout -'
+            offset: 0
+            offset_label: Décalage
+          quantity: '9'
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+      tags: {  }
+  page_render_1:
+    id: page_render_1
+    display_title: 'Page render'
+    display_plugin: page_render
+    position: 3
+    display_options:
+      display_extenders: {  }
+      path: boutique-all
+      css_class: 'container-fluid px-4'
+      defaults:
+        css_class: false
+        style: false
+        row: false
+      view_row_css: row
+      style:
+        type: default
+        options:
+          row_class: 'col-sm-6 col-md-3 col-lg-3 mb-5'
+          default_row_class: 1
+          uses_fields: 0
+      row:
+        type: 'entity:commerce_product'
+        options:
+          relationship: none
+          view_mode: teaser_light
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+      tags: {  }

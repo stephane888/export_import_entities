@@ -606,7 +606,7 @@ third_party_settings:
                 container_width:
                   class: ''
           scss:
-            scss_field: ''
+            scss_field: "  .galleries-main-thumbs {\r\n    .galleries-thumb.swiper-horizontal {\r\n      padding: 0;\r\n    }\r\n    @include media-min(DD) {\r\n      max-height: 700px;\r\n      height: 700px;\r\n    }\r\n  }\r\n  .accordion-item {\r\n    .accordion-header {\r\n      padding-left: 0;\r\n      padding-right: 0;\r\n    }\r\n    .field-icon {\r\n      display: none;\r\n    }\r\n  }\r\n  .product-pricer__item {\r\n    .product-pricer__item_price {\r\n      display: none;\r\n    }\r\n  }\r\n  form {\r\n    .field--name-quantity label {\r\n      display: none;\r\n    }\r\n  }\r\n  .products_add {\r\n    margin-top: $wbu-margin * 1.8;\r\n  }\r\n  .product-pricer__item {\r\n    border-radius: 0;\r\n  }\r\n  .titre-product {\r\n    display: grid;\r\n    // grid-template-columns: repeat(3, 1fr);\r\n    grid-template-columns: 3fr 1fr;\r\n    grid-gap: 3px;\r\n    > .block:nth-child(1) {\r\n      grid-area: title_product;\r\n    }\r\n    > .block:nth-child(2) {\r\n      grid-area: price_product;\r\n      text-align: right;\r\n    }\r\n    > .block:nth-child(3) {\r\n      grid-area: price_barre;\r\n      text-align: right;\r\n    }\r\n    grid-template-areas:\r\n      \"title_product price_product\"\r\n      \"title_product price_barre\";\r\n    @include media-min(SM) {\r\n      grid-template-columns: 1fr auto auto;\r\n      grid-template-areas: \"title_product price_product price_barre\";\r\n      > .block:nth-child(3) {\r\n        margin-left: $wbu-margin * 0.5;\r\n      }\r\n    }\r\n  }"
             file_js: ''
         components:
           c8e6fe47-4f44-4e89-8e53-f97b74119e86:
