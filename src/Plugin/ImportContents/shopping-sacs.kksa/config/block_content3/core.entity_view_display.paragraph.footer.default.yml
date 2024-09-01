@@ -702,7 +702,7 @@ third_party_settings:
                       container: ''
                       title: ''
                       value: ''
-                      item: ''
+                      item: pe-sm-5
                       content: ''
             weight: 1
             additional: {  }
