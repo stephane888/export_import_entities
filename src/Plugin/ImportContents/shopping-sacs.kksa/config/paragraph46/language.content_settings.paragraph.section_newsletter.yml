@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.section_newsletter
+id: paragraph.section_newsletter
+target_entity_type_id: paragraph
+target_bundle: section_newsletter
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,22 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.count_down_region.field_decompte
+    - paragraphs.paragraphs_type.count_down_region
+  module:
+    - datetime
+id: paragraph.count_down_region.default
+targetEntityType: paragraph
+bundle: count_down_region
+mode: default
+content:
+  field_decompte:
+    type: datetime_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
