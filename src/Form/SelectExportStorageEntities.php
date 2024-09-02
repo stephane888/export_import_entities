@@ -2,7 +2,6 @@
 
 namespace Drupal\export_import_entities\Form;
 
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManager;
@@ -14,6 +13,8 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\apivuejs\Services\DuplicateEntityReference;
 use Drupal\apivuejs\Services\GenerateForm;
 use Stephane888\Debug\debugLog;
+use Drupal\Core\Url;
+use Drupal\Core\Render\Markup;
 
 /**
  * Permet de selectionner une entité et de l'exporter.
@@ -213,7 +214,39 @@ final class SelectExportStorageEntities extends ExportBase {
               'style' => "max-width:600px; height:auto; width:auto; max-height:1000px;"
             ]
           ];
-        foreach ($this->LoadConfigs->getGenerate() as $key => $value) {
+        $configs = $this->LoadConfigs->getGenerate();
+        // On doit affficher les depences liées au module afin de pouvoir
+        // determiner les incoherences.
+        $reqModules = $this->LoadConfigs->getConfigModules();
+        $form['datas']['req_modules'] = [
+          '#type' => 'details',
+          '#open' => false,
+          '#title' => 'Modules requis (' . count($reqModules) . ')'
+        ];
+        foreach ($reqModules as $module => $configsName) {
+          $form['datas']['req_modules'][$module] = [
+            '#type' => 'details',
+            '#open' => true,
+            '#title' => $module
+          ];
+          $links = [];
+          foreach ($configsName as $config_name) {
+            $links[] = [
+              'title' => Markup::create($config_name),
+              'url' => Url::fromUserInput('#')
+            ];
+          }
+          $form['datas']['req_modules'][$module]['configs_name'] = [
+            '#theme' => 'links',
+            '#links' => $links,
+            '#attributes' => [
+              'class' => []
+            ]
+          ];
+        }
+        
+        //
+        foreach ($configs as $key => $value) {
           $form['datas'][$key] = [
             '#type' => 'details',
             '#open' => false,
