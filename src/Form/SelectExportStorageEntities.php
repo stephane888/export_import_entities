@@ -214,7 +214,7 @@ final class SelectExportStorageEntities extends ExportBase {
               'style' => "max-width:600px; height:auto; width:auto; max-height:1000px;"
             ]
           ];
-        $configs = $this->LoadConfigs->getGenerate();
+        
         // On doit affficher les depences liées au module afin de pouvoir
         // determiner les incoherences.
         $reqModules = $this->LoadConfigs->getConfigModules();
@@ -246,7 +246,7 @@ final class SelectExportStorageEntities extends ExportBase {
         }
         
         //
-        foreach ($configs as $key => $value) {
+        foreach ($this->LoadConfigs->getGenerate() as $key => $value) {
           $form['datas'][$key] = [
             '#type' => 'details',
             '#open' => false,

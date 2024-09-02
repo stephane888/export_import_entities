@@ -11,6 +11,8 @@ use Drupal\export_import_entities\Services\LoadViewDisplays;
 use Drupal\export_import_entities\Services\LoadFormWrite;
 use Drupal\export_import_entities\Services\LoadConfigs;
 use Drupal\Core\Config\Entity\ConfigEntityType;
+use Drupal\Core\Url;
+use Drupal\Core\Render\Markup;
 
 /**
  * Permet de selectionner une entité et de l'exporter.
@@ -167,12 +169,37 @@ final class SelectExportEntity extends ExportBase {
         }
         $form_state->set('entity_type', $bundleOf);
         $form_state->set('bundles', $bundles);
-        // \Stephane888\Debug\debugLog::$path = DRUPAL_ROOT .
-        // '/themes/custom/habeuk_theme/logs';
-        // //
-        // \Stephane888\Debug\debugLog::kintDebugDrupal(
-        // $this->LoadConfigs->getGenerate(),
-        // 'config_export__' . $bundleOf, true );
+        //
+        // On doit affficher les depences liées au module afin de pouvoir
+        // determiner les incoherences.
+        $reqModules = $this->LoadConfigs->getConfigModules();
+        $form['datas']['req_modules'] = [
+          '#type' => 'details',
+          '#open' => false,
+          '#title' => 'Modules requis (' . count($reqModules) . ')'
+        ];
+        foreach ($reqModules as $module => $configsName) {
+          $form['datas']['req_modules'][$module] = [
+            '#type' => 'details',
+            '#open' => true,
+            '#title' => $module
+          ];
+          $links = [];
+          foreach ($configsName as $config_name) {
+            $links[] = [
+              'title' => Markup::create($config_name),
+              'url' => Url::fromUserInput('#')
+            ];
+          }
+          $form['datas']['req_modules'][$module]['configs_name'] = [
+            '#theme' => 'links',
+            '#links' => $links,
+            '#attributes' => [
+              'class' => []
+            ]
+          ];
+        }
+        //
         foreach ($this->LoadConfigs->getGenerate() as $key => $value) {
           $form['datas'][$key] = [
             '#type' => 'details',
