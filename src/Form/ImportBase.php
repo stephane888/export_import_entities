@@ -47,7 +47,7 @@ abstract class ImportBase extends FormBase {
               [
                 "#type" => "html_tag",
                 "#tag" => "div",
-                "#value" => $vals['site'] . ' : ' . $vals['name']
+                "#value" => $vals['site'] . ' : ' . $vals['name'] . ' (' . $k . ')'
               ],
               [
                 "#type" => "html_tag",
