@@ -1,0 +1,28 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - blockscontent.blocks_contents_type.article_de_blogs_prestige
+    - field.storage.blocks_contents.field_tags_blogs
+    - taxonomy.vocabulary.tags_blogs
+id: blocks_contents.article_de_blogs_prestige.field_tags_blogs
+field_name: field_tags_blogs
+entity_type: blocks_contents
+bundle: article_de_blogs_prestige
+label: 'Tags blogs'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags_blogs: tags_blogs
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

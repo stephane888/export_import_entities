@@ -25,7 +25,7 @@ third_party_settings:
           region_tag_main: div
           config_section:
             type_container: with-tablet
-            container_class: 'text-center mx-auto'
+            container_class: mx-auto
             id: formatage-models-simple-block-7318--rhkjfBSObk8
           sf:
             builder-form: true

@@ -1,0 +1,14 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: image_430x430
+label: 'image 430x430'
+effects:
+  9449da07-4601-43f1-a44e-e498318585db:
+    uuid: 9449da07-4601-43f1-a44e-e498318585db
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 430
+      height: 430
+      anchor: center-center

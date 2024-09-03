@@ -1,0 +1,65 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.sacs_prestige
+    - field.storage.commerce_product.field_accordions
+  module:
+    - more_fields
+id: commerce_product.sacs_prestige.field_accordions
+field_name: field_accordions
+entity_type: commerce_product
+bundle: sacs_prestige
+label: Accordions
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    field:
+      title:
+        value: '<p>Détails du produit</p>'
+        format: full_html
+      icon:
+        value: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"></path></svg>'
+        format: full_html
+      description:
+        value: '<ul><li>Doublure en daim</li><li>Bandoulière ajustable (92 à 102 cm)</li><li>Fermoir en laiton plaqué or</li><li>Poids : 0,6 kg</li><li>Pièces métalliques plaquées or</li><li>Dimensions : 23,4 x 21,8 x 8,4 cm</li></ul>'
+        format: full_html
+    format: full_html
+    description: '<ul><li>Doublure en daim</li><li>Bandoulière ajustable (92 à 102 cm)</li><li>Fermoir en laiton plaqué or</li><li>Poids : 0,6 kg</li><li>Pièces métalliques plaquées or</li><li>Dimensions : 23,4 x 21,8 x 8,4 cm</li></ul>'
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"></path></svg>'
+    title: '<p>Détails du produit</p>'
+  -
+    field:
+      title:
+        value: '<p>Expédition &amp; retours</p>'
+        format: full_html
+      icon:
+        value: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"></path></svg>'
+        format: full_html
+      description:
+        value: "<p>La livraison est offerte pour toute commande supérieure à 70€. Sinon, la livraison est à 8€.</p><p>Une fois votre produit expédié, il faut compter généralement 2 à 3 jours ouvrés en France, 3 à 7 en Europe. 5 à 15 pour le reste du monde. Si vous n'avez pas reçu vos produits, n'hésitez pas à nous contacter via notre page de contact.</p><p>Vous pouvez retourner votre produit jusqu'à 14 jours après réception de votre commande. Veuillez vous assurer que les produits ne sont pas portés, lavés ou endommagés.</p>"
+        format: full_html
+    format: full_html
+    description: "<p>La livraison est offerte pour toute commande supérieure à 70€. Sinon, la livraison est à 8€.</p><p>Une fois votre produit expédié, il faut compter généralement 2 à 3 jours ouvrés en France, 3 à 7 en Europe. 5 à 15 pour le reste du monde. Si vous n'avez pas reçu vos produits, n'hésitez pas à nous contacter via notre page de contact.</p><p>Vous pouvez retourner votre produit jusqu'à 14 jours après réception de votre commande. Veuillez vous assurer que les produits ne sont pas portés, lavés ou endommagés.</p>"
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"></path></svg>'
+    title: '<p>Expédition &amp; retours</p>'
+  -
+    field:
+      title:
+        value: "Conseils d'entretien"
+        format: texte_code
+      icon:
+        value: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"></path></svg>'
+        format: texte_code
+      description:
+        value: "Cuir de veau pleine fleur en provenance d'une tannerie italienne certifiée LWG. Cuir souple légèrement mat. Pour profiter de votre produit en cuir lisse le plus longtemps possible, nous vous conseillons de l'imperméabiliser une fois par an et de l’hydrater avec une crème de lait pour cuir incolore. Découvrez tous nos conseils d’entretien."
+        format: texte_code
+    format: texte_code
+    description: "Cuir de veau pleine fleur en provenance d'une tannerie italienne certifiée LWG. Cuir souple légèrement mat. Pour profiter de votre produit en cuir lisse le plus longtemps possible, nous vous conseillons de l'imperméabiliser une fois par an et de l’hydrater avec une crème de lait pour cuir incolore. Découvrez tous nos conseils d’entretien."
+    icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"></path></svg>'
+    title: "Conseils d'entretien"
+default_value_callback: ''
+settings: {  }
+field_type: more_fields_accordion_field

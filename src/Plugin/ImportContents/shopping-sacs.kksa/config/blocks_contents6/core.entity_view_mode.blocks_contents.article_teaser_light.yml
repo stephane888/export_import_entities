@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - blockscontent
+id: blocks_contents.article_teaser_light
+label: 'article teaser light'
+description: ''
+targetEntityType: blocks_contents
+cache: true

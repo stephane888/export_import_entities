@@ -1,0 +1,19 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_autosku
+third_party_settings:
+  commerce_autosku:
+    mode: optional
+    plugin: token
+    configuration:
+      pattern: 'HBK-[commerce_product_variation:product_id:entity:stores]|[commerce_product_variation:variation_id]'
+id: sacs_prestige
+label: 'Sacs prestige'
+traits:
+  - purchasable_entity_dimensions
+  - purchasable_entity_shippable
+locked: false
+orderItemType: default
+generateTitle: true

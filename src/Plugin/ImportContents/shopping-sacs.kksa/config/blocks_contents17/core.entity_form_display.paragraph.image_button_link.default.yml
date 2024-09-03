@@ -1,0 +1,35 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.image_button_link.field_btn1
+    - field.field.paragraph.image_button_link.field_images
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.image_button_link
+  module:
+    - image
+    - link
+id: paragraph.image_button_link.default
+targetEntityType: paragraph
+bundle: image_button_link
+mode: default
+content:
+  field_btn1:
+    type: link_default
+    weight: 2
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_images:
+    type: image_image
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

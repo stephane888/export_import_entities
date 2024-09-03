@@ -1,0 +1,6 @@
+langcode: fr
+status: true
+dependencies: {  }
+id: article_de_blogs_prestige
+label: 'Article de blogs prestige'
+description: ''

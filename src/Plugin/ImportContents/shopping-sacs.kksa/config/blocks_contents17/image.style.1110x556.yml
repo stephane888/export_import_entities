@@ -1,0 +1,14 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: 1110x556
+label: 1110x556
+effects:
+  3cee132b-caf4-4bab-8ff0-b1a7f054ec8e:
+    uuid: 3cee132b-caf4-4bab-8ff0-b1a7f054ec8e
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 1110
+      height: 556
+      anchor: center-center

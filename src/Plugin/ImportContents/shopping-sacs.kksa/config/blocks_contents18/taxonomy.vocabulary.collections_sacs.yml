@@ -1,0 +1,8 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: 'Collections sacs'
+vid: collections_sacs
+description: null
+weight: 0
+new_revision: false

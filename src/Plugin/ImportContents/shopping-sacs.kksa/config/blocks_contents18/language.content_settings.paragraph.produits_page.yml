@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.produits_page
+id: paragraph.produits_page
+target_entity_type_id: paragraph
+target_bundle: produits_page
+default_langcode: current_interface
+language_alterable: true

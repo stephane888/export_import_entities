@@ -317,7 +317,7 @@ third_party_settings:
                       container: ''
                       title: ''
                       value: ''
-                      item: 'text-center mb-3 h5 line-height-1 fw-light'
+                      item: 'text-center mb-3 h5 line-height-1 fw-lighter'
                       content: ''
             weight: 0
             additional: {  }

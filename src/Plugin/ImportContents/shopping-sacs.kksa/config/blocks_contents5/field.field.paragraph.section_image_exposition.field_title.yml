@@ -1,0 +1,20 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.section_image_exposition
+id: paragraph.section_image_exposition.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: section_image_exposition
+label: Titre
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 'livraison express'
+default_value_callback: ''
+settings: {  }
+field_type: string

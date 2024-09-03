@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.accordeon_region_teaser
+id: paragraph.accordeon_region_teaser
+target_entity_type_id: paragraph
+target_bundle: accordeon_region_teaser
+default_langcode: site_default
+language_alterable: false

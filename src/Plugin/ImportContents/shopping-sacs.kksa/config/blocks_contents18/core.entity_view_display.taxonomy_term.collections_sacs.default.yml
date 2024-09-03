@@ -1,0 +1,42 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.collections_sacs.field_background_image
+    - field.field.taxonomy_term.collections_sacs.field_body
+    - taxonomy.vocabulary.collections_sacs
+  module:
+    - image
+    - text
+id: taxonomy_term.collections_sacs.default
+targetEntityType: taxonomy_term
+bundle: collections_sacs
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_background_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_body:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  langcode: true

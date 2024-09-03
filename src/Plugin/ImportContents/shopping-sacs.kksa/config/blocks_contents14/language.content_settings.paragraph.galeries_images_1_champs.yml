@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.galeries_images_1_champs
+id: paragraph.galeries_images_1_champs
+target_entity_type_id: paragraph
+target_bundle: galeries_images_1_champs
+default_langcode: current_interface
+language_alterable: false

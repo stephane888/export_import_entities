@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.article_sort_by_tag
+id: paragraph.article_sort_by_tag
+target_entity_type_id: paragraph
+target_bundle: article_sort_by_tag
+default_langcode: site_default
+language_alterable: false

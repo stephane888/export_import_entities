@@ -1,0 +1,13 @@
+langcode: fr
+status: true
+dependencies: {  }
+id: sacs_prestige
+label: 'Sacs prestige'
+traits: {  }
+locked: false
+description: ''
+variationType: sacs_prestige
+variationTypes:
+  - sacs_prestige
+multipleVariations: true
+injectVariationFields: true

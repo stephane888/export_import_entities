@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.image_button_link
+id: paragraph.image_button_link
+target_entity_type_id: paragraph
+target_bundle: image_button_link
+default_langcode: current_interface
+language_alterable: true

@@ -1,0 +1,65 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.sacs_prestige
+    - field.storage.paragraph.field_produits
+    - paragraphs.paragraphs_type.produits_page
+  content:
+    - 'commerce_product:sacs_prestige:0459ed2e-18f9-4475-b160-581385c20bb0'
+    - 'commerce_product:sacs_prestige:0804150a-8c59-4aac-9379-a4d2f4e7b29d'
+    - 'commerce_product:sacs_prestige:3c8059a3-5824-45b4-882d-81a3e9c78400'
+    - 'commerce_product:sacs_prestige:4951f4f4-087c-4178-a912-c93763904b76'
+    - 'commerce_product:sacs_prestige:6f53cb7e-fdbf-4700-b1c7-33566f69ac13'
+    - 'commerce_product:sacs_prestige:73b7afcd-f974-4e02-be63-8e223d6004c0'
+    - 'commerce_product:sacs_prestige:84285e07-cb94-4942-98d8-37f1b94718c8'
+    - 'commerce_product:sacs_prestige:a6124650-0c0f-4a05-8d4b-a68813fbb12f'
+    - 'commerce_product:sacs_prestige:a924d9f8-0d10-418e-8cef-34aca3a4a3d1'
+    - 'commerce_product:sacs_prestige:e389e60d-c4f2-45a2-8b80-21c631b95e97'
+    - 'commerce_product:sacs_prestige:f3a1dd77-9dca-4a16-ae81-0fe8798795b3'
+    - 'commerce_product:sacs_prestige:fb787108-60b3-48b8-a6c4-f7ec40662699'
+id: paragraph.produits_page.field_produits
+field_name: field_produits
+entity_type: paragraph
+bundle: produits_page
+label: Produits
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 0804150a-8c59-4aac-9379-a4d2f4e7b29d
+  -
+    target_uuid: 84285e07-cb94-4942-98d8-37f1b94718c8
+  -
+    target_uuid: 6f53cb7e-fdbf-4700-b1c7-33566f69ac13
+  -
+    target_uuid: 3c8059a3-5824-45b4-882d-81a3e9c78400
+  -
+    target_uuid: a924d9f8-0d10-418e-8cef-34aca3a4a3d1
+  -
+    target_uuid: 0459ed2e-18f9-4475-b160-581385c20bb0
+  -
+    target_uuid: f3a1dd77-9dca-4a16-ae81-0fe8798795b3
+  -
+    target_uuid: a6124650-0c0f-4a05-8d4b-a68813fbb12f
+  -
+    target_uuid: e389e60d-c4f2-45a2-8b80-21c631b95e97
+  -
+    target_uuid: 73b7afcd-f974-4e02-be63-8e223d6004c0
+  -
+    target_uuid: fb787108-60b3-48b8-a6c4-f7ec40662699
+  -
+    target_uuid: 4951f4f4-087c-4178-a912-c93763904b76
+default_value_callback: ''
+settings:
+  handler: 'default:commerce_product'
+  handler_settings:
+    target_bundles:
+      sacs_prestige: sacs_prestige
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

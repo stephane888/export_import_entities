@@ -1,0 +1,19 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - blockscontent
+    - taxonomy
+id: blocks_contents.field_tags_blogs
+field_name: field_tags_blogs
+entity_type: blocks_contents
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

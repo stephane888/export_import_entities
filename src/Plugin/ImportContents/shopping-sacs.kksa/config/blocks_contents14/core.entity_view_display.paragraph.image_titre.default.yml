@@ -1,0 +1,50 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.image_titre.field_images
+    - field.field.paragraph.image_titre.field_title
+    - image.style.image_540x710
+    - paragraphs.paragraphs_type.image_titre
+  module:
+    - formatage_models
+    - image
+id: paragraph.image_titre.default
+targetEntityType: paragraph
+bundle: image_titre
+mode: default
+content:
+  field_images:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: image_540x710
+      image_loading:
+        attribute: lazy
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: ''
+          content: ''
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      formatage_models:
+        classes:
+          container: ''
+          title: ''
+          value: ''
+          item: 'py-3 text-center h5 fw-light'
+          content: ''
+    weight: 2
+    region: content
+hidden: {  }

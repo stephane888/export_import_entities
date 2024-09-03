@@ -1,0 +1,34 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.accordeon_region_teaser.field_accordeon_list
+    - field.field.paragraph.accordeon_region_teaser.field_title
+    - paragraphs.paragraphs_type.accordeon_region_teaser
+  module:
+    - more_fields
+id: paragraph.accordeon_region_teaser.default
+targetEntityType: paragraph
+bundle: accordeon_region_teaser
+mode: default
+content:
+  field_accordeon_list:
+    type: more_fields_accordion_field_widget
+    weight: 1
+    region: content
+    settings:
+      label_1: Title
+      label_2: Icon
+      label_3: Description
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

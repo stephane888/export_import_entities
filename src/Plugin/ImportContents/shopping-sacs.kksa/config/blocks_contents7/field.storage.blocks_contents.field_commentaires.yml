@@ -1,0 +1,19 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - blockscontent
+    - comment
+id: blocks_contents.field_commentaires
+field_name: field_commentaires
+entity_type: blocks_contents
+type: comment
+settings:
+  comment_type: comments_blogs
+module: comment
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

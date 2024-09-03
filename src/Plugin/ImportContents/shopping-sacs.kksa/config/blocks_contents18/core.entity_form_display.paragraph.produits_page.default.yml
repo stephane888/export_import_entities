@@ -1,0 +1,24 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.produits_page.field_produits
+    - paragraphs.paragraphs_type.produits_page
+id: paragraph.produits_page.default
+targetEntityType: paragraph
+bundle: produits_page
+mode: default
+content:
+  field_produits:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

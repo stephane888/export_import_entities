@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - user
+id: user.name
+label: name
+description: ''
+targetEntityType: user
+cache: true

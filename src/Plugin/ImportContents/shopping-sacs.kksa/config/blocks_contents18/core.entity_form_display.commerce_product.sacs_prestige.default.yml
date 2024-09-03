@@ -1,0 +1,175 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.sacs_prestige
+    - field.field.commerce_product.sacs_prestige.body
+    - field.field.commerce_product.sacs_prestige.field_accordions
+    - field.field.commerce_product.sacs_prestige.field_collections
+    - field.field.commerce_product.sacs_prestige.field_commentaires
+    - field.field.commerce_product.sacs_prestige.field_etiquettes
+    - field.field.commerce_product.sacs_prestige.field_galleries
+    - field.field.commerce_product.sacs_prestige.field_images
+    - field.field.commerce_product.sacs_prestige.field_key_features
+    - field.field.commerce_product.sacs_prestige.field_other_features
+    - image.style.thumbnail
+  module:
+    - comment
+    - commerce
+    - image
+    - inline_entity_form
+    - more_fields
+    - path
+    - select2
+    - text
+id: commerce_product.sacs_prestige.default
+targetEntityType: commerce_product
+bundle: sacs_prestige
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 2
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_accordions:
+    type: more_fields_accordion_field_widget
+    weight: 8
+    region: content
+    settings:
+      label_1: Title
+      label_2: Icon
+      label_3: Description
+    third_party_settings: {  }
+  field_collections:
+    type: select2_entity_reference
+    weight: 11
+    region: content
+    settings:
+      width: 100%
+      autocomplete: true
+      match_operator: CONTAINS
+      match_limit: 10
+    third_party_settings: {  }
+  field_commentaires:
+    type: comment_default
+    weight: 13
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_etiquettes:
+    type: entity_reference_autocomplete
+    weight: 9
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_images:
+    type: image_image
+    weight: 14
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_key_features:
+    type: inline_entity_form_complex
+    weight: 10
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      collapsible: true
+      collapsed: false
+      revision: false
+      removed_reference: optional
+    third_party_settings: {  }
+  field_other_features:
+    type: inline_entity_form_complex
+    weight: 12
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      collapsible: true
+      collapsed: false
+      revision: false
+      removed_reference: optional
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 3
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  stores:
+    type: commerce_entity_select
+    weight: 0
+    region: content
+    settings:
+      hide_single_entity: true
+      autocomplete_threshold: 7
+      autocomplete_size: 60
+      autocomplete_placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 4
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  field_galleries: true
+  variations: true

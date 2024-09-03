@@ -1,0 +1,7 @@
+langcode: fr
+status: true
+dependencies: {  }
+id: produits
+label: Produits
+target_entity_type_id: commerce_product
+description: ''

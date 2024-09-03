@@ -1,0 +1,9 @@
+langcode: fr
+status: true
+dependencies: {  }
+id: produits_page
+label: 'Produits page'
+icon_uuid: null
+icon_default: null
+description: Des
+behavior_plugins: {  }
