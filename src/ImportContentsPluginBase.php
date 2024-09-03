@@ -221,7 +221,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    */
   function getContent(string $base_directory, string $content_key) {
     self::$base_directory = $base_directory;
-    $contents = $this->getJsonFile("contents");
+    $contents = $this->getJsonFile("contents", $content_key);
     $page = !empty($contents[$content_key]) ? $contents[$content_key] : [];
     //
     $files = $this->getFiles($base_directory, $content_key);
@@ -489,7 +489,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
    * @param string $type
    * @return array
    */
-  protected function getJsonFile(string $type): array {
+  protected function getJsonFile(string $type, string $content_key = null): array {
     switch ($type) {
       case 'identification':
         $path = $this->getBaseDirectory() . '/' . self::$name_identification_file;
@@ -507,7 +507,13 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
         $mask = '/.*/';
         $filesConfigToImport = $this->file_system->scanDirectory($path, "$mask");
         foreach ($filesConfigToImport as $fileConfigToImport) {
-          $contents[$fileConfigToImport->name] = Yaml::decode(file_get_contents($fileConfigToImport->uri));
+          if ($content_key) {
+            if ($content_key == $fileConfigToImport->name)
+              $contents[$fileConfigToImport->name] = Yaml::decode(file_get_contents($fileConfigToImport->uri));
+          }
+          else {
+            $contents[$fileConfigToImport->name] = Yaml::decode(file_get_contents($fileConfigToImport->uri));
+          }
         }
         return $contents;
         break;

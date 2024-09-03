@@ -49,7 +49,6 @@ class ThirdPartySettings extends ControllerBase {
    * @param ConfigEntityInterface $ConfigEntity
    */
   function getConfigFromThirdParty(ConfigEntityInterface $ConfigEntity) {
-    \Stephane888\Debug\debugLog::$path = NULL;
     foreach ($ConfigEntity->getThirdPartyProviders() as $moduleName) {
       $confs = $ConfigEntity->getThirdPartySettings($moduleName);
       if (!empty($confs['sections'])) {

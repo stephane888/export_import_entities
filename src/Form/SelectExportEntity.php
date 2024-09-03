@@ -137,8 +137,9 @@ final class SelectExportEntity extends ExportBase {
           $bundle => $bundle
         ];
         if ($entity_id != $bundle) {
-          // $this->LoadConfigs->generateAllConfigAboutEntity($entity_id,
-          // $bundle);
+          foreach ($bundles as $bundle_id) {
+            $this->LoadConfigs->generateAllConfigAboutEntity($bundleOf, $bundle_id);
+          }
           $this->LoadViewDisplays->getDisplays($bundleOf, $bundles);
           $this->LoadFormDisplays->getDisplays($bundleOf, $bundles);
           $this->LoadFormWrite->getDisplays($bundleOf, $bundles);
@@ -181,7 +182,7 @@ final class SelectExportEntity extends ExportBase {
         foreach ($reqModules as $module => $configsName) {
           $form['datas']['req_modules'][$module] = [
             '#type' => 'details',
-            '#open' => true,
+            '#open' => false,
             '#title' => $module
           ];
           $links = [];
@@ -252,6 +253,9 @@ final class SelectExportEntity extends ExportBase {
       $this->LoadConfigs->setRemoveUUID(TRUE);
       $this->LoadConfigs->setRemoveDefaultValue(FALSE);
       //
+      foreach ($bundles as $bundle_id) {
+        $this->LoadConfigs->generateAllConfigAboutEntity($bundleOf, $bundle_id);
+      }
       $this->LoadViewDisplays->getDisplays($bundleOf, $bundles);
       $this->LoadFormDisplays->getDisplays($bundleOf, $bundles);
       $this->LoadFormWrite->getDisplays($bundleOf, $bundles);
@@ -292,6 +296,7 @@ final class SelectExportEntity extends ExportBase {
       foreach ($this->EntityTypeManager->getStorage($entity_type_id)->loadMultiple() as $bundle => $entity) {
         $options[$bundle] = $entity->label();
       }
+      \asort($options);
       return $options;
     }
     return false;

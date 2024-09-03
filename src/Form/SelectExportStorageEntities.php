@@ -226,7 +226,7 @@ final class SelectExportStorageEntities extends ExportBase {
         foreach ($reqModules as $module => $configsName) {
           $form['datas']['req_modules'][$module] = [
             '#type' => 'details',
-            '#open' => true,
+            '#open' => false,
             '#title' => $module
           ];
           $links = [];
@@ -244,7 +244,6 @@ final class SelectExportStorageEntities extends ExportBase {
             ]
           ];
         }
-        
         //
         foreach ($this->LoadConfigs->getGenerate() as $key => $value) {
           $form['datas'][$key] = [

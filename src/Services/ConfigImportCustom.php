@@ -166,6 +166,12 @@ class ConfigImportCustom {
    */
   protected $messenger;
   
+  /**
+   *
+   * @var TranslationInterface
+   */
+  protected $stringTranslation;
+  
   public function __construct(StorageInterface $config_storage, EventDispatcherInterface $event_dispatcher, ConfigManagerInterface $config_manager, LockBackendInterface $lock, TypedConfigManagerInterface $typed_config, ModuleHandlerInterface $module_handler, ModuleInstallerInterface $module_installer, ThemeHandlerInterface $theme_handler, TranslationInterface $string_translation, ModuleExtensionList $extension_list_module, ThemeExtensionList $extension_list_theme, MessengerInterface $messenger) {
     $this->configStorage = $config_storage;
     $this->moduleExtensionList = $extension_list_module;

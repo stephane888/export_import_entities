@@ -238,7 +238,7 @@ abstract class ImportBase extends FormBase {
       $entity = $plugin->getContent($base_directory, $keyIdentification);
       // $this->messenger()->addMessage("base_directory : " .
       // $form_state->get("base_directory"));
-      $this->messenger()->addMessage(" La nouvelle page a été generer ou mise à jour : " . $entity->id());
+      $this->messenger()->addMessage(" La nouvelle page a été generer ou mise à jour : " . $entity->id() . ' || ' . $entity->label());
     }
     else {
       $this->messenger()->addError(" Paramettre d'import non definie ");
