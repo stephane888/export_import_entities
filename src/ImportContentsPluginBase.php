@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\Entity\EntityRepository;
+use Drupal\layout_builder\Section;
 
 /**
  * Base class for style_scss plugins.
@@ -233,7 +234,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   
   function getFiles(string $base_directory, string $content_key) {
     self::$base_directory = $base_directory;
-    $AllsFiles = $this->getJsonFile('files');
+    $AllsFiles = $this->getJsonFile('files', $content_key . '__files');
     return !empty($AllsFiles[$content_key . '__files']) ? $AllsFiles[$content_key . '__files'] : [];
   }
   
@@ -301,14 +302,45 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     if (!empty($page['entity'][$idKey])) {
       $id = !empty($page['entity'][$idKey][0]['value']) ? $page['entity'][$idKey][0]['value'] : 0;
       $page['entity'][$idKey] = [];
+      $this->getLayoutBuilderField($page['entity']);
       $newEntity = $storage->create($page['entity']);
       $this->restoreFileAndIdFile($id, $newEntity, $page, $files);
-      
       $newEntity->save();
       return $newEntity;
     }
     else
       throw new \ErrorException("La clee d'id de l'entité n'a pas pu etre determinée.");
+  }
+  
+  /**
+   * Drupal pour le moment a opter de ne pas exposer les données de layouts
+   * builder, car ce dernier utilise le format json et un ya quelques probleme
+   * de logique ou conception.
+   * Pour remedier à cela, on opte de fournir le nessaire pour son import en
+   * attendant la reponse de drupal.
+   *
+   * @see https://www.drupal.org/project/drupal/issues/2942975
+   *
+   * @param array $entity
+   */
+  protected function getLayoutBuilderField(array &$entity) {
+    if (!empty($entity['layout_builder__layout'])) {
+      foreach ($entity['layout_builder__layout'] as $i => $sections) {
+        foreach ($sections as $s => $section) {
+          // si le plugin n'est pas definit on le retire.
+          if (empty($section)) {
+            unset($entity['layout_builder__layout'][$i]);
+          }
+          else {
+            /**
+             *
+             * @var \Drupal\layout_builder\Section $section
+             */
+            $entity['layout_builder__layout'][$i][$s] = Section::fromArray($section);
+          }
+        }
+      }
+    }
   }
   
   /**
@@ -523,7 +555,13 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
         $mask = '/.*/';
         $filesContentFiles = $this->file_system->scanDirectory($path, "$mask");
         foreach ($filesContentFiles as $filesContentFile) {
-          $files[$filesContentFile->name] = Yaml::decode(file_get_contents($filesContentFile->uri));
+          if ($content_key) {
+            if ($content_key == $fileConfigToImport->name)
+              $files[$filesContentFile->name] = Yaml::decode(file_get_contents($filesContentFile->uri));
+          }
+          else {
+            $files[$filesContentFile->name] = Yaml::decode(file_get_contents($filesContentFile->uri));
+          }
         }
         return $files;
         break;
