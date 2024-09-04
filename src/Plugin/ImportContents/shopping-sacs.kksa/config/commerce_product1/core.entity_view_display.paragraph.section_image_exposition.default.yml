@@ -24,7 +24,7 @@ third_party_settings:
           css: 'd-flex justify-content-center align-items-center'
           region_tag_main: div
           config_section:
-            type_container: ''
+            type_container: container
             container_class: 'd-flex justify-content-center align-items-center flex-column '
             id: formatage-models-simple-block-2518--TyVg9O0OO68
           sf:
@@ -444,7 +444,7 @@ third_party_settings:
                 container_width:
                   class: ''
           scss:
-            scss_field: ".custom-text{\r\n  letter-spacing: 4px;\r\n}\r\n.custom-text-1{\r\n  letter-spacing: 7px;\r\n}\r\n.custom-img{\r\n  margin-left: 2px;\r\n  margin-right: 2px;\r\nimg{\r\n  transform-origin: center;\r\ntransition: scale 8s cubic-bezier(.25,.46,.45,.94);\r\n}\r\n&:hover{\r\n  img{\r\n    scale: 1.2;\r\n  }\r\n}\r\n}"
+            scss_field: ".custom-text{\r\n  letter-spacing: 4px;\r\n}\r\n.custom-text-1{\r\n  letter-spacing: 7px;\r\n}\r\n.custom-img{\r\nimg{\r\n  transform-origin: center;\r\ntransition: scale 8s cubic-bezier(.25,.46,.45,.94);\r\n}\r\n&:hover{\r\n  img{\r\n    scale: 1.2;\r\n  }\r\n}\r\n}"
             file_js: ''
           class_row: ''
         components:
