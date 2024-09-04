@@ -289,8 +289,20 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
       if (!empty($page['entity']['uuid'][0]['value'])) {
         $uuid = $page['entity']['uuid'][0]['value'];
         $oldEntity = $this->EntityRepository->loadEntityByUuid($page['target_type'], $uuid);
-        if ($oldEntity)
+        if ($oldEntity) {
+          //
+          /**
+           * Utile si l'on souhaite re-importer les images.
+           * On pourra definir une configuation permettant d'activer cela.
+           */
+          // $idKey = $storage->getEntityType()->getKey('id');
+          // $id = !empty($page['entity'][$idKey][0]['value']) ?
+          // $page['entity'][$idKey][0]['value'] : 0;
+          // $this->restoreFileAndIdFile($id, $oldEntity, $page, $files);
+          // $oldEntity->save();
+          //
           return $oldEntity;
+        }
       }
     }
     // On nettoie les revisions.
@@ -363,6 +375,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
         $new_files = [];
         foreach ($values as $delta => $value) {
           if (!empty($files[$page['target_type']][$id][$delta]["default_encode_file"])) {
+            
             $file = $this->base64_to_file($files[$page['target_type']][$id][$delta]["default_encode_file"], $files[$page['target_type']][$id][$delta]["default_filename"], $page['target_type']);
             if ($file) {
               $new_files[$delta] = $value;
@@ -556,8 +569,9 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
         $filesContentFiles = $this->file_system->scanDirectory($path, "$mask");
         foreach ($filesContentFiles as $filesContentFile) {
           if ($content_key) {
-            if ($content_key == $fileConfigToImport->name)
+            if ($content_key == $filesContentFile->name) {
               $files[$filesContentFile->name] = Yaml::decode(file_get_contents($filesContentFile->uri));
+            }
           }
           else {
             $files[$filesContentFile->name] = Yaml::decode(file_get_contents($filesContentFile->uri));

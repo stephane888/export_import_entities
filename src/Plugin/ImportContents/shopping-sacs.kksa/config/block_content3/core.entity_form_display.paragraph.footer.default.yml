@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.field.paragraph.footer.field_body
     - field.field.paragraph.footer.field_icons_buttons
+    - field.field.paragraph.footer.field_menu_a_propos
+    - field.field.paragraph.footer.field_menu_informations
     - field.field.paragraph.footer.field_paragraphs
     - field.field.paragraph.footer.field_subtitle
     - field.field.paragraph.footer.field_title
@@ -34,6 +36,26 @@ content:
       size: 100
       label_1: 'Nom du reseau social'
       label_2: 'Svg or fontawesome'
+    third_party_settings: {  }
+  field_menu_a_propos:
+    type: entity_reference_autocomplete
+    weight: 6
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_menu_informations:
+    type: entity_reference_autocomplete
+    weight: 7
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_paragraphs:
     type: inline_entity_form_complex

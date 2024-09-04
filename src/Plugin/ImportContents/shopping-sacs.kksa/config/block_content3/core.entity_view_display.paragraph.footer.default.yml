@@ -4,14 +4,14 @@ dependencies:
   config:
     - field.field.paragraph.footer.field_body
     - field.field.paragraph.footer.field_icons_buttons
+    - field.field.paragraph.footer.field_menu_a_propos
+    - field.field.paragraph.footer.field_menu_informations
     - field.field.paragraph.footer.field_paragraphs
     - field.field.paragraph.footer.field_subtitle
     - field.field.paragraph.footer.field_title
     - field.field.paragraph.footer.field_titre_3
     - paragraphs.paragraphs_type.footer
-    - system.menu.a-propos
     - system.menu.footer-end-menu
-    - system.menu.informations
   module:
     - entity_reference_revisions
     - fast_models
@@ -653,34 +653,6 @@ third_party_settings:
                       content: ''
             weight: 2
             additional: {  }
-          77c08a47-eff2-4445-84ec-1e2d2b028c0d:
-            uuid: 77c08a47-eff2-4445-84ec-1e2d2b028c0d
-            region: footer_top_menu
-            configuration:
-              id: 'system_menu_block:a-propos'
-              label: 'À propos'
-              label_display: '0'
-              provider: system
-              context_mapping: {  }
-              level: 1
-              depth: 0
-              expand_all_items: false
-            weight: 0
-            additional: {  }
-          6dce557b-378b-4638-a858-4bb999319054:
-            uuid: 6dce557b-378b-4638-a858-4bb999319054
-            region: footer_top_menu_one
-            configuration:
-              id: 'system_menu_block:informations'
-              label: Informations
-              label_display: '0'
-              provider: system
-              context_mapping: {  }
-              level: 1
-              depth: 0
-              expand_all_items: false
-            weight: 0
-            additional: {  }
           3cffbb05-5aab-4848-9ac3-0ef407540258:
             uuid: 3cffbb05-5aab-4848-9ac3-0ef407540258
             region: top_text_left
@@ -778,6 +750,56 @@ third_party_settings:
               expand_all_items: false
             weight: 0
             additional: {  }
+          349dd09f-1e76-467a-8287-37d4a61e2b7d:
+            uuid: 349dd09f-1e76-467a-8287-37d4a61e2b7d
+            region: footer_top_menu
+            configuration:
+              id: 'field_block:paragraph:footer:field_menu_a_propos'
+              label: 'Menu à propos'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: more_fields_menu_formatter
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 0
+            additional: {  }
+          0232d4bc-6933-4cfd-ab76-ff54c750fe52:
+            uuid: 0232d4bc-6933-4cfd-ab76-ff54c750fe52
+            region: footer_top_menu_one
+            configuration:
+              id: 'field_block:paragraph:footer:field_menu_informations'
+              label: 'Menu informations'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: more_fields_menu_formatter
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 1
+            additional: {  }
         third_party_settings: {  }
 id: paragraph.footer.default
 targetEntityType: paragraph
@@ -860,4 +882,5 @@ content:
     third_party_settings: {  }
     weight: 2
     region: top_title
-hidden: {  }
+hidden:
+  field_menu_a_propos: true
