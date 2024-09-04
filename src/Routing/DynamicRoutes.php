@@ -36,16 +36,17 @@ class DynamicRoutes {
       foreach ($blocks_contents_types as $blocks_contents_type) {
         $resource_types[] = 'blocks_contents--' . $blocks_contents_type->id();
       }
-      $routes['export_import_entities.blocks_contents'] = new Route('/%jsonapi%/export/blocks_contents', [
-        '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\BlocksContents',
-        '_jsonapi_resource_types' => $resource_types,
-        'requirements' => [
-          '_permission' => 'access content',
-          '_role' => 'administrator',
-          '_user_is_logged_in' => TRUE,
-          '_auth' => 'basic_auth'
-        ]
-      ]);
+      if ($resource_types)
+        $routes['export_import_entities.blocks_contents'] = new Route('/%jsonapi%/export/blocks_contents', [
+          '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\BlocksContents',
+          '_jsonapi_resource_types' => $resource_types,
+          'requirements' => [
+            '_permission' => 'access content',
+            '_role' => 'administrator',
+            '_user_is_logged_in' => TRUE,
+            '_auth' => 'basic_auth'
+          ]
+        ]);
     }
   }
   
@@ -63,16 +64,17 @@ class DynamicRoutes {
     foreach ($paragraphs_type as $paragraph_type) {
       $resource_types[] = 'paragraph--' . $paragraph_type->id();
     }
-    $routes['export_import_entities.paragraph'] = new Route('/%jsonapi%/export/paragraph', [
-      '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\ParagraphContent',
-      '_jsonapi_resource_types' => $resource_types,
-      'requirements' => [
-        '_permission' => 'access content',
-        '_role' => 'administrator',
-        '_user_is_logged_in' => TRUE,
-        '_auth' => 'basic_auth'
-      ]
-    ]);
+    if ($resource_types)
+      $routes['export_import_entities.paragraph'] = new Route('/%jsonapi%/export/paragraph', [
+        '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\ParagraphContent',
+        '_jsonapi_resource_types' => $resource_types,
+        'requirements' => [
+          '_permission' => 'access content',
+          '_role' => 'administrator',
+          '_user_is_logged_in' => TRUE,
+          '_auth' => 'basic_auth'
+        ]
+      ]);
     if (\Drupal::moduleHandler()->moduleExists('commerce_product')) {
       /**
        * Routes pour tous les produits.
@@ -82,16 +84,17 @@ class DynamicRoutes {
       foreach ($commerce_product_types as $commerce_product_type) {
         $resource_types[] = 'commerce_product--' . $commerce_product_type->id();
       }
-      $routes['export_import_entities.commerce_product'] = new Route('/%jsonapi%/export/commerce_product', [
-        '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\CommerceProduct',
-        '_jsonapi_resource_types' => $resource_types,
-        'requirements' => [
-          '_permission' => 'access content',
-          '_role' => 'administrator',
-          '_user_is_logged_in' => TRUE,
-          '_auth' => 'basic_auth'
-        ]
-      ]);
+      if ($resource_types)
+        $routes['export_import_entities.commerce_product'] = new Route('/%jsonapi%/export/commerce_product', [
+          '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\CommerceProduct',
+          '_jsonapi_resource_types' => $resource_types,
+          'requirements' => [
+            '_permission' => 'access content',
+            '_role' => 'administrator',
+            '_user_is_logged_in' => TRUE,
+            '_auth' => 'basic_auth'
+          ]
+        ]);
     }
   }
   
@@ -107,16 +110,16 @@ class DynamicRoutes {
     foreach ($ids as $id) {
       $resource_types[] = 'menu_link_content--' . $id;
     }
-    $routes['jsonapi.menu_link_content--menu.individual'] = new Route('/%jsonapi%/export/menu-link-content', [
-      '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\MenuLinkContent',
-      '_jsonapi_resource_types' => $resource_types,
-      'requirements' => [
-        '_permission' => 'access content',
-        '_role' => 'administrator',
-        '_user_is_logged_in' => TRUE,
-        '_auth' => 'basic_auth'
-      ]
-    ]);
+    if ($resource_types)
+      $routes['jsonapi.menu_link_content--menu.individual'] = new Route('/%jsonapi%/export/menu-link-content', [
+        '_jsonapi_resource' => 'Drupal\export_import_entities\Resource\MenuLinkContent',
+        '_jsonapi_resource_types' => $resource_types,
+        'requirements' => [
+          '_permission' => 'access content',
+          '_role' => 'administrator',
+          '_user_is_logged_in' => TRUE,
+          '_auth' => 'basic_auth'
+        ]
+      ]);
   }
-  
 }
