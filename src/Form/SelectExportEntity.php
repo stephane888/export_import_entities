@@ -110,6 +110,7 @@ final class SelectExportEntity extends ExportBase {
     if ($entity_id) {
       
       if ($bundlesOptions = $this->entityconfigHasBundle($entity_id)) {
+        asort($bundlesOptions);
         $form['datas']['bundle'] = [
           '#type' => 'select',
           '#title' => $this->t('Bundle'),
@@ -248,17 +249,31 @@ final class SelectExportEntity extends ExportBase {
   public function export_import_submit_save_config(array &$form, FormStateInterface $form_state) {
     $bundleOf = $form_state->get('entity_type');
     $bundles = $form_state->get('bundles');
+    $entity_id = $form_state->getValue('entity_id');
     if ($bundleOf && $bundles) {
       $this->LoadConfigs->setSaveIt(TRUE);
       $this->LoadConfigs->setRemoveUUID(TRUE);
       $this->LoadConfigs->setRemoveDefaultValue(FALSE);
       //
-      foreach ($bundles as $bundle_id) {
-        $this->LoadConfigs->generateAllConfigAboutEntity($bundleOf, $bundle_id);
+      $entityType = $this->EntityTypeManager->getStorage($entity_id)->getEntityType();
+      if ($entityType instanceof ConfigEntityType) {
+        $id_string = $form_state->getValue([
+          'datas',
+          'bundle'
+        ]);
+        if ($id_string) {
+          $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $entity_id, NULL, $id_string);
+        }
       }
-      $this->LoadViewDisplays->getDisplays($bundleOf, $bundles);
-      $this->LoadFormDisplays->getDisplays($bundleOf, $bundles);
-      $this->LoadFormWrite->getDisplays($bundleOf, $bundles);
+      else {
+        foreach ($bundles as $bundle_id) {
+          $this->LoadConfigs->generateAllConfigAboutEntity($bundleOf, $bundle_id);
+        }
+        $this->LoadViewDisplays->getDisplays($bundleOf, $bundles);
+        $this->LoadFormDisplays->getDisplays($bundleOf, $bundles);
+        $this->LoadFormWrite->getDisplays($bundleOf, $bundles);
+      }
+      
       // $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $bundle);
       \Drupal::messenger()->addStatus(" Données de configuration exporter à l'emplacement definit. ", true);
     }
@@ -282,6 +297,7 @@ final class SelectExportEntity extends ExportBase {
       if (!$entity->getBaseTable())
         $options[$entity_id] = $entity->getLabel();
     }
+    asort($options);
     return $options;
   }
   
