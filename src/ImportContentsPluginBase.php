@@ -249,27 +249,35 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
       throw new \ErrorException("Aucune entité n'a été definit");
     if (!empty($page['entities'])) {
       foreach ($page['entities'] as $field_name => $entities) {
-        /**
-         * On vide les anciennes ids.
-         */
-        $page['entity'][$field_name] = [];
-        foreach ($entities as $entity) {
+        if (isset($page['entity'][$field_name])) {
           /**
-           *
-           * @var \Drupal\node\Entity\Node $newEntity
+           * On vide les anciennes ids.
            */
-          $newEntity = $this->savePage($entity, true, $files);
-          $value = [
-            'target_id' => $newEntity->id()
-          ];
-          $key = 'revision';
-          if ($newEntity->getEntityType()->hasKey($key)) {
-            $field_name_key = $newEntity->getEntityType()->getKey($key);
-            $definition = $newEntity->getFieldDefinition($field_name_key);
-            $property = $definition->getFieldStorageDefinition()->getMainPropertyName();
-            $value['target_revision_id'] = $newEntity->get($field_name_key)->$property;
+          $page['entity'][$field_name] = [];
+          foreach ($entities as $entity) {
+            /**
+             *
+             * @var \Drupal\node\Entity\Node $newEntity
+             */
+            $newEntity = $this->savePage($entity, true, $files);
+            $value = [
+              'target_id' => $newEntity->id()
+            ];
+            $key = 'revision';
+            if ($newEntity->getEntityType()->hasKey($key)) {
+              $field_name_key = $newEntity->getEntityType()->getKey($key);
+              $definition = $newEntity->getFieldDefinition($field_name_key);
+              $property = $definition->getFieldStorageDefinition()->getMainPropertyName();
+              $value['target_revision_id'] = $newEntity->get($field_name_key)->$property;
+            }
+            $page['entity'][$field_name][] = $value;
           }
-          $page['entity'][$field_name][] = $value;
+        }
+        else {
+          // s'il nya pas de reference, cest le cas par example des menus.
+          foreach ($entities as $entity) {
+            $this->savePage($entity, true, $files);
+          }
         }
       }
     }
@@ -279,44 +287,57 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
      * @var \Drupal\node\NodeStorage $storage
      */
     $storage = $this->EntityTypeManager->getStorage($page['target_type']);
-    /**
-     * S'il faut recreer, il faut egalement vide le champs uuid
-     */
-    if (!$unique) {
-      $page['entity']['uuid'] = [];
-    }
-    else {
-      if (!empty($page['entity']['uuid'][0]['value'])) {
-        $uuid = $page['entity']['uuid'][0]['value'];
-        $oldEntity = $this->EntityRepository->loadEntityByUuid($page['target_type'], $uuid);
-        if ($oldEntity) {
-          //
-          /**
-           * Utile si l'on souhaite re-importer les images.
-           * On pourra definir une configuation permettant d'activer cela.
-           */
-          // $idKey = $storage->getEntityType()->getKey('id');
-          // $id = !empty($page['entity'][$idKey][0]['value']) ?
-          // $page['entity'][$idKey][0]['value'] : 0;
-          // $this->restoreFileAndIdFile($id, $oldEntity, $page, $files);
-          // $oldEntity->save();
-          //
-          return $oldEntity;
+    if ($storage instanceof \Drupal\Core\Entity\ContentEntityStorageInterface) {
+      /**
+       * S'il faut recreer, il faut egalement vide le champs uuid
+       */
+      if (!$unique) {
+        $page['entity']['uuid'] = [];
+      }
+      else {
+        if (!empty($page['entity']['uuid'][0]['value'])) {
+          $uuid = $page['entity']['uuid'][0]['value'];
+          $oldEntity = $this->EntityRepository->loadEntityByUuid($page['target_type'], $uuid);
+          if ($oldEntity) {
+            //
+            /**
+             * Utile si l'on souhaite re-importer les images.
+             * On pourra definir une configuation permettant d'activer cela.
+             */
+            // $idKey = $storage->getEntityType()->getKey('id');
+            // $id = !empty($page['entity'][$idKey][0]['value']) ?
+            // $page['entity'][$idKey][0]['value'] : 0;
+            // $this->restoreFileAndIdFile($id, $oldEntity, $page, $files);
+            // $oldEntity->save();
+            //
+            return $oldEntity;
+          }
         }
       }
+      // On nettoie les revisions.
+      if ($storage->getEntityType()->hasKey('revision')) {
+        $revision_idKey = $storage->getEntityType()->getKey('revision');
+        $page['entity'][$revision_idKey] = [];
+      }
+      $idKey = $storage->getEntityType()->getKey('id');
+      if (!empty($page['entity'][$idKey])) {
+        $id = !empty($page['entity'][$idKey][0]['value']) ? $page['entity'][$idKey][0]['value'] : 0;
+        $page['entity'][$idKey] = [];
+        $this->getLayoutBuilderField($page['entity']);
+        $newEntity = $storage->create($page['entity']);
+        $this->restoreFileAndIdFile($id, $newEntity, $page, $files);
+        $newEntity->save();
+        
+        return $newEntity;
+      }
     }
-    // On nettoie les revisions.
-    if ($storage->getEntityType()->hasKey('revision')) {
-      $revision_idKey = $storage->getEntityType()->getKey('revision');
-      $page['entity'][$revision_idKey] = [];
-    }
-    $idKey = $storage->getEntityType()->getKey('id');
-    if (!empty($page['entity'][$idKey])) {
-      $id = !empty($page['entity'][$idKey][0]['value']) ? $page['entity'][$idKey][0]['value'] : 0;
-      $page['entity'][$idKey] = [];
-      $this->getLayoutBuilderField($page['entity']);
+    elseif ($storage instanceof \Drupal\Core\Config\Entity\ConfigEntityStorage) {
+      $uuid = $page['entity']['uuid'];
+      $oldEntity = $storage->load($page['target_id']);
+      if ($oldEntity) {
+        return $oldEntity;
+      }
       $newEntity = $storage->create($page['entity']);
-      $this->restoreFileAndIdFile($id, $newEntity, $page, $files);
       $newEntity->save();
       return $newEntity;
     }
