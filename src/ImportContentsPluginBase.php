@@ -490,9 +490,10 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     foreach ($dirIterator as $fileinfo) {
       if ($fileinfo->isDir() && !$fileinfo->isDot() && $_SERVER['HTTP_HOST'] != $fileinfo->getFilename()) {
         self::$base_directory = $fileinfo->getFilename();
+        $options[self::$base_directory] = [];
         foreach ($this->getIdentificationEntities() as $k => $page) {
           $page['site'] = self::$base_directory;
-          $options[self::$base_directory . '--__' . $k] = $page;
+          $options[self::$base_directory][self::$base_directory . '--__' . $k] = $page;
         }
       }
     }

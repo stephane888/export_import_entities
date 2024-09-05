@@ -34,8 +34,40 @@ abstract class ImportBase extends FormBase {
     switch ($step) {
       case 0:
         $plugin = self::getPluginImportContent();
-        $allDatas = $plugin->ListConfigToImport();
+        $sites = $plugin->ListConfigToImport();
+        $sites_options = [
+          '' => 'Selectionner un domaine'
+        ];
+        foreach ($sites as $key => $values) {
+          $nbre = count($values);
+          if ($nbre)
+            $sites_options[$key] = $key . " (" . $nbre . ")";
+        }
+        $form['#id'] = 'export_import_entities_import_storage_entities';
+        $form['site_select'] = [
+          "#type" => "select",
+          "#title" => "Selectionner le site",
+          "#options" => $sites_options,
+          '#ajax' => [
+            'callback' => self::class . '::import_select_page_modele_callback',
+            'wrapper' => 'import_select_page_modele',
+            'effect' => 'fade'
+          ]
+        ];
+        
+        $form['datas_page_modele'] = [
+          '#type' => 'details',
+          '#open' => true,
+          '#title' => 'datas',
+          '#attributes' => [
+            'id' => 'import_select_page_modele'
+          ],
+          '#tree' => false
+        ];
+        $site_select = $form_state->getValue('site_select');
         $options = [];
+        
+        $allDatas = !empty($sites[$site_select]) ? $sites[$site_select] : [];
         foreach ($allDatas as $k => $vals) {
           if (!empty($vals['image']))
             $options[$k] = [
@@ -59,7 +91,7 @@ abstract class ImportBase extends FormBase {
               ]
             ];
         }
-        $form['site_page_modele'] = [
+        $form['datas_page_modele']['site_page_modele'] = [
           "#type" => "radios",
           "#title" => "Selectionner une page",
           "#options" => $options,
@@ -327,6 +359,10 @@ abstract class ImportBase extends FormBase {
    */
   static public function import_select_import_entity(array $form, FormStateInterface $form_state) {
     return $form['datas'];
+  }
+  
+  static public function import_select_page_modele_callback(array $form, FormStateInterface $form_state) {
+    return $form['datas_page_modele'];
   }
   
   /**
