@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Drupal\Component\Serialization\Yaml;
 use Drupal\Core\Entity\EntityRepository;
 use Drupal\layout_builder\Section;
+use Drupal\Core\Form\FormState;
 
 /**
  * Base class for style_scss plugins.
@@ -299,6 +300,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
           $uuid = $page['entity']['uuid'][0]['value'];
           $oldEntity = $this->EntityRepository->loadEntityByUuid($page['target_type'], $uuid);
           if ($oldEntity) {
+            $this->AddStyleFromLayoutBuild($page['entity']);
             //
             /**
              * Utile si l'on souhaite re-importer les images.
@@ -323,6 +325,10 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
       if (!empty($page['entity'][$idKey])) {
         $id = !empty($page['entity'][$idKey][0]['value']) ? $page['entity'][$idKey][0]['value'] : 0;
         $page['entity'][$idKey] = [];
+        // les styles incluents dans le champs layout_builder__layout ne seront
+        // pas charger.
+        // Nous ajoutons ce chargement ici.
+        $this->AddStyleFromLayoutBuild($page['entity']);
         $this->getLayoutBuilderField($page['entity']);
         $newEntity = $storage->create($page['entity']);
         $this->restoreFileAndIdFile($id, $newEntity, $page, $files);
@@ -370,6 +376,33 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
              * @var \Drupal\layout_builder\Section $section
              */
             $entity['layout_builder__layout'][$i][$s] = Section::fromArray($section);
+          }
+        }
+      }
+    }
+  }
+  
+  /**
+   * Permet d'ajouter les styles fourni par les layouts personnalisés.
+   *
+   * @param array $entity
+   */
+  protected function AddStyleFromLayoutBuild(array $entity) {
+    if (!empty($entity['layout_builder__layout'])) {
+      $form_state = new FormState();
+      $form = [];
+      /**
+       *
+       * @var \Drupal\layout_custom_style\StyleScssPluginManager $PluginManager
+       */
+      $PluginManager = \Drupal::service("plugin.manager.style_scss");
+      foreach ($entity['layout_builder__layout'] as $i => $sections) {
+        foreach ($sections as $s => $section) {
+          // dd($section);
+          if (!empty($section['layout_settings']['scss']['scss_field']) || !empty($section['layout_settings']['scss']['file_js'])) {
+            $form_state->setValue('scss', $section['layout_settings']['scss']);
+            $storage = $section['layout_settings'];
+            $PluginManager->submitConfigurationForm($form, $form_state, $storage);
           }
         }
       }
