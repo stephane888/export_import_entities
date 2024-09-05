@@ -302,6 +302,7 @@ final class SelectExportStorageEntities extends ExportBase {
       // On ajoute les fichiers de configurations dans le meme dossier que celui
       // des données.
       $this->LoadConfigs->setSaveIt(FALSE);
+      // On doit concerve le UUID, afin de ne pas charger la meme config 2 fois.
       $this->LoadConfigs->setRemoveUUID(TRUE);
       $this->LoadConfigs->setRemoveDefaultValue(FALSE);
       //
@@ -321,9 +322,12 @@ final class SelectExportStorageEntities extends ExportBase {
        * @var array $EntitiesArray
        */
       $EntitiesArray = $this->generateFormMatrice($entity_id, $entity, $bundle);
-      debugLog::$max_depth = 15;
-      debugLog::$path = null;
-      debugLog::symfonyDebug($EntitiesArray, $entity_id . $id . '---', true);
+      /**
+       * Utile pour faire le debuggage de contenu.
+       */
+      // debugLog::$max_depth = 15;
+      // debugLog::$path = null;
+      // debugLog::symfonyDebug($EntitiesArray, $entity_id . $id . '---', true);
       //
       $import_contents = $this->getPluginImportContent();
       $import_contents->saveContents($EntitiesArray, $id, $entity_id);

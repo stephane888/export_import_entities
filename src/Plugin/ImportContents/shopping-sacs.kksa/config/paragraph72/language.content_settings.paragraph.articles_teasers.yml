@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.articles_teasers
+id: paragraph.articles_teasers
+target_entity_type_id: paragraph
+target_bundle: articles_teasers
+default_langcode: current_interface
+language_alterable: true

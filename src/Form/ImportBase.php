@@ -126,7 +126,7 @@ abstract class ImportBase extends FormBase {
           }
           $form['datas']['configs_installed'] = [
             '#type' => 'details',
-            '#open' => true,
+            '#open' => false,
             '#title' => 'Configuration existant : (' . count($installedConfigs) . '  )',
             '#attributes' => [],
             '#tree' => true

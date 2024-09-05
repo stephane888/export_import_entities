@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.footer
+id: paragraph.footer
+target_entity_type_id: paragraph
+target_bundle: footer
+default_langcode: current_interface
+language_alterable: true

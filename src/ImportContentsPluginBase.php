@@ -627,7 +627,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
       $storage = $this->EntityTypeManager->getStorage($data['target_type']);
       $idKey = $storage->getEntityType()->getKey('id');
       $id = null;
-      if (!empty($data['entity'][$idKey][0])) {
+      if (!empty($data['entity'][$idKey][0]['value'])) {
         $id = $data['entity'][$idKey][0]['value'];
       }
       if ($id) {
