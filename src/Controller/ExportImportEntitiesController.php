@@ -5,11 +5,13 @@ namespace Drupal\export_import_entities\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\export_import_entities\Services\ExportEntities;
-use Drupal\Core\Url;
+use Drupal\Component\Serialization\Json;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Stephane888\Debug\Repositories\ConfigDrupal;
 use Stephane888\DrupalUtility\HttpResponse;
+use Stephane888\Debug\ExceptionExtractMessage;
+use Stephane888\Debug\ExceptionDebug;
 
 /**
  * Returns responses for Export Import Entities routes.
@@ -30,6 +32,55 @@ class ExportImportEntitiesController extends ControllerBase {
   
   static function create(ContainerInterface $container) {
     return new static($container->get('export_import_entities.export.entites'));
+  }
+  
+  public function SaveEntity(Request $Request, $base_directory, $key_identification, $entity_type_id) {
+    $EntityStorage = $this->entityTypeManager()->getStorage($entity_type_id);
+    $values = Json::decode($Request->getContent());
+    if ($EntityStorage && $values) {
+      try {
+        /**
+         *
+         * @var \Drupal\export_import_entities\Plugin\ImportContents\ImportContents $plugin
+         */
+        $plugin = self::getPluginImportContent();
+        $page = [
+          'entity' => $values,
+          'entities' => [],
+          'target_type' => $entity_type_id
+        ];
+        $entity = $plugin->prepareSaveContent($page, $base_directory, $key_identification);
+        return HttpResponse::response([
+          'id' => $entity->id(),
+          'json' => $entity->toArray()
+        ]);
+      }
+      catch (ExceptionDebug $e) {
+        $this->getLogger('export_import_entities')->critical(ExceptionExtractMessage::errorAllToString($e));
+        return HttpResponse::response(ExceptionExtractMessage::errorAll($e), $e->getErrorCode(), $e->getMessage());
+      }
+      catch (\Exception $e) {
+        $this->getLogger('export_import_entities')->critical(ExceptionExtractMessage::errorAllToString($e));
+        return HttpResponse::response(ExceptionExtractMessage::errorAll($e), 435, $e->getMessage());
+      }
+    }
+    else {
+      $this->getLogger('export_import_entities')->critical(" Impossible de creer l'entité : " . $entity_type_id);
+      return HttpResponse::response([], 435, "Erreur inconnu");
+    }
+  }
+  
+  /**
+   *
+   * @return \Drupal\export_import_entities\Plugin\ImportContents\ImportContents
+   */
+  static function getPluginImportContent() {
+    /**
+     *
+     * @var \Drupal\export_import_entities\ImportContentsPluginManager $MangerImportContent
+     */
+    $MangerImportContent = \Drupal::service("plugin.manager.import_content");
+    return $MangerImportContent->createInstance("export_import_entities_import_contents");
   }
   
   /**
@@ -106,5 +157,4 @@ class ExportImportEntitiesController extends ControllerBase {
     ];
     return $build;
   }
-  
 }

@@ -247,6 +247,19 @@ abstract class ImportBase extends FormBase {
             ]
           ]
         ];
+        //
+        $plugin = self::getPluginImportContent();
+        $contents = $plugin->getContent($base_directory, $keyIdentification);
+        // dump($contents);
+        //
+        $form['datas']['render_vuejs']['#attached']['drupalSettings']['export_import_entities'] = [
+          'import_contents' => [
+            $contents
+          ],
+          'base_directory' => $base_directory,
+          'key_identification' => $keyIdentification
+        ];
+        
         $form['datas']['actions'] = [
           '#type' => 'actions',
           'submit' => [

@@ -81,3 +81,13 @@ export_import_entities.select_import_storage_entities:
   requirements:
     _permission: 'access content'
     _role: 'administrator'
+
+# Permet de sauvegarder les données provenant de :
+export_import_entities.import_datas:
+  path: '/admin/export-import-entities/save-entity/{base_directory}/{key_identification}/{entity_type_id}'
+  defaults:
+    _title: 'Save entity'
+    _controller: '\Drupal\export_import_entities\Controller\ExportImportEntitiesController::SaveEntity'
+  requirements:
+    _permission: 'access content'
+    _role: 'administrator'

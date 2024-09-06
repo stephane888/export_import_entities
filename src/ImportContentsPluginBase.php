@@ -226,10 +226,10 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     $contents = $this->getJsonFile("contents", $content_key);
     $page = !empty($contents[$content_key]) ? $contents[$content_key] : [];
     //
-    $files = $this->getFiles($base_directory, $content_key);
-    if ($page) {
-      return $this->savePage($page, true, $files);
-    }
+    // $files = $this->getFiles($base_directory, $content_key);
+    // if ($page) {
+    // // return $this->savePage($page, true, $files);
+    // }
     return $page;
   }
   
@@ -237,6 +237,20 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     self::$base_directory = $base_directory;
     $AllsFiles = $this->getJsonFile('files', $content_key . '__files');
     return !empty($AllsFiles[$content_key . '__files']) ? $AllsFiles[$content_key . '__files'] : [];
+  }
+  
+  /**
+   * Permet de sauvegarder le contenu.
+   *
+   * @param array $page
+   * @param string $base_directory
+   * @param string $content_key
+   * @return \Drupal\Core\Entity\EntityInterface|NULL|\Drupal\node\Entity\Node
+   */
+  function prepareSaveContent(array $page, string $base_directory, string $content_key) {
+    self::$base_directory = $base_directory;
+    $files = $this->getFiles($base_directory, $content_key);
+    return $this->savePage($page, true, $files);
   }
   
   /**

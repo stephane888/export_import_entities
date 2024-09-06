@@ -13,14 +13,14 @@
     "@stephane888/wbu-atomique": "github:stephane888/wbu-atomique#1x",
     "bootstrap": "^4.6.2",
     "bootstrap-vue": "^2.23.1",
-    "components_h_vuejs": "file:../components_bootstrapvuejs",
+    "components_h_vuejs": "file:../../../../AppVuejs/components_bootstrapvuejs",
     "core-js": "^3.8.3",
     "vee-validate": "^3.4.14",
     "vue": "^2.7.14",
     "vue-router": "^3.5.1",
     "vue2-transitions": "^0.3.0",
     "vuex": "^3.6.2",
-    "wbuutilities": "file:../wbuutilities"
+    "wbuutilities": "file:../../../../AppVuejs/wbuutilities"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
