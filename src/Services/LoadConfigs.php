@@ -11,7 +11,7 @@ use Drupal\file\Entity\File;
 
 /**
  * Permet de charger les diffirents affichage pour une entité.
- *
+ * @todo export the configurations in all available languages
  * @author stephane
  *        
  */
@@ -85,16 +85,20 @@ class LoadConfigs extends LoadBase {
    * @return array
    *   Returns the combined translated configuration as an object.
    */
-  public function getTranslatedConfig($configName, $langCode = NULL) {
-    if (empty($langCode)) {
-      $langCode = $this->languageManager()->getDefaultLanguage()->getId();
+  public function getTranslatedConfig($configName, $langcode = NULL, $default = false) {
+    if (empty($langcode)) {
+      $langcode = $this->languageManager()->getDefaultLanguage()->getId();
     }
     $originalConfig = $this->configStorage->read($configName);
     if (!$originalConfig) {
       return false;
+    } elseif ($default) {
+      /**
+       * On retourne les configurations d'origine si le paramètre default est à true
+       */
+      return $originalConfig;
     }
-    $translatedConfig = $this->languageManager()->getLanguageConfigOverride($langCode, $configName)->get();
-    $configs = array_replace_recursive($originalConfig, $translatedConfig);
+    $translatedConfig = $this->languageManager()->getLanguageConfigOverride($langcode, $configName)->get();
     if (strpos($configName, 'webform') === 0 && isset($translatedConfig["elements"]) && isset($originalConfig["elements"])) {
       $elements = Yaml::decode($originalConfig["elements"]);
       $translatedElements = Yaml::decode($translatedConfig["elements"]);
@@ -102,9 +106,23 @@ class LoadConfigs extends LoadBase {
         $this->deepFoundAndMerge($key, $element, $elements);
       }
       $configs["elements"] = Yaml::encode($elements);
-      $configs["langcode"] = $langCode;
+      // dd($translatedConfig, $configs, $translatedElements, $configName);
+    } else {
+      // $configs = array_replace_recursive($originalConfig, $translatedConfig);
+      $configs = $translatedConfig;
+
+      // if ($langcode == "en") {
+      //   if (empty($translatedConfig)) {
+      //     // dump([$configName]);
+      //   } else {
+      //     dump([$configName => $translatedConfig]);
+      //   }
+      // }
     }
-    return $configs;
+    if ($configs) {
+      $configs["langcode"] = $langcode;
+    }
+    return  $configs;
   }
 
   /**
@@ -138,46 +156,66 @@ class LoadConfigs extends LoadBase {
    *        contient les données qui doivent etre surcharger.
    */
   public function getConfigFromName(string $name, array $override = [], $merge = true) {
-    debugLog::$debug = false;
-    if ($this->currentDomaine)
-      debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
-    else
-      debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install';
 
     if (empty(self::$configEntities[$name])) {
-      $defaultConfs = $this->getTranslatedConfig($name);
-      if ($defaultConfs) {
-        if (str_contains($name, 'field.field')) {
-          $this->addDefaultEncodeData($defaultConfs);
-          $this->removeDefaultValue($defaultConfs);
-        }
+      /**
+       * @todo import the different available lang of the webform config.
+       */
+      $availableLanguages = $this->configStorage->read('domain.language.' . $this->currentDomaine->id() . '.language.negotiation');
+      $defaultLangcode = $this->configStorage->read('system.site')["default_langcode"];
+      $langcodes = $availableLanguages["languages"] ?? [$defaultLangcode];
+      // dd($langcodes, $defaultLangcode);
+      foreach ($langcodes as $key => $langcode) {
+        $pathLanguageSuffix = $langcode == $defaultLangcode ? "" : "/language/" . $langcode;
 
-        if (!empty($override)) {
-          if ($merge) {
-            $configs = NestedArray::mergeDeepArray([
-              $defaultConfs,
-              $override
-            ]);
-          } else {
-            // on remplace les cles
-            foreach ($override as $k => $value) {
-              $defaultConfs[$k] = $value;
-            }
-            $configs = $defaultConfs;
+        if ($this->currentDomaine)
+          debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install' . $pathLanguageSuffix;
+        else
+          debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install' . $pathLanguageSuffix;
+        $isDefaultLanguage = $langcode == $defaultLangcode;
+        $defaultConfs =  $this->getTranslatedConfig($name, $langcode, $isDefaultLanguage);
+        if ($defaultConfs) {
+          if (str_contains($name, 'field.field')) {
+            $this->addDefaultEncodeData($defaultConfs);
+            $this->removeDefaultValue($defaultConfs);
           }
-        } else
-          $configs = $defaultConfs;
 
-        $string = Yaml::encode($configs);
-        debugLog::logger($string, $name . '.yml', false, 'file');
-        self::$configEntities[$name] = [
-          'status' => true,
-          'value' => $string
-        ];
-        $this->loadConfigsViewTerms($name);
-        // On essaie de charger les configurations requises.
-        $this->loadDependancyConfig($name);
+          if (!empty($override)) {
+            if ($merge) {
+              $configs = NestedArray::mergeDeepArray([
+                $defaultConfs,
+                $override
+              ]);
+            } else {
+              // on remplace les cles
+              foreach ($override as $k => $value) {
+                $defaultConfs[$k] = $value;
+              }
+              $configs = $defaultConfs;
+            }
+          } else
+            $configs = $defaultConfs;
+          $string = Yaml::encode($configs);
+          if ($name == "webform.webform.contact2022024Sep05368578") {
+            // dd($string, $configs);
+          }
+          debugLog::logger($string, $name . '.yml', false, 'file');
+
+          if ($langcode == $defaultLangcode) {
+            $this->loadConfigsViewTerms($name);
+            // On essaie de charger les configurations requises.
+            $this->loadDependancyConfig($name);
+          }
+        }
       }
+      if ($this->currentDomaine)
+        debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
+      else
+        debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install' . $pathLanguageSuffix;
+      self::$configEntities[$name] = [
+        'status' => true,
+        'value' => $string
+      ];
       $this->tryGetDependencies($name);
     }
   }

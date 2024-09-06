@@ -5,12 +5,9 @@ namespace Drupal\export_import_entities\Services;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\ContentEntityType;
 use Stephane888\Debug\Repositories\ConfigDrupal;
-use Drupal\node\Entity\Node;
-use Drupal\views\Plugin\views\filter\Bundle;
 use Drupal\Core\Entity\EntityFieldManager;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Component\Serialization\Yaml;
-use Drupal\taxonomy\Entity\Term;
 use Drupal\export_import_entities\Services\ProfileCustomization\ManageProfile;
 
 class ExportEntities extends ControllerBase {
@@ -386,9 +383,18 @@ class ExportEntities extends ControllerBase {
     $config_name = 'wb_horizon_public.source_site_configs';
     $Ids = $this->getMenusIds();
     $main_menu_id = reset($Ids) ?? null;
+    $domainConfigs = $this->configStorage->read('domain.config.' . $this->currentDomaine->id() . '.system.site');
+    $data = $this->configStorage->read('domain.language.' . $this->currentDomaine->id() . '.language.negotiation');
     $configs = [
       "domain_source_id" => \Drupal\lesroidelareno\lesroidelareno::getCurrentPrefixDomain()
     ];
+
+    $configs["languages"] = [
+      "default_langcode" => $domainConfigs["default_langcode"],
+    ];
+    if (isset($data["languages"])) {
+      $configs["languages"]["availables_langcodes"] = $data["languages"];
+    }
     if ($main_menu_id) {
       $configs["main_menu_id"] = $main_menu_id;
     }
