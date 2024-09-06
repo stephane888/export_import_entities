@@ -47,7 +47,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 .import_contents_vuejs {
-  // @import "node_modules/bootstrap/scss/bootstrap.scss";
-  // @import "node_modules/bootstrap-vue/src/index.scss";
+  @import "node_modules/bootstrap/scss/bootstrap.scss";
+  @import "node_modules/bootstrap-vue/src/index.scss";
 }
 </style>
