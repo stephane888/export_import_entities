@@ -235,6 +235,18 @@ abstract class ImportBase extends FormBase {
         // }
         // }
         // $form['datas']['files'] = $options;
+        $form['datas']['render_vuejs'] = [
+          '#type' => "html_tag",
+          '#tag' => 'section',
+          '#attributes' => [
+            'id' => 'import_contents_by_js'
+          ],
+          '#attached' => [
+            'library' => [
+              'export_import_entities/save_content_vuejs'
+            ]
+          ]
+        ];
         $form['datas']['actions'] = [
           '#type' => 'actions',
           'submit' => [

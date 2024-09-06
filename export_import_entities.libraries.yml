@@ -1,0 +1,30 @@
+# Third-party library (CDN).
+vuejs_prod:
+  remote: https://vuejs.org
+  version: 2.7.14
+  license:
+    name: MIT
+    url: https://github.com/vuejs/vue/blob/dev/LICENSE
+    gpl-compatible: true
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.14/vue.min.js: { type: external, minified: true, weight: -10 }
+
+vuejs_dev:
+  remote: https://vuejs.org
+  version: 2.7.14
+  license:
+    name: MIT
+    url: https://github.com/vuejs/vue/blob/dev/LICENSE
+    gpl-compatible: true
+  js:
+    https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js: { type: external, minified: true, weight: -10 }
+
+save_content_vuejs:
+  js:
+    lib/import_contents/files/ImportContents.umd.min.js: {weight: -1}
+  css:
+    component:
+      lib/import_contents/files/ImportContents.css: {weight: -1}
+  dependencies:
+    - core/drupalSettings
+    - export_import_entities/vuejs_dev
