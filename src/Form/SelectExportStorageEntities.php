@@ -325,9 +325,9 @@ final class SelectExportStorageEntities extends ExportBase {
       /**
        * Utile pour faire le debuggage de contenu.
        */
-      debugLog::$max_depth = 15;
-      debugLog::$path = null;
-      debugLog::symfonyDebug($EntitiesArray, $entity_id . $id . '---', true);
+      // debugLog::$max_depth = 15;
+      // debugLog::$path = null;
+      // debugLog::symfonyDebug($EntitiesArray, $entity_id . $id . '---', true);
       //
       $import_contents = $this->getPluginImportContent();
       $import_contents->saveContents($EntitiesArray, $id, $entity_id);

@@ -5,7 +5,9 @@
       <b-icon icon="three-dots" animation="cylon" font-scale="4" class="ml-5"></b-icon>
     </b-alert>
     <pre> {{ run_entity }} </pre>
-    <a :href="url">{{ label }} | {{ id }}</a>
+    <p>
+      <a :href="url">{{ label }} | {{ id }}</a>
+    </p>
     <b-button @click="import_content" size="lg" variant="primary"> Import contents </b-button>
   </div>
 </template>

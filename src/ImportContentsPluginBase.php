@@ -225,11 +225,6 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
     self::$base_directory = $base_directory;
     $contents = $this->getJsonFile("contents", $content_key);
     $page = !empty($contents[$content_key]) ? $contents[$content_key] : [];
-    //
-    // $files = $this->getFiles($base_directory, $content_key);
-    // if ($page) {
-    // // return $this->savePage($page, true, $files);
-    // }
     return $page;
   }
   
@@ -622,11 +617,12 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
         $filesConfigToImport = $this->file_system->scanDirectory($path, "$mask");
         foreach ($filesConfigToImport as $fileConfigToImport) {
           if ($content_key) {
-            if ($content_key == $fileConfigToImport->name)
-              $contents[$fileConfigToImport->name] = Yaml::decode(file_get_contents($fileConfigToImport->uri));
+            if ($content_key == $fileConfigToImport->name) {
+              $contents[$fileConfigToImport->name] = json::decode(file_get_contents($fileConfigToImport->uri));
+            }
           }
           else {
-            $contents[$fileConfigToImport->name] = Yaml::decode(file_get_contents($fileConfigToImport->uri));
+            $contents[$fileConfigToImport->name] = json::decode(file_get_contents($fileConfigToImport->uri));
           }
         }
         return $contents;
@@ -639,11 +635,11 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
         foreach ($filesContentFiles as $filesContentFile) {
           if ($content_key) {
             if ($content_key == $filesContentFile->name) {
-              $files[$filesContentFile->name] = Yaml::decode(file_get_contents($filesContentFile->uri));
+              $files[$filesContentFile->name] = json::decode(file_get_contents($filesContentFile->uri));
             }
           }
           else {
-            $files[$filesContentFile->name] = Yaml::decode(file_get_contents($filesContentFile->uri));
+            $files[$filesContentFile->name] = json::decode(file_get_contents($filesContentFile->uri));
           }
         }
         return $files;
