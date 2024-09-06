@@ -51,10 +51,13 @@ class ExportImportEntitiesController extends ControllerBase {
           'target_id' => $EntityStorage->create($values)->id()
         ];
         $entity = $plugin->prepareSaveContent($page, $base_directory, $key_identification);
-        return HttpResponse::response([
+        $datas = [
           'id' => $entity->id(),
-          'json' => $entity->toArray()
-        ]);
+          'json' => $entity->toArray(),
+          'label' => $entity->label(),
+          'url' => $entity->toUrl()->toString()
+        ];
+        return HttpResponse::response($datas);
       }
       catch (ExceptionDebug $e) {
         $this->getLogger('export_import_entities')->critical(ExceptionExtractMessage::errorAllToString($e));

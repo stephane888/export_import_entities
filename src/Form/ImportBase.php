@@ -260,24 +260,24 @@ abstract class ImportBase extends FormBase {
           'key_identification' => $keyIdentification
         ];
         
-        $form['datas']['actions'] = [
-          '#type' => 'actions',
-          'submit' => [
-            '#type' => 'submit',
-            '#value' => $this->getSubmitText($form, $form_state),
-            // '#ajax' => [
-            // 'callback' => self::class . '::export_import_submit_callback',
-            // 'wrapper' => 'export_import_select_export_entity_id',
-            // 'effect' => 'fade'
-            // ],
-            '#submit' => [
-              // focntionne mais la methode doit etre statique.
-              // self::class .
-              // '::import_config_submit'
-              '::import_page_submit'
-            ]
-          ]
-        ];
+        // $form['datas']['actions'] = [
+        // '#type' => 'actions',
+        // 'submit' => [
+        // '#type' => 'submit',
+        // '#value' => $this->getSubmitText($form, $form_state),
+        // // '#ajax' => [
+        // // 'callback' => self::class . '::export_import_submit_callback',
+        // // 'wrapper' => 'export_import_select_export_entity_id',
+        // // 'effect' => 'fade'
+        // // ],
+        // '#submit' => [
+        // // focntionne mais la methode doit etre statique.
+        // // self::class .
+        // // '::import_config_submit'
+        // '::import_page_submit'
+        // ]
+        // ]
+        // ];
         break;
       default:
         ;

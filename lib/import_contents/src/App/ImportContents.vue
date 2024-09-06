@@ -5,6 +5,7 @@
       <b-icon icon="three-dots" animation="cylon" font-scale="4" class="ml-5"></b-icon>
     </b-alert>
     <pre> {{ run_entity }} </pre>
+    <a :href="url">{{ label }} | {{ id }}</a>
     <b-button @click="import_content" size="lg" variant="primary"> Import contents </b-button>
   </div>
 </template>
@@ -13,10 +14,16 @@
 import { mapState } from "vuex";
 export default {
   name: "ImportContents",
+  data() {
+    return { message: "" };
+  },
   computed: {
     ...mapState({
       run_entity: (state) => state.run_entity,
       running: (state) => state.running,
+      label: (state) => state.label,
+      id: (state) => state.id,
+      url: (state) => state.url,
     }),
   },
   methods: {
@@ -25,7 +32,7 @@ export default {
       this.$store
         .dispatch("saveEntities")
         .then((resp) => {
-          console.log(" Response : ", resp);
+          console.log(" Response saveEntities : ", resp);
         })
         .catch((error) => {
           console.log(" Error : ", error);
