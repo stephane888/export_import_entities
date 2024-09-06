@@ -325,9 +325,9 @@ final class SelectExportStorageEntities extends ExportBase {
       /**
        * Utile pour faire le debuggage de contenu.
        */
-      // debugLog::$max_depth = 15;
-      // debugLog::$path = null;
-      // debugLog::symfonyDebug($EntitiesArray, $entity_id . $id . '---', true);
+      debugLog::$max_depth = 15;
+      debugLog::$path = null;
+      debugLog::symfonyDebug($EntitiesArray, $entity_id . $id . '---', true);
       //
       $import_contents = $this->getPluginImportContent();
       $import_contents->saveContents($EntitiesArray, $id, $entity_id);
@@ -418,6 +418,7 @@ final class SelectExportStorageEntities extends ExportBase {
    */
   protected function generateFormMatrice($entity_type_id, \Drupal\Core\Entity\ContentEntityBase $entity, $bundle, $duplicate = false, $add_form = true, $view_mode = 'default') {
     $form = $this->GenerateForm->getForm($entity_type_id, $bundle, $view_mode, $entity);
+    
     // Ajout de la configuration des champs layout_builder__layout. ( il faudra
     // completer l'issue ).
     $this->DuplicateEntityReference->toArrayLayoutBuilderField($form['entity']);

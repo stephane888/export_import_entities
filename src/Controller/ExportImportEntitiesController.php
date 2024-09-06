@@ -47,7 +47,8 @@ class ExportImportEntitiesController extends ControllerBase {
         $page = [
           'entity' => $values,
           'entities' => [],
-          'target_type' => $entity_type_id
+          'target_type' => $entity_type_id,
+          'target_id' => $EntityStorage->create($values)->id()
         ];
         $entity = $plugin->prepareSaveContent($page, $base_directory, $key_identification);
         return HttpResponse::response([
