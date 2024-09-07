@@ -10,6 +10,7 @@ use Drupal\export_import_entities\Services\ThirdPartySettings;
  * formulaire
  * d'entité.
  *
+ * @deprecated @use Stephane888\DrupalUtility\Export\Config::loadConfigs
  * @author stephane
  *        
  */
@@ -81,5 +82,4 @@ class LoadViewDisplays extends ControllerBase {
       }
     }
   }
-  
 }

@@ -9,6 +9,7 @@ use Drupal\export_import_entities\Services\ThirdPartySettings;
  * Permet de charger les diffirents differents mode de sasie pour un formulaire
  * d'entité.
  *
+ * @deprecated @use Stephane888\DrupalUtility\Export\Config::loadConfigs
  * @author stephane
  *        
  */
@@ -87,5 +88,4 @@ class LoadFormDisplays extends ControllerBase {
     }
     // dump($this->LoadConfigs->getGenerate());
   }
-  
 }

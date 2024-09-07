@@ -65,7 +65,6 @@ class ThirdPartySettings extends ControllerBase {
              */
             $confComponent = $component->toArray();
             //
-            $nameOld = !empty($confComponent['configuration']['formatter']['type']) ? $confComponent['configuration']['formatter']['type'] : 'none';
             if (!empty($confComponent['configuration']['formatter']['type'])) {
               $field_type = $confComponent['configuration']['formatter']['type'];
               // Ajout de la configuration pour le champs :
