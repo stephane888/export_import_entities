@@ -82,6 +82,16 @@ class ThirdPartySettings extends ControllerBase {
                     $this->LoadConfigs->getConfigFromName('image.style.' . $confComponent['configuration']['formatter']['settings']['image_style']);
                   }
                   break;
+                // ajout de la configuration pour les styles d'image de
+                // more_fields_hbk_file_formatter.
+                case 'more_fields_hbk_file_formatter':
+                  if (!empty($confComponent['configuration']['formatter']['settings']['image_settings']['image_style'])) {
+                    $this->LoadConfigs->getConfigFromName('image.style.' . $confComponent['configuration']['formatter']['settings']['image_settings']['image_style']);
+                  }
+                  if (!empty($confComponent['configuration']['formatter']['settings']['thumbs_settings']['image_style'])) {
+                    $this->LoadConfigs->getConfigFromName('image.style.' . $confComponent['configuration']['formatter']['settings']['thumbs_settings']['image_style']);
+                  }
+                  break;
                 default:
                   ;
                   break;
