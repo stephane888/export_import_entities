@@ -465,7 +465,7 @@ final class SelectExportStorageEntities extends ExportBase {
        * @var \Drupal\Core\Config\Entity\ConfigEntityType $entity
        */
       if ($entity->getBaseTable())
-        $options[$entity_id] = $entity->getLabel();
+        $options[$entity_id] = strtolower($entity->getLabel());
     }
     asort($options);
     return $options;
