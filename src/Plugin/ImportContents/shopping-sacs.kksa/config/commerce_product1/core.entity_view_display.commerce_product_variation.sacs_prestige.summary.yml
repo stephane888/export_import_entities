@@ -10,7 +10,6 @@ dependencies:
     - field.field.commerce_product_variation.sacs_prestige.field_galleries
     - field.field.commerce_product_variation.sacs_prestige.field_images
     - field.field.commerce_product_variation.sacs_prestige.field_niveau_de_stock
-    - field.field.commerce_product_variation.sacs_prestige.field_test_galleries
     - field.field.commerce_product_variation.sacs_prestige.weight
   module:
     - commerce_price
@@ -67,7 +66,6 @@ hidden:
   attribute_taille: true
   dimensions: true
   field_galleries: true
-  field_test_galleries: true
   langcode: true
   product_id: true
   sku: true
