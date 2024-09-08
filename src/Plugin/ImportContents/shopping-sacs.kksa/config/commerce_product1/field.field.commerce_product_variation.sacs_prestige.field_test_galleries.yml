@@ -1,0 +1,28 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.sacs_prestige
+    - field.storage.commerce_product_variation.field_test_galleries
+  module:
+    - more_fields
+id: commerce_product_variation.sacs_prestige.field_test_galleries
+field_name: field_test_galleries
+entity_type: commerce_product_variation
+bundle: sacs_prestige
+label: 'test galleries'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'mp4 ogv webm png gif jpg jpeg webp'
+  max_filesize: ''
+  description_field: 0
+  image_extensions: 'png, gif, jpg, jpeg, webp'
+  video_extensions: 'mp4, ogv, webm'
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: more_fields_hbk_file

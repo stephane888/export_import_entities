@@ -9,6 +9,7 @@ dependencies:
     - field.field.commerce_product_variation.sacs_prestige.field_galleries
     - field.field.commerce_product_variation.sacs_prestige.field_images
     - field.field.commerce_product_variation.sacs_prestige.field_niveau_de_stock
+    - field.field.commerce_product_variation.sacs_prestige.field_test_galleries
     - field.field.commerce_product_variation.sacs_prestige.weight
   module:
     - commerce_price
@@ -63,6 +64,13 @@ content:
       step: '1'
       custom_transaction_note: false
       default_transaction_note: 'Transaction issued by stock level field.'
+    third_party_settings: {  }
+  field_test_galleries:
+    type: hbk_file_generic
+    weight: 12
+    region: content
+    settings:
+      progress_indicator: throbber
     third_party_settings: {  }
   langcode:
     type: language_select

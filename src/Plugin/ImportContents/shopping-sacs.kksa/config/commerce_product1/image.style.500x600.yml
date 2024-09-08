@@ -1,0 +1,14 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: 500x600
+label: '500x600 (Échelle)'
+effects:
+  5196c013-4dac-493c-8633-1a8ad7586db1:
+    uuid: 5196c013-4dac-493c-8633-1a8ad7586db1
+    id: image_scale
+    weight: 2
+    data:
+      width: 480
+      height: 600
+      upscale: false
