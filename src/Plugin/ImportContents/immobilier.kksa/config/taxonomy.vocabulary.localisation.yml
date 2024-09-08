@@ -1,8 +1,0 @@
-langcode: fr
-status: true
-dependencies: {  }
-name: localisation
-vid: localisation
-description: null
-weight: 0
-new_revision: false

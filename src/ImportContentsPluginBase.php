@@ -142,8 +142,13 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   function saveConfig(array $configs, int $id, string $entity_id): void {
     if ($dirs = $this->prepareDirectories()) {
       $directoryConfig = $dirs['config'] . '/' . $entity_id . $id;
+      // Si le dossier de configuration existe, on le supprime.
+      if (file_exists($directoryConfig))
+        $this->file_system->deleteRecursive($directoryConfig);
+      //
       if (!$this->file_system->prepareDirectory($directoryConfig, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS))
         $this->messenger->addError("Impossible de crrer le dossier : " . $directoryConfig);
+      
       foreach ($configs as $name => $config) {
         // On regroupe les configurations par content.
         /**

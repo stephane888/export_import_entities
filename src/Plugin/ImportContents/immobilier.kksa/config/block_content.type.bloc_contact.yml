@@ -1,7 +1,0 @@
-langcode: fr
-status: true
-dependencies: {  }
-id: bloc_contact
-label: 'bloc contact'
-revision: false
-description: ''

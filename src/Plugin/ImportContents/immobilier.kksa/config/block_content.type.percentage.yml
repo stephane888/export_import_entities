@@ -1,7 +1,0 @@
-langcode: fr
-status: true
-dependencies: {  }
-id: percentage
-label: percentage
-revision: false
-description: ''

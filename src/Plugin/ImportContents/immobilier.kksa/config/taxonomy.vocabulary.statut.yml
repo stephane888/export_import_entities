@@ -1,8 +1,0 @@
-langcode: fr
-status: true
-dependencies: {  }
-name: "option d'offre"
-vid: statut
-description: 'pour les statuts des logements'
-weight: 0
-new_revision: false
