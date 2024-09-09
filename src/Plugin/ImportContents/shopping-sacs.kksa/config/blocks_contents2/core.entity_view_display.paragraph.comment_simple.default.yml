@@ -21,7 +21,7 @@ third_party_settings:
         layout_settings:
           label: ' One column custom  ( formatage_models_simple_block ) '
           context_mapping: {  }
-          css: 'mb-0 bg-black space-padding text-white '
+          css: 'bg-black space-padding text-white '
           region_tag_main: div
           config_section:
             type_container: width-phone
