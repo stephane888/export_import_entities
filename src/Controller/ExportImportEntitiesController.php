@@ -55,8 +55,11 @@ class ExportImportEntitiesController extends ControllerBase {
           'id' => $entity->id(),
           'json' => $entity->toArray(),
           'label' => $entity->label(),
-          'url' => $entity->toUrl()->toString()
+          'url' => '#'
         ];
+        if ($entity->hasLinkTemplate('canonical'))
+          $datas['url'] = $entity->toUrl()->toString();
+        //
         return HttpResponse::response($datas);
       }
       catch (ExceptionDebug $e) {
