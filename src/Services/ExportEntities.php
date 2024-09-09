@@ -98,6 +98,11 @@ class ExportEntities extends ControllerBase {
   protected $ManageProfile;
 
   /**
+   * @var array $languageNegotiator
+   */
+  protected $languageNegotiator;
+
+  /**
    *
    * @param EntityFieldManager $EntityFieldManager
    * @param StorageInterface $config_storage
@@ -143,6 +148,13 @@ class ExportEntities extends ControllerBase {
       }
     }
     return $validesEntities;
+  }
+
+  protected function getLanguagesNegotiatorConfigs() {
+    if (!isset($this->languageNegotiator)) {
+      $this->languageNegotiator = $this->configStorage->read('domain.language.' . $this->currentDomaine->id() . '.language.negotiation');
+    }
+    return $this->languageNegotiator;
   }
 
   /**
@@ -290,8 +302,6 @@ class ExportEntities extends ControllerBase {
     $name = 'system.theme';
     $this->LoadConfigs->addConfig($name, $string);
     $configNames = [
-      'language.entity.fr', // Language fr
-      'language.entity.en',
       'language.negotiation',
       'language.mappings',
       'language.types',
@@ -319,7 +329,12 @@ class ExportEntities extends ControllerBase {
     foreach ($configNames as $configName) {
       $this->LoadConfigs->getConfigFromName($configName);
     }
+    //Export languages
 
+    foreach ($this->getLanguagesNegotiatorConfigs()["languages"] as $langcode) {
+      $configName =   'language.entity.' . $langcode;
+      $this->LoadConfigs->getConfigFromName($configName);
+    }
     // Pour surcharger la langue par defaut.
     $overrides = [
       'default_langcode' => $lang_code
@@ -384,7 +399,7 @@ class ExportEntities extends ControllerBase {
     $Ids = $this->getMenusIds();
     $main_menu_id = reset($Ids) ?? null;
     $domainConfigs = $this->configStorage->read('domain.config.' . $this->currentDomaine->id() . '.system.site');
-    $data = $this->configStorage->read('domain.language.' . $this->currentDomaine->id() . '.language.negotiation');
+    $data = $this->getLanguagesNegotiatorConfigs();
     $configs = [
       "domain_source_id" => \Drupal\lesroidelareno\lesroidelareno::getCurrentPrefixDomain()
     ];

@@ -164,7 +164,7 @@ class LoadConfigs extends LoadBase {
       $availableLanguages = $this->configStorage->read('domain.language.' . $this->currentDomaine->id() . '.language.negotiation');
       $defaultLangcode = $this->configStorage->read('system.site')["default_langcode"];
       $langcodes = $availableLanguages["languages"] ?? [$defaultLangcode];
-      // dd($langcodes, $defaultLangcode);
+      $string = "";
       foreach ($langcodes as $key => $langcode) {
         $pathLanguageSuffix = $langcode == $defaultLangcode ? "" : "/language/" . $langcode;
 
