@@ -15,5 +15,5 @@ traits:
   - purchasable_entity_dimensions
   - purchasable_entity_shippable
 locked: false
-orderItemType: default
+orderItemType: element_commande_prestige
 generateTitle: true
