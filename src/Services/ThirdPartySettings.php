@@ -92,6 +92,11 @@ class ThirdPartySettings extends ControllerBase {
                     $this->LoadConfigs->getConfigFromName('image.style.' . $confComponent['configuration']['formatter']['settings']['thumbs_settings']['image_style']);
                   }
                   break;
+                case 'formatage_models_swiperjsimage':
+                  if (!empty($confComponent['configuration']['formatter']['settings']['image_style'])) {
+                    $this->LoadConfigs->getConfigFromName('image.style.' . $confComponent['configuration']['formatter']['settings']['image_style']);
+                  }
+                  break;
                 default:
                   ;
                   break;

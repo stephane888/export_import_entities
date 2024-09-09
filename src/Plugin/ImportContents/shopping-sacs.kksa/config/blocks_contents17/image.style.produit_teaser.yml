@@ -1,0 +1,14 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: produit_teaser
+label: 'Produit teaser'
+effects:
+  ef6c4178-06f2-4d21-9c98-ebd4f39530c9:
+    uuid: ef6c4178-06f2-4d21-9c98-ebd4f39530c9
+    id: image_scale
+    weight: 1
+    data:
+      width: 500
+      height: null
+      upscale: false
