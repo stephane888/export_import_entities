@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.tags_produits
+id: taxonomy_term.tags_produits
+target_entity_type_id: taxonomy_term
+target_bundle: tags_produits
+default_langcode: current_interface
+language_alterable: true

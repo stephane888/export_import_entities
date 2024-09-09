@@ -1,0 +1,6 @@
+langcode: fr
+status: true
+dependencies: {  }
+id: couleur
+label: Couleur
+elementType: select

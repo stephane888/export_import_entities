@@ -1,0 +1,22 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.article_sort_by_tag.field_title
+    - paragraphs.paragraphs_type.article_sort_by_tag
+id: paragraph.article_sort_by_tag.default
+targetEntityType: paragraph
+bundle: article_sort_by_tag
+mode: default
+content:
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

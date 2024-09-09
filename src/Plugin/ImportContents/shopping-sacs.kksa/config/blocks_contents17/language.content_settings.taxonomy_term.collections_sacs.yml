@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.collections_sacs
+id: taxonomy_term.collections_sacs
+target_entity_type_id: taxonomy_term
+target_bundle: collections_sacs
+default_langcode: current_interface
+language_alterable: false

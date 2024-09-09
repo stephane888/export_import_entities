@@ -1,0 +1,14 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: 150_150_echelle
+label: '150*150 ( échelle )'
+effects:
+  270db6dd-d5d9-48a0-97d6-baa3935541ed:
+    uuid: 270db6dd-d5d9-48a0-97d6-baa3935541ed
+    id: image_scale
+    weight: 1
+    data:
+      width: 150
+      height: 150
+      upscale: false

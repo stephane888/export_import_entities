@@ -170,6 +170,7 @@ final class SelectExportStorageEntities extends ExportBase {
         $bundle = $entity->bundle() ? $entity->bundle() : $entity_id;
         $BundleEntityType = $entity->getEntityType()->getBundleEntityType();
         $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $bundle, $BundleEntityType);
+        $this->ProtectAgaintEntitiesInfinixLoop = [];
         $this->getOrthersConfig($entity);
         //
         $allDatas = $this->getPluginImportContent()->getIdentificationEntities();
@@ -245,7 +246,13 @@ final class SelectExportStorageEntities extends ExportBase {
           ];
         }
         //
-        foreach ($this->LoadConfigs->getGenerate() as $key => $value) {
+        $configs = $this->LoadConfigs->getGenerate();
+        $form['datas']['resume_configs'] = [
+          '#type' => 'details',
+          '#open' => false,
+          '#title' => "Configs : " . count($configs)
+        ];
+        foreach ($configs as $key => $value) {
           $form['datas'][$key] = [
             '#type' => 'details',
             '#open' => false,
@@ -306,6 +313,9 @@ final class SelectExportStorageEntities extends ExportBase {
       $this->LoadConfigs->setRemoveUUID(TRUE);
       $this->LoadConfigs->setRemoveDefaultValue(FALSE);
       //
+      $this->LoadConfigs->setSaveIt(FALSE);
+      $this->LoadConfigs->setRemoveUUID(TRUE);
+      $this->LoadConfigs->setRemoveDefaultValue(FALSE);
       /**
        *
        * @var \Drupal\node\Entity\Node $entity
@@ -314,6 +324,7 @@ final class SelectExportStorageEntities extends ExportBase {
       $bundle = $entity->bundle() ? $entity->bundle() : $entity_id;
       $BundleEntityType = $entity->getEntityType()->getBundleEntityType();
       $this->LoadConfigs->generateAllConfigAboutEntity($entity_id, $bundle, $BundleEntityType);
+      $this->ProtectAgaintEntitiesInfinixLoop = [];
       $this->getOrthersConfig($entity);
       $configs = $this->LoadConfigs->getGenerate();
       /**
@@ -333,7 +344,7 @@ final class SelectExportStorageEntities extends ExportBase {
       $import_contents->saveContents($EntitiesArray, $id, $entity_id);
       $import_contents->saveConfig($configs, $id, $entity_id);
       // debugLog::logger($string, $name . '.yml', false, 'file');
-      \Drupal::messenger()->addStatus(" Données de configuration exporter à l'emplacement definit. ", true);
+      \Drupal::messenger()->addStatus(count($configs) . " :  Données de configuration exporter à l'emplacement definit. ", true);
       //
       /**
        * On enregistre la configuration en relation avec la page.
@@ -390,10 +401,6 @@ final class SelectExportStorageEntities extends ExportBase {
           if ($subEntity) {
             // On souhaite reduire cela aux entites inclus.
             if (empty($this->ProtectAgaintEntitiesInfinixLoop[$entity_type_id][$value['target_id']]) && !in_array($fieldName, $this->ignoreFields) && $subEntity instanceof ContentEntityBase) {
-              // \Stephane888\Debug\debugLog::$path = NULL;
-              // \Stephane888\Debug\debugLog::symfonyDebug($subEntity->toArray(),
-              // $subEntity->getEntityTypeId() . '____' . $subEntity->id() .
-              // '---getOrthersConfig', true);
               $this->getOrthersConfig($subEntity);
             }
             $bundle = $subEntity->bundle() ? $subEntity->bundle() : $entity_type_id;

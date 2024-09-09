@@ -1,0 +1,14 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: image_540x710
+label: 540x710
+effects:
+  449281a8-623a-4ede-a050-922b5cfcab91:
+    uuid: 449281a8-623a-4ede-a050-922b5cfcab91
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 540
+      height: 710
+      anchor: center-center

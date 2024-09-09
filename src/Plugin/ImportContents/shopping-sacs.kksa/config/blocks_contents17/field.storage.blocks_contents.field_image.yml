@@ -1,0 +1,29 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - blockscontent
+    - file
+    - image
+id: blocks_contents.field_image
+field_name: field_image
+entity_type: blocks_contents
+type: image
+settings:
+  target_type: file
+  display_field: false
+  display_default: false
+  uri_scheme: public
+  default_image:
+    uuid: 00660e9b-ba23-413d-a570-a317a5559cbf
+    alt: ''
+    title: ''
+    width: 2400
+    height: 1200
+module: image
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

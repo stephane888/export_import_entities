@@ -1,0 +1,99 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_paragraphs
+    - paragraphs.paragraphs_type.comment_simple
+    - paragraphs.paragraphs_type.sliders_comments_simple
+  module:
+    - entity_reference_revisions
+id: paragraph.sliders_comments_simple.field_paragraphs
+field_name: field_paragraphs
+entity_type: paragraph
+bundle: sliders_comments_simple
+label: Paragraphs
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      comment_simple: comment_simple
+    negate: 0
+    target_bundles_drag_drop:
+      bloc_service:
+        weight: 4
+        enabled: false
+      blogs_modele_prestige:
+        weight: 26
+        enabled: false
+      cln_98_region_text_for_count_dow:
+        weight: 27
+        enabled: false
+      comment_simple:
+        weight: 28
+        enabled: true
+      count_down_region:
+        weight: 29
+        enabled: false
+      hero_avec_video_22:
+        weight: 11
+        enabled: false
+      hero_avec_video_3:
+        weight: 12
+        enabled: false
+      hero_sliders:
+        weight: 13
+        enabled: false
+      images_texte:
+        weight: 14
+        enabled: false
+      logo_partenaire:
+        weight: 15
+        enabled: false
+      navigate_to_next:
+        weight: 35
+        enabled: false
+      prestige_hero1:
+        weight: 5
+        enabled: false
+      region_text_for_count_dow:
+        weight: 37
+        enabled: false
+      section_count_down:
+        weight: 38
+        enabled: false
+      section_image_exposition:
+        weight: 39
+        enabled: false
+      section_matiere:
+        weight: 40
+        enabled: false
+      section_newsletter:
+        weight: 41
+        enabled: false
+      section_with_text_and_two_images:
+        weight: 42
+        enabled: false
+      services:
+        weight: 6
+        enabled: false
+      sliders_comments_simple:
+        weight: 44
+        enabled: false
+      teaser_section_material:
+        weight: 45
+        enabled: false
+      text_et_partenaire:
+        weight: 18
+        enabled: false
+      texte_big_image:
+        weight: 46
+        enabled: false
+      top_header:
+        weight: 48
+        enabled: false
+field_type: entity_reference_revisions
