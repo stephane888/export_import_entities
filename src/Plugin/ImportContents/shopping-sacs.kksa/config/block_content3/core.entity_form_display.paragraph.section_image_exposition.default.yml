@@ -5,6 +5,7 @@ dependencies:
     - field.field.paragraph.section_image_exposition.field_images
     - field.field.paragraph.section_image_exposition.field_subtitle
     - field.field.paragraph.section_image_exposition.field_title
+    - field.field.paragraph.section_image_exposition.layout_builder__layout
     - image.style.thumbnail
     - paragraphs.paragraphs_type.section_image_exposition
   module:
@@ -40,4 +41,5 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  layout_builder__layout: true
   status: true

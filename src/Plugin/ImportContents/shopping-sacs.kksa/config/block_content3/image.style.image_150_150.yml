@@ -2,7 +2,7 @@ langcode: fr
 status: true
 dependencies: {  }
 name: image_150_150
-label: 'image 150*150'
+label: '150*150 (mise à l’échelle et recadrage )'
 effects:
   65271845-d522-4950-b35c-86502de176be:
     uuid: 65271845-d522-4950-b35c-86502de176be
