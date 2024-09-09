@@ -1,0 +1,14 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: image_80_80
+label: 'image 80*80'
+effects:
+  10e1eac2-9051-4797-8163-30bb8d5fe747:
+    uuid: 10e1eac2-9051-4797-8163-30bb8d5fe747
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 80
+      height: 80
+      anchor: center-center

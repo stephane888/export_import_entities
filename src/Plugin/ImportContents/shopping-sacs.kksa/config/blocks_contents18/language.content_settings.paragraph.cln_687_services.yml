@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.cln_687_services
+id: paragraph.cln_687_services
+target_entity_type_id: paragraph
+target_bundle: cln_687_services
+default_langcode: site_default
+language_alterable: false

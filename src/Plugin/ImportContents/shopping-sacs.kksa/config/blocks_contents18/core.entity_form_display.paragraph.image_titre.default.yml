@@ -1,0 +1,34 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.image_titre.field_images
+    - field.field.paragraph.image_titre.field_title
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.image_titre
+  module:
+    - image
+id: paragraph.image_titre.default
+targetEntityType: paragraph
+bundle: image_titre
+mode: default
+content:
+  field_images:
+    type: image_image
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
