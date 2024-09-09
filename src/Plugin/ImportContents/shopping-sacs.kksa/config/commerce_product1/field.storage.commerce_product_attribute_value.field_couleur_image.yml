@@ -1,0 +1,29 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - file
+    - image
+id: commerce_product_attribute_value.field_couleur_image
+field_name: field_couleur_image
+entity_type: commerce_product_attribute_value
+type: image
+settings:
+  target_type: file
+  display_field: false
+  display_default: false
+  uri_scheme: public
+  default_image:
+    uuid: 817d1d78-93f6-4f97-a256-f21e67478e33
+    alt: ''
+    title: ''
+    width: 198
+    height: 189
+module: image
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
