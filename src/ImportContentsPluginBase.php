@@ -170,9 +170,8 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   protected function saveFiles(array $datas, string $path, int $id, string $entity_id): void {
     $files = [];
     $this->retriveFiles($datas, $files);
-    // \Stephane888\Debug\debugLog::$path = null;
-    // \Stephane888\Debug\debugLog::symfonyDebug($files, 'files__' . $entity_id
-    // . $id . '---', true);
+    \Stephane888\Debug\debugLog::$path = null;
+    \Stephane888\Debug\debugLog::symfonyDebug($files, 'files__' . $entity_id . $id . '---', true);
     $this->file_system->saveData(Json::encode($files), $path . '/' . $entity_id . $id . '__files.json', FileExists::Replace);
   }
   
@@ -719,6 +718,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
            */
           if ($field->getType() == 'image' || $field->getType() == 'file' || $field->getType() == 'more_fields_hbk_file') {
             $values = $data['entity'][$field_name];
+            
             foreach ($values as $delta => $value) {
               $files[$data['target_type']][$id][$field->getName()][$delta] = $value;
               $file = \Drupal\file\Entity\File::load($value['target_id']);
