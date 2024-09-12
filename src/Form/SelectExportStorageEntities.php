@@ -338,8 +338,7 @@ final class SelectExportStorageEntities extends ExportBase {
        */
       // debugLog::$max_depth = 15;
       // debugLog::$path = null;
-      // debugLog::symfonyDebug($EntitiesArray['entities']['variations'],
-      // $entity_id . $id . '---', true);
+      // debugLog::symfonyDebug($EntitiesArray, $entity_id . $id . '---', true);
       // debugLog::symfonyDebug($configs, 'configs_' . $entity_id . $id . '---',
       // true);
       // //

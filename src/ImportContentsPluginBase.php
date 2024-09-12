@@ -170,6 +170,9 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
   protected function saveFiles(array $datas, string $path, int $id, string $entity_id): void {
     $files = [];
     $this->retriveFiles($datas, $files);
+    // \Stephane888\Debug\debugLog::$path = null;
+    // \Stephane888\Debug\debugLog::symfonyDebug($files, 'files__' . $entity_id
+    // . $id . '---', true);
     $this->file_system->saveData(Json::encode($files), $path . '/' . $entity_id . $id . '__files.json', FileExists::Replace);
   }
   
@@ -320,11 +323,10 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
              * Utile si l'on souhaite re-importer les images.
              * On pourra definir une configuation permettant d'activer cela.
              */
-            // $idKey = $storage->getEntityType()->getKey('id');
-            // $id = !empty($page['entity'][$idKey][0]['value']) ?
-            // $page['entity'][$idKey][0]['value'] : 0;
-            // $this->restoreFileAndIdFile($id, $oldEntity, $page, $files);
-            // $oldEntity->save();
+            $idKey = $storage->getEntityType()->getKey('id');
+            $id = !empty($page['entity'][$idKey][0]['value']) ? $page['entity'][$idKey][0]['value'] : 0;
+            $this->restoreFileAndIdFile($id, $oldEntity, $page, $files);
+            $oldEntity->save();
             //
             return $oldEntity;
           }
@@ -442,9 +444,10 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
         $values = $page['entity'][$field_name];
         $new_files = [];
         foreach ($values as $delta => $value) {
-          if (!empty($files[$page['target_type']][$id][$delta]["default_encode_file"])) {
+          if (!empty($files[$page['target_type']][$id][$field_name][$delta]["default_encode_file"])) {
             
-            $file = $this->base64_to_file($files[$page['target_type']][$id][$delta]["default_encode_file"], $files[$page['target_type']][$id][$delta]["default_filename"], $page['target_type']);
+            $file = $this->base64_to_file($files[$page['target_type']][$id][$field_name][$delta]["default_encode_file"], $files[$page['target_type']][$id][$field_name][$delta]["default_filename"],
+              $page['target_type']);
             if ($file) {
               $new_files[$delta] = $value;
               $new_files[$delta]['target_id'] = $file->id();
@@ -717,7 +720,7 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
           if ($field->getType() == 'image' || $field->getType() == 'file' || $field->getType() == 'more_fields_hbk_file') {
             $values = $data['entity'][$field_name];
             foreach ($values as $delta => $value) {
-              $files[$data['target_type']][$id][$delta] = $value;
+              $files[$data['target_type']][$id][$field->getName()][$delta] = $value;
               $file = \Drupal\file\Entity\File::load($value['target_id']);
               if ($file) {
                 /**
@@ -726,8 +729,8 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
                  * utile si l'on souhaite affiché l'image uniquement via le
                  * navigateur.
                  */
-                $files[$data['target_type']][$id][$delta]["default_encode_file"] = base64_encode(file_get_contents($file->getFileUri()));
-                $files[$data['target_type']][$id][$delta]["default_filename"] = $file->getFilename();
+                $files[$data['target_type']][$id][$field->getName()][$delta]["default_encode_file"] = base64_encode(file_get_contents($file->getFileUri()));
+                $files[$data['target_type']][$id][$field->getName()][$delta]["default_filename"] = $file->getFilename();
               }
             }
           }
