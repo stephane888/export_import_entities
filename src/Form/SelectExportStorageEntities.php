@@ -307,13 +307,9 @@ final class SelectExportStorageEntities extends ExportBase {
        * Recuperation de la configs.
        */
       // On ajoute les fichiers de configurations dans le meme dossier que celui
-      // des données.
+      // des données. ( donc on ne sauvegarde pas automatiquement ).
       $this->LoadConfigs->setSaveIt(FALSE);
       // On doit concerve le UUID, afin de ne pas charger la meme config 2 fois.
-      $this->LoadConfigs->setRemoveUUID(TRUE);
-      $this->LoadConfigs->setRemoveDefaultValue(FALSE);
-      //
-      $this->LoadConfigs->setSaveIt(FALSE);
       $this->LoadConfigs->setRemoveUUID(TRUE);
       $this->LoadConfigs->setRemoveDefaultValue(FALSE);
       /**
