@@ -330,8 +330,9 @@ class ExportEntities extends ControllerBase {
       $this->LoadConfigs->getConfigFromName($configName);
     }
     //Export languages
-
-    foreach ($this->getLanguagesNegotiatorConfigs()["languages"] as $langcode) {
+    $languages = $this->getLanguagesNegotiatorConfigs()["languages"];
+    $languages = empty($languages) ? $this->languageManager()->getLanguages() : $languages;
+    foreach ($languages as $langcode => $value) {
       $configName =   'language.entity.' . $langcode;
       $this->LoadConfigs->getConfigFromName($configName);
     }
