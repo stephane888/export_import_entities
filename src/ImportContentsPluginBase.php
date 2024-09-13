@@ -322,10 +322,11 @@ abstract class ImportContentsPluginBase extends PluginBase implements ImportCont
              * Utile si l'on souhaite re-importer les images.
              * On pourra definir une configuation permettant d'activer cela.
              */
-            $idKey = $storage->getEntityType()->getKey('id');
-            $id = !empty($page['entity'][$idKey][0]['value']) ? $page['entity'][$idKey][0]['value'] : 0;
-            $this->restoreFileAndIdFile($id, $oldEntity, $page, $files);
-            $oldEntity->save();
+            // $idKey = $storage->getEntityType()->getKey('id');
+            // $id = !empty($page['entity'][$idKey][0]['value']) ?
+            // $page['entity'][$idKey][0]['value'] : 0;
+            // $this->restoreFileAndIdFile($id, $oldEntity, $page, $files);
+            // $oldEntity->save();
             //
             return $oldEntity;
           }

@@ -21,7 +21,8 @@ use Drupal\file\FileInterface;
  */
 function export_import_entities_field_storage_config_insert(FieldStorageConfig $FieldConfig) {
   if ($FieldConfig->get('type') == 'image') {
-    \Stephane888\Debug\debugLog::symfonyDebug($FieldConfig->toArray(), $FieldConfig->id() . '_field_type', true);
+    // \Stephane888\Debug\debugLog::symfonyDebug($FieldConfig->toArray(),
+    // $FieldConfig->id() . '_field_type', true);
     $settings = $FieldConfig->getSettings();
     if (!empty($settings['default_image']['uuid'])) {
       $uuid = $settings['default_image']['uuid'];
@@ -67,7 +68,8 @@ function export_import_entities_field_storage_config_insert(FieldStorageConfig $
 function export_import_entities_field_config_insert(FieldConfig $FieldConfig) {
   // recupere l'image encode par le module export_import_entities.
   if ($FieldConfig->get('field_type') == 'image') {
-    \Stephane888\Debug\debugLog::symfonyDebug($FieldConfig->toArray(), $FieldConfig->id() . '_field_type', true);
+    // \Stephane888\Debug\debugLog::symfonyDebug($FieldConfig->toArray(),
+    // $FieldConfig->id() . '_field_type', true);
     $settings = $FieldConfig->getSettings();
     if (!empty($settings['default_image']['uuid'])) {
       $uuid = $settings['default_image']['uuid'];
