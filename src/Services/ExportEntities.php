@@ -101,7 +101,7 @@ class ExportEntities extends ControllerBase {
    *
    * @var array $languageNegotiator
    */
-  protected $languageNegotiator;
+  protected $languageNegotiator = [];
   
   /**
    *
@@ -152,8 +152,20 @@ class ExportEntities extends ControllerBase {
   }
   
   protected function getLanguagesNegotiatorConfigs() {
-    if (!isset($this->languageNegotiator)) {
-      $this->languageNegotiator = $this->configStorage->read('domain.language.' . $this->currentDomaine->id() . '.language.negotiation');
+    if (!$this->languageNegotiator) {
+      $languages = $this->configStorage->read('domain.language.' . $this->currentDomaine->id() . '.language.negotiation');
+      if (!empty($languages['languages'])) {
+        foreach ($languages['languages'] as $language_id) {
+          if (!str_contains($language_id, "LANGUAGE_site_default"))
+            $this->languageNegotiator[$language_id] = $language_id;
+        }
+      }
+      // si l'utilisateur n'a pas configurer les langues.
+      if ($this->languageNegotiator) {
+        foreach (\Drupal::languageManager()->getLanguages() as $language) {
+          $this->languageNegotiator[$language->getId()] = $language->getId();
+        }
+      }
     }
     return $this->languageNegotiator;
   }
@@ -325,13 +337,17 @@ class ExportEntities extends ControllerBase {
       'views.view.commerce_cart_form',
       'user.role.administrator',
       'core.entity_view_display.user.user.default',
-      'pathauto.settings'
+      'pathauto.settings',
+      // fournir la langue par defaut.
+      'domain.config.' . $this->currentDomaine->id() . '.system.site',
+      // fournit les langues actives.
+      'domain.language.' . $this->currentDomaine->id() . '.language.negotiation'
     ];
     foreach ($configNames as $configName) {
       $this->LoadConfigs->getConfigFromName($configName);
     }
     // Export languages
-    $languages = $this->getLanguagesNegotiatorConfigs()["languages"];
+    $languages = $this->getLanguagesNegotiatorConfigs();
     $languages = empty($languages) ? $this->languageManager()->getLanguages() : $languages;
     foreach ($languages as $langcode => $value) {
       $configName = 'language.entity.' . $langcode;
@@ -398,22 +414,26 @@ class ExportEntities extends ControllerBase {
     }
   }
   
+  /**
+   * Pas assez coherent l'utilisation de cette fonction.
+   * La clée est utilisé dans un formulaire mais les champs du formulaire non
+   * aucune relation avec les données.
+   */
   protected function generateSiteSourcesConfig() {
     $config_name = 'wb_horizon_public.source_site_configs';
     $Ids = $this->getMenusIds();
     $main_menu_id = reset($Ids) ?? null;
-    $domainConfigs = $this->configStorage->read('domain.config.' . $this->currentDomaine->id() . '.system.site');
-    $data = $this->getLanguagesNegotiatorConfigs();
     $configs = [
       "domain_source_id" => \Drupal\lesroidelareno\lesroidelareno::getCurrentPrefixDomain()
     ];
-    
+    $domainConfigs = \Drupal::config('domain.config.' . $this->currentDomaine->id() . '.system.site')->getRawData();
+    // si l'utilisateur n'a pas configurer les langues.
+    if (empty($domainConfigs["default_langcode"]))
+      $domainConfigs = \Drupal::config('system.site')->getRawData();
     $configs["languages"] = [
       "default_langcode" => $domainConfigs["default_langcode"]
     ];
-    if (isset($data["languages"])) {
-      $configs["languages"]["availables_langcodes"] = $data["languages"];
-    }
+    $configs["languages"]["availables_langcodes"] = $this->getLanguagesNegotiatorConfigs();
     if ($main_menu_id) {
       $configs["main_menu_id"] = $main_menu_id;
     }
