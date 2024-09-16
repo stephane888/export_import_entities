@@ -161,7 +161,7 @@ class ExportEntities extends ControllerBase {
         }
       }
       // si l'utilisateur n'a pas configurer les langues.
-      if ($this->languageNegotiator) {
+      if (!$this->languageNegotiator) {
         foreach (\Drupal::languageManager()->getLanguages() as $language) {
           $this->languageNegotiator[$language->getId()] = $language->getId();
         }
