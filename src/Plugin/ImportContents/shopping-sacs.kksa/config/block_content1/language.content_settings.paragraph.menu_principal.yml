@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.menu_principal
+id: paragraph.menu_principal
+target_entity_type_id: paragraph
+target_bundle: menu_principal
+default_langcode: site_default
+language_alterable: true
