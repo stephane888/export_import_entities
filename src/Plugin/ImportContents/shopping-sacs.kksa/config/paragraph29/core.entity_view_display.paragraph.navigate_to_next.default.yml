@@ -31,7 +31,7 @@ third_party_settings:
               main:
                 text_html:
                   label: Description
-                  value: "<button data-action=\"navigate-next\" class=\"navigate-next d-flex align-items-center justify-content-center btn btn-light\">\r\n        <span class=\"sr-only\">Navigate to next section</span><svg aria-hidden=\"true\" focusable=\"false\" fill=\"none\" width=\"18\" class=\"icon icon-arrow-down\" viewBox=\"0 0 18 16\">\r\n      <path d=\"m1 4 8 8 8-8\" stroke=\"currentColor\" stroke-linecap=\"square\"></path>\r\n    </svg></button>"
+                  value: "<button data-action=\"navigate-next\" class=\"navigate-next d-flex align-items-center justify-content-center btn btn-light\">\r\n        <svg aria-hidden=\"true\" focusable=\"false\" fill=\"none\" width=\"18\" class=\"icon icon-arrow-down\" viewBox=\"0 0 18 16\">\r\n      <path d=\"m1 4 8 8 8-8\" stroke=\"currentColor\" stroke-linecap=\"square\"></path>\r\n    </svg></button>"
                   format: texte_code
               teasers_container:
                 text_html:

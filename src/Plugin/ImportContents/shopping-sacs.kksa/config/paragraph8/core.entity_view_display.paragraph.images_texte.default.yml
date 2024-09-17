@@ -17,7 +17,7 @@ dependencies:
 third_party_settings:
   layout_builder:
     enabled: true
-    allow_custom: false
+    allow_custom: true
     sections:
       -
         layout_id: vixcon_event_section
@@ -69,7 +69,7 @@ third_party_settings:
           region_css_first_image: ''
           region_css_second_image: ''
           region_css_call_to_action: ''
-          css: ''
+          css: p-0
           load_clean_value: 0
           save_by_domain: null
           container_wrapper:
@@ -395,6 +395,7 @@ third_party_settings:
                   class: ''
           scss:
             scss_field: "  .row > .images + .texte.mt-5 {\r\n    margin-top: 0 !important;\r\n  }\r\n  .vixon-heading{\r\n        display: flex;\r\n    flex-direction: column;\r\n    min-height: 100%;\r\n    justify-content: center;\r\n    @include media-min(DD) {\r\n       max-width:390px;\r\n      margin-left: auto;\r\n      margin-right: auto;\r\n      .head-title,.title-description{\r\n        margin-left: 0 !important;\r\n      }\r\n    }\r\n}\r\n  \r\n  .vixon-heading .stroked-text{\r\n    -webkit-text-stroke-width: unset;\r\n    color: inherit;\r\n    // @include media-min(DD) {\r\n    //  margin-left: $wbu-margin * 6.5;\r\n   // }\r\n  }\r\n  .about-img {\r\n  box-shadow: unset;\r\n  .img-block{\r\n  border: 0;\r\n    max-width: 200px; \r\n    min-width:180px;\r\n    width:100%;\r\n  bottom: auto;\r\n  top: 50%;\r\n  transform: translateY(-50%);\r\n  left: auto;\r\n  right: 0;\r\n    @include media-min(MD) {\r\n      max-width: 300px;\r\n    }\r\n    @include media-min(DD) {\r\nright: -80px;\r\n      max-width: 220px;\r\n    }\r\n  }\r\n  .second_image{\r\n    img{\r\n      max-width:calc(100% - 80px);\r\n    }\r\n  }\r\n}"
+            file_js: ''
         components:
           abf9eb79-c1e3-4fc2-82bc-7c951f67598f:
             uuid: abf9eb79-c1e3-4fc2-82bc-7c951f67598f

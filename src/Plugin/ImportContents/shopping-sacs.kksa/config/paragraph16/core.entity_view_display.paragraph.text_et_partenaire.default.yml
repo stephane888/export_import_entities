@@ -25,7 +25,7 @@ third_party_settings:
         layout_settings:
           label: ' One column custom  ( formatage_models_simple_block ) '
           context_mapping: {  }
-          css: 'background--cover background-position--center mb-0 d-flex justify-content-center align-items-center  space-padding'
+          css: 'background--cover background-position--center mb-0 d-flex justify-content-center align-items-center  space-padding mb-0'
           region_tag_main: div
           config_section:
             type_container: container
@@ -449,6 +449,7 @@ third_party_settings:
                   class: ''
           scss:
             scss_field: ".custom-container{\r\n  max-width: 400px;\r\n  .custom-title{\r\n    letter-spacing: 2px;\r\n  }\r\n}"
+            file_js: ''
           class_row: ''
         components:
           102c2d97-cfd2-4d93-9315-555a046fcbb5:
@@ -565,7 +566,7 @@ third_party_settings:
         layout_settings:
           label: ' One column custom  ( formatage_models_simple_block ) '
           context_mapping: {  }
-          css: 'space-padding bg-dark d-flex justify-content-center align-items-center'
+          css: 'space-padding bg-dark d-flex justify-content-center align-items-center mb-0'
           region_tag_main: div
           config_section:
             type_container: container
@@ -989,6 +990,7 @@ third_party_settings:
                   class: ''
           scss:
             scss_field: ".custom-container{\r\n  max-width: 700px !important;\r\nimg {\r\nwidth: 100%;\r\nheight: 100%;\r\ntransition: filter 0.3s ease, transform 0.3s ease;\r\nfilter: grayscale(100%); // Assombrit l'image\r\n\r\n&:hover {\r\nfilter: brightness(100%); // Restaure la luminosité d'origine\r\ntransform: scale(1.1); // Agrandit légèrement l'image\r\n}\r\n}\r\n}"
+            file_js: ''
           class_row: ''
         components:
           c757ed65-ba83-4e7b-b386-774907ec89bf:

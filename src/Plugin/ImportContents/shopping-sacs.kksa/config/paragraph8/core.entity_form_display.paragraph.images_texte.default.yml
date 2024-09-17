@@ -7,6 +7,7 @@ dependencies:
     - field.field.paragraph.images_texte.field_images
     - field.field.paragraph.images_texte.field_subtitle
     - field.field.paragraph.images_texte.field_title
+    - field.field.paragraph.images_texte.layout_builder__layout
     - image.style.thumbnail
     - paragraphs.paragraphs_type.images_texte
   module:
@@ -59,4 +60,5 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  layout_builder__layout: true
   status: true

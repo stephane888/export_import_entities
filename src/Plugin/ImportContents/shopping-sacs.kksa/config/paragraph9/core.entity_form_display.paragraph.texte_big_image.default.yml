@@ -7,6 +7,7 @@ dependencies:
     - field.field.paragraph.texte_big_image.field_btn1
     - field.field.paragraph.texte_big_image.field_subtitle
     - field.field.paragraph.texte_big_image.field_title
+    - field.field.paragraph.texte_big_image.layout_builder__layout
     - image.style.thumbnail
     - paragraphs.paragraphs_type.texte_big_image
   module:
@@ -60,4 +61,5 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
+  layout_builder__layout: true
   status: true
