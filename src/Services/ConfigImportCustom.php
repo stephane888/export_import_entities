@@ -251,7 +251,7 @@ class ConfigImportCustom {
             /**
              * Les styles incluent dans la config des layouts ne seront pas
              * chargés, car cela se fait uniquement pendant la sauvegarde du
-             * layout.
+             * formulaire du layout.
              * Nous ajoutons ce script afin de gerer les styles.
              */
             if (str_contains($name, "core.entity_view_display.")) {
