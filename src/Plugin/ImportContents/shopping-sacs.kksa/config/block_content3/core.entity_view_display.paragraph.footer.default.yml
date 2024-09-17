@@ -5,20 +5,19 @@ dependencies:
     - field.field.paragraph.footer.field_body
     - field.field.paragraph.footer.field_icons_buttons
     - field.field.paragraph.footer.field_menu_a_propos
+    - field.field.paragraph.footer.field_menu_end_footer
     - field.field.paragraph.footer.field_menu_informations
     - field.field.paragraph.footer.field_paragraphs
     - field.field.paragraph.footer.field_subtitle
     - field.field.paragraph.footer.field_title
     - field.field.paragraph.footer.field_titre_3
     - paragraphs.paragraphs_type.footer
-    - system.menu.footer-end-menu
   module:
     - entity_reference_revisions
     - fast_models
     - formatage_models
     - layout_builder
     - more_fields
-    - system
     - text
 third_party_settings:
   layout_builder:
@@ -602,7 +601,7 @@ third_party_settings:
                       value: ''
                       item: ''
                       content: ''
-            weight: 3
+            weight: 4
             additional: {  }
           1df9cedb-e497-4427-8393-8dcaba387def:
             uuid: 1df9cedb-e497-4427-8393-8dcaba387def
@@ -736,20 +735,6 @@ third_party_settings:
                       content: ''
             weight: 3
             additional: {  }
-          882a75f9-f22e-4f1b-9a7c-4f6e7d1ea6ee:
-            uuid: 882a75f9-f22e-4f1b-9a7c-4f6e7d1ea6ee
-            region: bottom_link
-            configuration:
-              id: 'system_menu_block:footer-end-menu'
-              label: 'Footer end menu'
-              label_display: '0'
-              provider: system
-              context_mapping: {  }
-              level: 1
-              depth: 0
-              expand_all_items: false
-            weight: 0
-            additional: {  }
           349dd09f-1e76-467a-8287-37d4a61e2b7d:
             uuid: 349dd09f-1e76-467a-8287-37d4a61e2b7d
             region: footer_top_menu
@@ -800,6 +785,31 @@ third_party_settings:
                       content: ''
             weight: 1
             additional: {  }
+          1a68377f-e2dd-4ece-bcfb-d0ea66222a25:
+            uuid: 1a68377f-e2dd-4ece-bcfb-d0ea66222a25
+            region: bottom_link
+            configuration:
+              id: 'field_block:paragraph:footer:field_menu_end_footer'
+              label: 'Menu end footer'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: more_fields_menu_formatter
+                label: hidden
+                settings: {  }
+                third_party_settings:
+                  formatage_models:
+                    classes:
+                      container: ''
+                      title: ''
+                      value: ''
+                      item: ''
+                      content: ''
+            weight: 4
+            additional: {  }
         third_party_settings: {  }
 id: paragraph.footer.default
 targetEntityType: paragraph
@@ -827,6 +837,14 @@ content:
       layoutgenentitystyles_view: more_fields/field-icon-address
     third_party_settings: {  }
     weight: 4
+    region: top_title
+  field_menu_end_footer:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
     region: top_title
   field_paragraphs:
     type: entity_reference_revisions_entity_view
@@ -884,3 +902,4 @@ content:
     region: top_title
 hidden:
   field_menu_a_propos: true
+  field_menu_informations: true
