@@ -394,6 +394,19 @@ class ExportEntities extends ControllerBase {
     $this->generateBookingConfigFile();
     //
     $this->generateShippingConfig();
+    
+    // On genere la traduction des menus.
+    $bundle = \Drupal\lesroidelareno\lesroidelareno::getCurrentPrefixDomain(FALSE);
+    $name = 'language.content_settings.menu_link_content.' . $bundle . '-main';
+    /**
+     * Si elle n'existe pas on la cree.
+     *
+     * @var \Drupal\language_lighter\Services\GenerateMenuConfigTranslation $geneenuconnslation
+     */
+    $geneenuconnslation = \Drupal::service("language_lighter.geneenuconnslation");
+    $geneenuconnslation->createConfigTranslate($bundle . '-main');
+    $this->LoadConfigs->getConfigFromName($name);
+    
     // add theme to install;
     $this->ManageProfile->addTheme($theme_name);
   }
