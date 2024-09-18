@@ -19,24 +19,27 @@ class DefaultDatas extends ControllerBase {
    * @return string
    */
   protected function generalInformation() {
-    return 'name: Site generer par Wb-Horizon
-type: profile
-description: "Ce profile permet de mettre en place la configuration de base permettant d\'accueillir les données exportées"
-core_version_requirement: "^9 || ^10"
-
-#############
-distribution:
-  name: "WB-horizon generate"
-  langcode: en
-
-# Ces modules ne peuvent etre desinstaller par l\'utilisateur
-dependencies:
-  - paragraphs
-  - paragraph_view_mode
-  - pathauto
-  - formatage_models
-  - layoutgenentitystyles
-  - migrationwbh';
+    $default_langcode = $this->config("system.site")->get('default_langcode');
+    return <<<FILECONTENT
+    name: Site generer par Wb-Horizon
+    type: profile
+    description: "Ce profile permet de mettre en place la configuration de base permettant d\'accueillir les données exportées"
+    core_version_requirement: "^9 || ^10"
+    
+    #############
+    distribution:
+      name: "WB-horizon generate"
+      langcode: $default_langcode
+    
+    # Ces modules ne peuvent etre desinstaller par l\'utilisateur
+    dependencies:
+      - paragraphs
+      - paragraph_view_mode
+      - pathauto
+      - formatage_models
+      - layoutgenentitystyles
+      - migrationwbh
+    FILECONTENT;
   }
 
   /**
