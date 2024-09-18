@@ -16,7 +16,7 @@ use Drupal\file\Entity\File;
  *        
  */
 class LoadConfigs extends LoadBase {
-
+  use LangTrait;
   /**
    * Contient la liste des configurations deja crees.
    *
@@ -146,6 +146,13 @@ class LoadConfigs extends LoadBase {
     return $found;
   }
 
+
+  protected function setConfigPathSuffix($suffix) {
+    if ($this->currentDomaine)
+      debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install' . $suffix;
+    else
+      debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install' . $suffix;
+  }
   /**
    * Crrer la configuration à partir du nom donnée.
    * Recupere egalement les dependance incluse. ( si cela respecte la logique de
@@ -163,15 +170,11 @@ class LoadConfigs extends LoadBase {
        */
       $availableLanguages = $this->configStorage->read('domain.language.' . $this->currentDomaine->id() . '.language.negotiation');
       $defaultLangcode = $this->configStorage->read('system.site')["default_langcode"];
-      $langcodes = $availableLanguages["languages"] ?? [$defaultLangcode];
+      $langcodes = $this->getLanguagesNegotiatorConfigs();
       $string = "";
       foreach ($langcodes as $key => $langcode) {
         $pathLanguageSuffix = $langcode == $defaultLangcode ? "" : "/language/" . $langcode;
-
-        if ($this->currentDomaine)
-          debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install' . $pathLanguageSuffix;
-        else
-          debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install' . $pathLanguageSuffix;
+        $this->setConfigPathSuffix($pathLanguageSuffix);
         $isDefaultLanguage = $langcode == $defaultLangcode;
         $defaultConfs =  $this->getTranslatedConfig($name, $langcode, $isDefaultLanguage);
         if ($defaultConfs) {
@@ -196,9 +199,6 @@ class LoadConfigs extends LoadBase {
           } else
             $configs = $defaultConfs;
           $string = Yaml::encode($configs);
-          if ($name == "webform.webform.contact2022024Sep05368578") {
-            // dd($string, $configs);
-          }
           debugLog::logger($string, $name . '.yml', false, 'file');
 
           if ($langcode == $defaultLangcode) {
@@ -208,6 +208,7 @@ class LoadConfigs extends LoadBase {
           }
         }
       }
+      $this->setConfigPathSuffix("");
       if ($this->currentDomaine)
         debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
       else
@@ -307,22 +308,29 @@ class LoadConfigs extends LoadBase {
         if (empty(self::$configEntities[$config])) {
           $name = $config;
 
+          $defaultLangcode = $this->configStorage->read('system.site')["default_langcode"];
+          $langcodes = $this->getLanguagesNegotiatorConfigs();
           if ($this->filterConfig($config)) {
-            $defaultConfs = $this->configStorage->read($name);
-            //
-            if (str_contains($name, 'field.field')) {
-              $this->addDefaultEncodeData($defaultConfs);
-              $this->removeDefaultValue($defaultConfs);
+            foreach ($langcodes as $langcode) {
+              $pathLanguageSuffix = $langcode == $defaultLangcode ? "" : "/language/" . $langcode;
+              $this->setConfigPathSuffix($pathLanguageSuffix);
+              $defaultConfs = $this->getTranslatedConfig($name, $langcode, $langcode == $defaultLangcode);
+              if (str_contains($name, 'field.field')) {
+                $this->addDefaultEncodeData($defaultConfs);
+                $this->removeDefaultValue($defaultConfs);
+              }
+              $string = Yaml::encode($defaultConfs);
+              debugLog::logger($string, $name . '.yml', false, 'file');
+              self::$configEntities[$name] = [
+                'status' => true,
+                'value' => $string
+              ];
+              $this->loadConfigsViewTerms($name);
+              // On essaie de charger les configurations requises.
+              $this->loadDependancyConfig($name);
             }
-            $string = Yaml::encode($defaultConfs);
-            debugLog::logger($string, $name . '.yml', false, 'file');
-            self::$configEntities[$name] = [
-              'status' => true,
-              'value' => $string
-            ];
-            $this->loadConfigsViewTerms($name);
-            // On essaie de charger les configurations requises.
-            $this->loadDependancyConfig($name);
+            //On reset le suffix au cas où.
+            $this->setConfigPathSuffix("");
           } else {
             self::$configEntities[$name] = 'none';
           }
