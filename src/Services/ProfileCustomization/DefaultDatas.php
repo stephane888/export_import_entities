@@ -23,7 +23,7 @@ class DefaultDatas extends ControllerBase {
     return <<<FILECONTENT
     name: Site generer par Wb-Horizon
     type: profile
-    description: "Ce profile permet de mettre en place la configuration de base permettant d\'accueillir les données exportées"
+    description: "Ce profile permet de mettre en place la configuration de base permettant d'accueillir les données exportées"
     core_version_requirement: "^9 || ^10"
     
     #############
@@ -31,7 +31,7 @@ class DefaultDatas extends ControllerBase {
       name: "WB-horizon generate"
       langcode: $default_langcode
     
-    # Ces modules ne peuvent etre desinstaller par l\'utilisateur
+    # Ces modules ne peuvent etre desinstaller par l'utilisateur
     dependencies:
       - paragraphs
       - paragraph_view_mode
