@@ -19,7 +19,6 @@ class DefaultDatas extends ControllerBase {
    * @return string
    */
   protected function generalInformation() {
-    $default_langcode = $this->config("system.site")->get('default_langcode');
     return <<<FILECONTENT
     name: Site generer par Wb-Horizon
     type: profile
@@ -29,7 +28,7 @@ class DefaultDatas extends ControllerBase {
     #############
     distribution:
       name: "WB-horizon generate"
-      langcode: $default_langcode
+      langcode: en
     
     # Ces modules ne peuvent etre desinstaller par l'utilisateur
     dependencies:
