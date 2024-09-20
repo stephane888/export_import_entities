@@ -2,12 +2,15 @@
 
 namespace Drupal\export_import_entities\Services;
 
-use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Entity\ContentEntityType;
-use Stephane888\Debug\Repositories\ConfigDrupal;
-use Drupal\Core\Entity\EntityFieldManager;
+use Drupal\locale\PoDatabaseReader;
 use Drupal\Core\Config\StorageInterface;
 use Drupal\Component\Serialization\Yaml;
+use Drupal\Core\Entity\ContentEntityType;
+use Drupal\Core\Entity\EntityFieldManager;
+use Drupal\Core\Controller\ControllerBase;
+use Stephane888\Debug\debugLog;
+use Drupal\Component\Gettext\PoStreamWriter;
+use Stephane888\Debug\Repositories\ConfigDrupal;
 use Drupal\export_import_entities\Services\ProfileCustomization\ManageProfile;
 
 class ExportEntities extends ControllerBase {
@@ -323,6 +326,12 @@ class ExportEntities extends ControllerBase {
     foreach ($configNames as $configName) {
       $this->LoadConfigs->getConfigFromName($configName);
     }
+
+    /**
+     * export user interface translations
+     */
+    $this->generateUITranslationConfigs();
+
     // Export languages
     $languages = $this->getLanguagesNegotiatorConfigs();
     $languages = empty($languages) ? $this->languageManager()->getLanguages() : $languages;
@@ -403,6 +412,46 @@ class ExportEntities extends ControllerBase {
       $this->LoadConfigs->addConfig("wb_horizon_public.config_auto_ecole", $config);
     }
   }
+
+  protected function  generateUITranslationConfigs() {
+    debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate';
+    $langcodes = $this->getLanguagesNegotiatorConfigs();
+    $content_options = [
+      "not_customized" => false,
+      "customized" => true,
+      "not_translated" => false
+    ];
+    foreach ($langcodes as $langcode) {
+      if ($langcode == "en")
+        continue;
+      $reader = new PoDatabaseReader();
+      $reader->setLangcode($langcode);
+      # code...
+      $reader->setOptions($content_options);
+      $languages = $this->languageManager()->getLanguages();
+      $language_name = isset($languages[$langcode]) ? $languages[$langcode]->getName() : '';
+      $filename = 'wb_horizon_language.' . $langcode . '.po';
+      debugLog::logger("", $filename, false, 'file');
+      $item = $reader->readItem();
+      if (!empty($item)) {
+        $uri = debugLog::$path . "/" . $filename;
+        $header = $reader->getHeader();
+        $header->setProjectName($this->config('system.site')->get('name'));
+        $header->setLanguageName($language_name);
+
+        $writer = new PoStreamWriter();
+        $writer->setURI($uri);
+        $writer->setHeader($header);
+
+        $writer->open();
+        $writer->writeItem($item);
+        $writer->writeItems($reader);
+        $writer->close();
+      }
+    }
+    debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install';
+  }
+
 
   /**
    * Pas assez coherent l'utilisation de cette fonction.

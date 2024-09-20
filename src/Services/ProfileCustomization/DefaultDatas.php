@@ -24,7 +24,8 @@ class DefaultDatas extends ControllerBase {
     type: profile
     description: "Ce profile permet de mettre en place la configuration de base permettant d'accueillir les données exportées"
     core_version_requirement: "^9 || ^10"
-    
+    'interface translation project': wb_horizon_language
+    'interface translation server pattern': profiles/contrib/wb_horizon_generate/wb_horizon_language.%language.po
     #############
     distribution:
       name: "WB-horizon generate"
