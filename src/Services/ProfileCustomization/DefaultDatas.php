@@ -13,7 +13,7 @@ use Drupal\Core\Controller\ControllerBase;
  *        
  */
 class DefaultDatas extends ControllerBase {
-
+  
   /**
    *
    * @return string
@@ -40,7 +40,7 @@ class DefaultDatas extends ControllerBase {
       - migrationwbh
     FILECONTENT;
   }
-
+  
   /**
    * Contient les themes par defaut.
    *
@@ -52,7 +52,7 @@ class DefaultDatas extends ControllerBase {
       'wb_universe'
     ];
   }
-
+  
   /**
    *
    * @return string[]
@@ -100,7 +100,7 @@ class DefaultDatas extends ControllerBase {
       'wb_commerce'
     ];
   }
-
+  
   /**
    *
    * @return string[]
@@ -118,7 +118,7 @@ class DefaultDatas extends ControllerBase {
       'commerce_autosku'
     ];
   }
-
+  
   /**
    *
    * @return string[]
@@ -149,10 +149,11 @@ class DefaultDatas extends ControllerBase {
       'video',
       'phone_international',
       'transliterate_filenames', // doit etre supprimer du core princ
-      'ctools'
+      'ctools',
+      'eu_cookie_compliance'
     ];
   }
-
+  
   /**
    * Contient les themes par defaut.
    *
