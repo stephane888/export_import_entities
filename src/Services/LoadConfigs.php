@@ -11,6 +11,7 @@ use Drupal\file\Entity\File;
 
 /**
  * Permet de charger les diffirents affichage pour une entité.
+ *
  * @todo export the configurations in all available languages
  * @author stephane
  *        
@@ -23,26 +24,26 @@ class LoadConfigs extends LoadBase {
    * @var array
    */
   protected static $configEntities = [];
-
+  
   /**
    * The config storage.
    *
    * @var \Drupal\Core\Config\StorageInterface
    */
   protected $configStorage;
-
+  
   /**
    *
    * @var \Symfony\Component\Finder\Finder
    */
   protected $Finder;
-
+  
   /**
    *
    * @var \Drupal\domain\DomainNegotiator
    */
   protected $currentDomaine;
-
+  
   /**
    *
    * @param StorageInterface $config_storage
@@ -50,7 +51,7 @@ class LoadConfigs extends LoadBase {
   function __construct(StorageInterface $config_storage) {
     $this->configStorage = $config_storage;
   }
-
+  
   /**
    *
    * @param string $domaineId
@@ -62,14 +63,13 @@ class LoadConfigs extends LoadBase {
     else
       throw new \Exception(" Le Domain n'exite pas ");
   }
-
+  
   protected function getInstanceFinder() {
     if (!$this->Finder)
       $this->Finder = new Finder();
     return $this->Finder;
   }
-
-
+  
   /**
    * Get the translated configuration set.
    *
@@ -78,12 +78,11 @@ class LoadConfigs extends LoadBase {
    * value in its place. Merging is done using array_replace_recursive().
    *
    * @param string $configName
-   *   The name of the configuration file.
+   *        The name of the configuration file.
    * @param string $langCode
-   *   The language id. Leave empty for current Drupal language.
-   *
-   * @return array
-   *   Returns the combined translated configuration as an object.
+   *        The language id. Leave empty for current Drupal language.
+   *        
+   * @return array Returns the combined translated configuration as an object.
    */
   public function getTranslatedConfig($configName, $langcode = NULL, $default = false) {
     if (empty($langcode)) {
@@ -92,9 +91,11 @@ class LoadConfigs extends LoadBase {
     $originalConfig = $this->configStorage->read($configName);
     if (!$originalConfig) {
       return false;
-    } elseif ($default) {
+    }
+    elseif ($default) {
       /**
-       * On retourne les configurations d'origine si le paramètre default est à true
+       * On retourne les configurations d'origine si le paramètre default est à
+       * true
        */
       return $originalConfig;
     }
@@ -107,24 +108,25 @@ class LoadConfigs extends LoadBase {
       }
       $configs["elements"] = Yaml::encode($elements);
       // dd($translatedConfig, $configs, $translatedElements, $configName);
-    } else {
+    }
+    else {
       // $configs = array_replace_recursive($originalConfig, $translatedConfig);
       $configs = $translatedConfig;
-
+      
       // if ($langcode == "en") {
-      //   if (empty($translatedConfig)) {
-      //     // dump([$configName]);
-      //   } else {
-      //     dump([$configName => $translatedConfig]);
-      //   }
+      // if (empty($translatedConfig)) {
+      // // dump([$configName]);
+      // } else {
+      // dump([$configName => $translatedConfig]);
+      // }
       // }
     }
     if ($configs) {
       $configs["langcode"] = $langcode;
     }
-    return  $configs;
+    return $configs;
   }
-
+  
   /**
    * replace recursively the value of the key once in the array
    * it will replace the first element it will find deeply
@@ -145,14 +147,14 @@ class LoadConfigs extends LoadBase {
     }
     return $found;
   }
-
-
+  
   protected function setConfigPathSuffix($suffix) {
     if ($this->currentDomaine)
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install' . $suffix;
     else
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install' . $suffix;
   }
+  
   /**
    * Crrer la configuration à partir du nom donnée.
    * Recupere egalement les dependance incluse. ( si cela respecte la logique de
@@ -163,44 +165,41 @@ class LoadConfigs extends LoadBase {
    *        contient les données qui doivent etre surcharger.
    */
   public function getConfigFromName(string $name, array $override = [], $merge = true) {
-
     if (empty(self::$configEntities[$name])) {
-      /**
-       * @todo import the different available lang of the webform config.
-       */
-      $availableLanguages = $this->configStorage->read('domain.language.' . $this->currentDomaine->id() . '.language.negotiation');
       $defaultLangcode = $this->configStorage->read('system.site')["default_langcode"];
       $langcodes = $this->getLanguagesNegotiatorConfigs();
       $string = "";
-      foreach ($langcodes as $key => $langcode) {
+      foreach ($langcodes as $langcode) {
         $pathLanguageSuffix = $langcode == $defaultLangcode ? "" : "/language/" . $langcode;
         $this->setConfigPathSuffix($pathLanguageSuffix);
         $isDefaultLanguage = $langcode == $defaultLangcode;
-        $defaultConfs =  $this->getTranslatedConfig($name, $langcode, $isDefaultLanguage);
+        $defaultConfs = $this->getTranslatedConfig($name, $langcode, $isDefaultLanguage);
         if ($defaultConfs) {
           if (str_contains($name, 'field.field')) {
             $this->addDefaultEncodeData($defaultConfs);
             $this->removeDefaultValue($defaultConfs);
           }
-
+          
           if (!empty($override)) {
             if ($merge) {
               $configs = NestedArray::mergeDeepArray([
                 $defaultConfs,
                 $override
               ]);
-            } else {
+            }
+            else {
               // on remplace les cles
               foreach ($override as $k => $value) {
                 $defaultConfs[$k] = $value;
               }
               $configs = $defaultConfs;
             }
-          } else
+          }
+          else
             $configs = $defaultConfs;
           $string = Yaml::encode($configs);
           debugLog::logger($string, $name . '.yml', false, 'file');
-
+          
           if ($langcode == $defaultLangcode) {
             $this->loadConfigsViewTerms($name);
             // On essaie de charger les configurations requises.
@@ -216,7 +215,7 @@ class LoadConfigs extends LoadBase {
       $this->tryGetDependencies($name);
     }
   }
-
+  
   /**
    * ( Cette logique peut avoir des comportements inatendu ).
    * Vise à supprimer toutes les dependances liées au module domaine et au
@@ -230,7 +229,7 @@ class LoadConfigs extends LoadBase {
         unset($defaultConfs['third_party_settings']['lesroidelareno']);
     }
   }
-
+  
   protected function removeModulesDependancies(array &$defaultConfs) {
     $modules = [
       'lesroidelareno' => 'lesroidelareno'
@@ -241,7 +240,7 @@ class LoadConfigs extends LoadBase {
           unset($defaultConfs['dependencies']['module'][$key]);
       }
   }
-
+  
   public function addConfig(string $name, $string) {
     if (empty(self::$configEntities[$name])) {
       debugLog::logger($string, $name . '.yml', false, 'file');
@@ -252,11 +251,11 @@ class LoadConfigs extends LoadBase {
       $this->tryGetDependencies($name);
     }
   }
-
+  
   public function hasGenerate($k) {
     return isset(self::$configEntities[$k]) ? true : false;
   }
-
+  
   /**
    * Chage une ou toute la config qui a été generée.
    *
@@ -269,7 +268,7 @@ class LoadConfigs extends LoadBase {
     else
       return self::$configEntities;
   }
-
+  
   protected function loadConfigsViewTerms($name) {
     /**
      * On a un soucis avec les données contenus dans les termes de references.
@@ -291,7 +290,7 @@ class LoadConfigs extends LoadBase {
       }
     }
   }
-
+  
   /**
    * Generre les fichiers de configuration de maniere recurssive.
    *
@@ -303,7 +302,7 @@ class LoadConfigs extends LoadBase {
       foreach ($configs['config'] as $config) {
         if (empty(self::$configEntities[$config])) {
           $name = $config;
-
+          
           $defaultLangcode = $this->configStorage->read('system.site')["default_langcode"];
           $langcodes = $this->getLanguagesNegotiatorConfigs();
           if ($this->filterConfig($config)) {
@@ -325,15 +324,16 @@ class LoadConfigs extends LoadBase {
               // On essaie de charger les configurations requises.
               $this->loadDependancyConfig($name);
             }
-            //On reset le suffix au cas où.
+            // On reset le suffix au cas où.
             $this->setConfigPathSuffix("");
-          } else {
+          }
+          else {
             self::$configEntities[$name] = 'none';
           }
         }
       }
   }
-
+  
   /**
    * Certains données de configuration ne doivent pas etre exporter:
    * true: on cree la config;
@@ -343,10 +343,11 @@ class LoadConfigs extends LoadBase {
     return true;
     if (str_contains($config, 'field_domain_')) {
       return false;
-    } else
+    }
+    else
       return true;
   }
-
+  
   /**
    * Ajoute les images par defaut, mais encodé.
    */
@@ -362,7 +363,7 @@ class LoadConfigs extends LoadBase {
       }
     }
   }
-
+  
   /**
    * Retire les valeurs par defaut pour certains champs.
    */
@@ -383,7 +384,7 @@ class LoadConfigs extends LoadBase {
         $defaultConfs['default_value'] = [];
     }
   }
-
+  
   /**
    * Permet de recuperer les configurations d'un champs.
    *
@@ -403,7 +404,7 @@ class LoadConfigs extends LoadBase {
       $this->getConfigFromName($name);
       $this->getConfig($FieldConfig->getDependencies());
     }
-
+    
     /**
      *
      * @var \Drupal\field\Entity\FieldStorageConfig $FieldStorageConfig
@@ -415,7 +416,7 @@ class LoadConfigs extends LoadBase {
       $this->getConfig($FieldStorageConfig->getDependencies());
     }
   }
-
+  
   public function getConfigFields(array $ids) {
     foreach ($ids as $id) {
       $keys = explode(".", $id);
@@ -426,7 +427,7 @@ class LoadConfigs extends LoadBase {
       }
     }
   }
-
+  
   /**
    *
    * @param string $nameConf
@@ -481,7 +482,7 @@ class LoadConfigs extends LoadBase {
       }
     }
   }
-
+  
   /**
    * Permet de generer toutes les configurations en relations avec une entité.
    * example :
@@ -496,18 +497,19 @@ class LoadConfigs extends LoadBase {
      */
     // Cas des entités avec bundle.
     if ($BundleEntityType) {
-
+      
       $entityTypeDefinition = $this->entityTypeManager()->getDefinition($BundleEntityType);
       $name = $entityTypeDefinition->getConfigPrefix() . '.' . $bundle;
       $this->getConfigFromName($name);
       $idTranslation = 'language.content_settings.' . $entiy_type_id . '.' . $bundle;
       $this->getConfigFromName($idTranslation);
-
+      
       $this->getFields($entiy_type_id, $bundle);
       self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_display');
       self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_mode');
       self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_view_display');
-    } else {
+    }
+    else {
       /**
        *
        * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityTypeDefinition
@@ -520,7 +522,7 @@ class LoadConfigs extends LoadBase {
         $name = $entityTypeDefinition->getConfigPrefix() . '.' . $id;
         $this->getConfigFromName($name);
         // il faudra peut etre gerer la traduction.
-
+        
         /**
          * Les entités de configurations n'ont pas de champs.
          * Mais il faut essayer de charger la configuration de l'entite de
@@ -530,7 +532,8 @@ class LoadConfigs extends LoadBase {
         if ($entity_content_id) {
           $this->generateAllConfigAboutEntity($entity_content_id, $id, $entiy_type_id);
         }
-      } else {
+      }
+      else {
         // Ces entites n'ont pas de données de configuration à ce niveau. Ils
         // sont fournir uniquement à partir d'un modele ou d'une configuration,
         // mais on peut en surcharger les configurations ( formDisplays et
@@ -542,7 +545,7 @@ class LoadConfigs extends LoadBase {
       }
     }
   }
-
+  
   /**
    * example :
    * $entiy_type_id = commerce_product_variation
@@ -559,7 +562,7 @@ class LoadConfigs extends LoadBase {
     $ids = $queryField->execute();
     $this->getConfigFields($ids);
   }
-
+  
   /**
    * à partir de toute configuration
    *
@@ -574,7 +577,7 @@ class LoadConfigs extends LoadBase {
       }
     }
   }
-
+  
   /**
    * Permet de faire du debug
    */
