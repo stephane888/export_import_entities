@@ -321,7 +321,8 @@ class ExportEntities extends ControllerBase {
       // fournir la langue par defaut.
       'domain.config.' . $this->currentDomaine->id() . '.system.site',
       // fournit les langues actives.
-      'domain.language.' . $this->currentDomaine->id() . '.language.negotiation'
+      'domain.language.' . $this->currentDomaine->id() . '.language.negotiation',
+      'eu_cookie_compliance.settings'
     ];
     foreach ($configNames as $configName) {
       $this->LoadConfigs->getConfigFromName($configName);
