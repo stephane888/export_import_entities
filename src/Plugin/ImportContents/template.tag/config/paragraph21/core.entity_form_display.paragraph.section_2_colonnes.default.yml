@@ -1,0 +1,34 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.section_2_colonnes.field_blocks_contents_test
+    - paragraphs.paragraphs_type.section_2_colonnes
+  module:
+    - inline_entity_form
+id: paragraph.section_2_colonnes.default
+targetEntityType: paragraph
+bundle: section_2_colonnes
+mode: default
+content:
+  field_blocks_contents_test:
+    type: inline_entity_form_complex
+    weight: 2
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      collapsible: true
+      collapsed: true
+      revision: false
+      removed_reference: optional
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

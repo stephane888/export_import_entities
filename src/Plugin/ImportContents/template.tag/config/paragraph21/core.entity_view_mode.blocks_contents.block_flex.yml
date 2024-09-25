@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - blockscontent
+id: blocks_contents.block_flex
+label: 'block flex'
+description: ''
+targetEntityType: blocks_contents
+cache: true

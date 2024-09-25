@@ -1,0 +1,28 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - blockscontent.blocks_contents_type.block_flex
+    - field.storage.paragraph.field_blocks_contents_test
+    - paragraphs.paragraphs_type.section_2_colonnes
+id: paragraph.section_2_colonnes.field_blocks_contents_test
+field_name: field_blocks_contents_test
+entity_type: paragraph
+bundle: section_2_colonnes
+label: 'blocks contents'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:blocks_contents'
+  handler_settings:
+    target_bundles:
+      block_flex: block_flex
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

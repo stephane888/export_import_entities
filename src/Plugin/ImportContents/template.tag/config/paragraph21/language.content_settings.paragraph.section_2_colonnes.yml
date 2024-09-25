@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.section_2_colonnes
+id: paragraph.section_2_colonnes
+target_entity_type_id: paragraph
+target_bundle: section_2_colonnes
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - blockscontent
+id: blocks_contents.block_row_reverse
+label: 'block row-reverse'
+description: ''
+targetEntityType: blocks_contents
+cache: true

@@ -1,0 +1,6 @@
+langcode: fr
+status: true
+dependencies: {  }
+id: block_flex
+label: 'block flex'
+description: ''

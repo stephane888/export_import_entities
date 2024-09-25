@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - blockscontent
+id: blocks_contents.teaser_block_column
+label: 'teaser block column'
+description: ''
+targetEntityType: blocks_contents
+cache: true
