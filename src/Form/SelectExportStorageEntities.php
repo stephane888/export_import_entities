@@ -419,6 +419,9 @@ final class SelectExportStorageEntities extends ExportBase {
               $BundleEntityType = $subEntity->getEntityType()->getBundleEntityType();
               $this->LoadConfigs->generateAllConfigAboutEntity($entity_type_id, $bundle, $BundleEntityType, $value['target_id']);
             }
+            else {
+              $this->messenger()->addMessage("level: $level; entity_type_id: $entity_type_id", true);
+            }
           }
         }
       }
