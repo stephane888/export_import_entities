@@ -14,6 +14,7 @@ dependencies:
     - habeuk_utilitaire
     - image
     - layout_builder
+    - system
     - text
     - user
 third_party_settings:
@@ -539,8 +540,19 @@ third_party_settings:
                       container: me-3
                       title: ''
                       value: ''
-                      item: 'btn btn-sm'
+                      item: 'btn btn-sm ms-0 ps-0'
                       content: ''
+            weight: 0
+            additional: {  }
+          eca8159f-6e3d-4b66-8cb6-a08f4463522d:
+            uuid: eca8159f-6e3d-4b66-8cb6-a08f4463522d
+            region: block_2
+            configuration:
+              id: system_breadcrumb_block
+              label: "Fils d'ariane"
+              label_display: '0'
+              provider: system
+              context_mapping: {  }
             weight: 0
             additional: {  }
         third_party_settings: {  }

@@ -23,12 +23,12 @@ third_party_settings:
         layout_settings:
           label: ' One column custom  ( formatage_models_simple_block ) '
           context_mapping: {  }
-          css: ''
+          css: overflow-hidden
           region_tag_main: div
           config_section:
             type_container: container
             container_class: ''
-            id: ''
+            id: formatage-models-simple-block-8484--qiy-aCVGNNs
           sf:
             builder-form: true
             info:
