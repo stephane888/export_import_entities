@@ -75,6 +75,13 @@ final class SelectExportStorageEntities extends ExportBase {
     'uid' // Cela permet d'eviter de prendre des informations pas toujours
           // pertinentes. (on verra bien avec le temps).
   ];
+  /**
+   *
+   * @var array
+   */
+  protected $ignoreEntityIds = [
+    "user"
+  ];
   
   /**
    * contient les ids qui ont deja été traiter afin d'eviter que le processus ne
@@ -332,11 +339,10 @@ final class SelectExportStorageEntities extends ExportBase {
       /**
        * Utile pour faire le debuggage de contenu.
        */
-      // debugLog::$max_depth = 15;
-      // debugLog::$path = null;
-      // debugLog::symfonyDebug($EntitiesArray, $entity_id . $id . '---', true);
-      // debugLog::symfonyDebug($configs, 'configs_' . $entity_id . $id . '---',
-      // true);
+      debugLog::$max_depth = 15;
+      debugLog::$path = null;
+      debugLog::symfonyDebug($EntitiesArray, $entity_id . $id . '---', true);
+      debugLog::symfonyDebug($configs, 'configs_' . $entity_id . $id . '---', true);
       // //
       $import_contents = $this->getPluginImportContent();
       $import_contents->saveContents($EntitiesArray, $id, $entity_id);
@@ -376,7 +382,7 @@ final class SelectExportStorageEntities extends ExportBase {
    *
    * @param ContentEntityBase $entity
    */
-  protected function getOrthersConfig(ContentEntityBase $entity) {
+  protected function getOrthersConfig(ContentEntityBase $entity, $level = 0) {
     $this->ProtectAgaintEntitiesInfinixLoop[$entity->getEntityTypeId()][$entity->id()] = $entity->id();
     foreach ($entity->getFieldDefinitions() as $fieldName => $field) {
       /**
@@ -399,11 +405,20 @@ final class SelectExportStorageEntities extends ExportBase {
           if ($subEntity) {
             // On souhaite reduire cela aux entites inclus.
             if (empty($this->ProtectAgaintEntitiesInfinixLoop[$entity_type_id][$value['target_id']]) && !in_array($fieldName, $this->ignoreFields) && $subEntity instanceof ContentEntityBase) {
-              $this->getOrthersConfig($subEntity);
+              $this->getOrthersConfig($subEntity, 1);
             }
-            $bundle = $subEntity->bundle() ? $subEntity->bundle() : $entity_type_id;
-            $BundleEntityType = $subEntity->getEntityType()->getBundleEntityType();
-            $this->LoadConfigs->generateAllConfigAboutEntity($entity_type_id, $bundle, $BundleEntityType, $value['target_id']);
+            /**
+             * Pour le niveau zero on prend toutes les configurations, pour les
+             * niveau suivant, on supprimé certaines configuration afin d'eviter
+             * d'importer les données pas utiles et eviter les boucles.
+             *
+             * @var string $bundle
+             */
+            if (!$level || !in_array($entity_type_id, $this->ignoreEntityIds)) {
+              $bundle = $subEntity->bundle() ? $subEntity->bundle() : $entity_type_id;
+              $BundleEntityType = $subEntity->getEntityType()->getBundleEntityType();
+              $this->LoadConfigs->generateAllConfigAboutEntity($entity_type_id, $bundle, $BundleEntityType, $value['target_id']);
+            }
           }
         }
       }
