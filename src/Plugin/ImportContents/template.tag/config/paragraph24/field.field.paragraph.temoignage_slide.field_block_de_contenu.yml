@@ -1,0 +1,28 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.teaser_block_temoignage
+    - field.storage.paragraph.field_block_de_contenu
+    - paragraphs.paragraphs_type.temoignage_slide
+id: paragraph.temoignage_slide.field_block_de_contenu
+field_name: field_block_de_contenu
+entity_type: paragraph
+bundle: temoignage_slide
+label: 'block de contenu'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      teaser_block_temoignage: teaser_block_temoignage
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: block_contact
+field_type: entity_reference

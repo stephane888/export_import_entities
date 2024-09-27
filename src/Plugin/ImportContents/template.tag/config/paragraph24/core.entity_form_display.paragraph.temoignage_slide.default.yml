@@ -1,0 +1,52 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.temoignage_slide.field_block_de_contenu
+    - field.field.paragraph.temoignage_slide.field_subtitle
+    - field.field.paragraph.temoignage_slide.field_title
+    - paragraphs.paragraphs_type.temoignage_slide
+  module:
+    - inline_entity_form
+id: paragraph.temoignage_slide.default
+targetEntityType: paragraph
+bundle: temoignage_slide
+mode: default
+content:
+  field_block_de_contenu:
+    type: inline_entity_form_complex
+    weight: 0
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: true
+      collapsible: true
+      collapsed: true
+      revision: false
+      removed_reference: optional
+    third_party_settings: {  }
+  field_subtitle:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

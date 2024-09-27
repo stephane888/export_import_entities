@@ -1,0 +1,18 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.teaser_block_temoignage
+    - field.storage.block_content.field_title1
+id: block_content.teaser_block_temoignage.field_title1
+field_name: field_title1
+entity_type: block_content
+bundle: teaser_block_temoignage
+label: Title1
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

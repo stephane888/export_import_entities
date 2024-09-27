@@ -1,0 +1,14 @@
+langcode: fr
+status: true
+dependencies: {  }
+name: '180_260'
+label: '280*360'
+effects:
+  5550dcc0-2959-4a74-b671-0fde80412db9:
+    uuid: 5550dcc0-2959-4a74-b671-0fde80412db9
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 250
+      height: 320
+      anchor: center-center

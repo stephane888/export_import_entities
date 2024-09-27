@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.temoignage_slide
+id: paragraph.temoignage_slide
+target_entity_type_id: paragraph
+target_bundle: temoignage_slide
+default_langcode: site_default
+language_alterable: false

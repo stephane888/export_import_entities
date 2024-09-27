@@ -1,0 +1,20 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.teaser_block_temoignage
+    - field.storage.block_content.field_sous_titre
+id: block_content.teaser_block_temoignage.field_sous_titre
+field_name: field_sous_titre
+entity_type: block_content
+bundle: teaser_block_temoignage
+label: 'sous titre'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 'Directeur exécutif'
+default_value_callback: ''
+settings: {  }
+field_type: string_long

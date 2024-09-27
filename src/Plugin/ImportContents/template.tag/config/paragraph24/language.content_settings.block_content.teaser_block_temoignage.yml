@@ -1,0 +1,10 @@
+langcode: fr
+status: true
+dependencies:
+  config:
+    - block_content.type.teaser_block_temoignage
+id: block_content.teaser_block_temoignage
+target_entity_type_id: block_content
+target_bundle: teaser_block_temoignage
+default_langcode: site_default
+language_alterable: false
