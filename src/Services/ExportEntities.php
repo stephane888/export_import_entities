@@ -202,6 +202,11 @@ class ExportEntities extends ControllerBase {
         // recuperation des champs.
       }
     }
+    /**
+     * Le cas des utilisateurs est un peu different, on doit importer toutes les
+     * configurations en relation avec les utilisateurs.
+     */
+    $this->LoadConfigs->generateAllConfigAboutEntity("user", "user");
     // Generate custom config.
     if ($settings['export_orthers_entities'])
       $this->generateCustomConfigs();
