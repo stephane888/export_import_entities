@@ -313,8 +313,9 @@ class ExportEntities extends ControllerBase {
       'rest.resource.commerce_cart_add',
       'editor.editor.basic_html',
       'editor.editor.full_html',
-      'pathauto.pattern.taxo_term',
-      'pathauto.pattern.page_site_web',
+      // on importe toutes les données.
+      // 'pathauto.pattern.taxo_term',
+      // 'pathauto.pattern.page_site_web',
       'core.entity_view_display.user.user.hot_models_hotlock_menu__user',
       'formatage_models.configvuejsedit',
       "views.view.commerce_cart_block",
@@ -331,7 +332,15 @@ class ExportEntities extends ControllerBase {
     foreach ($configNames as $configName) {
       $this->LoadConfigs->getConfigFromName($configName);
     }
-    
+    // On charge toutes les configurations liées à la creation des alias.
+    $entitiesAlias = $this->entityTypeManager()->getStorage('pathauto_pattern')->loadMultiple();
+    foreach ($entitiesAlias as $pathauto_pattern) {
+      /**
+       *
+       * @var \Drupal\pathauto\Entity\PathautoPattern $pathauto_pattern
+       */
+      $this->LoadConfigs->getConfigFromName("pathauto.pattern." . $pathauto_pattern->id());
+    }
     /**
      * export user interface translations
      */
