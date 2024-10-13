@@ -341,6 +341,10 @@ class ExportEntities extends ControllerBase {
        */
       $this->LoadConfigs->getConfigFromName("pathauto.pattern." . $pathauto_pattern->id());
     }
+    
+    // On charge les champs en relation avec l'entite menu_link_content.
+    $this->LoadConfigs->generateAllConfigAboutEntity("menu_link_content", "menu_link_content");
+    
     /**
      * export user interface translations
      */

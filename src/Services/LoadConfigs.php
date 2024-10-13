@@ -560,6 +560,9 @@ class LoadConfigs extends LoadBase {
     $queryField->condition('entity_type', $entiy_type_id);
     $queryField->condition('bundle', $bundle);
     $ids = $queryField->execute();
+    if ($entiy_type_id == 'menu_link_content') {
+      dd($ids, $this->entityTypeManager()->getDefinition($entiy_type_id)->isTranslatable());
+    }
     $this->getConfigFields($ids);
   }
   
