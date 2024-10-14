@@ -723,7 +723,6 @@ class ExportEntities extends ControllerBase {
             // 'id' => $OrderItemType->id()
             // ];
             $this->LoadConfigs->generateAllConfigAboutEntity($OrderItemType->getEntityTypeId(), $OrderItemType->bundle(), $OrderItemType->getEntityType()->getBundleEntityType(), $OrderItemType->id());
-            // dd($OrderItemTypeId, $db);
             //
             if (!$this->LoadConfigs->hasGenerate($name)) {
               $this->LoadConfigs->getConfigFromName($name);
@@ -771,7 +770,6 @@ class ExportEntities extends ControllerBase {
                 if (!$this->LoadConfigs->hasGenerate($name)) {
                   $this->LoadConfigs->getConfigFromName($name);
                 }
-                // dd($name);
               }
             }
           }
