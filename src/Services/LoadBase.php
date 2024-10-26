@@ -26,8 +26,15 @@ class LoadBase extends ControllerBase {
     if (str_contains($id, ".")) {
       $preffix = self::getPreffix($entity_type_id);
       $query = \Drupal::entityTypeManager()->getStorage($entity_type_id)->getQuery();
-      $query->condition('id', $id, 'CONTAINS');
+      /**
+       * ajout du point car on peut avoir des soucis de nom par examples: La
+       * recherche de "paragraph.presentation" revoit tous les layouts contenant
+       * ce terme.
+       * il faut ajouter un point à la suite
+       */
+      $query->condition('id', $id . ".", 'CONTAINS');
       $ids = $query->execute();
+      
       if (!empty($ids)) {
         /**
          *
@@ -39,14 +46,14 @@ class LoadBase extends ControllerBase {
          * @var \Drupal\export_import_entities\Services\ThirdPartySettings $ThirdPartySettings
          */
         $ThirdPartySettings = \Drupal::service("export_import_entities.export.third_party_settings");
-        foreach ($ids as $id) {
-          if (!$LoadConfigs->hasGenerate($id)) {
+        foreach ($ids as $id2) {
+          if (!$LoadConfigs->hasGenerate($id2)) {
             /**
              *
              * @var \Drupal\Core\Entity\Entity\EntityFormDisplay $entity
              */
-            $entity = \Drupal::entityTypeManager()->getStorage($entity_type_id)->load($id);
-            $LoadConfigs->getConfigFromName($preffix . '.' . $id);
+            $entity = \Drupal::entityTypeManager()->getStorage($entity_type_id)->load($id2);
+            $LoadConfigs->getConfigFromName($preffix . '.' . $id2);
             // On se rassure que ses dependances ont été cree ou on les crées.
             $confs = $entity->getDependencies();
             $LoadConfigs->getConfig($confs);
@@ -76,5 +83,4 @@ class LoadBase extends ControllerBase {
     }
     return self::$preffix[$entity_type_id];
   }
-  
 }
