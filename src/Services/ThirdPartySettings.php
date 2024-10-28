@@ -59,28 +59,55 @@ class ThirdPartySettings extends ControllerBase {
       $confs = $ConfigEntity->getThirdPartySettings($moduleName);
       if (!empty($confs['sections'])) {
         foreach ($confs['sections'] as $section) {
-          /**
-           *
-           * @var \Drupal\layout_builder\Section $section
-           */
-          $components = $section->getComponents();
-          foreach ($components as $component) {
-            /**
-             *
-             * @var \Drupal\layout_builder\SectionComponent $component
-             */
-            $confComponent = $component->toArray();
-            if (!empty($confComponent['configuration']['formatter']['type'])) {
-              // Ajout de la configuration pour le champs :
-              // fielditem_renderby_view_formatter
-              if ($confComponent['configuration']['formatter']['type'] == 'fielditem_renderby_view_formatter') {
-                if (!empty($confComponent['configuration']['formatter']['settings']['view_name'])) {
-                  $name = $this->getViewConfigPrefix() . '.' . $confComponent['configuration']['formatter']['settings']['view_name'];
-                  $this->LoadConfigs->getConfigFromName($name);
-                }
-              }
+          $this->importconfigFromSectionLayout($section);
+        }
+      }
+    }
+  }
+  
+  /**
+   * Pour le traitement des components il faudrait le faire à partir du pligin,
+   * afin d'eviter les ruptures de logiue.
+   *
+   * @param \Drupal\layout_builder\Section $section
+   */
+  public function importconfigFromSectionLayout(\Drupal\layout_builder\Section $section) {
+    $components = $section->getComponents();
+    foreach ($components as $component) {
+      /**
+       *
+       * @var \Drupal\layout_builder\SectionComponent $component
+       */
+      $confComponent = $component->toArray();
+      if (!empty($confComponent['configuration']['formatter']['type'])) {
+        // Ajout de la configuration pour le champs :
+        // fielditem_renderby_view_formatter
+        switch ($confComponent['configuration']['formatter']['type']) {
+          case 'fielditem_renderby_view_formatter':
+            if (!empty($confComponent['configuration']['formatter']['settings']['view_name'])) {
+              $name = $this->getViewConfigPrefix() . '.' . $confComponent['configuration']['formatter']['settings']['view_name'];
+              $this->LoadConfigs->getConfigFromName($name);
             }
-          }
+            break;
+          case 'fielditem_renderby_view_formatter':
+            
+            break;
+          default:
+            ;
+            break;
+        }
+      }
+      elseif ($confComponent['configuration']['provider'] == 'views') {
+        $id = $confComponent['configuration']['id'];
+        $v1 = explode("-", $id);
+        $v1 = explode(":", $v1[0]);
+        $view_id = $v1[1];
+        if ($view_id) {
+          $name = $this->getViewConfigPrefix() . '.' . $view_id;
+          $this->LoadConfigs->getConfigFromName($name);
+        }
+        else {
+          throw new \ErrorException("Impossible de determiner le nom de la view");
         }
       }
     }
@@ -107,7 +134,7 @@ class ThirdPartySettings extends ControllerBase {
     }
     return $this->viewPrefix;
   }
-  
+
 /**
  * --
  */

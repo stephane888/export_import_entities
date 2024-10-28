@@ -46,10 +46,27 @@ class LoadConfigs extends LoadBase {
   
   /**
    *
+   * @var \Drupal\export_import_entities\Services\ThirdPartySettings
+   */
+  protected $ThirdPartySettings;
+  
+  /**
+   *
    * @param StorageInterface $config_storage
    */
   function __construct(StorageInterface $config_storage) {
     $this->configStorage = $config_storage;
+  }
+  
+  /**
+   *
+   * @return \Drupal\export_import_entities\Services\ThirdPartySettings
+   */
+  protected function getThirdPartySettings() {
+    if (!$this->ThirdPartySettings) {
+      $this->ThirdPartySettings = \Drupal::service("export_import_entities.export.third_party_settings");
+    }
+    return $this->ThirdPartySettings;
   }
   
   /**
@@ -503,11 +520,34 @@ class LoadConfigs extends LoadBase {
       $this->getConfigFromName($name);
       $idTranslation = 'language.content_settings.' . $entiy_type_id . '.' . $bundle;
       $this->getConfigFromName($idTranslation);
-      
       $this->getFields($entiy_type_id, $bundle);
       self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_display');
       self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_form_mode');
       self::loadConfigs($entiy_type_id . '.' . $bundle, 'entity_view_display');
+      // On doit verifier les affichage surchargé :
+      if ($id) {
+        /**
+         *
+         * @var \Drupal\paragraphs\Entity\Paragraph $entity
+         */
+        $entity = $this->entityTypeManager()->getStorage($entiy_type_id)->load($id);
+        if ($entity->hasField('layout_builder__layout') && !$entity->get('layout_builder__layout')->isEmpty()) {
+          foreach ($entity->get('layout_builder__layout')->getValue() as $section_L) {
+            /**
+             *
+             * @var \Drupal\layout_builder\Section $section
+             */
+            if (!empty($section_L['section'])) {
+              /**
+               *
+               * @var \Drupal\layout_builder\Section $section
+               */
+              $section = $section_L['section'];
+              $this->getThirdPartySettings()->importconfigFromSectionLayout($section);
+            }
+          }
+        }
+      }
     }
     else {
       /**
