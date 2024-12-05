@@ -244,7 +244,7 @@ class ConfigImportCustom {
         $config_importer = new ConfigImporter($storage_comparer, $this->eventDispatcher, $this->configManager, $this->lock, $this->typedConfigManager, $this->moduleHandler, $this->moduleInstaller, $this->themeHandler, $this->getStringTranslation(), $this->moduleExtensionList, $this->themeExtensionList);
         if ($config_importer->validate()) {
           if ($config_importer->alreadyImporting()) {
-            $this->messenger->addError($this->t('Another request may be importing configuration already.'));
+            throw new \ErrorException(" Another request may be importing configuration already. ");
           }
           else {
             $config_importer->import();
@@ -273,6 +273,10 @@ class ConfigImportCustom {
               }
             }
           }
+        }
+        else {
+          $errors = $config_importer->getErrors();
+          throw new \ErrorException(" La configuration : '$sub_name', n'est pas importer. ");
         }
       }
     }
@@ -375,6 +379,17 @@ class ConfigImportCustom {
         }
       }
     }
+  }
+  
+  /**
+   * Permet de retourner la configuration tels que definit pour l'export.
+   * NB: \Drupal::config($sub_name) ne renvoit pas les memes valeurs.
+   *
+   * @param string $name
+   * @return array|boolean
+   */
+  public function readConfigById(string $name) {
+    return $this->configStorage->read($name);
   }
   
   /**
