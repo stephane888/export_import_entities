@@ -241,13 +241,23 @@ class ConfigImportCustom {
             }
           }
         }
+        
         $config_importer = new ConfigImporter($storage_comparer, $this->eventDispatcher, $this->configManager, $this->lock, $this->typedConfigManager, $this->moduleHandler, $this->moduleInstaller, $this->themeHandler, $this->getStringTranslation(), $this->moduleExtensionList, $this->themeExtensionList);
         if ($config_importer->validate()) {
+          
           if ($config_importer->alreadyImporting()) {
             throw new \ErrorException(" Another request may be importing configuration already. ");
           }
           else {
-            $config_importer->import();
+            /**
+             *
+             * @var \Drupal\Core\Config\ConfigImporter $result
+             */
+            $result = $config_importer->import();
+            $errors = $result->getErrors();
+            if ($errors) {
+              throw new \ErrorException(" La configuration '$name' n'est pas importer. <br> " . $errors[0]);
+            }
             /**
              * Les styles incluent dans la config des layouts ne seront pas
              * chargés, car cela se fait uniquement pendant la sauvegarde du
@@ -276,7 +286,10 @@ class ConfigImportCustom {
         }
         else {
           $errors = $config_importer->getErrors();
-          throw new \ErrorException(" La configuration : '$sub_name', n'est pas importer. ");
+          $first_error = '';
+          if ($errors)
+            $first_error = $errors[0];
+          throw new \ErrorException(" La configuration '$name' n'est pas importer. <br> " . $first_error);
         }
       }
     }
