@@ -33,6 +33,7 @@ class DefaultDatas extends ControllerBase {
     
     # Ces modules ne peuvent etre desinstaller par l'utilisateur
     dependencies:
+      - habeuk_utilitaire
       - paragraphs
       - paragraph_view_mode
       - pathauto
