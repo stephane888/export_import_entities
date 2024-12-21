@@ -237,7 +237,7 @@ class ConfigImportCustom {
           foreach ($configData['dependencies']['config'] as $sub_name) {
             $Sub_config = \Drupal::config($sub_name);
             if ($Sub_config->isNew()) {
-              throw new \ErrorException(" La configuration : '$sub_name', n'est pas importer. ");
+              throw new \ErrorException(" La configuration : '$sub_name', n'est pas importer. Vous devez l'importer avant de pousuivre ... ");
             }
           }
         }
