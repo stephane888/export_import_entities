@@ -12,6 +12,7 @@ use Stephane888\Debug\debugLog;
 use Drupal\Component\Gettext\PoStreamWriter;
 use Stephane888\Debug\Repositories\ConfigDrupal;
 use Drupal\export_import_entities\Services\ProfileCustomization\ManageProfile;
+use Drupal\commerce_product\ProductAttributeFieldManagerInterface;
 
 class ExportEntities extends ControllerBase {
   use LangTrait;
@@ -57,6 +58,12 @@ class ExportEntities extends ControllerBase {
   protected $directEntities = [
     'taxonomy_term'
   ];
+  
+  /**
+   *
+   * @var \Drupal\commerce_product\ProductAttributeFieldManagerInterface
+   */
+  protected $Commerce_productAttribute_field_manager;
   
   /**
    * Contient la liste des configurations deja crees.
@@ -327,7 +334,9 @@ class ExportEntities extends ControllerBase {
       'domain.config.' . $this->currentDomaine->id() . '.system.site',
       // fournit les langues actives.
       'domain.language.' . $this->currentDomaine->id() . '.language.negotiation',
-      'eu_cookie_compliance.settings'
+      'eu_cookie_compliance.settings',
+      'domain.config.' . $this->currentDomaine->id() . 'commerceformatage.settings',
+      'layoutscommerce.ajax_load_view_product_variant'
     ];
     foreach ($configNames as $configName) {
       $this->LoadConfigs->getConfigFromName($configName);
@@ -685,6 +694,9 @@ class ExportEntities extends ControllerBase {
         $variations = $product->getVariations();
         
         foreach ($variations as $variation) {
+          /**
+           * commerce_product_variation_type
+           */
           $BundleEntityType = $variation->getEntityType()->getBundleEntityType();
           /**
            *
@@ -705,8 +717,20 @@ class ExportEntities extends ControllerBase {
            * @var \Drupal\commerce_product\Entity\ProductVariationType $entityType
            */
           $entityType = $this->entityTypeManager()->getStorage($BundleEntityType)->load($bundle);
-          $OrderItemTypeId = $entityType->getOrderItemTypeId();
+          $attribute_map = $this->attributesManager()->getFieldMap($bundle);
+          if ($attribute_map) {
+            $used_attributes = array_column($attribute_map, 'attribute_id');
+            foreach ($used_attributes as $attribute_id_bundle) {
+              $this->LoadConfigs->generateAllConfigAboutEntity('commerce_product_attribute_value', $attribute_id_bundle, 'commerce_product_attribute');
+            }
+          }
           
+          /**
+           * il faut manuellement importer les affichages des attributs.
+           */
+          
+          //
+          $OrderItemTypeId = $entityType->getOrderItemTypeId();
           if ($OrderItemTypeId) {
             /**
              *
@@ -788,5 +812,15 @@ class ExportEntities extends ControllerBase {
         $this->LoadConfigs->generateAllConfigAboutEntity($product->getEntityTypeId(), $product->bundle(), $product->getEntityType()->getBundleEntityType());
       }
     }
+  }
+  
+  /**
+   *
+   * @return ProductAttributeFieldManagerInterface
+   */
+  protected function attributesManager() {
+    if (!$this->Commerce_productAttribute_field_manager)
+      $this->Commerce_productAttribute_field_manager = \Drupal::service("commerce_product.attribute_field_manager");
+    return $this->Commerce_productAttribute_field_manager;
   }
 }

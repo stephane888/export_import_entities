@@ -99,8 +99,7 @@ class DefaultDatas extends ControllerBase {
       'hbktemplateuser',
       'manage_module_config',
       'managepackvhsost',
-      'wb_commerce',
-      'recaptcha_v3'
+      'wb_commerce'
     ];
   }
   
