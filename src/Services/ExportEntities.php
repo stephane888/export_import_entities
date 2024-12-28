@@ -422,6 +422,11 @@ class ExportEntities extends ControllerBase {
     
     // add theme to install;
     $this->ManageProfile->addTheme($theme_name);
+    /**
+     * On genere la configuration pour l'entité hbk_collection car ce derniers a
+     * un comportement particulier.
+     */
+    $this->LoadConfigs->generateAllConfigAboutEntity('hbk_collection', 'hbk_collection');
   }
   
   protected function generateShippingConfig() {
