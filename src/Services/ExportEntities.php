@@ -13,9 +13,18 @@ use Drupal\Component\Gettext\PoStreamWriter;
 use Stephane888\Debug\Repositories\ConfigDrupal;
 use Drupal\export_import_entities\Services\ProfileCustomization\ManageProfile;
 use Drupal\commerce_product\ProductAttributeFieldManagerInterface;
+use Drupal\export_import_entities\Services\HelpersExport\ExportShippings;
+use Drupal\export_import_entities\Services\HelpersExport\PluginEnables;
 
+/**
+ *
+ * @author stephane
+ *        
+ */
 class ExportEntities extends ControllerBase {
   use LangTrait;
+  use ExportShippings;
+  use PluginEnables;
   protected static $field_domain_access = 'field_domain_access';
   protected $currentDomaine;
   protected $entityFieldManger;
@@ -107,6 +116,12 @@ class ExportEntities extends ControllerBase {
    * @var ManageProfile
    */
   protected $ManageProfile;
+  
+  /**
+   *
+   * @var array
+   */
+  protected $enablePlugins = [];
   
   /**
    *
@@ -224,10 +239,8 @@ class ExportEntities extends ControllerBase {
       $this->getMenus();
     //
     $this->getConfigCommerce();
-    // $block =
-    // $this->entityTypeManager()->getStorage('block')->load('test62_wb_horizon_kksa_breamcrumb');
-    // dump($this->LoadConfigs->getGenerate());
-    // die();
+    //
+    $this->exportConfigShippings();
   }
   
   function loadConfigFromEntities() {
@@ -330,12 +343,14 @@ class ExportEntities extends ControllerBase {
       'user.role.administrator',
       'core.entity_view_display.user.user.default',
       'pathauto.settings',
-      // fournir la langue par defaut.
+      // Fournir la langue par defaut.
       'domain.config.' . $this->currentDomaine->id() . '.system.site',
-      // fournit les langues actives.
+      // Fournit les langues actives.
       'domain.language.' . $this->currentDomaine->id() . '.language.negotiation',
       'eu_cookie_compliance.settings',
-      'domain.config.' . $this->currentDomaine->id() . 'commerceformatage.settings',
+      'domain.config.' . $this->currentDomaine->id() . '.commerceformatage.settings',
+      'domain.config.' . $this->currentDomaine->id() . '.manage_module_config.settings',
+      'domain.config.' . $this->currentDomaine->id() . '.wb_horizon_public.defaultconfigbydomain',
       'layoutscommerce.ajax_load_view_product_variant'
     ];
     foreach ($configNames as $configName) {
