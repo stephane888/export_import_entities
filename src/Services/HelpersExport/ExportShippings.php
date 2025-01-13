@@ -24,6 +24,7 @@ trait ExportShippings {
   function exportConfigShippings() {
     if ($this->isRequireShipping()) {
       $this->exportsProfileType();
+      $this->generateShippingConfig();
     }
   }
   
@@ -38,6 +39,11 @@ trait ExportShippings {
        */
       $this->LoadConfigs->generateAllConfigAboutEntity("profile", $profile_type->id(), "profile_type");
     }
+  }
+  
+  protected function generateShippingConfig() {
+    $this->LoadConfigs->generateAllConfigAboutEntity("commerce_shipment_type", "commerce_shipment_type", NULL, "default_shipping");
+    $this->LoadConfigs->generateAllConfigAboutEntity("commerce_shipment_type", "commerce_shipment_type", NULL, "shipping_with_creneau");
   }
   
   /**

@@ -14,6 +14,7 @@ use Stephane888\Debug\Repositories\ConfigDrupal;
 use Drupal\export_import_entities\Services\ProfileCustomization\ManageProfile;
 use Drupal\commerce_product\ProductAttributeFieldManagerInterface;
 use Drupal\export_import_entities\Services\HelpersExport\ExportShippings;
+use Drupal\export_import_entities\Services\HelpersExport\ExportPaiments;
 use Drupal\export_import_entities\Services\HelpersExport\PluginEnables;
 
 /**
@@ -24,6 +25,7 @@ use Drupal\export_import_entities\Services\HelpersExport\PluginEnables;
 class ExportEntities extends ControllerBase {
   use LangTrait;
   use ExportShippings;
+  use ExportPaiments;
   use PluginEnables;
   protected static $field_domain_access = 'field_domain_access';
   protected $currentDomaine;
@@ -188,6 +190,9 @@ class ExportEntities extends ControllerBase {
     if (empty($this->currentDomaine)) {
       $this->getCurentDomain();
     }
+    //
+    $this->isRequirePaiement();
+    $this->isRequireShipping();
     $settings = $this->getConfigs();
     //
     foreach ($this->getValidesEntities() as $value) {
@@ -237,9 +242,9 @@ class ExportEntities extends ControllerBase {
     // $this->loadConfigFromEntities();
     if ($settings['export_menus'])
       $this->getMenus();
+    
     //
-    $this->getConfigCommerce();
-    //
+    $this->exportConfigPaiments();
     $this->exportConfigShippings();
   }
   
@@ -420,8 +425,6 @@ class ExportEntities extends ControllerBase {
      * booking_config_type
      */
     $this->generateBookingConfigFile();
-    //
-    $this->generateShippingConfig();
     
     // On genere la traduction des menus.
     $bundle = \Drupal\lesroidelareno\lesroidelareno::getCurrentPrefixDomain(FALSE);
@@ -442,11 +445,6 @@ class ExportEntities extends ControllerBase {
      * un comportement particulier.
      */
     $this->LoadConfigs->generateAllConfigAboutEntity('hbk_collection', 'hbk_collection');
-  }
-  
-  protected function generateShippingConfig() {
-    $this->LoadConfigs->generateAllConfigAboutEntity("commerce_shipment_type", "commerce_shipment_type", NULL, "default_shipping");
-    $this->LoadConfigs->generateAllConfigAboutEntity("commerce_shipment_type", "commerce_shipment_type", NULL, "shipping_with_creneau");
   }
   
   protected function generateBookingConfigFile() {
@@ -524,54 +522,6 @@ class ExportEntities extends ControllerBase {
     }
     $string = Yaml::encode($configs);
     $this->LoadConfigs->addConfig($config_name, $string);
-  }
-  
-  protected function getConfigCommerce() {
-    if ($this->currentDomaine) {
-      $domaineId = $this->currentDomaine->id();
-      /**
-       *
-       * @var \Drupal\Core\Config\Entity\ConfigEntityType $entityTypeDefinition
-       */
-      $entityTypeDefinition = $this->entityTypeManager()->getDefinition("commerce_payment_gateway");
-      
-      /**
-       *
-       * @var \Drupal\commerce_payment\PaymentGatewayManager $PaymentGatewayManager
-       */
-      $PaymentGatewayManager = \Drupal::service("plugin.manager.commerce_payment_gateway");
-      // On charge les moyens qui ont été explicetement definit pour ce
-      // domaine.
-      $commerce_payment_configs = $this->entityTypeManager()->getStorage('commerce_payment_config')->loadByProperties([
-        'domain_id' => $domaineId
-      ]);
-      
-      foreach ($commerce_payment_configs as $commerce_payment_config) {
-        /**
-         *
-         * @var \Drupal\lesroidelareno\Entity\CommercePaymentConfig $commerce_payment_config
-         */
-        $id = $commerce_payment_config->getPaymentPluginId();
-        /**
-         *
-         * @var \Drupal\commerce_payment\Entity\PaymentGateway $commerce_payment_gateway
-         */
-        $commerce_payment_gateway = $this->entityTypeManager()->getStorage("commerce_payment_gateway")->load($id);
-        $pluginId = $commerce_payment_gateway->getPluginId();
-        /**
-         *
-         * @var \Drupal\wb_horizon_public\Plugin\Commerce\PaymentGateway\stripeOverride $lesroidelareno_stripe_override
-         */
-        $lesroidelareno_stripe_override = $PaymentGatewayManager->createInstance($pluginId);
-        $lesroidelareno_stripe_override->__wakeup();
-        $conf = $lesroidelareno_stripe_override->getConfiguration();
-        $name = $entityTypeDefinition->getConfigPrefix() . '.' . $id;
-        // On surcharge la configuration avec les informations du domain.
-        $this->LoadConfigs->getConfigFromName($name, [
-          'configuration' => $conf
-        ], false);
-      }
-    }
   }
   
   /**

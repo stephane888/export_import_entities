@@ -31,6 +31,6 @@ trait PluginEnables {
   function getPluginsEnable() {
     if (!$this->enablePlugins)
       $this->enablePlugins = ConfigDrupal::config("manage_module_config.settings");
-    return $this->enablePlugins;
+    return $this->enablePlugins['plugins'] ?? [];
   }
 }
