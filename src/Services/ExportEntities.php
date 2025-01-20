@@ -288,6 +288,10 @@ class ExportEntities extends ControllerBase {
     }
   }
   
+  /**
+   *
+   * @return number|array
+   */
   protected function getMenusIds() {
     $query = $this->entityTypeManager()->getStorage("menu")->getQuery();
     if ($this->currentDomaine) {
@@ -299,6 +303,9 @@ class ExportEntities extends ControllerBase {
     return $query->execute();
   }
   
+  /**
+   * --
+   */
   function getMenus() {
     $entityMenu = $this->entityTypeManager()->getDefinition("menu");
     $ids = $this->getMenusIds();
@@ -356,7 +363,8 @@ class ExportEntities extends ControllerBase {
       'domain.config.' . $this->currentDomaine->id() . '.commerceformatage.settings',
       'domain.config.' . $this->currentDomaine->id() . '.manage_module_config.settings',
       'domain.config.' . $this->currentDomaine->id() . '.wb_horizon_public.defaultconfigbydomain',
-      'layoutscommerce.ajax_load_view_product_variant'
+      'layoutscommerce.ajax_load_view_product_variant',
+      'layoutgenentitystyles.settings'
     ];
     foreach ($configNames as $configName) {
       $this->LoadConfigs->getConfigFromName($configName);
