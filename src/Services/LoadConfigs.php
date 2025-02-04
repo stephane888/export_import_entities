@@ -8,6 +8,7 @@ use Drupal\Component\Serialization\Yaml;
 use Symfony\Component\Finder\Finder;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\file\Entity\File;
+use Drupal\Core\File\FileSystemInterface;
 
 /**
  * Permet de charger les diffirents affichage pour une entité.
@@ -170,20 +171,29 @@ class LoadConfigs extends LoadBase {
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/' . $this->currentDomaine->id() . '/web/profiles/contrib/wb_horizon_generate/config/install' . $suffix;
     else
       debugLog::$path = DRUPAL_ROOT . '/../sites_exports/default_model/config/install' . $suffix;
+    
+    //
+    /**
+     *
+     * @var \Drupal\Core\File\FileSystem $file_system
+     */
+    $file_system = \Drupal::service('file_system');
+    $file_system->prepareDirectory(debugLog::$path, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
   }
   
   /**
    * delete all the configurations
    */
-  public function deleteConfigs(){
-      $this->setConfigPathSuffix("");
-      // Supprimer le dossier  debugLog::$path
-      /**
-       * 
-       * @var \Drupal\Core\File\FileSystem $file_system
-       */
-      $file_system = \Drupal::service('file_system');
-      $file_system->deleteRecursive(debugLog::$path);
+  public function deleteConfigs() {
+    $this->setConfigPathSuffix("");
+    // Supprimer le dossier debugLog::$path
+    /**
+     *
+     * @var \Drupal\Core\File\FileSystem $file_system
+     */
+    $file_system = \Drupal::service('file_system');
+    
+    $file_system->deleteRecursive(debugLog::$path);
   }
   
   /**

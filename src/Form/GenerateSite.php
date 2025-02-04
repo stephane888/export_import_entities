@@ -215,12 +215,14 @@ class GenerateSite extends ConfigFormBase {
       $nbreConfigs = count($this->ExportEntities->getGenereteConfigs());
       \Drupal::messenger()->addStatus(" Les fichiers de configurations ont été generer ");
       if ($nbreConfigs > 550) {
+        $type = 'warning';
         $message = $nbreConfigs . " fichiers de configuration, Vous devez envisager de l'installer sur un VPS";
       }
       else {
+        $type = 'info';
         $message = $nbreConfigs . " fichiers de configuration, Vous pouvez l'installer sur un hebergeur mutualisé, au dela de 550 fichiers de configuration, il est recommandé de l'installer sur un VPS";
       }
-      \Drupal::messenger()->addMessage($message, 'info');
+      \Drupal::messenger()->addMessage($message, $type);
     }
     //
     $form_state->set('step', $nextStep);
