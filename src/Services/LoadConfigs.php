@@ -173,6 +173,20 @@ class LoadConfigs extends LoadBase {
   }
   
   /**
+   * delete all the configurations
+   */
+  public function deleteConfigs(){
+      $this->setConfigPathSuffix("");
+      // Supprimer le dossier  debugLog::$path
+      /**
+       * 
+       * @var \Drupal\Core\File\FileSystem $file_system
+       */
+      $file_system = \Drupal::service('file_system');
+      $file_system->deleteRecursive(debugLog::$path);
+  }
+  
+  /**
    * Crrer la configuration à partir du nom donnée.
    * Recupere egalement les dependance incluse. ( si cela respecte la logique de
    * drupal ).
@@ -182,6 +196,7 @@ class LoadConfigs extends LoadBase {
    *        contient les données qui doivent etre surcharger.
    */
   public function getConfigFromName(string $name, array $override = [], $merge = true) {
+    $this->findOccurence("presentation_cv1", $name, 'getConfigFromName', debug_backtrace());
     if (empty(self::$configEntities[$name])) {
       $defaultLangcode = $this->configStorage->read('system.site')["default_langcode"];
       $langcodes = $this->getLanguagesNegotiatorConfigs();
@@ -621,9 +636,9 @@ class LoadConfigs extends LoadBase {
   /**
    * Permet de faire du debug
    */
-  protected function findOccurence($search, $string, $fonction_name, $datas = []) {
-    if (str_contains($string, $search)) {
-      dd($fonction_name, $string, $datas);
+  protected function findOccurence($search, $nameConf, $fonction_name, $datas = []) {
+    if (str_contains($nameConf, $search)) {
+      dd($fonction_name, $nameConf, $datas);
     }
   }
 }

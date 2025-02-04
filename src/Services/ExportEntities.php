@@ -248,6 +248,23 @@ class ExportEntities extends ControllerBase {
     $this->exportConfigShippings();
   }
   
+  /**
+   * Efface les configurations.
+   */
+  public function deleteConfigs() {
+    $this->LoadConfigs->deleteConfigs();
+  }
+  
+  /**
+   * Recupere la configuration qui a été generé.
+   */
+  public function getGenereteConfigs() {
+    return $this->LoadConfigs->getGenerate();
+  }
+  
+  /**
+   * -
+   */
   function loadConfigFromEntities() {
     foreach ($this->directEntities as $BundleEntityType) {
       /**
@@ -572,7 +589,8 @@ class ExportEntities extends ControllerBase {
           $contents = $storage->loadMultiple($result);
       }
       else {
-        // Pour le moment on va se contenter de ternir compte des contentEntity.
+        // Pour le moment on va importer uniquement les entites de données et
+        // qui dispose du champs 'field_domain_access'.
         if ($storage->getEntityType()->getBaseTable()) {
           $fields = $this->entityFieldManger->getFieldStorageDefinitions($entity_type);
           if (!empty($fields['field_domain_access'])) {
@@ -595,8 +613,15 @@ class ExportEntities extends ControllerBase {
           $this->messenger()->addWarning(" Le type d'entité '" . $entity_type . "' n'est pas pris en compte car c'est une entité de configuration ");
         }
       }
+      // //
+      // if ($entity_type == 'paragraph') {
+      // dump($contents['37714']->toArray());
+      // }
     }
     else {
+      if (\Drupal::moduleHandler()->moduleExists("lesroidelareno")) {
+        throw new \ErrorException("Le champs 'field_domain_access' doit etre definie");
+      }
       $contents = $storage->loadMultiple();
     }
     
