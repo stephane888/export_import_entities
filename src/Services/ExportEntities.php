@@ -369,6 +369,7 @@ class ExportEntities extends ControllerBase {
       'formatage_models.configvuejsedit',
       "views.view.commerce_cart_block",
       'views.view.commerce_cart_form',
+      'user.role.anonymous',
       'user.role.administrator',
       'core.entity_view_display.user.user.default',
       'pathauto.settings',
