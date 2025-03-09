@@ -99,7 +99,8 @@ class DefaultDatas extends ControllerBase {
       'hbktemplateuser',
       'manage_module_config',
       'managepackvhsost',
-      'wb_commerce'
+      'wb_commerce',
+      'drag_and_drop_files'
     ];
   }
   
