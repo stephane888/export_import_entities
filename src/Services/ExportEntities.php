@@ -382,6 +382,7 @@ class ExportEntities extends ControllerBase {
       'domain.config.' . $this->currentDomaine->id() . '.commerceformatage.settings',
       'domain.config.' . $this->currentDomaine->id() . '.manage_module_config.settings',
       'domain.config.' . $this->currentDomaine->id() . '.wb_horizon_public.defaultconfigbydomain',
+      'domain.config.' . $this->currentDomaine->id() . '.manage_module_config.webformsusers',
       'layoutscommerce.ajax_load_view_product_variant',
       'layoutgenentitystyles.settings'
     ];
