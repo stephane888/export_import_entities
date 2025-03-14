@@ -562,6 +562,17 @@ class ExportEntities extends ControllerBase {
   }
   
   /**
+   * Ces formulaires permettent de recuperer les données utilisateurs.
+   * ils ont une logique un peu particuliere. On a un formulaire pour
+   * l'enssemble du site et les données sont separer graces au champs 'domain'.
+   */
+  protected function loadStaticWebformUsers(array &$contents, \Drupal\webform\WebformEntityStorage $storage) {
+    $wobForms = \Drupal\manage_module_config\ManageModuleConfig::getFormWebformByUser();
+    $ids = array_keys($wobForms);
+    $contents += $storage->loadMultiple($ids);
+  }
+  
+  /**
    * Recupere la configuration % au contenus.
    * ( Config field, node, nodetype, bloc ...)
    * (example retourne les contenus pour l'entité node).
@@ -590,6 +601,8 @@ class ExportEntities extends ControllerBase {
         $result = $query->execute();
         if (!empty($result))
           $contents = $storage->loadMultiple($result);
+        //
+        $this->loadStaticWebformUsers($contents, $storage);
       }
       else {
         // Pour le moment on va importer uniquement les entites de données et
