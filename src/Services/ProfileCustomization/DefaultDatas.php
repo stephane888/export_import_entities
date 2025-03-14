@@ -100,7 +100,8 @@ class DefaultDatas extends ControllerBase {
       'manage_module_config',
       'managepackvhsost',
       'wb_commerce',
-      'drag_and_drop_files'
+      'drag_and_drop_files',
+      'update'
     ];
   }
   
