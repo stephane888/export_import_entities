@@ -206,7 +206,8 @@ class LoadConfigs extends LoadBase {
    *        contient les données qui doivent etre surcharger.
    */
   public function getConfigFromName(string $name, array $override = [], $merge = true) {
-    $this->findOccurence("presentation_cv1", $name, 'getConfigFromName', debug_backtrace());
+    // $this->findOccurence("presentation_cv1", $name, 'getConfigFromName',
+    // debug_backtrace());
     if (empty(self::$configEntities[$name])) {
       $defaultLangcode = $this->configStorage->read('system.site')["default_langcode"];
       $langcodes = $this->getLanguagesNegotiatorConfigs();
@@ -239,6 +240,8 @@ class LoadConfigs extends LoadBase {
           }
           else
             $configs = $defaultConfs;
+          // On effectue la surcharge.
+          $this->overridesConfigs($name, $configs);
           $string = Yaml::encode($configs);
           debugLog::logger($string, $name . '.yml', false, 'file');
           
@@ -255,6 +258,29 @@ class LoadConfigs extends LoadBase {
         'value' => $string
       ];
       $this->tryGetDependencies($name);
+    }
+  }
+  
+  /**
+   * Modifie la configuration..
+   *
+   * @param array $configs
+   */
+  protected function overridesConfigs($name, &$configs) {
+    if ($this->currentDomaine) {
+      $domaineId = $this->currentDomaine->id();
+      /**
+       * Ces formulaires sont cree uniquement sur le domaine wb_horizon et porte
+       * lid de du domaine "wb_horizon_com", on remplace cet id par le
+       * domaine encours.
+       */
+      if (str_contains($name, 'webform.webform.') && $domaineId) {
+        $webForms = \Drupal\manage_module_config\ManageModuleConfig::getFormWebformByUser();
+        $exp = explode('webform.webform.', $name);
+        if (!empty($webForms[$exp[1]]) && !empty($configs['third_party_settings']['webform_domain_access']['field_domain_access'])) {
+          $configs['third_party_settings']['webform_domain_access']['field_domain_access'] = $domaineId;
+        }
+      }
     }
   }
   
