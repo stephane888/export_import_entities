@@ -374,21 +374,36 @@ class ExportEntities extends ControllerBase {
       'user.role.administrator',
       'core.entity_view_display.user.user.default',
       'pathauto.settings',
-      // Fournir la langue par defaut.
-      'domain.config.' . $this->currentDomaine->id() . '.system.site',
-      // Fournit les langues actives.
-      'domain.language.' . $this->currentDomaine->id() . '.language.negotiation',
-      'eu_cookie_compliance.settings',
-      'domain.config.' . $this->currentDomaine->id() . '.commerceformatage.settings',
-      'domain.config.' . $this->currentDomaine->id() . '.manage_module_config.settings',
-      'domain.config.' . $this->currentDomaine->id() . '.wb_horizon_public.defaultconfigbydomain',
-      'domain.config.' . $this->currentDomaine->id() . '.manage_module_config.webformsusers',
       'layoutscommerce.ajax_load_view_product_variant',
-      'layoutgenentitystyles.settings'
+      'layoutgenentitystyles.settings',
+      'eu_cookie_compliance.settings'
     ];
     foreach ($configNames as $configName) {
       $this->LoadConfigs->getConfigFromName($configName);
     }
+    /**
+     * Les configurations importé contenant le domaine ne pourront pas etre
+     * executer, car le domaine distant est forcement different.
+     *
+     * @var array $configNamesWtihDomain
+     */
+    $configNamesWtihDomain = [
+      // Fournir la langue par defaut.
+      'domain.config.' . $this->currentDomaine->id() . '.system.site' => 'system.site',
+      // Fournit les langues actives.
+      'domain.language.' . $this->currentDomaine->id() . '.language.negotiation' => 'language.negotiation',
+      'domain.config.' . $this->currentDomaine->id() . '.commerceformatage.settings' => 'commerceformatage.settings',
+      'domain.config.' . $this->currentDomaine->id() . '.manage_module_config.settings' => 'manage_module_config.settings',
+      'domain.config.' . $this->currentDomaine->id() . '.wb_horizon_public.defaultconfigbydomain' => 'wb_horizon_public.defaultconfigbydomain',
+      'domain.config.' . $this->currentDomaine->id() . '.manage_module_config.webformsusers' => 'manage_module_config.webformsusers'
+    ];
+    foreach ($configNamesWtihDomain as $configName => $valid_name) {
+      $this->LoadConfigs->getConfigFromName($configName);
+      // On ajoute egalement le nom valide.
+      $stringConfig = $this->LoadConfigs->getGenerate($configName);
+      $this->LoadConfigs->addConfig($valid_name, $stringConfig);
+    }
+    
     // On charge toutes les configurations liées à la creation des alias.
     $entitiesAlias = $this->entityTypeManager()->getStorage('pathauto_pattern')->loadMultiple();
     foreach ($entitiesAlias as $pathauto_pattern) {

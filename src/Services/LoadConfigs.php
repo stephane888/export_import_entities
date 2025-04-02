@@ -241,7 +241,9 @@ class LoadConfigs extends LoadBase {
           else
             $configs = $defaultConfs;
           // On effectue la surcharge.
-          $this->overridesConfigs($name, $configs);
+          // Ce changement n'a pas eut d'impact positif, car cest pas cela le
+          // probleme.
+          // $this->overridesConfigs($name, $configs);
           $string = Yaml::encode($configs);
           debugLog::logger($string, $name . '.yml', false, 'file');
           
