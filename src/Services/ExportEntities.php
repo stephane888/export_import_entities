@@ -401,7 +401,8 @@ class ExportEntities extends ControllerBase {
       $this->LoadConfigs->getConfigFromName($configName);
       // On ajoute egalement le nom valide.
       $stringConfig = $this->LoadConfigs->getGenerate($configName);
-      $this->LoadConfigs->addConfig($valid_name, $stringConfig);
+      if (!empty($stringConfig['value']))
+        $this->LoadConfigs->addConfig($valid_name, $stringConfig['value']);
     }
     
     // On charge toutes les configurations liées à la creation des alias.
