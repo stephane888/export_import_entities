@@ -154,7 +154,9 @@ class DefaultDatas extends ControllerBase {
       'phone_international',
       'transliterate_filenames', // doit etre supprimer du core princ
       'ctools',
-      'eu_cookie_compliance'
+      'eu_cookie_compliance',
+      'smtp',
+      'mimemail'
     ];
   }
   
